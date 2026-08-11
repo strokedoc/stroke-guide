@@ -43,11 +43,20 @@
   }
 
   function route(opts) { show((location.hash || '#start').slice(1), opts); }
-  window.addEventListener('hashchange', function () { route(); });
+  window.addEventListener('hashchange', function () {
+    var id = (location.hash || '').slice(1);
+    var target = document.getElementById(id);
+    /* The skip link targets <main>, not a routed section.  Leave native
+       fragment navigation alone instead of replacing the current page with
+       the start section. */
+    if (target && !target.classList.contains('section')) { closeNav(); return; }
+    route();
+  });
 
   /* ------------------------------------------------------------ mobile nav */
   function openNav() {
     $('#sidebar').classList.add('open');
+    $('#navToggle').setAttribute('aria-expanded', 'true');
     if (!$('.scrim')) {
       var s = document.createElement('div');
       s.className = 'scrim';
@@ -57,6 +66,7 @@
   }
   function closeNav() {
     $('#sidebar').classList.remove('open');
+    $('#navToggle').setAttribute('aria-expanded', 'false');
     var s = $('.scrim'); if (s) s.remove();
   }
   $('#navToggle').addEventListener('click', function () {
@@ -286,9 +296,12 @@
     }
     note.innerHTML = msg.join(' · ');
   }
-  ['#wt', '#wtUnit', '#agent'].forEach(function (s) {
-    var el = $(s); if (el) el.addEventListener('input', doseCalc);
-  });
+  var weight = $('#wt'), weightUnit = $('#wtUnit'), agent = $('#agent');
+  if (weight) weight.addEventListener('input', doseCalc);
+  /* Select controls reliably emit change; input is not consistently fired for
+     select elements in older mobile browsers. */
+  if (weightUnit) weightUnit.addEventListener('change', doseCalc);
+  if (agent) agent.addEventListener('change', doseCalc);
   if ($('#wt')) doseCalc();
 
   /* ---------------------------------------------------------------- NIHSS */
@@ -635,7 +648,7 @@
   /* -------------------------------------------------------- trials filter */
   var trialFilter = $('#trialFilter');
   if (trialFilter) {
-    trialFilter.addEventListener('input', function () {
+    function updateTrialFilter() {
       var q = trialFilter.value.toLowerCase().trim();
       var shown = 0;
       $$('#trialTable tbody tr').forEach(function (tr) {
@@ -643,16 +656,10 @@
         tr.hidden = !hit; if (hit) shown++;
       });
       $('#trialCount').textContent = shown + ' trial' + (shown === 1 ? '' : 's');
-    });
+    }
+    trialFilter.addEventListener('input', updateTrialFilter);
+    updateTrialFilter();
   }
-
-  /* --------------------------------------------------------- generic copy */
-  document.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-copy]');
-    if (!b) return;
-    var src = document.getElementById(b.getAttribute('data-copy'));
-    if (src) copy(src.getAttribute('data-summary') || src.textContent.trim(), b);
-  });
 
   /* ------------------------------------------------------- disclaimer bar */
   var bar = $('#disclaimerBar');

@@ -4,7 +4,7 @@
    connected device picks up content updates on the next launch.
    Bump CACHE on every content release. */
 
-var CACHE = 'asg-v1.1.0';
+var CACHE = 'asg-v1.1.1';
 
 var ASSETS = [
   './',
@@ -47,13 +47,22 @@ self.addEventListener('fetch', function (e) {
       var network = fetch(req).then(function (res) {
         if (res && res.ok) {
           var copy = res.clone();
-          caches.open(CACHE).then(function (c) { c.put(req, copy); });
+          return caches.open(CACHE).then(function (c) {
+            return c.put(req, copy);
+          }).then(function () { return res; }, function () { return res; });
         }
         return res;
-      }).catch(function () {
-        return hit || caches.match('./index.html');
       });
-      return hit || network;
+      if (hit) {
+        /* Keep the worker alive long enough to finish the background refresh. */
+        e.waitUntil(network.catch(function () {}));
+        return hit;
+      }
+      return network.catch(function () {
+        /* An app-shell fallback is appropriate only for page navigation.  Returning
+           HTML for a missing script, image, or manifest breaks those resources. */
+        return req.mode === 'navigate' ? caches.match('./index.html') : Response.error();
+      });
     })
   );
 });
