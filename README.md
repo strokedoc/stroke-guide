@@ -2,7 +2,7 @@
 
 An evidence-based, offline-capable bedside reference for the acute management of stroke — built for stroke neurologists, emergency physicians, nurses, advanced practice clinicians and trainees.
 
-**Live app:** https://<your-username>.github.io/acute-stroke-guide/
+**Live app:** https://strokedoc.github.io/acute-stroke-guide/
 
 It is a progressive web app: one page, no dependencies, no build step, no network calls after the first load. Add it to a home screen and it works in a code cart, an ambulance bay, or a rural CT suite with no signal.
 
@@ -33,6 +33,8 @@ Content is derived from published guidelines and peer-reviewed trials:
 - Individual trials are cited in-app with DOIs in the trial library.
 
 Content published after a guideline's literature cut-off (OPTION, ENRICH, ANNEXA-I) is labelled as such in-app and carries no class of recommendation.
+
+**Sourcing transparency.** The ischaemic-stroke sections were written against the full text of the 2026 guideline, recommendation by recommendation. The 2022 ICH guideline is paywalled, so the class and level labels in the ICH and reversal sections came from published summaries rather than the source document; that is stated in-app at the point of use. If you have access and spot an error, please open an issue.
 
 No figures, tables or extended text are reproduced from any copyrighted publication. Recommendations are facts about the literature, restated in the authors' own words.
 
