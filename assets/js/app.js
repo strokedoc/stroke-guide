@@ -430,19 +430,39 @@
     var contra = pf('pfContra');
     var occl = pf('pfOccl');
     var aspects = pf('pfAspects');
-    var mismatch = pf('pfMismatch');
     var mrs = pf('pfMrs');
     var age = pf('pfAge');
+    var flair = pf('pfFlair');
     var lines = [];
 
-    /* "Mismatch" is not one thing: each IVT recommendation was trialled
-       against its own perfusion profile, so every card that asks for
-       mismatch states the numbers it means. Defined once here; the same
-       figures appear in the imaging and extended-window tables. */
-    var MM_EXTEND = 'ratio ≥1.2, mismatch ≥10 mL, core &lt;70 mL';
-    var MM_TRACE3 = 'ratio ≥1.8, penumbra ≥15 mL, core &lt;70 mL';
-    var P_EXTEND = 'EXTEND profile (' + MM_EXTEND + ')';
-    var P_TRACE3 = 'TRACE-III profile (' + MM_TRACE3 + ')';
+    /* Perfusion comes in as the two numbers the software prints — core and
+       Tmax>6 s volumes — and the mismatch arithmetic is done here, tested
+       against each trial's own profile. Thresholds as stated in the 2026
+       guideline's trial descriptions:
+         EXTEND    ratio >1.2,  mismatch >10 mL,  core <70 mL
+         TRACE-III ratio >1.8,  mismatch >15 mL,  core <70 mL
+         OPTION    ratio >=1.2, mismatch >=10 mL, core <50 mL */
+    var core = parseFloat(pf('pfCore'));
+    var tmax = parseFloat(pf('pfTmax'));
+    var havePerf = !isNaN(core) && !isNaN(tmax);
+    var mmVol = havePerf ? tmax - core : NaN;
+    var mmRatio = havePerf ? (core > 0 ? tmax / core : (tmax > 0 ? Infinity : 0)) : NaN;
+    var meetsEXTEND = havePerf && mmRatio > 1.2 && mmVol > 10 && core < 70;
+    var meetsTRACE3 = havePerf && mmRatio > 1.8 && mmVol > 15 && core < 70;
+    var meetsOPTION = havePerf && mmRatio >= 1.2 && mmVol >= 10 && core < 50;
+    var perfVals = havePerf
+      ? 'core ' + core + ' mL, Tmax&gt;6 s ' + tmax + ' mL → mismatch ' + Math.round(mmVol) + ' mL, ratio ' + (mmRatio === Infinity ? '∞' : Math.round(mmRatio * 10) / 10)
+      : '';
+    var P_EXTEND = 'EXTEND profile (ratio &gt;1.2, mismatch &gt;10 mL, core &lt;70 mL)';
+    var P_TRACE3 = 'TRACE-III profile (ratio &gt;1.8, mismatch &gt;15 mL, core &lt;70 mL)';
+    var calcEl = $('#pfPerfCalc');
+    if (calcEl) {
+      calcEl.innerHTML = havePerf
+        ? 'Computed: ' + perfVals + ' — EXTEND profile ' + (meetsEXTEND ? '<strong>met</strong>' : 'not met') +
+          ' · TRACE-III ' + (meetsTRACE3 ? '<strong>met</strong>' : 'not met') +
+          ' · OPTION ' + (meetsOPTION ? '<strong>met</strong>' : 'not met')
+        : ((pf('pfCore') !== '' || pf('pfTmax') !== '') ? 'Enter both perfusion volumes — or leave both blank if perfusion was not done.' : '');
+    }
 
     function add(kind, cor, title, body) {
       lines.push('<div class="note note--' + kind + '"><div class="note__t">' +
@@ -492,46 +512,67 @@
     } else if (hours <= 6) {
       if (disabling === 'no') {
         nonDisablingCard();
-      } else if (mismatch === 'no') {
-        add('warn', { cls: '3n', label: 'Criteria not met' }, 'No salvageable penumbra — extended-window IVT is not indicated',
-          'The 4.5–9 h recommendation <span class="cor cor-2a">COR 2a</span> applies only where automated perfusion imaging shows salvageable penumbra by the ' + P_EXTEND + ', ' +
-          'or where DWI–FLAIR mismatch is present in unknown-onset stroke. Perfusion imaging failing that profile takes this option off the table. ' +
-          'Move to <a href="#antithrombotics">antithrombotics</a> and <a href="#supportive">supportive care</a>, and assess EVT separately if there is a large vessel occlusion.');
-      } else {
+      } else if (!havePerf) {
         add('note', { cls: '2a', label: 'COR 2a' }, 'Extended-window thrombolysis may be reasonable (4.5–9 h)',
-          (mismatch === 'yes'
-            ? 'Salvageable penumbra confirmed on automated perfusion imaging — confirm it meets the ' + P_EXTEND + '. IVT may be reasonable (EXTEND, ECASS-4).'
-            : 'This requires salvageable penumbra on automated perfusion imaging — ' + P_EXTEND + ' — or DWI–FLAIR mismatch for unknown onset within 4.5 h of symptom recognition. Obtain that imaging before deciding.') +
-          ' <a href="#extended">Criteria</a>' + relCaveat);
+          'This requires salvageable penumbra on automated perfusion imaging — enter the core and Tmax&gt;6 s volumes above and the tool will test the ' + P_EXTEND + '. ' +
+          'For unknown-onset stroke within 4.5 h of symptom recognition, DWI–FLAIR mismatch on MRI is the alternative selection route. <a href="#extended">Criteria</a>' + relCaveat);
+      } else if (meetsEXTEND) {
+        add('note', { cls: '2a', label: 'COR 2a' }, 'Extended-window thrombolysis may be reasonable (4.5–9 h)',
+          'Your values — ' + perfVals + ' — meet the ' + P_EXTEND + '. IVT may be reasonable (EXTEND, ECASS-4). <a href="#extended">Criteria</a>' + relCaveat);
+      } else {
+        add('warn', { cls: '3n', label: 'Criteria not met' }, 'Perfusion profile not met — extended-window IVT is not indicated',
+          'Your values — ' + perfVals + ' — do not meet the ' + P_EXTEND + ' behind the 4.5–9 h <span class="cor cor-2a">COR 2a</span> recommendation. ' +
+          'For unknown-onset stroke, DWI–FLAIR mismatch on MRI is a separate selection route. ' +
+          'Move to <a href="#antithrombotics">antithrombotics</a> and <a href="#supportive">supportive care</a>, and assess EVT separately if there is a large vessel occlusion.');
       }
     } else if (hours <= 24) {
       /* 6-24 h is one slot: the bedside question (mismatch present, and can
          EVT happen?) is the same across it. The 9-hour line changes only the
          strength of the label - EXTEND's COR 2a ends at 9 h - so that nuance
          lives in the card text rather than as a separate time option. */
-      var nineHrNote = ' <strong>If still within 9 h of last known well</strong>, perfusion-selected IVT itself carries <span class="cor cor-2a">COR 2a</span> (EXTEND — laxer profile: ' + MM_EXTEND + ') — stronger than the late-window recommendation.';
+      var nineHrNote = ' <strong>If still within 9 h of last known well</strong>, perfusion-selected IVT itself carries <span class="cor cor-2a">COR 2a</span> (EXTEND) — stronger than the late-window recommendation.';
       if (disabling === 'no') {
         nonDisablingCard();
-      } else if (occl === 'lvo' || occl === 'basilar') {
-        if (mismatch === 'no') {
-          add('warn', { cls: '3n', label: 'Criteria not met' }, 'No salvageable penumbra — late IVT is not indicated',
-            'The 4.5–24 h recommendation <span class="cor cor-2b">COR 2b</span> requires LVO <em>with salvageable ischaemic penumbra</em> by the ' + P_TRACE3 + '. ' +
-            'Assess <a href="#evt">thrombectomy</a> on its own criteria — the EVT recommendations in this window are ASPECTS-based and do not require perfusion mismatch.');
-        } else {
-          add('note', { cls: '2b', label: 'COR 2b' }, 'Late IVT only if thrombectomy is unavailable (LVO, 6–24 h)',
-            'For LVO with salvageable penumbra — the ' + P_TRACE3 + ' — that <em>cannot</em> receive EVT, IVT directed by clinicians with expertise in thrombolytic stroke care may be beneficial (TRACE-III, HOPE). ' +
-            (mismatch === 'na' ? 'Salvageable penumbra must be demonstrated first. ' : '') +
+      } else if (occl === 'lvo' || occl === 'basilar' || occl === 'm2') {
+        /* TRACE-III enrolled ICA/M1-M2, so a dominant proximal M2 belongs in
+           this branch for late IVT even though its EVT card differs. */
+        if (!havePerf) {
+          add('note', { cls: '2b', label: 'COR 2b' }, 'Late IVT only if thrombectomy is unavailable (6–24 h)',
+            'For ICA, M1 or M2 occlusion with salvageable penumbra that <em>cannot</em> receive EVT, IVT directed by clinicians with expertise in thrombolytic stroke care may be beneficial (TRACE-III, HOPE). ' +
+            'Salvageable penumbra must be demonstrated first — enter the core and Tmax&gt;6 s volumes above and the tool will test the ' + P_TRACE3 + '. ' +
+            '<strong>If EVT is available, EVT takes priority</strong> — TIMELESS was neutral. <a href="#extended">Detail</a>' + relCaveat);
+        } else if (meetsTRACE3) {
+          add('note', { cls: '2b', label: 'COR 2b' }, 'Late IVT only if thrombectomy is unavailable (6–24 h)',
+            'Your values — ' + perfVals + ' — meet the ' + P_TRACE3 + '. For ICA, M1 or M2 occlusion that <em>cannot</em> receive EVT, IVT directed by clinicians with expertise in thrombolytic stroke care may be beneficial (TRACE-III, HOPE). ' +
             '<strong>If EVT is available, EVT takes priority</strong> and there is no established role for adding late IVT — TIMELESS was neutral.' +
-            nineHrNote + ' <a href="#extended">Detail</a>' + relCaveat);
+            (meetsEXTEND ? nineHrNote : '') + ' <a href="#extended">Detail</a>' + relCaveat);
+        } else if (meetsEXTEND) {
+          add('note', null, 'Meets EXTEND but not TRACE-III',
+            'Your values — ' + perfVals + ' — fall short of the ' + P_TRACE3 + ' behind the late-window LVO recommendation, but meet the laxer ' + P_EXTEND + '.' +
+            nineHrNote + ' Beyond 9 h the late IVT criteria are not met; assess <a href="#evt">thrombectomy</a> on its own ASPECTS-based criteria.' + relCaveat);
+        } else {
+          add('warn', { cls: '3n', label: 'Criteria not met' }, 'Perfusion profile not met — late IVT is not indicated',
+            'Your values — ' + perfVals + ' — do not meet the ' + P_TRACE3 + '. ' +
+            'Assess <a href="#evt">thrombectomy</a> on its own criteria — the EVT recommendations in this window are ASPECTS-based and do not require perfusion mismatch.');
         }
-      } else if (occl === 'm2' || occl === 'nonlvo') {
-        add('note', null, 'Medium or distal vessel, 6–24 h',
-          'OPTION (JAMA 2026) randomised 566 patients with <strong>non-LVO</strong> stroke (ICA, M1 and vertebrobasilar excluded) and perfusion mismatch — core &lt;50 mL, ratio ≥1.2, mismatch ≥10 mL, NIHSS 6–25 or 4–5 with a disabling deficit, prestroke mRS 0–1 — to tenecteplase versus standard care: ' +
-          'mRS 0–1 43.6% vs 34.2% (RR 1.28), sICH 2.8% vs 0%. ' +
-          'This postdates the 2026 AHA guideline literature cut-off and <strong>carries no class of recommendation</strong>. Whether to act on it is a local governance decision.' +
-          nineHrNote + ' <a href="#extended">Detail</a>' + relCaveat);
-      } else if (occl === 'noneg') {
-        add('warn', null, 'No occlusion, 6–24 h', 'The guideline\'s late-window thrombolysis recommendation is written for LVO that cannot receive EVT. For a non-LVO stroke in this window the only randomised evidence is OPTION, which postdates the guideline — select "medium / distal vessel" to see it.' + nineHrNote);
+      } else if (occl === 'nonlvo' || occl === 'noneg') {
+        if (!havePerf) {
+          add('note', null, 'Non-LVO, 6–24 h — selection is by perfusion',
+            'The only randomised evidence is OPTION (JAMA 2026, postdates the guideline, <strong>no class of recommendation</strong>): non-LVO stroke, NIHSS 6–25 or 4–5 with a disabling deficit, prestroke mRS 0–1, core &lt;50 mL, ratio ≥1.2, mismatch ≥10 mL. ' +
+            'Enter the core and Tmax&gt;6 s volumes above and the tool will test the profile. <a href="#extended">Detail</a>' + relCaveat);
+        } else if (meetsOPTION) {
+          add('note', null, 'Non-LVO, 6–24 h — OPTION profile met',
+            'Your values — ' + perfVals + ' — meet the OPTION profile (core &lt;50 mL, ratio ≥1.2, mismatch ≥10 mL). OPTION (JAMA 2026) randomised 566 such patients (NIHSS 6–25 or 4–5 with a disabling deficit, prestroke mRS 0–1) to tenecteplase versus standard care: mRS 0–1 43.6% vs 34.2% (RR 1.28), sICH 2.8% vs 0%. ' +
+            'It postdates the 2026 AHA guideline literature cut-off and <strong>carries no class of recommendation</strong> — whether to act on it is a local governance decision.' +
+            (meetsEXTEND ? nineHrNote : '') + ' <a href="#extended">Detail</a>' + relCaveat);
+        } else if (meetsEXTEND) {
+          add('note', null, 'Meets EXTEND but not OPTION',
+            'Your values — ' + perfVals + ' — miss the OPTION profile (core &lt;50 mL, ratio ≥1.2, mismatch ≥10 mL) but meet the ' + P_EXTEND + '.' + nineHrNote +
+            ' Beyond 9 h there is no randomised support for IVT in non-LVO stroke at these values.' + relCaveat);
+        } else {
+          add('warn', { cls: '3n', label: 'Criteria not met' }, 'Perfusion profile not met — late IVT is not indicated',
+            'Your values — ' + perfVals + ' — meet neither the OPTION profile (core &lt;50 mL, ratio ≥1.2, mismatch ≥10 mL) nor the ' + P_EXTEND + '. Move to <a href="#antithrombotics">antithrombotics</a> and <a href="#supportive">supportive care</a>.');
+        }
       } else {
         add('warn', null, 'Vascular imaging is the next step',
           'Late-window advice diverges sharply between LVO and non-LVO, so the occlusion has to be defined. Emergent CT/CTA or MRI/MRA of the cervical <em>and</em> intracranial vessels is recommended as rapidly as possible <span class="cor cor-1">COR 1</span> <span class="loe">A</span> — and should not be delayed for a creatinine.');
@@ -539,6 +580,16 @@
     } else {
       add('warn', null, 'Beyond 24 h from last known well',
         'No established reperfusion indication. Move to <a href="#antithrombotics">early secondary prevention</a> and <a href="#supportive">supportive care</a>.');
+    }
+
+    /* DWI-FLAIR is an independent, optional selection route: it never blocks
+       the cards above, but a positive MRI adds the WAKE-UP pathway whenever
+       the clock-based COR 1 window has passed. */
+    if (!isNaN(hours) && hours > 4.5 && contra !== 'absolute' && disabling !== 'no' && flair === 'yes') {
+      add('note', { cls: '2a', label: 'COR 2a' }, 'DWI–FLAIR mismatch — the WAKE-UP route',
+        'A DWI lesion (&lt;⅓ of the MCA territory) with no corresponding FLAIR change indicates a biological onset likely within 4.5 h. ' +
+        'For unknown-onset or wake-up stroke, IVT within <strong>4.5 h of symptom recognition</strong> can be beneficial in otherwise eligible patients (WAKE-UP) <span class="loe">B-R</span>. ' +
+        'This route stands on the MRI alone — it does not require perfusion imaging. <a href="#extended">Criteria</a>' + relCaveat);
     }
 
     /* ------------------------------------------------------------ thrombectomy */
@@ -704,10 +755,12 @@
     out.innerHTML = lines.join('');
   }
   $$('#pathfinder select').forEach(function (el) { el.addEventListener('change', pathfinder); });
+  $$('#pathfinder input').forEach(function (el) { el.addEventListener('input', pathfinder); });
   if ($('#pfOut')) {
     pathfinder();
     $('#pfReset').addEventListener('click', function () {
       $$('#pathfinder select').forEach(function (el) { el.selectedIndex = 0; });
+      $$('#pathfinder input').forEach(function (el) { el.value = ''; });
       pathfinder();
     });
   }
