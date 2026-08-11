@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" data-version="1.6.3">
+<html lang="en" data-theme="light" data-version="1.7.1">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -182,6 +182,10 @@
           <option value="no">No — non-disabling</option>
         </select>
       </div>
+      <div class="field">
+        <label for="pfNihss">NIHSS, if scored (optional)</label>
+        <input type="number" id="pfNihss" min="0" max="42" step="1" placeholder="e.g. 14" inputmode="numeric">
+      </div>
     </div>
     <div class="row">
       <div class="field">
@@ -254,7 +258,10 @@
       </div>
     </div>
     <p class="src" id="pfPerfCalc" aria-live="polite" style="margin:0 0 10px"></p>
-    <button class="btn" id="pfReset">Reset</button>
+    <div class="row no-print" style="margin-bottom:0">
+      <button class="btn" id="pfReset" style="flex:0 0 auto">Reset</button>
+      <button class="btn" id="pfCopy" style="flex:0 0 auto">Copy result</button>
+    </div>
   </div>
 
   <h2>Result</h2>
@@ -1909,6 +1916,7 @@
 
   <h2>What this is</h2>
   <p>A free, open-source, offline-capable reference for the acute management of stroke, aimed at stroke neurologists, emergency physicians, nurses, advanced practice clinicians, residents and students. It is derived from published guidelines and peer-reviewed trials, and it is deliberately generic: no institution's protocol, activation criteria or workflow appears anywhere in it.</p>
+  <p class="src">Written and maintained by StrokeDoc.</p>
 
   <h2>Disclaimer</h2>
   <div class="note note--danger">
@@ -1942,7 +1950,7 @@
   <p>The software is MIT licensed; the clinical content is released under <strong>CC BY 4.0</strong> — reuse it, adapt it for your own institution, translate it, as long as you attribute the source. Corrections are welcome and wanted: if a recommendation here misstates the guideline, or a number is wrong, open an issue or a pull request with the citation.</p>
 
   <h2>Version</h2>
-  <p class="src">Version <span id="buildVersion">1.6.3</span>. Content current to the 2026 AHA/ASA acute ischaemic stroke guideline, the 2022 AHA/ASA spontaneous ICH guideline, and named trials published through February 2026.</p>
+  <p class="src">Version <span id="buildVersion">1.7.1</span>. Content current to the 2026 AHA/ASA acute ischaemic stroke guideline, the 2022 AHA/ASA spontaneous ICH guideline, and named trials published through February 2026.</p>
 
   <div class="footer">
     <p>Built as a public resource. No tracking, no analytics, no accounts, no network requests after the first load.</p>

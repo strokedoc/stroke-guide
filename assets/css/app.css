@@ -349,6 +349,9 @@ input[type="number"], input[type="text"], input[type="time"], select {
 .src { font-size: 12px; color: var(--text-dim); margin-top: 6px; }
 .src a { color: var(--text-dim); }
 
+.section-feedback { display: block; margin-top: 28px; padding-top: 10px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-dim); text-decoration: none; }
+.section-feedback:hover, .section-feedback:focus-visible { color: var(--brand); }
+
 .toc { columns: 2; column-gap: 20px; font-size: 14px; }
 @media (max-width: 640px) { .toc { columns: 1; } }
 

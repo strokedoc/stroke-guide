@@ -433,6 +433,7 @@
     var mrs = pf('pfMrs');
     var age = pf('pfAge');
     var flair = pf('pfFlair');
+    var nihss = parseFloat(pf('pfNihss'));
     var lines = [];
 
     /* Perfusion comes in as the two numbers the software prints — core and
@@ -513,6 +514,9 @@
     } else if (hours <= 6) {
       if (disabling === 'no') {
         nonDisablingCard();
+      } else if (disabling !== 'yes') {
+        add('warn', null, 'Decide whether the deficit is disabling',
+          'This is the highest-yield decision for thrombolysis in this window, and NIHSS alone does not answer it. See <a href="#thrombolysis">the Table 4 guidance</a>.');
       } else if (!havePerf) {
         add('note', { cls: '2a', label: 'COR 2a' }, 'Extended-window thrombolysis may be reasonable (4.5–9 h)',
           'This requires salvageable penumbra on automated perfusion imaging — enter the core and Tmax&gt;6 s volumes above and the tool will test the ' + P_EXTEND + '. ' +
@@ -658,7 +662,19 @@
           'For NIHSS 6–9 with the same imaging, effectiveness is not well established <span class="cor cor-2b">COR 2b</span>. ' +
           'Note that PC-ASPECTS, not the anterior-circulation ASPECTS, is the relevant score here. <a href="#evt">Detail</a>';
         if (mrs === '0-1') {
-          add('ok', { cls: '1', label: 'COR 1' }, 'Basilar occlusion — EVT within 24 h', basilarCore);
+          /* NIHSS is optional — when entered, pick the row it actually falls
+             in rather than showing the flat COR 1 headline with both rows
+             described in prose underneath. */
+          if (!isNaN(nihss) && nihss >= 10) {
+            add('ok', { cls: '1', label: 'COR 1' }, 'Basilar occlusion, NIHSS ' + nihss + ' — EVT within 24 h', basilarCore);
+          } else if (!isNaN(nihss) && nihss >= 6) {
+            add('note', { cls: '2b', label: 'COR 2b' }, 'Basilar occlusion, NIHSS ' + nihss + ' — effectiveness not well established', basilarCore);
+          } else if (!isNaN(nihss)) {
+            add('warn', null, 'Basilar occlusion, NIHSS ' + nihss + ' — outside the basilar EVT table',
+              'The basilar EVT recommendations are written for NIHSS 6–9 and NIHSS ≥10; NIHSS below 6 falls outside both rows and is not addressed. ' + basilarCore);
+          } else {
+            add('ok', { cls: '1', label: 'COR 1' }, 'Basilar occlusion — EVT within 24 h', basilarCore);
+          }
         } else if (mrsBlocksEvt('A basilar occlusion within 24 h meets the vessel and time criteria.')) {
           /* handled by the shared gate */
         } else if (mrs === '2') {
@@ -669,8 +685,10 @@
         if (mrsBlocksEvt(hours <= 6 ? 'A dominant proximal M2 occlusion within 6 h meets the vessel and time criteria.' : 'A proximal M2 occlusion beyond 6 h is already outside the recommendation.')) {
           /* handled by the shared gate */
         } else if (hours <= 6) {
-          add('note', { cls: '2a', label: 'COR 2a' }, 'Dominant proximal M2 within 6 h',
-            'Reasonable when prestroke mRS 0–1, NIHSS ≥6 and ASPECTS ≥6 <span class="loe">B-NR</span>. ' +
+          var m2NihssLow = !isNaN(nihss) && nihss < 6;
+          add(m2NihssLow ? 'warn' : 'note', m2NihssLow ? null : { cls: '2a', label: 'COR 2a' }, 'Dominant proximal M2 within 6 h',
+            'Reasonable when prestroke mRS 0–1, NIHSS ≥6 and ASPECTS ≥6 <span class="loe">B-NR</span>.' +
+            (m2NihssLow ? ' <strong>Entered NIHSS ' + nihss + ' is below that threshold</strong> — outside the trial population; individualise.' : '') + ' ' +
             'EVT is <strong>not</strong> recommended <span class="cor cor-3n">COR 3: No Benefit</span> <span class="loe">A</span> for nondominant or codominant proximal M2, distal MCA, ACA or PCA occlusions. <a href="#evt">Detail</a>');
         } else {
           add('warn', null, 'Proximal M2 beyond 6 h — outside the recommendation',
@@ -727,6 +745,10 @@
 
         if (title) {
           body += 'All rows require <strong>NIHSS ≥6</strong>.';
+          if (!isNaN(nihss) && nihss < 6) {
+            body += ' <strong>Entered NIHSS ' + nihss + ' is below that threshold</strong> — the pivotal EVT trials enrolled NIHSS ≥6, so this sits outside the trial population and is an individualised decision, not a straightforward recommendation.';
+            cor = null; kind = 'warn';
+          }
 
           /* Prestroke function governs the headline. Every thrombectomy
              recommendation is written for mRS 0-1, extending to 2 within 6 h.
@@ -773,6 +795,37 @@
       $$('#pathfinder select').forEach(function (el) { el.selectedIndex = 0; });
       $$('#pathfinder input').forEach(function (el) { el.value = ''; });
       pathfinder();
+    });
+    $('#pfCopy').addEventListener('click', function () {
+      var btn = this;
+      function opt(id) { var el = $('#' + id); var o = el && el.options ? el.options[el.selectedIndex] : null; return o ? o.textContent : ''; }
+      var core = pf('pfCore'), tmax = pf('pfTmax');
+      var perfLine = (core !== '' && tmax !== '')
+        ? 'core ' + core + ' mL, Tmax>6s ' + tmax + ' mL (mismatch ' + (tmax - core) + ' mL, ratio ' + (core > 0 ? (tmax / core).toFixed(1) : '∞') + ')'
+        : 'not entered';
+      var summary = [
+        'Reperfusion pathfinder',
+        'Last known well: ' + (opt('pfTime') || '—'),
+        'Haemorrhage on NCCT: ' + (opt('pfIch') || '—'),
+        'Deficit disabling: ' + (opt('pfDisabling') || '—'),
+        'NIHSS: ' + (pf('pfNihss') || '—'),
+        'Thrombolysis contraindications: ' + (opt('pfContra') || '—'),
+        'Occlusion: ' + (opt('pfOccl') || '—'),
+        'ASPECTS: ' + (opt('pfAspects') || '—'),
+        'Perfusion: ' + perfLine,
+        'DWI–FLAIR mismatch: ' + (opt('pfFlair') || 'MRI not done'),
+        'Prestroke mRS: ' + (opt('pfMrs') || '—'),
+        'Age: ' + (opt('pfAge') || '—'),
+        ''
+      ].join('\n');
+      var cards = $$('#pfOut .note').map(function (n) {
+        var clone = n.cloneNode(true);
+        var t = clone.querySelector('.note__t');
+        var title = t ? t.textContent.trim() : '';
+        if (t) t.remove();
+        return title + '\n' + clone.textContent.trim().replace(/\s+/g, ' ');
+      }).join('\n\n');
+      copy(summary + cards, btn);
     });
   }
 
@@ -868,6 +921,31 @@
       navigator.serviceWorker.register('sw.js').catch(function () {});
     });
   }
+
+  /* --------------------------------------------------- section feedback */
+  /* One "report an issue" link per section, generated rather than hand-added
+     25 times over, so it can't drift as sections are added or removed.
+     Pre-fills a GitHub issue with the fields CONTRIBUTING.md asks for. */
+  function addFeedbackLinks() {
+    $$('.section').forEach(function (sec) {
+      if (sec.querySelector('.section-feedback')) return;
+      var title = sec.getAttribute('data-title') || sec.id;
+      var ver = document.documentElement.getAttribute('data-version') || '';
+      var body = 'Section: ' + title + ' (#' + sec.id + ')\nApp version: ' + ver +
+        '\n\n1. The text as it currently reads:\n\n\n2. What it should say:\n\n\n3. Source (guideline section, or trial with DOI):\n';
+      var url = 'https://github.com/strokedoc/stroke-guide/issues/new' +
+        '?title=' + encodeURIComponent('Issue in "' + title + '"') +
+        '&body=' + encodeURIComponent(body);
+      var a = document.createElement('a');
+      a.href = url;
+      a.className = 'section-feedback no-print';
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.textContent = 'Report an issue with this section →';
+      sec.appendChild(a);
+    });
+  }
+  addFeedbackLinks();
 
   /* ------------------------------------------------------------ kick off */
   route();
