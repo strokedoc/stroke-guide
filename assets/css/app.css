@@ -100,7 +100,8 @@ summary:focus-visible, [tabindex]:focus-visible {
   background: var(--surface);
   border-bottom: 1px solid var(--border);
 }
-.hdr__brand { display: flex; align-items: center; gap: 9px; min-width: 0; text-decoration: none; color: inherit; }
+.hdr__brand { display: flex; align-items: center; gap: 9px; min-width: 0; flex: 0 1 auto; text-decoration: none; color: inherit; }
+.hdr__brand > span:last-child { min-width: 0; overflow: hidden; }
 .hdr__mark {
   width: 30px; height: 30px; border-radius: 8px; flex: 0 0 auto;
   background: linear-gradient(135deg, var(--brand), var(--brand-2));
@@ -134,10 +135,9 @@ kbd {
   #installBtn { font-size: 0; padding: 0 9px; }
   #installBtn svg { font-size: 13px; }
 }
-@media (max-width: 420px) {
+@media (max-width: 470px) {
   .hdr { gap: 6px; padding: 0 8px; }
-  .hdr__title { font-size: 13px; }
-  .hdr__mark { width: 26px; height: 26px; }
+  .hdr__brand > span:last-child { display: none; }
 }
 
 #navToggle { display: none; }
