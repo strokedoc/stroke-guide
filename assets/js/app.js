@@ -453,7 +453,8 @@
     var perfVals = havePerf
       ? 'core ' + core + ' mL, Tmax&gt;6 s ' + tmax + ' mL → mismatch ' + Math.round(mmVol) + ' mL, ratio ' + (mmRatio === Infinity ? '∞' : Math.round(mmRatio * 10) / 10)
       : '';
-    var P_EXTEND = 'EXTEND profile (ratio &gt;1.2, mismatch &gt;10 mL, core &lt;70 mL)';
+    var MM_EXTEND = 'ratio &gt;1.2, mismatch &gt;10 mL, core &lt;70 mL';
+    var P_EXTEND = 'EXTEND profile (' + MM_EXTEND + ')';
     var P_TRACE3 = 'TRACE-III profile (ratio &gt;1.8, mismatch &gt;15 mL, core &lt;70 mL)';
     var calcEl = $('#pfPerfCalc');
     if (calcEl) {
@@ -536,25 +537,33 @@
       if (disabling === 'no') {
         nonDisablingCard();
       } else if (occl === 'lvo' || occl === 'basilar' || occl === 'm2') {
-        /* TRACE-III enrolled ICA/M1-M2, so a dominant proximal M2 belongs in
-           this branch for late IVT even though its EVT card differs. */
+        /* The guideline's 4.5-24 h LVO COR 2b recommendation cites TRACE-III
+           and HOPE jointly, with no separate threshold per trial. HOPE used
+           the same numeric profile as EXTEND (ratio >1.2, mismatch >10 mL,
+           core <70 mL — see the imaging table) but, unlike EXTEND, enrolled
+           out to 24 h and did not require LVO. So a patient meeting only the
+           EXTEND/HOPE profile still qualifies for the full COR 2b card via
+           HOPE - this is not a lesser case cut off at 9 h. TRACE-III's own
+           thresholds are strictly tighter (ratio >1.8, mismatch >15 mL,
+           same core cutoff), so meeting TRACE-III always meets HOPE's too. */
         if (!havePerf) {
           add('note', { cls: '2b', label: 'COR 2b' }, 'Late IVT only if thrombectomy is unavailable (6–24 h)',
             'For ICA, M1 or M2 occlusion with salvageable penumbra that <em>cannot</em> receive EVT, IVT directed by clinicians with expertise in thrombolytic stroke care may be beneficial (TRACE-III, HOPE). ' +
-            'Salvageable penumbra must be demonstrated first — enter the core and Tmax&gt;6 s volumes above and the tool will test the ' + P_TRACE3 + '. ' +
+            'Salvageable penumbra must be demonstrated first — enter the core and Tmax&gt;6 s volumes above and the tool will test both the ' + P_TRACE3 + ' and the laxer HOPE profile (' + MM_EXTEND + '). ' +
             '<strong>If EVT is available, EVT takes priority</strong> — TIMELESS was neutral. <a href="#extended">Detail</a>' + relCaveat);
         } else if (meetsTRACE3) {
           add('note', { cls: '2b', label: 'COR 2b' }, 'Late IVT only if thrombectomy is unavailable (6–24 h)',
             'Your values — ' + perfVals + ' — meet the ' + P_TRACE3 + '. For ICA, M1 or M2 occlusion that <em>cannot</em> receive EVT, IVT directed by clinicians with expertise in thrombolytic stroke care may be beneficial (TRACE-III, HOPE). ' +
             '<strong>If EVT is available, EVT takes priority</strong> and there is no established role for adding late IVT — TIMELESS was neutral.' +
-            (meetsEXTEND ? nineHrNote : '') + ' <a href="#extended">Detail</a>' + relCaveat);
+            nineHrNote + ' <a href="#extended">Detail</a>' + relCaveat);
         } else if (meetsEXTEND) {
-          add('note', null, 'Meets EXTEND but not TRACE-III',
-            'Your values — ' + perfVals + ' — fall short of the ' + P_TRACE3 + ' behind the late-window LVO recommendation, but meet the laxer ' + P_EXTEND + '.' +
-            nineHrNote + ' Beyond 9 h the late IVT criteria are not met; assess <a href="#evt">thrombectomy</a> on its own ASPECTS-based criteria.' + relCaveat);
+          add('note', { cls: '2b', label: 'COR 2b' }, 'Late IVT only if thrombectomy is unavailable (6–24 h, via HOPE)',
+            'Your values — ' + perfVals + ' — fall short of the ' + P_TRACE3 + ' but meet HOPE\'s profile (' + MM_EXTEND + ', identical to EXTEND\'s), which enrolled out to 24 h regardless of vessel. ' +
+            'IVT directed by clinicians with expertise in thrombolytic stroke care may be beneficial. <strong>If EVT is available, EVT takes priority</strong> — TIMELESS was neutral.' +
+            nineHrNote + ' <a href="#extended">Detail</a>' + relCaveat);
         } else {
           add('warn', { cls: '3n', label: 'Criteria not met' }, 'Perfusion profile not met — late IVT is not indicated',
-            'Your values — ' + perfVals + ' — do not meet the ' + P_TRACE3 + '. ' +
+            'Your values — ' + perfVals + ' — meet neither the ' + P_TRACE3 + ' nor the laxer HOPE/EXTEND profile (' + MM_EXTEND + '). ' +
             'Assess <a href="#evt">thrombectomy</a> on its own criteria — the EVT recommendations in this window are ASPECTS-based and do not require perfusion mismatch.');
         }
       } else if (occl === 'nonlvo' || occl === 'noneg') {
