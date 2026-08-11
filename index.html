@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" data-version="1.2.2">
+<html lang="en" data-theme="light" data-version="1.3.0">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -253,7 +253,7 @@
 <!-- =============================================================== PREHOSPITAL -->
 <section class="section" id="prehospital" data-title="Prehospital &amp; triage">
   <h1>Prehospital and triage</h1>
-  <p class="lede">The minutes before arrival decide how many of the next ones are usable. Recognition, prenotification and destination are the three levers.</p>
+  <p class="lede">Recognition, prenotification and destination are the three levers.</p>
 
   <h2>Recognition and severity screening</h2>
   <div class="tablewrap"><table>
@@ -293,7 +293,7 @@
 <!-- ======================================================================= ED -->
 <section class="section" id="ed" data-title="ED evaluation &amp; time targets">
   <h1>Emergency department evaluation</h1>
-  <p class="lede">Everything that does not change the next decision can wait. The organising principle of the guideline is that speed is the treatment effect.</p>
+  <p class="lede">Speed is the treatment effect. Everything that does not change the next decision can wait.</p>
 
   <h2>Time targets</h2>
   <div class="tablewrap"><table>
@@ -303,6 +303,7 @@
       <tr><td>Door to needle</td><td>As fast as safely possible</td><td><span class="cor cor-1">COR 1</span> A — faster treatment improves functional outcome, regardless of NIHSS, in patients with disabling deficits</td></tr>
       <tr><td>Serum creatinine before CTA/CTP</td><td>Do not wait for it</td><td><span class="cor cor-1">COR 1</span> B-NR — vascular imaging should not be delayed to obtain creatinine</td></tr>
       <tr><td>Coagulation studies before IVT</td><td>Do not wait, if no reason to suspect an abnormality</td><td><span class="cor cor-2a">COR 2a</span> B-NR — stop treatment if results later prove abnormal</td></tr>
+      <tr><td>Door-in-door-out, when transferring for EVT</td><td>≤120 minutes</td><td>The target the guideline cites; in a US registry only 27% of transfers achieved it. EMS prenotification shortens it</td></tr>
     </tbody>
   </table></div>
 
@@ -607,16 +608,10 @@
   <p>0.9 mg/kg, maximum 90 mg. Give 10% as a bolus over 1 minute, then infuse the remainder over 60 minutes.</p>
 
   <h2>Immediately after giving it</h2>
-  <div class="tablewrap"><table>
-    <tbody>
-      <tr><td>Disposition</td><td>Admit to an intensive care or stroke unit</td></tr>
-      <tr><td>Observations</td><td>BP and neurological assessment every <strong>15 min for 2 h</strong>, then every <strong>30 min for 6 h</strong>, then <strong>hourly until 24 h</strong></td></tr>
-      <tr><td>Blood pressure</td><td>Increase measurement frequency if SBP &gt;180 or DBP &gt;105 mmHg; treat to keep at or below those levels</td></tr>
-      <tr><td>Deterioration</td><td>Severe headache, acute hypertension, nausea, vomiting or a worsening examination → <strong>stop the infusion (if alteplase) and get an emergency head CT</strong></td></tr>
-      <tr><td>Lines and tubes</td><td>Delay nasogastric tubes, indwelling bladder catheters and intra-arterial pressure catheters if the patient can be safely managed without them</td></tr>
-      <tr><td>Repeat imaging</td><td>CT or MRI at 24 h before starting anticoagulants or antiplatelet agents</td></tr>
-    </tbody>
-  </table></div>
+  <div class="note note--warn">
+    <p>Admit to an intensive care or stroke unit. Observations every <strong>15 min for 2 h</strong>, then every <strong>30 min for 6 h</strong>, then <strong>hourly until 24 h</strong>.</p>
+    <p style="margin-bottom:0">Severe headache, acute hypertension, nausea, vomiting or a worsening examination → <strong>stop the infusion (if alteplase) and get an emergency head CT</strong>. Full monitoring protocol, BP thresholds, lines and 24-h imaging: <a href="#post">Monitoring &amp; blood pressure →</a></p>
+  </div>
   <p class="src">Table 7, 2026 AHA/ASA AIS guideline. Paediatric dosing has not been determined.</p>
 </section>
 
@@ -681,7 +676,7 @@
         <td><strong>HOPE</strong><br><small>JAMA 2025;334:788, n=372, China</small></td>
         <td>Any AIS with perfusion mismatch, LVO or not, no initial plan for EVT, 4.5–24 h</td>
         <td>Alteplase 0.9</td>
-        <td>mRS 0–1: <strong>40% vs 26%</strong> (adjusted RR 1.52, 95% CI 1.14–2.02, P=0.004)</td>
+        <td>mRS 0–1: <strong>40.3% vs 26.3%</strong> (adjusted RR 1.52, 95% CI 1.14–2.02, P=0.004)</td>
         <td>3.8% vs 0.51%</td>
       </tr>
       <tr>
@@ -695,7 +690,7 @@
         <td><strong>EXTEND</strong><br><small>NEJM 2019, n=225</small></td>
         <td>Mixed, 4.5–9 h, perfusion mismatch</td>
         <td>Alteplase 0.9</td>
-        <td>mRS 0–1: <strong>35.4% vs 29.5%</strong> (adjusted OR 1.44)</td>
+        <td>mRS 0–1: <strong>35.4% vs 29.5%</strong> (adjusted RR 1.44)</td>
         <td>6.2% vs 0.9%</td>
       </tr>
     </tbody>
@@ -830,7 +825,7 @@
       <tr><td><strong>RESCUE-Japan LIMIT</strong><br><small>NEJM 2022</small></td><td>ICA/M1, ASPECTS 3–5, NIHSS ≥6, mRS 0–1</td><td>≤6 h (or ≤24 h with no FLAIR change)</td><td>203</td><td>mRS 0–3 31.0% vs 12.7%, RR 2.43 (95% CI 1.35–4.37), P=0.002. Any intracranial haemorrhage 58.0% vs 31.4%</td></tr>
       <tr><td><strong>ANGEL-ASPECT</strong><br><small>NEJM 2023</small></td><td>ICA/M1, ASPECTS 3–5 or core 70–100 mL, age 18–80</td><td>≤24 h</td><td>456</td><td>mRS shift favouring EVT: generalised OR 1.37 (95% CI 1.11–1.69), P=0.004. Stopped early for efficacy</td></tr>
       <tr><td><strong>SELECT2</strong><br><small>NEJM 2023</small></td><td>ICA/M1, ASPECTS 3–5 or core ≥50 mL, age 18–85</td><td>≤24 h</td><td>352</td><td>Generalised OR 1.51 (95% CI 1.20–1.89), P&lt;0.001; functional independence 20% vs 7% (RR 2.97, 1.60–5.51). Median core 74–77 mL. Stopped early for efficacy</td></tr>
-      <tr><td><strong>TENSION</strong><br><small>Lancet 2023</small></td><td>ICA/M1, ASPECTS 3–5, NIHSS &lt;26, mRS 0–2</td><td>≤12 h</td><td>253</td><td>mRS shift at 12 months, adjusted common OR 2.39 (95% CI 1.47–3.90); survival adjusted HR 0.70 (0.50–0.99). Stopped early for efficacy</td></tr>
+      <tr><td><strong>TENSION</strong><br><small>Lancet 2023; 12-month data Lancet Neurol 2024</small></td><td>ICA/M1, ASPECTS 3–5, NIHSS &lt;26, mRS 0–2</td><td>≤12 h</td><td>253</td><td>mRS shift at 12 months, adjusted common OR 2.39 (95% CI 1.47–3.90); survival adjusted HR 0.70 (0.50–0.99). Stopped early for efficacy</td></tr>
       <tr><td><strong>LASTE</strong><br><small>NEJM 2024</small></td><td>ICA/M1, ASPECTS 0–5, mRS 0–1, age &lt;80</td><td>≤6.5 h (or unknown onset with negative FLAIR)</td><td>333</td><td>Median mRS 4 vs 6; generalised OR 1.63 (1.29–2.06), P&lt;0.001. Death at 90 days 36.1% vs 55.5% (adjusted RR 0.65, 0.50–0.84); sICH 9.6% vs 5.7%</td></tr>
     </tbody>
   </table></div>
@@ -1268,20 +1263,20 @@
     <tbody>
       <tr>
         <td><strong>Warfarin / VKA</strong><br><small>INR ≥2.0</small></td>
-        <td><strong>4-factor PCC</strong> plus <strong>vitamin K</strong> IV</td>
+        <td><strong>4-factor PCC</strong> (25–50 units/kg, INR-based per product label) plus <strong>vitamin K 10 mg IV</strong></td>
         <td>Vitamin K should be given <em>directly after</em> factor replacement <span class="cor cor-1">COR 1</span> <span class="loe">C-LD</span> — PCC works in minutes, vitamin K sustains the correction for hours. Give both</td>
         <td><span class="cor cor-1">1</span> <span class="loe">B-R</span></td>
       </tr>
       <tr>
         <td><strong>Dabigatran</strong></td>
-        <td><strong>Idarucizumab</strong> 5 g IV</td>
+        <td><strong>Idarucizumab</strong> 5 g IV (2 × 2.5 g)</td>
         <td>Activated PCC or PCC may be considered if idarucizumab is unavailable <span class="cor cor-2b">COR 2b</span>. Dabigatran is dialysable</td>
         <td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td>
       </tr>
       <tr>
         <td><strong>Apixaban, rivaroxaban, edoxaban</strong></td>
-        <td><strong>Andexanet alfa</strong></td>
-        <td>4-factor or activated PCC may be considered if andexanet is unavailable <span class="cor cor-2b">COR 2b</span> <span class="loe">B-NR</span></td>
+        <td><strong>Andexanet alfa</strong><br><small>Low dose: 400 mg bolus, then 480 mg over 2 h — if last dose ≥8 h earlier, or apixaban ≤5 mg / rivaroxaban ≤10 mg. High dose: 800 mg bolus, then 960 mg over 2 h — otherwise or if dose/timing unknown (product label)</small></td>
+        <td>4-factor or activated PCC may be considered if andexanet is unavailable <span class="cor cor-2b">COR 2b</span> <span class="loe">B-NR</span>. ANNEXA-I enrolled within 15 h of the last dose</td>
         <td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td>
       </tr>
       <tr>
@@ -1697,9 +1692,9 @@
       <tr><td><strong>IST-3</strong><br><small>Lancet 2012</small></td><td>IV thrombolysis</td><td>AIS ≤6 h, no upper age limit, n=3035</td><td>Alive and independent (OHS 0–2) at 6 months 37% vs 35%; adjusted OR 1.13 (95% CI 0.95–1.35), P=0.181 — not statistically significant. Contributed to pooled analyses supporting benefit including age &gt;80</td></tr>
       <tr><td><strong>WAKE-UP</strong><br><small>NEJM 2018</small></td><td>Extended window</td><td>Unknown onset, DWI–FLAIR mismatch, n=503</td><td>mRS 0–1 53.3% vs 41.8%, P=0.02. Established MRI mismatch selection</td></tr>
       <tr><td><strong>THAWS</strong></td><td>Extended window</td><td>Unknown onset, DWI–FLAIR mismatch, n=131</td><td>mRS 0–1 47.1% vs 48.3%, RR 0.97. Halted early after WAKE-UP; underpowered</td></tr>
-      <tr><td><strong>EXTEND</strong><br><small>NEJM 2019</small></td><td>Extended window</td><td>4.5–9 h, perfusion mismatch, n=225</td><td>mRS 0–1 35.4% vs 29.5%, adjusted OR 1.44. sICH 6.2% vs 0.9%</td></tr>
+      <tr><td><strong>EXTEND</strong><br><small>NEJM 2019</small></td><td>Extended window</td><td>4.5–9 h, perfusion mismatch, n=225</td><td>mRS 0–1 35.4% vs 29.5%, adjusted RR 1.44 (1.01–2.06). sICH 6.2% vs 0.9%</td></tr>
       <tr><td><strong>TRACE-III</strong><br><small>NEJM 2024</small></td><td>Extended window</td><td>LVO 4.5–24 h without EVT, n=516, tenecteplase</td><td>mRS 0–1 33.0% vs 24.2%, RR 1.37. sICH 3.0% vs 0.8%</td></tr>
-      <tr><td><strong>HOPE</strong><br><small>JAMA 2025;334:788</small></td><td>Extended window</td><td>Perfusion mismatch 4.5–24 h, LVO or not, no planned EVT, n=372, alteplase</td><td>mRS 0–1 40% vs 26%, adjusted RR 1.52 (1.14–2.02), P=0.004. sICH 3.8% vs 0.51%. doi:10.1001/jama.2025.12063</td></tr>
+      <tr><td><strong>HOPE</strong><br><small>JAMA 2025;334:788</small></td><td>Extended window</td><td>Perfusion mismatch 4.5–24 h, LVO or not, no planned EVT, n=372, alteplase</td><td>mRS 0–1 40.3% vs 26.3%, adjusted RR 1.52 (1.14–2.02), P=0.004. sICH 3.8% vs 0.51%. doi:10.1001/jama.2025.12063</td></tr>
       <tr><td><strong>OPTION</strong><br><small>JAMA 2026</small></td><td>Extended window</td><td>Non-LVO 4.5–24 h, core &lt;50 mL, ratio ≥1.2, n=566, tenecteplase</td><td>mRS 0–1 43.6% vs 34.2%, RR 1.28 (1.04–1.57), P=0.02. sICH 2.8% vs 0%. doi:10.1001/jama.2026.0210</td></tr>
       <tr><td><strong>TIMELESS</strong><br><small>NEJM 2024</small></td><td>Extended window + EVT</td><td>4.5–24 h with EVT, perfusion-selected, tenecteplase vs placebo</td><td>Neutral — no improvement in functional outcome. doi:10.1056/NEJMoa2402980</td></tr>
       <tr><td><strong>AcT</strong><br><small>Lancet 2022</small></td><td>Agent choice</td><td>AIS ≤4.5 h, pragmatic, n=1600, Canada</td><td>mRS 0–1 36.9% vs 34.8%. Noninferior. sICH 3.4% vs 3.2%. Largest TNK noninferiority trial</td></tr>
@@ -1716,7 +1711,7 @@
       <tr><td><strong>RESCUE-Japan LIMIT</strong><br><small>NEJM 2022</small></td><td>Large core</td><td>ICA/M1, ASPECTS 3–5, NIHSS ≥6, mRS 0–1, ≤6 h (or ≤24 h without FLAIR change), n=203</td><td>mRS 0–3 31.0% vs 12.7%, RR 2.43 (95% CI 1.35–4.37), P=0.002. Any intracranial haemorrhage 58.0% vs 31.4%</td></tr>
       <tr><td><strong>ANGEL-ASPECT</strong><br><small>NEJM 2023</small></td><td>Large core</td><td>ICA/M1, ASPECTS 3–5 or core 70–100 mL, age 18–80, ≤24 h, n=456</td><td>Generalised OR 1.37 (1.11–1.69), P=0.004; stopped early for efficacy. sICH 6.1% vs 2.7%; any ICH 49.1% vs 17.3%</td></tr>
       <tr><td><strong>SELECT2</strong><br><small>NEJM 2023</small></td><td>Large core</td><td>ICA/M1, ASPECTS 3–5 or core ≥50 mL, age 18–85, ≤24 h, n=352</td><td>Generalised OR 1.51 (1.20–1.89); stopped early for efficacy. Median core 74–77 mL. Exploratory: ≥26 mL of ≤26 HU hypodensity predicted no benefit</td></tr>
-      <tr><td><strong>TENSION</strong><br><small>Lancet 2023</small></td><td>Large core</td><td>ICA/M1, ASPECTS 3–5, NIHSS &lt;26, mRS 0–2, ≤12 h, n=253</td><td>mRS shift at 12 months, adjusted common OR 2.39 (1.47–3.90); survival adjusted HR 0.70 (0.50–0.99)</td></tr>
+      <tr><td><strong>TENSION</strong><br><small>Lancet 2023; 12-month data Lancet Neurol 2024</small></td><td>Large core</td><td>ICA/M1, ASPECTS 3–5, NIHSS &lt;26, mRS 0–2, ≤12 h, n=253</td><td>mRS shift at 12 months, adjusted common OR 2.39 (1.47–3.90); survival adjusted HR 0.70 (0.50–0.99)</td></tr>
       <tr><td><strong>LASTE</strong><br><small>NEJM 2024</small></td><td>Very large core</td><td>ICA/M1, <strong>ASPECTS 0–5</strong>, mRS 0–1, age &lt;80, ≤6.5 h, n=333</td><td>Median mRS 4 vs 6; generalised OR 1.63 (1.29–2.06), P&lt;0.001. Mortality 36.1% vs 55.5%. The only trial to systematically enrol ASPECTS 0–2</td></tr>
       <tr><td><strong>TESLA</strong></td><td>Large core</td><td>ASPECTS 2–5, ≤24 h, NCCT selection</td><td>Did not meet its primary endpoint threshold; included in the 6-trial meta-analysis</td></tr>
       <tr><td><strong>Liu et al meta-analysis</strong><br><small>Neurology 2025;104:e213443</small></td><td>Large core</td><td>6 RCTs, n=1887</td><td>Ordinal mRS generalised OR 1.6 (1.4–1.8); mRS 0–3 RR 1.9 (1.5–2.5); mortality RR 0.9 (0.8–1.0); sICH RR 1.7 (1.1–2.7). Benefit fell with longer onset-to-randomisation. doi:10.1212/WNL.0000000000213443</td></tr>
@@ -1817,7 +1812,7 @@
   <p>The software is MIT licensed; the clinical content is released under <strong>CC BY 4.0</strong> — reuse it, adapt it for your own institution, translate it, as long as you attribute the source. Corrections are welcome and wanted: if a recommendation here misstates the guideline, or a number is wrong, open an issue or a pull request with the citation.</p>
 
   <h2>Version</h2>
-  <p class="src">Version <span id="buildVersion">1.2.2</span>. Content current to the 2026 AHA/ASA acute ischaemic stroke guideline, the 2022 AHA/ASA spontaneous ICH guideline, and named trials published through February 2026.</p>
+  <p class="src">Version <span id="buildVersion">1.3.0</span>. Content current to the 2026 AHA/ASA acute ischaemic stroke guideline, the 2022 AHA/ASA spontaneous ICH guideline, and named trials published through February 2026.</p>
 
   <div class="footer">
     <p>Built as a public resource. No tracking, no analytics, no accounts, no network requests after the first load.</p>

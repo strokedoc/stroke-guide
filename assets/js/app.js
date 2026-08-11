@@ -559,7 +559,11 @@
       return false;
     }
 
-    if (occl === 'none') {
+    if (occl === 'nonlvo') {
+      add('warn', { cls: '3n', label: 'COR 3: No Benefit' }, 'Medium or distal vessel — thrombectomy not recommended',
+        'EVT is not recommended for nondominant or codominant proximal M2, distal MCA (M3), ACA or PCA occlusions <span class="loe">A</span> — recent randomised trials of medium and distal vessel occlusion showed no functional benefit. ' +
+        'A <em>dominant</em> proximal M2 is the exception: select it above. <a href="#evt">Detail</a>');
+    } else if (occl === 'none') {
       if (!isNaN(hours) && hours <= 24) {
         add('warn', { cls: '1', label: 'COR 1' }, 'Vascular imaging has not been done',
           'In suspected AIS with possible LVO presenting within 24 h of last known well, emergent CT/CTA or MRI/MRA of the cervical and intracranial vessels should be performed as rapidly as possible for EVT selection <span class="loe">A</span>. ' +
@@ -619,7 +623,7 @@
               title = 'EVT reasonable — ICA/M1, 0–6 h, ASPECTS 0–2';
               body = 'Requires age &lt;80, prestroke mRS 0–1 and no significant mass effect <span class="loe">B-R</span>. ' +
                 'LASTE also excluded significant head and neck vessel tortuosity, comorbidity confounding neurological assessment, seizure at onset preventing accurate NIHSS, suspected intracranial stenosis, and life expectancy &lt;6 months. ' +
-                'Functional independence was achieved by 13.3% after EVT versus 7.5% with medical therapy — the family conversation should carry that number. ';
+                'In LASTE, functional independence (mRS 0–2) was achieved by 13.3% after EVT versus 4.9% with medical therapy — the family conversation should carry that number. ';
             }
           }
         } else {
