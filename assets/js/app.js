@@ -527,6 +527,38 @@
     }
 
     /* ------------------------------------------------------------ thrombectomy */
+    /* Every thrombectomy recommendation is written for prestroke mRS 0-1
+       (extending to 2 within 6 h in the anterior circulation). Above that the
+       card must stop asserting a recommendation, whichever vessel it is.
+       One gate so a branch added later cannot quietly skip it. Returns true
+       when it has handled the case and the caller should not add its own card. */
+    function mrsBlocksEvt(basis) {
+      if (mrs === '5') {
+        add('danger', null, 'Prestroke mRS 5 — thrombectomy is not supported',
+          basis + ' That does not change the decision. Prestroke mRS 5 means bedridden, incontinent and requiring constant nursing care <em>before</em> this stroke, and ' +
+          '<strong>every thrombectomy trial excluded these patients</strong> — the recommendations require mRS 0–1, extending to 2 within 6 h. There is no evidence of benefit. ' +
+          'Confirm the premorbid state with a collateral history first, since a wrongly recorded mRS 5 would deny treatment to someone eligible. ' +
+          'Where it is correct, the conversation is comfort, cause and secondary prevention rather than reperfusion.');
+        return true;
+      }
+      if (mrs === '3-4') {
+        add('warn', null, 'Prestroke mRS 3–4 — decide case by case',
+          basis + ' But <strong>no completed randomised trial</strong> has tested thrombectomy in moderate prestroke disability, and good outcomes are less frequent than with mRS 0–2 — ' +
+          'in cohort studies 20–30% of such patients returned to their premorbid mRS. ' +
+          '<strong>This is a case-by-case decision</strong> for the treating team with the patient\'s family, weighing premorbid function, the realistic ceiling of recovery, comorbidity and goals of care — not something to read off a table. ' +
+          'The question is return to <em>their</em> baseline, not independence. <a href="#evt">Full criteria</a>');
+        return true;
+      }
+      if (!mrs) {
+        add('warn', null, 'Confirm prestroke mRS before proceeding',
+          basis + ' But prestroke mRS is a formal eligibility criterion, not a detail: the recommendations require mRS 0–1, extending to 2 within 6 h in the anterior circulation. ' +
+          'Ask the family or EMS — <em>before this stroke, could they walk, dress and manage their own affairs independently?</em> ' +
+          '<a href="#mrs">Scoring the mRS</a>');
+        return true;
+      }
+      return false;
+    }
+
     if (occl === 'none') {
       if (!isNaN(hours) && hours <= 24) {
         add('warn', { cls: '1', label: 'COR 1' }, 'Vascular imaging has not been done',
@@ -539,12 +571,23 @@
       } else if (hours > 24) {
         add('warn', null, 'Beyond the thrombectomy evidence', 'EVT trials extend to 24 h from last known well. Beyond that there is no randomised evidence.');
       } else if (occl === 'basilar') {
-        add('ok', { cls: '1', label: 'COR 1' }, 'Basilar occlusion — EVT within 24 h',
-          'Recommended when baseline mRS 0–1, <strong>NIHSS ≥10</strong> and <strong>PC-ASPECTS ≥6</strong> (ATTENTION, BAOCHE) <span class="loe">A</span>. ' +
+        /* The basilar recommendation specifies baseline mRS 0-1, so the same
+           prestroke-function gate applies here as in the anterior circulation. */
+        var basilarCore = 'Recommended when <strong>baseline mRS 0–1</strong>, <strong>NIHSS ≥10</strong> and <strong>PC-ASPECTS ≥6</strong> (ATTENTION, BAOCHE) <span class="loe">A</span>. ' +
           'For NIHSS 6–9 with the same imaging, effectiveness is not well established <span class="cor cor-2b">COR 2b</span>. ' +
-          'Note that PC-ASPECTS, not the anterior-circulation ASPECTS, is the relevant score here. <a href="#evt">Detail</a>');
+          'Note that PC-ASPECTS, not the anterior-circulation ASPECTS, is the relevant score here. <a href="#evt">Detail</a>';
+        if (mrs === '0-1') {
+          add('ok', { cls: '1', label: 'COR 1' }, 'Basilar occlusion — EVT within 24 h', basilarCore);
+        } else if (mrsBlocksEvt('A basilar occlusion within 24 h meets the vessel and time criteria.')) {
+          /* handled by the shared gate */
+        } else if (mrs === '2') {
+          add('note', null, 'Basilar occlusion, prestroke mRS 2 — individualised',
+            'The basilar recommendation is written for baseline mRS 0–1; unlike the anterior circulation there is no separate mRS 2 recommendation. Reasonable to consider on an individual basis. ' + basilarCore);
+        }
       } else if (occl === 'm2') {
-        if (hours <= 6) {
+        if (mrsBlocksEvt(hours <= 6 ? 'A dominant proximal M2 occlusion within 6 h meets the vessel and time criteria.' : 'A proximal M2 occlusion beyond 6 h is already outside the recommendation.')) {
+          /* handled by the shared gate */
+        } else if (hours <= 6) {
           add('note', { cls: '2a', label: 'COR 2a' }, 'Dominant proximal M2 within 6 h',
             'Reasonable when prestroke mRS 0–1, NIHSS ≥6 and ASPECTS ≥6 <span class="loe">B-NR</span>. ' +
             'EVT is <strong>not</strong> recommended <span class="cor cor-3n">COR 3: No Benefit</span> <span class="loe">A</span> for nondominant or codominant proximal M2, distal MCA, ACA or PCA occlusions. <a href="#evt">Detail</a>');
@@ -603,6 +646,14 @@
 
         if (title) {
           body += 'All rows require <strong>NIHSS ≥6</strong>.';
+
+          /* Prestroke function governs the headline. Every thrombectomy
+             recommendation is written for mRS 0-1, extending to 2 within 6 h.
+             Above that the trials give no support, so the card must not keep
+             saying "EVT recommended" — the imaging and window finding becomes
+             background to an individualised decision, not the conclusion. */
+          var imagingBasis = title;
+
           if (mrs === '0-1') {
             body += ' Prestroke mRS 0–1 — within the trial population.';
           } else if (mrs === '2') {
@@ -610,21 +661,18 @@
               ? ' <strong>Prestroke mRS 2:</strong> reasonable within 6 h for ICA/M1 with ASPECTS ≥6 <span class="cor cor-2a">COR 2a</span>.'
               : ' <strong>Prestroke mRS 2 beyond 6 h:</strong> the mRS 2 recommendation is written for the 0–6 h window; the 6–24 h recommendations require mRS 0–1. Individualised.';
             if (hours > 6) { cor = null; kind = 'warn'; }
-          } else if (mrs === '3-4') {
-            body += hours <= 6
-              ? ' <strong>Prestroke mRS 3–4:</strong> might be reasonable within 6 h for ICA/M1 with ASPECTS ≥6 <span class="cor cor-2b">COR 2b</span>; no completed RCT, though 20–30% of such patients returned to their premorbid mRS in cohort studies.'
-              : ' <strong>Prestroke mRS 3–4 beyond 6 h:</strong> outside every recommendation — the 6–24 h rows require mRS 0–1, and the mRS 3–4 recommendation is 0–6 h only. Individualised.';
-            cor = null; kind = 'warn';
-          } else if (mrs === '5') {
-            body += ' <strong>Prestroke mRS 5</strong> sits outside every trial population.';
-            cor = null; kind = 'warn';
+          } else if (mrsBlocksEvt('On time and imaging alone this would be “' + imagingBasis + '”.')) {
+            title = '';   /* handled by the shared gate */
           }
-          body += ' Aim for eTICI 2b/2c/3 as early as possible. <a href="#evt">Full criteria</a>';
-          add(kind === 'warn' ? 'warn' : (cor && cor.cls === '1' ? 'ok' : 'note'), cor, title, body);
+
+          if (title) {
+            body += ' Aim for eTICI 2b/2c/3 as early as possible. <a href="#evt">Full criteria</a>';
+            add(kind === 'warn' ? 'warn' : (cor && cor.cls === '1' ? 'ok' : 'note'), cor, title, body);
+          }
         }
       }
 
-      if (hours <= 4.5 && contra !== 'absolute' && disabling === 'yes' && ich !== 'yes') {
+      if (hours <= 4.5 && contra !== 'absolute' && disabling === 'yes' && ich !== 'yes' && mrs !== '5') {
         add('note', null, 'Do not delay thrombectomy to watch for a response to thrombolysis',
           'Bridging IVT remains standard where the patient is thrombolysis-eligible. Delaying EVT to assess for clinical improvement after the bolus is explicitly not recommended.');
       }
