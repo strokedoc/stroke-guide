@@ -515,10 +515,12 @@
       } else if (!havePerf) {
         add('note', { cls: '2a', label: 'COR 2a' }, 'Extended-window thrombolysis may be reasonable (4.5–9 h)',
           'This requires salvageable penumbra on automated perfusion imaging — enter the core and Tmax&gt;6 s volumes above and the tool will test the ' + P_EXTEND + '. ' +
-          'For unknown-onset stroke within 4.5 h of symptom recognition, DWI–FLAIR mismatch on MRI is the alternative selection route. <a href="#extended">Criteria</a>' + relCaveat);
+          'For unknown-onset stroke within 4.5 h of symptom recognition, DWI–FLAIR mismatch on MRI is the alternative selection route. ' +
+          '<strong>Where there is an LVO and thrombectomy is available, proceed straight to EVT</strong> — extended-window IVT should not delay the angio suite, and thrombolysis before EVT in this window has not shown benefit (TIMELESS). <a href="#extended">Criteria</a>' + relCaveat);
       } else if (meetsEXTEND) {
         add('note', { cls: '2a', label: 'COR 2a' }, 'Extended-window thrombolysis may be reasonable (4.5–9 h)',
-          'Your values — ' + perfVals + ' — meet the ' + P_EXTEND + '. IVT may be reasonable (EXTEND, ECASS-4). <a href="#extended">Criteria</a>' + relCaveat);
+          'Your values — ' + perfVals + ' — meet the ' + P_EXTEND + '. IVT may be reasonable (EXTEND, ECASS-4). ' +
+          '<strong>Where there is an LVO and thrombectomy is available, proceed straight to EVT</strong> — extended-window IVT should not delay the angio suite, and thrombolysis before EVT in this window has not shown benefit (TIMELESS). <a href="#extended">Criteria</a>' + relCaveat);
       } else {
         add('warn', { cls: '3n', label: 'Criteria not met' }, 'Perfusion profile not met — extended-window IVT is not indicated',
           'Your values — ' + perfVals + ' — do not meet the ' + P_EXTEND + ' behind the 4.5–9 h <span class="cor cor-2a">COR 2a</span> recommendation. ' +
