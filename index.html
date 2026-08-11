@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" data-version="1.5.1">
+<html lang="en" data-theme="light" data-version="1.5.2">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -152,6 +152,7 @@
 <section class="section" id="pathfinder" data-title="Reperfusion pathfinder">
   <h1>Reperfusion pathfinder</h1>
   <p class="lede">Answer what you know. The tool returns the recommendations that apply, with their class of recommendation and the trials behind them. It restates the guideline — it does not weigh this patient's individual risk.</p>
+  <p class="src" style="margin-bottom:14px">"Mismatch" is not one threshold — each recommendation was trialled against its own profile, so every card names the numbers it means. Full table: <a href="#imaging">perfusion thresholds</a>.</p>
 
   <div class="card">
     <div class="row">
@@ -216,11 +217,11 @@
     </div>
     <div class="row">
       <div class="field">
-        <label for="pfMismatch">Perfusion mismatch present?</label>
+        <label for="pfMismatch">Perfusion mismatch on automated software</label>
         <select id="pfMismatch">
           <option value="">Select…</option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
+          <option value="yes">Mismatch reported</option>
+          <option value="no">No mismatch</option>
           <option value="na">Not imaged</option>
         </select>
       </div>
@@ -1931,7 +1932,7 @@
   <p>The software is MIT licensed; the clinical content is released under <strong>CC BY 4.0</strong> — reuse it, adapt it for your own institution, translate it, as long as you attribute the source. Corrections are welcome and wanted: if a recommendation here misstates the guideline, or a number is wrong, open an issue or a pull request with the citation.</p>
 
   <h2>Version</h2>
-  <p class="src">Version <span id="buildVersion">1.5.1</span>. Content current to the 2026 AHA/ASA acute ischaemic stroke guideline, the 2022 AHA/ASA spontaneous ICH guideline, and named trials published through February 2026.</p>
+  <p class="src">Version <span id="buildVersion">1.5.2</span>. Content current to the 2026 AHA/ASA acute ischaemic stroke guideline, the 2022 AHA/ASA spontaneous ICH guideline, and named trials published through February 2026.</p>
 
   <div class="footer">
     <p>Built as a public resource. No tracking, no analytics, no accounts, no network requests after the first load.</p>

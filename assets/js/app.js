@@ -435,6 +435,15 @@
     var age = pf('pfAge');
     var lines = [];
 
+    /* "Mismatch" is not one thing: each IVT recommendation was trialled
+       against its own perfusion profile, so every card that asks for
+       mismatch states the numbers it means. Defined once here; the same
+       figures appear in the imaging and extended-window tables. */
+    var MM_EXTEND = 'ratio ≥1.2, mismatch ≥10 mL, core &lt;70 mL';
+    var MM_TRACE3 = 'ratio ≥1.8, penumbra ≥15 mL, core &lt;70 mL';
+    var P_EXTEND = 'EXTEND profile (' + MM_EXTEND + ')';
+    var P_TRACE3 = 'TRACE-III profile (' + MM_TRACE3 + ')';
+
     function add(kind, cor, title, body) {
       lines.push('<div class="note note--' + kind + '"><div class="note__t">' +
         (cor ? '<span class="cor cor-' + cor.cls + '">' + cor.label + '</span> ' : '') + title + '</div>' + body + '</div>');
@@ -485,14 +494,14 @@
         nonDisablingCard();
       } else if (mismatch === 'no') {
         add('warn', { cls: '3n', label: 'Criteria not met' }, 'No salvageable penumbra — extended-window IVT is not indicated',
-          'The 4.5–9 h recommendation <span class="cor cor-2a">COR 2a</span> applies only where automated perfusion imaging shows salvageable penumbra, ' +
-          'or where DWI–FLAIR mismatch is present in unknown-onset stroke. Perfusion imaging showing no mismatch takes this option off the table. ' +
+          'The 4.5–9 h recommendation <span class="cor cor-2a">COR 2a</span> applies only where automated perfusion imaging shows salvageable penumbra by the ' + P_EXTEND + ', ' +
+          'or where DWI–FLAIR mismatch is present in unknown-onset stroke. Perfusion imaging failing that profile takes this option off the table. ' +
           'Move to <a href="#antithrombotics">antithrombotics</a> and <a href="#supportive">supportive care</a>, and assess EVT separately if there is a large vessel occlusion.');
       } else {
         add('note', { cls: '2a', label: 'COR 2a' }, 'Extended-window thrombolysis may be reasonable (4.5–9 h)',
           (mismatch === 'yes'
-            ? 'Salvageable penumbra confirmed on automated perfusion imaging. IVT may be reasonable (EXTEND, ECASS-4).'
-            : 'This requires salvageable penumbra on automated perfusion imaging, or DWI–FLAIR mismatch for unknown onset within 4.5 h of symptom recognition. Obtain that imaging before deciding.') +
+            ? 'Salvageable penumbra confirmed on automated perfusion imaging — confirm it meets the ' + P_EXTEND + '. IVT may be reasonable (EXTEND, ECASS-4).'
+            : 'This requires salvageable penumbra on automated perfusion imaging — ' + P_EXTEND + ' — or DWI–FLAIR mismatch for unknown onset within 4.5 h of symptom recognition. Obtain that imaging before deciding.') +
           ' <a href="#extended">Criteria</a>' + relCaveat);
       }
     } else if (hours <= 24) {
@@ -500,17 +509,17 @@
          EVT happen?) is the same across it. The 9-hour line changes only the
          strength of the label - EXTEND's COR 2a ends at 9 h - so that nuance
          lives in the card text rather than as a separate time option. */
-      var nineHrNote = ' <strong>If still within 9 h of last known well</strong>, perfusion-selected IVT itself carries <span class="cor cor-2a">COR 2a</span> (EXTEND) — stronger than the late-window recommendation.';
+      var nineHrNote = ' <strong>If still within 9 h of last known well</strong>, perfusion-selected IVT itself carries <span class="cor cor-2a">COR 2a</span> (EXTEND — laxer profile: ' + MM_EXTEND + ') — stronger than the late-window recommendation.';
       if (disabling === 'no') {
         nonDisablingCard();
       } else if (occl === 'lvo' || occl === 'basilar') {
         if (mismatch === 'no') {
           add('warn', { cls: '3n', label: 'Criteria not met' }, 'No salvageable penumbra — late IVT is not indicated',
-            'The 4.5–24 h recommendation <span class="cor cor-2b">COR 2b</span> requires LVO <em>with salvageable ischaemic penumbra</em>. ' +
-            'Assess <a href="#evt">thrombectomy</a> on its own criteria — the EVT recommendations in this window do not all require perfusion mismatch.');
+            'The 4.5–24 h recommendation <span class="cor cor-2b">COR 2b</span> requires LVO <em>with salvageable ischaemic penumbra</em> by the ' + P_TRACE3 + '. ' +
+            'Assess <a href="#evt">thrombectomy</a> on its own criteria — the EVT recommendations in this window are ASPECTS-based and do not require perfusion mismatch.');
         } else {
           add('note', { cls: '2b', label: 'COR 2b' }, 'Late IVT only if thrombectomy is unavailable (LVO, 6–24 h)',
-            'For LVO with salvageable penumbra that <em>cannot</em> receive EVT, IVT directed by clinicians with expertise in thrombolytic stroke care may be beneficial (TRACE-III, HOPE). ' +
+            'For LVO with salvageable penumbra — the ' + P_TRACE3 + ' — that <em>cannot</em> receive EVT, IVT directed by clinicians with expertise in thrombolytic stroke care may be beneficial (TRACE-III, HOPE). ' +
             (mismatch === 'na' ? 'Salvageable penumbra must be demonstrated first. ' : '') +
             '<strong>If EVT is available, EVT takes priority</strong> and there is no established role for adding late IVT — TIMELESS was neutral.' +
             nineHrNote + ' <a href="#extended">Detail</a>' + relCaveat);
