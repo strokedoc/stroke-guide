@@ -4,7 +4,7 @@
    connected device picks up content updates on the next launch.
    Bump CACHE on every content release. */
 
-var CACHE = 'asg-v1.1.1';
+var CACHE = 'asg-v1.2.0';
 
 var ASSETS = [
   './',
@@ -12,7 +12,7 @@ var ASSETS = [
   './assets/css/app.css',
   './assets/js/app.js',
   './manifest.webmanifest',
-  './icons/icon.svg',
+  './icons/icon-32.png',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/icon-512-maskable.png',

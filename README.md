@@ -64,7 +64,7 @@ assets/css/app.css         theming (light/dark), layout, print styles
 assets/js/app.js           routing, search index, calculators, pathfinder
 manifest.webmanifest       PWA manifest
 sw.js                      service worker — precache, cache-first
-icons/                     app icons (SVG source + rasterised PNGs)
+icons/                     app icons (rendered master + rasterised sizes)
 ```
 
 Search builds its index from the DOM at runtime, so **new content is searchable automatically** — there is no separate index to maintain.

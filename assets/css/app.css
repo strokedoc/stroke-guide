@@ -112,8 +112,7 @@ summary:focus-visible, [tabindex]:focus-visible {
 .hdr__brand > span:last-child { min-width: 0; overflow: hidden; }
 .hdr__mark {
   width: 30px; height: 30px; border-radius: 8px; flex: 0 0 auto;
-  background: linear-gradient(135deg, var(--brand-strong), var(--brand-strong-2));
-  display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 14px;
+  display: block; object-fit: cover;
 }
 .hdr__title { font-size: 15px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .hdr__sub { font-size: 11px; color: var(--text-dim); white-space: nowrap; }
