@@ -2,7 +2,7 @@
 
 An evidence-based, offline-capable bedside reference for the acute management of stroke — built for stroke neurologists, emergency physicians, nurses, advanced practice clinicians and trainees.
 
-**Live app:** https://strokedoc.github.io/acute-stroke-guide/
+**Live app:** https://strokedoc.github.io/stroke-guide/
 
 It is a progressive web app: one page, no dependencies, no build step, no network calls after the first load. Add it to a home screen and it works in a code cart, an ambulance bay, or a rural CT suite with no signal.
 
@@ -78,6 +78,10 @@ Corrections are wanted, especially clinical ones.
 - **Adding content** → keep the existing pattern: a table of recommendations with COR/LOE chips, then the trial evidence, then a `<p class="src">` naming the source section.
 
 When changing content, bump `CACHE` in `sw.js` and `data-version` on the `<html>` element so installed copies refresh.
+
+## Deployment
+
+GitHub Pages serves `main` from the repository root. `index.html` is at the root, so a push to `main` is the deploy — there is no build step and no workflow.
 
 ## Licence
 
