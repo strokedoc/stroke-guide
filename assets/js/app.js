@@ -670,17 +670,65 @@
 
   /* ------------------------------------------------------------- install */
   var deferred = null;
-  window.addEventListener('beforeinstallprompt', function (e) {
-    e.preventDefault(); deferred = e;
-    var b = $('#installBtn'); if (b) b.hidden = false;
-  });
   var installBtn = $('#installBtn');
+  var installed = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+                  navigator.standalone === true;
+
+  function isIOS() {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+           (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  }
+
+  function installHelp() {
+    var existing = $('.installhelp');
+    if (existing) { existing.remove(); return; }
+    var el = document.createElement('div');
+    el.className = 'installhelp';
+    el.setAttribute('role', 'dialog');
+    el.setAttribute('aria-label', 'How to install');
+    el.innerHTML = isIOS()
+      ? '<h4>Add to Home Screen</h4><ol>' +
+        '<li>Tap the <strong>Share</strong> button in the Safari toolbar.</li>' +
+        '<li>Scroll down and choose <strong>Add to Home Screen</strong>.</li>' +
+        '<li>Tap <strong>Add</strong>.</li></ol>' +
+        '<p>It then opens full screen and works with no signal.</p>'
+      : '<h4>Install this guide</h4>' +
+        '<p>Your browser has not offered an install prompt. In Chrome or Edge, look for the install icon in the address bar, or open the browser menu and choose <strong>Install</strong> or <strong>Add to Home screen</strong>.</p>' +
+        '<p>Safari on iPhone and iPad uses <strong>Share → Add to Home Screen</strong>.</p>';
+    var close = document.createElement('button');
+    close.className = 'btn'; close.textContent = 'Close';
+    close.addEventListener('click', function () { el.remove(); });
+    el.appendChild(close);
+    document.body.appendChild(el);
+    close.focus();
+  }
+
   if (installBtn) {
-    installBtn.addEventListener('click', function () {
-      if (!deferred) return;
-      deferred.prompt();
-      deferred.userChoice.then(function () { deferred = null; installBtn.hidden = true; });
-    });
+    if (installed) {
+      installBtn.remove();
+      installBtn = null;
+    } else {
+      /* Chromium fires this when the app is installable; Safari and Firefox
+         never do, so on iOS show the button anyway and explain the manual
+         route rather than leaving a button that does nothing. */
+      window.addEventListener('beforeinstallprompt', function (e) {
+        e.preventDefault(); deferred = e; installBtn.hidden = false;
+      });
+      if (isIOS()) installBtn.hidden = false;
+
+      installBtn.addEventListener('click', function () {
+        if (deferred) {
+          deferred.prompt();
+          deferred.userChoice.then(function () { deferred = null; installBtn.hidden = true; });
+        } else {
+          installHelp();
+        }
+      });
+      window.addEventListener('appinstalled', function () {
+        deferred = null;
+        if (installBtn) installBtn.hidden = true;
+      });
+    }
   }
 
   /* ------------------------------------------------------- service worker */
