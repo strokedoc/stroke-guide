@@ -480,7 +480,7 @@
         add('warn', null, 'Decide whether the deficit is disabling',
           'This is the highest-yield decision in the 4.5-hour window, and NIHSS alone does not answer it. See <a href="#thrombolysis">the Table 4 guidance</a>.');
       }
-    } else if (hours <= 9) {
+    } else if (hours <= 6) {
       if (disabling === 'no') {
         nonDisablingCard();
       } else if (mismatch === 'no') {
@@ -496,6 +496,11 @@
           ' <a href="#extended">Criteria</a>' + relCaveat);
       }
     } else if (hours <= 24) {
+      /* 6-24 h is one slot: the bedside question (mismatch present, and can
+         EVT happen?) is the same across it. The 9-hour line changes only the
+         strength of the label - EXTEND's COR 2a ends at 9 h - so that nuance
+         lives in the card text rather than as a separate time option. */
+      var nineHrNote = ' <strong>If still within 9 h of last known well</strong>, perfusion-selected IVT itself carries <span class="cor cor-2a">COR 2a</span> (EXTEND) — stronger than the late-window recommendation.';
       if (disabling === 'no') {
         nonDisablingCard();
       } else if (occl === 'lvo' || occl === 'basilar') {
@@ -504,19 +509,20 @@
             'The 4.5–24 h recommendation <span class="cor cor-2b">COR 2b</span> requires LVO <em>with salvageable ischaemic penumbra</em>. ' +
             'Assess <a href="#evt">thrombectomy</a> on its own criteria — the EVT recommendations in this window do not all require perfusion mismatch.');
         } else {
-          add('note', { cls: '2b', label: 'COR 2b' }, 'Late IVT only if thrombectomy is unavailable (4.5–24 h, LVO)',
+          add('note', { cls: '2b', label: 'COR 2b' }, 'Late IVT only if thrombectomy is unavailable (LVO, 6–24 h)',
             'For LVO with salvageable penumbra that <em>cannot</em> receive EVT, IVT directed by clinicians with expertise in thrombolytic stroke care may be beneficial (TRACE-III, HOPE). ' +
             (mismatch === 'na' ? 'Salvageable penumbra must be demonstrated first. ' : '') +
-            '<strong>If EVT is available, EVT takes priority</strong> and there is no established role for adding late IVT — TIMELESS was neutral. ' +
-            '<a href="#extended">Detail</a>' + relCaveat);
+            '<strong>If EVT is available, EVT takes priority</strong> and there is no established role for adding late IVT — TIMELESS was neutral.' +
+            nineHrNote + ' <a href="#extended">Detail</a>' + relCaveat);
         }
       } else if (occl === 'm2' || occl === 'nonlvo') {
-        add('note', null, 'Medium or distal vessel, 4.5–24 h — evidence newer than the guideline',
+        add('note', null, 'Medium or distal vessel, 6–24 h',
           'OPTION (JAMA 2026) randomised 566 patients with <strong>non-LVO</strong> stroke (ICA, M1 and vertebrobasilar excluded) and perfusion mismatch — core &lt;50 mL, ratio ≥1.2, mismatch ≥10 mL, NIHSS 6–25 or 4–5 with a disabling deficit, prestroke mRS 0–1 — to tenecteplase versus standard care: ' +
           'mRS 0–1 43.6% vs 34.2% (RR 1.28), sICH 2.8% vs 0%. ' +
-          'This postdates the 2026 AHA guideline literature cut-off and <strong>carries no class of recommendation</strong>. Whether to act on it is a local governance decision. <a href="#extended">Detail</a>' + relCaveat);
+          'This postdates the 2026 AHA guideline literature cut-off and <strong>carries no class of recommendation</strong>. Whether to act on it is a local governance decision.' +
+          nineHrNote + ' <a href="#extended">Detail</a>' + relCaveat);
       } else if (occl === 'noneg') {
-        add('warn', null, 'No occlusion, 4.5–24 h', 'The guideline\'s late-window thrombolysis recommendation is written for LVO that cannot receive EVT. For a non-LVO stroke in this window the only randomised evidence is OPTION, which postdates the guideline — select "medium / distal vessel" to see it.');
+        add('warn', null, 'No occlusion, 6–24 h', 'The guideline\'s late-window thrombolysis recommendation is written for LVO that cannot receive EVT. For a non-LVO stroke in this window the only randomised evidence is OPTION, which postdates the guideline — select "medium / distal vessel" to see it.' + nineHrNote);
       } else {
         add('warn', null, 'Vascular imaging is the next step',
           'Late-window advice diverges sharply between LVO and non-LVO, so the occlusion has to be defined. Emergent CT/CTA or MRI/MRA of the cervical <em>and</em> intracranial vessels is recommended as rapidly as possible <span class="cor cor-1">COR 1</span> <span class="loe">A</span> — and should not be delayed for a creatinine.');
