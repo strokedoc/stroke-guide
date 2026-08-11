@@ -1,0 +1,24 @@
+{
+  "name": "Acute Stroke Guide",
+  "short_name": "Stroke Guide",
+  "description": "Evidence-based bedside reference for acute ischaemic stroke and intracerebral haemorrhage, built on the 2026 AHA/ASA guideline. Works offline.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0d4f73",
+  "theme_color": "#ffffff",
+  "categories": ["medical", "education", "productivity"],
+  "lang": "en",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Reperfusion pathfinder", "url": "./index.html#pathfinder" },
+    { "name": "NIHSS calculator", "url": "./index.html#nihss" },
+    { "name": "Thrombolysis dosing", "url": "./index.html#dosing" },
+    { "name": "Contraindications", "url": "./index.html#contraindications" }
+  ]
+}

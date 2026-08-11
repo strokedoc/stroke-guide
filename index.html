@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-version="1.0.0">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Acute Stroke Guide</title>
+<meta name="description" content="Evidence-based bedside reference for acute ischaemic stroke and intracerebral haemorrhage, built on the 2026 AHA/ASA guideline. Offline-capable, free, open source.">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light dark">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Stroke Guide">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="hdr">
+  <button class="iconbtn" id="navToggle" aria-label="Toggle navigation">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
+  <a class="hdr__brand" href="#start">
+    <span class="hdr__mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 4.2c-1.6-1.5-4.4-1.3-5.6.5-1.9.2-3 1.8-2.7 3.5-1.3 1-1.5 3 0 4.1-.4 1.8.9 3.4 2.7 3.4.5 1.7 2.6 2.5 4.1 1.6"/>
+        <path d="M12 4.2c1.6-1.5 4.4-1.3 5.6.5 1.9.2 3 1.8 2.7 3.5 1.3 1 1.5 3 0 4.1.4 1.8-.9 3.4-2.7 3.4-.5 1.7-2.6 2.5-4.1 1.6"/>
+        <path d="M12 4.2v15.6M12 9.5l2.6-2M12 13l-2.6-2"/>
+      </svg>
+    </span>
+    <span>
+      <span class="hdr__title">Acute Stroke Guide</span><br>
+      <span class="hdr__sub">AHA/ASA 2026 · evidence-based bedside reference</span>
+    </span>
+  </a>
+  <span class="hdr__spacer"></span>
+  <button class="iconbtn searchtrigger" id="searchBtn" aria-label="Search the guide">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <span>Search</span><kbd>⌘K</kbd>
+  </button>
+  <button class="iconbtn" id="installBtn" hidden aria-label="Install app">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+    Install
+  </button>
+  <button class="iconbtn" id="themeBtn" aria-label="Switch theme">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+  </button>
+</header>
+
+<div class="disclaimer-bar" id="disclaimerBar">
+  <span><strong>Educational reference only.</strong> Not medical advice, not a substitute for clinical judgement, and not validated for autonomous decision-making. Verify against your own institution's protocol and the primary literature.</span>
+  <button class="btn" id="ackBtn">Got it</button>
+</div>
+
+<div class="layout">
+<nav class="sidebar" id="sidebar" aria-label="Sections">
+  <h4>Start</h4>
+  <a href="#start">How to use this guide</a>
+  <a href="#pathfinder">Reperfusion pathfinder</a>
+
+  <h4>Hyperacute pathway</h4>
+  <a href="#prehospital">Prehospital &amp; triage</a>
+  <a href="#ed">ED evaluation &amp; time targets</a>
+  <a href="#imaging">Imaging</a>
+  <a href="#thrombolysis">IV thrombolysis: decision</a>
+  <a href="#contraindications">Thrombolysis contraindications</a>
+  <a href="#dosing">Dosing &amp; administration</a>
+  <a href="#extended">Extended-window thrombolysis</a>
+  <a href="#evt">Thrombectomy</a>
+
+  <h4>After reperfusion</h4>
+  <a href="#post">Monitoring &amp; blood pressure</a>
+  <a href="#complications-ivt">Bleeding &amp; angioedema</a>
+
+  <h4>Ward &amp; ICU</h4>
+  <a href="#supportive">Supportive care</a>
+  <a href="#antithrombotics">Antithrombotics &amp; prevention</a>
+  <a href="#complications">Swelling, surgery, seizures</a>
+
+  <h4>Haemorrhagic stroke</h4>
+  <a href="#ich">Intracerebral haemorrhage</a>
+  <a href="#reversal">Anticoagulation reversal</a>
+
+  <h4>Tools</h4>
+  <a href="#nihss">NIHSS calculator</a>
+  <a href="#mrs">Modified Rankin Scale</a>
+  <a href="#aspects">ASPECTS scorer</a>
+  <a href="#calculators">Dose, clock &amp; ICH score</a>
+
+  <h4>Reference</h4>
+  <a href="#trials">Trial library</a>
+  <a href="#evidence">How to read COR/LOE</a>
+  <a href="#about">About, licence &amp; sources</a>
+</nav>
+
+<main class="main" id="main">
+
+<!-- ==================================================================== START -->
+<section class="section active" id="start" data-title="How to use this guide">
+  <h1>Acute Stroke Guide</h1>
+  <p class="lede">A bedside reference for acute ischaemic stroke and intracerebral haemorrhage, written directly from the 2026 AHA/ASA guideline and the trials behind it. Works offline. Free and open source.</p>
+
+  <div class="note note--warn">
+    <div class="note__t">Read this first</div>
+    <p>This guide reproduces published recommendations and trial results. It does not know your patient. Every recommendation here is a starting point for a decision made by the treating clinician, in the context of that patient's goals, comorbidity and your institution's protocol. Reperfusion decisions in complex cases belong with stroke neurology.</p>
+    <p style="margin-bottom:0">Nothing here is site-specific: there are no local activation criteria, no local screening tools and no institutional workflows. If your hospital's protocol differs, your hospital's protocol governs.</p>
+  </div>
+
+  <h2>Four ways in</h2>
+  <div class="grid">
+    <div class="card">
+      <h3 style="margin-top:0">1 · Answer a question fast</h3>
+      <p>Press <kbd>⌘K</kbd> (or <kbd>/</kbd>) anywhere and search the whole guide — every table, row and footnote is indexed. Try <em>angioedema</em>, <em>DOAC</em>, <em>PC-ASPECTS</em>.</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">2 · Work a live case</h3>
+      <p>The <a href="#pathfinder">Reperfusion pathfinder</a> turns time, deficit, occlusion and core into the specific recommendations that apply, each with its class and the trials behind it.</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">3 · Score and dose</h3>
+      <p><a href="#nihss">NIHSS</a> with copy-to-note, <a href="#aspects">ASPECTS</a>, <a href="#calculators">tenecteplase and alteplase dosing</a>, the LKW clock and the <a href="#calculators">ICH score</a>.</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">4 · Teach or revise</h3>
+      <p>The <a href="#trials">trial library</a> holds every trial cited here with its population, window, result and DOI, filterable in one box.</p>
+    </div>
+  </div>
+
+  <h2>Install it on the phone in your pocket</h2>
+  <p>This is a progressive web app. Once loaded it caches itself and works with no signal — a code cart, an ambulance bay and a rural CT scanner all count as offline.</p>
+  <ul>
+    <li><strong>iPhone / iPad:</strong> open in Safari → Share → <em>Add to Home Screen</em>.</li>
+    <li><strong>Android:</strong> Chrome will offer <em>Install app</em>; or use the <em>Install</em> button in the header.</li>
+    <li><strong>Desktop:</strong> Chrome/Edge show an install icon in the address bar.</li>
+  </ul>
+
+  <h2>What is in here, and what is not</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Covered</th><th>Not covered</th></tr></thead>
+    <tbody>
+      <tr><td>Adult acute ischaemic stroke: prehospital through early in-hospital care</td><td>Paediatric stroke beyond a pointer to the guideline's new section</td></tr>
+      <tr><td>IV thrombolysis, thrombectomy, extended windows, post-reperfusion care</td><td>Rehabilitation and long-term secondary prevention</td></tr>
+      <tr><td>Spontaneous intracerebral haemorrhage and anticoagulation reversal</td><td>Subarachnoid haemorrhage, aneurysm and AVM management</td></tr>
+      <tr><td>Malignant oedema, cerebellar infarction, seizures</td><td>Cerebral venous thrombosis, carotid revascularisation timing</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="footer">
+    <p>Source of record: Prabhakaran S, et al. <em>2026 Guideline for the Early Management of Patients With Acute Ischemic Stroke.</em> Stroke. 2026;57. doi:10.1161/STR.0000000000000513. Where content comes from elsewhere — the 2022 ICH guideline, or trials published after the guideline's literature cut-off — it is labelled as such at the point of use.</p>
+  </div>
+</section>
+
+<!-- =============================================================== PATHFINDER -->
+<section class="section" id="pathfinder" data-title="Reperfusion pathfinder">
+  <h1>Reperfusion pathfinder</h1>
+  <p class="lede">Answer what you know. The tool returns the recommendations that apply, with their class of recommendation and the trials behind them. It restates the guideline — it does not weigh this patient's individual risk.</p>
+
+  <div class="card">
+    <div class="row">
+      <div class="field">
+        <label for="pfTime">Hours from last known well</label>
+        <select id="pfTime">
+          <option value="">Select…</option>
+          <option value="2">Within 4.5 h</option>
+          <option value="7">4.5–9 h</option>
+          <option value="16">9–24 h</option>
+          <option value="30">More than 24 h</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="pfIch">Haemorrhage on NCCT?</label>
+        <select id="pfIch">
+          <option value="">Select…</option>
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="pfDisabling">Deficit clearly disabling?</label>
+        <select id="pfDisabling">
+          <option value="">Select…</option>
+          <option value="yes">Yes — disabling</option>
+          <option value="no">No — non-disabling</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label for="pfContra">Thrombolysis contraindications</label>
+        <select id="pfContra">
+          <option value="">Select…</option>
+          <option value="none">None identified</option>
+          <option value="relative">Relative only</option>
+          <option value="absolute">At least one absolute</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="pfOccl">Occlusion on CTA/MRA</label>
+        <select id="pfOccl">
+          <option value="">Select…</option>
+          <option value="none">None / not imaged</option>
+          <option value="lvo">ICA or M1</option>
+          <option value="m2">Proximal M2 (dominant)</option>
+          <option value="basilar">Basilar</option>
+          <option value="nonlvo">Medium / distal vessel</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="pfAspects">ASPECTS</label>
+        <select id="pfAspects">
+          <option value="">Select…</option>
+          <option value="6-10">6–10</option>
+          <option value="3-5">3–5</option>
+          <option value="0-2">0–2</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label for="pfMismatch">Perfusion mismatch present?</label>
+        <select id="pfMismatch">
+          <option value="">Select…</option>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+          <option value="na">Not imaged</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="pfMrs">Prestroke mRS</label>
+        <select id="pfMrs">
+          <option value="">Select…</option>
+          <option value="0-1">0–1</option>
+          <option value="2">2</option>
+          <option value="3-4">3–4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="pfAge">Age</label>
+        <select id="pfAge">
+          <option value="">Select…</option>
+          <option value="u80">Under 80</option>
+          <option value="80plus">80 or older</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn" id="pfReset">Reset</button>
+  </div>
+
+  <h2>Result</h2>
+  <div id="pfOut"></div>
+</section>
+
+<!-- =============================================================== PREHOSPITAL -->
+<section class="section" id="prehospital" data-title="Prehospital &amp; triage">
+  <h1>Prehospital and triage</h1>
+  <p class="lede">The minutes before arrival decide how many of the next ones are usable. Recognition, prenotification and destination are the three levers.</p>
+
+  <h2>Recognition and severity screening</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Recommendation</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td>Dispatch use of a telephone stroke assessment tool for 9-1-1 callers — improves early identification, shortens on-scene time, prioritises transport</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td>Prehospital personnel should use a brief stroke assessment tool, including one that screens for large vessel occlusion</td><td><span class="cor cor-1">1</span> <span class="loe">A</span></td></tr>
+      <tr><td>EMS should prenotify the receiving hospital — reduces in-hospital evaluation times, increases thrombolytic use, decreases mortality</td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td>Ambulance-initiated remote ischaemic conditioning with a BP cuff</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Validated prehospital scales</h3>
+  <p>No prehospital scale is diagnostic. They stratify probability so that transport and prenotification decisions can be made before imaging exists.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Scale</th><th>What it detects</th><th>Performance</th></tr></thead>
+    <tbody>
+      <tr><td><strong>CPSS</strong> (Cincinnati)</td><td>Any stroke — facial droop, arm drift, speech</td><td>Sensitivity 0.89, specificity 0.69 in the best-quality study (2019 Cochrane review)</td></tr>
+      <tr><td><strong>LAPSS</strong> (Los Angeles)</td><td>Any stroke, with exclusion screen</td><td>Mean sensitivity 0.83, specificity 0.93</td></tr>
+      <tr><td><strong>RACE, G-FAST, CG-FAST, LAMS, PASS, C-STAT, FAST-PLUS</strong></td><td>Anterior large vessel occlusion</td><td>AUC 0.72–0.83 across all eight scales in PRESTO (n=1039, 12% had anterior LVO). Sensitivity 38–62%, specificity 78–88% in a second Dutch cohort</td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">The guideline names these scales as a class rather than endorsing one. RACE &gt;4 is the threshold used in the guideline's direct-to-angiography recommendation.</p>
+
+  <h2>Where to take the patient</h2>
+  <div class="note">
+    <div class="note__t">The 2026 change</div>
+    <p style="margin-bottom:0">Earlier guidance was "nearest thrombolytic-capable facility". The 2026 guideline now endorses considering the local system's characteristics and, <strong>in the absence of well-functioning systems with rapid interhospital transfer</strong>, direct transport to the nearest EVT-capable hospital. Where rapid transfer processes do work well, the drip-and-ship model remains appropriate. RACECAT, the cluster-randomised trial in non-urban Catalonia, did not settle this question.</p>
+  </div>
+
+  <h2>Mobile stroke units</h2>
+  <p>MSUs are now recommended where available: multiple randomised studies, including B_PROUD and BEST-MSU, show faster thrombolysis and better functional outcomes than conventional EMS for eligible patients. This is a new recommendation in the 2026 guideline.</p>
+
+  <p class="src">Section 2 (Stroke Systems of Care and Prehospital Management), 2026 AHA/ASA AIS guideline.</p>
+</section>
+
+<!-- ======================================================================= ED -->
+<section class="section" id="ed" data-title="ED evaluation &amp; time targets">
+  <h1>Emergency department evaluation</h1>
+  <p class="lede">Everything that does not change the next decision can wait. The organising principle of the guideline is that speed is the treatment effect.</p>
+
+  <h2>Time targets</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Step</th><th>Target</th><th>Basis</th></tr></thead>
+    <tbody>
+      <tr><td>Door to brain imaging</td><td>Within 25 minutes</td><td><span class="cor cor-1">COR 1</span> B-NR — protocols built on process improvement so imaging happens as rapidly as possible</td></tr>
+      <tr><td>Door to needle</td><td>As fast as safely possible</td><td><span class="cor cor-1">COR 1</span> A — faster treatment improves functional outcome, regardless of NIHSS, in patients with disabling deficits</td></tr>
+      <tr><td>Serum creatinine before CTA/CTP</td><td>Do not wait for it</td><td><span class="cor cor-1">COR 1</span> B-NR — vascular imaging should not be delayed to obtain creatinine</td></tr>
+      <tr><td>Coagulation studies before IVT</td><td>Do not wait, if no reason to suspect an abnormality</td><td><span class="cor cor-2a">COR 2a</span> B-NR — stop treatment if results later prove abnormal</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>The one test that must precede thrombolysis</h2>
+  <div class="note note--warn">
+    <div class="note__t">Blood glucose <span class="cor cor-1">COR 1</span> <span class="loe">B-NR</span></div>
+    <p>Determine glucose before initiating IVT: severe hypoglycaemia (typically &lt;50 mg/dL) and severe hyperglycaemia (&gt;400 mg/dL) both mimic stroke. Correct it, then reassess.</p>
+    <p style="margin-bottom:0">If disabling deficits persist <em>after</em> correction to normoglycaemia, give thrombolysis <span class="cor cor-1">COR 1</span> — abnormal glucose is not a reason to withhold treatment once corrected.</p>
+  </div>
+
+  <h2>Severity measurement</h2>
+  <p>A stroke severity scale — preferably the NIHSS — is recommended at baseline and after reperfusion therapy <span class="cor cor-1">COR 1</span> <span class="loe">B-NR</span>. Baseline NIHSS is among the strongest predictors of 30- and 90-day mortality and independence; the 24-hour NIHSS, adjusted for baseline, is the best single predictor of 90-day function. <a href="#nihss">Open the NIHSS calculator →</a></p>
+  <p>Known limitations the guideline itself flags: the NIHSS undersamples posterior circulation deficits, carries a left-hemisphere bias, and has only modest interrater reliability. A low NIHSS does not mean a non-disabling stroke.</p>
+
+  <h2>Consent and shared decision-making</h2>
+  <p>Discuss risks and benefits with the patient or their representative when feasible <span class="cor cor-1">COR 1</span> <span class="loe">C-EO</span>. When a patient cannot consent (aphasia, confusion) and no representative is immediately available, the guideline states plainly that it is justified to proceed with thrombolysis in an otherwise eligible adult with disabling deficits.</p>
+
+  <h2>Be ready for the complications before you push the drug</h2>
+  <p>Health care professionals should be prepared to treat bleeding complications and angioedema, which can cause partial airway obstruction <span class="cor cor-1">COR 1</span> <span class="loe">B-NR</span>. <a href="#complications-ivt">Management protocols →</a></p>
+
+  <p class="src">Sections 2.7, 3.1, 3.2, 4.6.1 of the 2026 AHA/ASA AIS guideline.</p>
+</section>
+
+<!-- ================================================================== IMAGING -->
+<section class="section" id="imaging" data-title="Imaging">
+  <h1>Imaging</h1>
+  <p class="lede">One question at a time: is there blood, is there a target, and is there tissue worth saving.</p>
+
+  <h2>Core recommendations</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Situation</th><th>Imaging</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td>All suspected AIS on arrival</td><td>Emergent NCCT or MRI — assess ischaemic burden (ASPECTS) and exclude haemorrhage</td><td><span class="cor cor-1">1</span> <span class="loe">A</span></td></tr>
+      <tr><td>Deciding on IVT within 4.5 h</td><td>NCCT alone is sufficient. Do not delay for CTA/MRA or perfusion</td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td>Suspected LVO within 24 h</td><td>CT/CTA or MRI/MRA of cervical <em>and</em> intracranial vessels, as rapidly as possible</td><td><span class="cor cor-1">1</span> <span class="loe">A</span></td></tr>
+      <tr><td>Suspected LVO 6–24 h</td><td>Adjunctive CTP, DWI–FLAIR, or MR DWI-PWI with automated post-processing, if immediately available</td><td><span class="cor cor-2a">2a</span> <span class="loe">A</span></td></tr>
+      <tr><td>Unknown onset / wake-up, &gt;4.5 h from LKW but otherwise eligible</td><td>DWI–FLAIR mismatch selection</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td></tr>
+      <tr><td>Unknown onset / wake-up, 4.5–24 h from LKW</td><td>CTP or MR DWI-PWI with automated post-processing</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td></tr>
+      <tr><td>Any patient needing CTA/CTP</td><td>Do not delay to obtain serum creatinine</td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note">
+    <div class="note__t">Direct to angiography suite (DTAS)</div>
+    <p>For prehospital-suspected LVO on a validated severity scale (e.g. RACE &gt;4) who are EVT-eligible, bypassing conventional imaging for flat-panel head CT in the angio suite <em>may be considered</em> <span class="cor cor-2b">COR 2b</span> <span class="loe">B-R</span>.</p>
+    <p style="margin-bottom:0">For transferred patients with an established LVO who are EVT-eligible, DTAS without repeat brain imaging may be considered — unless there has been clinical change or transfer delay <span class="cor cor-2b">COR 2b</span> <span class="loe">B-NR</span>.</p>
+  </div>
+
+  <h2>ASPECTS</h2>
+  <p>The Alberta Stroke Program Early CT Score subtracts one point for each of ten MCA-territory regions showing early ischaemic change. It is the pivotal imaging variable in the thrombectomy recommendations. <a href="#aspects">Open the interactive scorer →</a></p>
+
+  <div class="note note--warn">
+    <div class="note__t">"Core" is a prediction, not a fact</div>
+    <p style="margin-bottom:0">The guideline is explicit about this. Reduced NCCT density, DWI abnormality and low CBF estimates are <em>predictors</em> of infarction, not synonyms for irreversible tissue loss. The large-core thrombectomy trials exist precisely because the old equation was wrong. Treat the number as an estimate with an error bar.</p>
+  </div>
+
+  <div class="note note--danger">
+    <div class="note__t">Severe hypodensity threshold — SELECT2 exploratory analysis</div>
+    <p style="margin-bottom:0">A volume ≥26 mL of severe CT hypodensity (defined as ≤26 Hounsfield units, the lower 99% CI of contralateral thalamic grey matter) identified patients who derived <strong>no</strong> functional benefit from thrombectomy and had increased cerebral oedema and hemicraniectomy rates. Exploratory, not a recommendation — but worth measuring before committing a very large core to the angio suite.</p>
+  </div>
+
+  <h2>Perfusion thresholds you will be asked about</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Term</th><th>Definition as used in the trials</th></tr></thead>
+    <tbody>
+      <tr><td>Ischaemic core</td><td>Relative cerebral blood flow &lt;30% of normal tissue on CTP, or the DWI lesion volume</td></tr>
+      <tr><td>Critically hypoperfused tissue (penumbra)</td><td>Tmax &gt;6 s on CTP or PWI</td></tr>
+      <tr><td>Mismatch volume</td><td>Hypoperfused volume minus core volume</td></tr>
+      <tr><td>Mismatch ratio</td><td>Hypoperfused volume ÷ core volume</td></tr>
+      <tr><td>Target mismatch profile (DEFUSE 3 / TIMELESS / TRACE-III)</td><td>Ratio ≥1.8, mismatch ≥15 mL, core &lt;70 mL</td></tr>
+      <tr><td>EXTEND / HOPE / OPTION profile</td><td>Ratio ≥1.2, mismatch ≥10 mL, core &lt;70 mL (EXTEND, HOPE) or &lt;50 mL (OPTION)</td></tr>
+      <tr><td>DWI–FLAIR mismatch (WAKE-UP)</td><td>DWI lesion present with no marked corresponding FLAIR signal change; DWI lesion &lt;⅓ MCA territory. Signal intensity ratio &lt;1.2 was recommended for randomisation</td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">Table 3 and section 3.2, 2026 AHA/ASA AIS guideline.</p>
+</section>
+
+<!-- ============================================================= THROMBOLYSIS -->
+<section class="section" id="thrombolysis" data-title="IV thrombolysis: decision">
+  <h1>IV thrombolysis: making the decision</h1>
+  <p class="lede">Within 4.5 hours the question is not "how high is the NIHSS" but "is this deficit disabling for this person".</p>
+
+  <div class="note note--ok">
+    <div class="note__t">The headline <span class="cor cor-1">COR 1</span></div>
+    <p style="margin-bottom:0">In adults with disabling deficits <strong>regardless of NIHSS score</strong> who are eligible within 4.5 hours, treat as fast as possible with <strong>tenecteplase 0.25 mg/kg or alteplase 0.9 mg/kg</strong>. NCCT alone is sufficient. Do not delay for CTA, CTP or MRI.</p>
+  </div>
+
+  <h2>Is the deficit clearly disabling?</h2>
+  <p>The operating question, from Table 4 of the guideline: <em>among patients with NIHSS 0–5, if the observed deficits persist, would they still be able to do basic activities of daily living and/or return to work?</em> Basic ADLs are <strong>B</strong>athing/dressing, <strong>A</strong>mbulating, <strong>T</strong>oileting, <strong>H</strong>ygiene and <strong>E</strong>ating — the BATHE mnemonic. Assess the ability to ambulate and to swallow independently. Make the determination with the patient and family.</p>
+
+  <div class="grid">
+    <div class="card" style="border-color:var(--green)">
+      <h3 style="margin-top:0;color:var(--green)">Typically clearly disabling</h3>
+      <ul style="margin-bottom:0">
+        <li>Complete hemianopsia (NIHSS vision ≥2)</li>
+        <li>Severe aphasia (NIHSS best language ≥2)</li>
+        <li>Severe hemi-attention or extinction to more than one modality (NIHSS extinction ≥2)</li>
+        <li>Any weakness limiting sustained effort against gravity (NIHSS motor ≥2)</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:var(--amber)">
+      <h3 style="margin-top:0;color:var(--amber)">May not be clearly disabling</h3>
+      <ul style="margin-bottom:0">
+        <li>Isolated mild aphasia, still communicating meaningfully</li>
+        <li>Isolated facial droop</li>
+        <li>Mild cortical hand weakness, especially nondominant (NIHSS motor 0)</li>
+        <li>Hemisensory loss alone</li>
+        <li>Mild hemimotor or hemisensorimotor loss</li>
+        <li>Mild hemiataxia, still ambulatory</li>
+      </ul>
+    </div>
+  </div>
+  <p class="src">Table 4, adapted from the PRISMS trial operational definition. The guideline stresses that a deficit disabling for one person may not be for another — lower-limb weakness preventing walking scores only 2 on the NIHSS and is unambiguously disabling.</p>
+
+  <div class="note note--danger">
+    <div class="note__t">Non-disabling deficits <span class="cor cor-3n">COR 3: No Benefit</span> <span class="loe">B-R</span></div>
+    <p style="margin-bottom:0">In eligible adults presenting within 4.5 h with mild <em>non-disabling</em> deficits (an isolated sensory syndrome, in many cases), IVT is not recommended: it has not shown superiority over dual antiplatelet therapy. A 2023 randomised trial found DAPT noninferior to alteplase in minor non-disabling stroke, with <em>more</em> early neurological deterioration and bleeding in the alteplase arm. Two 2024 meta-analyses agreed, with lower sICH under DAPT. <a href="#antithrombotics">DAPT regimen →</a></p>
+  </div>
+
+  <h2>Choice of agent</h2>
+  <p>Either alteplase or tenecteplase is endorsed within the 4.5-hour window. Tenecteplase's single 5-second bolus, versus a 1-hour infusion, simplifies administration, reduces dosing errors and shortens door-to-needle and door-in-door-out times.</p>
+  <div class="note note--danger">
+    <div class="note__t">Dose matters</div>
+    <p style="margin-bottom:0">Tenecteplase <strong>0.4 mg/kg is the wrong dose</strong> in stroke. NOR-TEST 2 was terminated early for worse safety and functional outcomes at 0.4 mg/kg, and an earlier dose-escalation study showed increased sICH. Use 0.25 mg/kg.</p>
+  </div>
+
+  <h2>Things that are not reasons to withhold or delay</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Scenario</th><th>Guidance</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td>Early ischaemic change of mild to moderate extent on NCCT (short of frank hypodensity attributable to the presentation)</td><td>Treat</td><td><span class="cor cor-1">1</span> <span class="loe">A</span></td></tr>
+      <tr><td>Patient on single or dual antiplatelet therapy</td><td>Treat. Absolute sICH increase is 0.9% (SAPT) and 1.2% (DAPT), against roughly 8% absolute benefit</td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td>Awaiting haematology or coagulation results, with no reason to suspect abnormality</td><td>Do not wait; stop if results return abnormal</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td>Unknown cerebral microbleed burden</td><td>Do not obtain MRI first</td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td>1–10 microbleeds known on prior MRI</td><td>Treatment is reasonable</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td>&gt;10 microbleeds known on prior MRI</td><td>Usefulness uncertain; may increase sICH risk</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td>Diagnostic uncertainty — possible stroke mimic</td><td>Risk of haemorrhagic transformation after IVT in mimics such as conversion disorder, complicated migraine or seizure is about 0.5%. Unless there is an absolute contraindication, benefit likely outweighs risk</td><td>Table 8</td></tr>
+      <tr><td>Sickle cell disease</td><td>IVT can be beneficial without increased sICH or systemic haemorrhage</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Adjuncts that do not work</h2>
+  <ul>
+    <li><strong>Argatroban</strong> with IVT — not effective for long-term functional outcome <span class="cor cor-3n">COR 3: No Benefit</span> <span class="loe">A</span></li>
+    <li><strong>Eptifibatide</strong> with IVT within 3 h — not recommended <span class="cor cor-3n">COR 3: No Benefit</span> <span class="loe">B-R</span></li>
+    <li><strong>Abciximab</strong> — increased bleeding <span class="cor cor-3h">COR 3: Harm</span> <span class="loe">B-R</span></li>
+    <li><strong>IV aspirin</strong> concurrently or within 90 min of starting IVT <span class="cor cor-3h">COR 3: Harm</span> <span class="loe">B-R</span></li>
+    <li><strong>Aspirin as a substitute</strong> for IVT or thrombectomy in an eligible patient <span class="cor cor-3h">COR 3: Harm</span> <span class="loe">B-R</span></li>
+    <li><strong>Sonothrombolysis</strong> — no benefit in NOR-SASS or CLOTBUST-ER</li>
+  </ul>
+
+  <h2>Central retinal artery occlusion</h2>
+  <p>In adults with acute nonarteritic CRAO causing disabling visual loss who are otherwise eligible, the usefulness of IVT within 4.5 h is <em>uncertain</em> <span class="cor cor-2b">COR 2b</span> <span class="loe">C-LD</span>. Three European randomised trials (THEIA, TenCRAOS, REVISION) will settle this; decide within a shared decision-making frame referencing the patient's baseline visual function.</p>
+
+  <p class="src">Sections 4.6.1, 4.6.2, 4.6.5 and Tables 4 and 8, 2026 AHA/ASA AIS guideline.</p>
+</section>
+
+<!-- ======================================================== CONTRAINDICATIONS -->
+<section class="section" id="contraindications" data-title="Thrombolysis contraindications">
+  <h1>Thrombolysis contraindications</h1>
+  <p class="lede">Three tiers, taken directly from Table 8 of the guideline. Very little in the middle tier is a hard stop — most of it is a conversation with a consultant.</p>
+
+  <div class="tabs" data-tabs role="tablist">
+    <button class="tab" role="tab" aria-selected="true" aria-controls="ci-abs" id="t-abs">Absolute</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="ci-rel" id="t-rel">Relative</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="ci-ben" id="t-ben">Benefit usually exceeds risk</button>
+  </div>
+
+  <div class="tabpanel" id="ci-abs" role="tabpanel" aria-labelledby="t-abs">
+    <div class="note note--danger"><div class="note__t">Do not administer IV thrombolysis</div>
+      <p style="margin-bottom:0">These are the conditions the guideline classifies as absolute contraindications.</p></div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Condition</th><th>Detail</th></tr></thead>
+      <tbody>
+        <tr><td><strong>CT with extensive hypodensity</strong></td><td>Clear hypodensity appearing responsible for the symptoms. "Clear" means the degree of hypodensity is greater than the density of contralateral unaffected white matter</td></tr>
+        <tr><td><strong>CT with haemorrhage</strong></td><td>Any acute intracranial haemorrhage</td></tr>
+        <tr><td><strong>Moderate–severe TBI &lt;14 days</strong></td><td>Injury with &gt;30 min unconsciousness, GCS &lt;13, or haemorrhage / contusion / skull fracture on neuroimaging</td></tr>
+        <tr><td><strong>Intracranial or spinal surgery &lt;14 days</strong></td><td>Potentially harmful; should not be administered</td></tr>
+        <tr><td><strong>Acute spinal cord injury within 3 months</strong></td><td>Likely contraindicated</td></tr>
+        <tr><td><strong>Intra-axial intracranial neoplasm</strong></td><td>Potentially harmful; should not be administered</td></tr>
+        <tr><td><strong>Infective endocarditis</strong></td><td>Should not be administered</td></tr>
+        <tr><td><strong>Severe coagulopathy or thrombocytopenia</strong></td><td>Platelets &lt;100 000/mm³, INR &gt;1.7, aPTT &gt;40 s, or PT &gt;15 s. Without recent warfarin or heparin, treatment may be started before results are back — but discontinue if INR &gt;1.7 or PT/PTT is abnormal by local standards</td></tr>
+        <tr><td><strong>Aortic arch dissection</strong></td><td>Known or suspected — potentially harmful</td></tr>
+        <tr><td><strong>ARIA / amyloid immunotherapy</strong></td><td>Risk of thrombolysis-related ICH is unknown; IVT should be avoided</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="tabpanel" id="ci-rel" role="tabpanel" aria-labelledby="t-rel" hidden>
+    <div class="note note--warn"><div class="note__t">Individualised risk–benefit, usually with a consultant</div>
+      <p style="margin-bottom:0">Weigh the severity and disability of the presenting stroke against the bleeding risk. For a severe, clearly disabling deficit, benefit generally outweighs risk.</p></div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Condition</th><th>Consideration</th></tr></thead>
+      <tbody>
+        <tr><td>Pre-existing disability or frailty</td><td>Benefits vs risks uncertain; determine on an individual basis</td></tr>
+        <tr><td><strong>DOAC exposure &lt;48 h</strong></td><td>Safety unknown. Emerging observational data suggest IVT may be considered after a thorough individual analysis. Weigh timing of the last dose, renal function, stroke severity, EVT availability, reversal-agent availability and DOAC-specific anti-Xa / thrombin-time assays. Record all of it — these data are how the question gets answered</td></tr>
+        <tr><td>Ischaemic stroke within 3 months</td><td>May increase ICH risk. Weigh timing and size of the prior stroke</td></tr>
+        <tr><td>Prior ICH</td><td>May increase sICH risk. Known amyloid angiopathy carries higher risk than ICH from a modifiable cause such as hypertension or coagulopathy — the latter may have greater treatment benefit</td></tr>
+        <tr><td>Major non-CNS trauma, 14 days–3 months</td><td>Risk of serious systemic haemorrhage requiring transfusion. Surgical consultation</td></tr>
+        <tr><td>Major non-CNS surgery within 10 days</td><td>Individual consideration with the surgical team</td></tr>
+        <tr><td>GI or GU bleeding within 21 days</td><td>GI/GU consultation to establish whether the bleeding has been treated and the risk modified</td></tr>
+        <tr><td>Intracranial arterial dissection</td><td>Safety unknown</td></tr>
+        <tr><td>Unruptured, untreated intracranial vascular malformation</td><td>Safety unknown</td></tr>
+        <tr><td>STEMI within 3 months</td><td>Emergent cardiology consultation. For very recent STEMI (days), consider haemopericardium risk. For concurrent AIS and acute STEMI, dose for cerebral ischaemia</td></tr>
+        <tr><td>Acute pericarditis</td><td>May be reasonable for major AIS likely to produce severe disability. Emergent cardiology consultation</td></tr>
+        <tr><td>Left atrial or ventricular thrombus</td><td>May be reasonable for major AIS likely to produce severe disability. Emergent cardiology consultation</td></tr>
+        <tr><td>Systemic active malignancy</td><td>Safety unknown. Emergent oncology consultation; consider type, stage and active complications</td></tr>
+        <tr><td>Pregnancy and post-partum</td><td>May be considered when benefit of treating moderate or severe stroke outweighs uterine bleeding risk. Emergent obstetric consultation</td></tr>
+        <tr><td>Dural puncture within 7 days</td><td>May be considered on an individual basis</td></tr>
+        <tr><td>Arterial puncture of a noncompressible vessel within 7 days</td><td>Safety unknown</td></tr>
+        <tr><td>Moderate–severe TBI, 14 days–3 months</td><td>May be considered, with neurosurgical / neurocritical care input</td></tr>
+        <tr><td>Intracranial or spinal surgery, 14 days–3 months</td><td>May be considered on an individual basis with neurosurgical consultation</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="tabpanel" id="ci-ben" role="tabpanel" aria-labelledby="t-ben" hidden>
+    <div class="note note--ok"><div class="note__t">These should not stop you</div>
+      <p style="margin-bottom:0">Conditions in which the guideline states benefit generally exceeds bleeding risk.</p></div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Condition</th><th>Guidance</th></tr></thead>
+      <tbody>
+        <tr><td>Extracranial cervical arterial dissection</td><td>Reasonably safe within 4.5 h and probably recommended</td></tr>
+        <tr><td>Extra-axial intracranial neoplasm</td><td>Risk of harm likely low; benefit likely outweighs risk — should be considered</td></tr>
+        <tr><td>Angiographic procedural stroke</td><td>IVT during or immediately post-angiography should be considered</td></tr>
+        <tr><td>Unruptured intracranial aneurysm</td><td>Risk of harm likely low; treatment should be considered</td></tr>
+        <tr><td>Remote history of GI or GU bleeding, stable</td><td>May be a candidate; individual consideration with GI/GU consultation</td></tr>
+        <tr><td>Remote history of MI</td><td>Probably greater benefit than risk</td></tr>
+        <tr><td>Recreational drug use</td><td>Probably greater benefit than risk in most patients — should be considered</td></tr>
+        <tr><td>Uncertain diagnosis / possible stroke mimic</td><td>Unless an absolute contraindication exists, risk of harm is low and benefit likely outweighs it</td></tr>
+        <tr><td>Moya-Moya disease</td><td>Does not appear to increase ICH risk; benefit likely outweighs risk</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <p class="src">Table 8, 2026 AHA/ASA AIS guideline. The guideline notes that many of these categories rest on expert opinion and limited data rather than trial evidence.</p>
+</section>
+
+<!-- =================================================================== DOSING -->
+<section class="section" id="dosing" data-title="Dosing &amp; administration">
+  <h1>Dosing and administration</h1>
+
+  <div class="card">
+    <h3 style="margin-top:0">Dose calculator</h3>
+    <div class="row">
+      <div class="field">
+        <label for="agent">Agent</label>
+        <select id="agent">
+          <option value="tnk">Tenecteplase 0.25 mg/kg</option>
+          <option value="alt">Alteplase 0.9 mg/kg</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="wt">Weight</label>
+        <input type="number" id="wt" min="1" max="300" step="0.1" placeholder="e.g. 78" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="wtUnit">Units</label>
+        <select id="wtUnit"><option value="kg">kg</option><option value="lb">lb</option></select>
+      </div>
+    </div>
+    <div class="readout">
+      <div class="row">
+        <div><div class="readout__label">Total dose</div><div class="readout__value" id="doseOut">—</div></div>
+        <div><div class="readout__label">Volume / bolus</div><div class="readout__value" id="volOut">—</div></div>
+      </div>
+      <div class="readout__note" id="doseNote"></div>
+    </div>
+  </div>
+
+  <h2>Tenecteplase — 10 kg weight bands</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Weight</th><th>Dose</th><th>Volume at 5 mg/mL</th></tr></thead>
+    <tbody>
+      <tr><td>&lt;60 kg</td><td>15 mg</td><td>3 mL</td></tr>
+      <tr><td>60 to &lt;70 kg</td><td>17.5 mg</td><td>3.5 mL</td></tr>
+      <tr><td>70 to &lt;80 kg</td><td>20 mg</td><td>4 mL</td></tr>
+      <tr><td>80 to &lt;90 kg</td><td>22.5 mg</td><td>4.5 mL</td></tr>
+      <tr><td>≥90 kg</td><td>25 mg</td><td>5 mL</td></tr>
+    </tbody>
+  </table></div>
+  <ul>
+    <li>Single IV bolus. Maximum 25 mg.</li>
+    <li>If the patient is &lt;50 kg and an accurate weight is known, 1-kg-band dosing may be used.</li>
+    <li><strong>Do not delay thrombolysis to obtain an exact weight.</strong> With estimated weights, 1-kg-band dosing is not necessarily safer than 10-kg-band dosing.</li>
+  </ul>
+
+  <h2>Alteplase</h2>
+  <p>0.9 mg/kg, maximum 90 mg. Give 10% as a bolus over 1 minute, then infuse the remainder over 60 minutes.</p>
+
+  <h2>Immediately after giving it</h2>
+  <div class="tablewrap"><table>
+    <tbody>
+      <tr><td>Disposition</td><td>Admit to an intensive care or stroke unit</td></tr>
+      <tr><td>Observations</td><td>BP and neurological assessment every <strong>15 min for 2 h</strong>, then every <strong>30 min for 6 h</strong>, then <strong>hourly until 24 h</strong></td></tr>
+      <tr><td>Blood pressure</td><td>Increase measurement frequency if SBP &gt;180 or DBP &gt;105 mmHg; treat to keep at or below those levels</td></tr>
+      <tr><td>Deterioration</td><td>Severe headache, acute hypertension, nausea, vomiting or a worsening examination → <strong>stop the infusion (if alteplase) and get an emergency head CT</strong></td></tr>
+      <tr><td>Lines and tubes</td><td>Delay nasogastric tubes, indwelling bladder catheters and intra-arterial pressure catheters if the patient can be safely managed without them</td></tr>
+      <tr><td>Repeat imaging</td><td>CT or MRI at 24 h before starting anticoagulants or antiplatelet agents</td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">Table 7, 2026 AHA/ASA AIS guideline. Paediatric dosing has not been determined.</p>
+</section>
+
+<!-- ================================================================= EXTENDED -->
+<section class="section" id="extended" data-title="Extended-window thrombolysis">
+  <h1>Extended-window thrombolysis</h1>
+  <p class="lede">Beyond 4.5 hours the clock is replaced by tissue. Selection is by mismatch, and the strength of the recommendation falls as the window widens.</p>
+
+  <div class="tablewrap"><table>
+    <thead><tr><th>Population</th><th>Recommendation</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Unknown time of onset</strong>, within 4.5 h of symptom <em>recognition</em>, DWI lesion &lt;⅓ MCA territory with no marked FLAIR change</td>
+        <td>IVT within 4.5 h of symptom recognition can be beneficial (WAKE-UP)</td>
+        <td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td>
+      </tr>
+      <tr>
+        <td><strong>4.5–9 h from LKW</strong>, or waking with symptoms within 9 h of the sleep midpoint, with salvageable penumbra on automated perfusion imaging</td>
+        <td>IVT may be reasonable (EXTEND, ECASS-4)</td>
+        <td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td>
+      </tr>
+      <tr>
+        <td><strong>4.5–24 h, LVO with salvageable penumbra, who cannot receive EVT</strong></td>
+        <td>IVT directed by clinicians with expertise in thrombolytic stroke care may be beneficial (TRACE-III, HOPE)</td>
+        <td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="note note--warn">
+    <div class="note__t">If thrombectomy is available, thrombectomy wins</div>
+    <p style="margin-bottom:0">The 4.5–24 h thrombolysis recommendation is explicitly for patients who <em>cannot</em> receive EVT. In TIMELESS, tenecteplase did not improve outcomes over placebo in patients undergoing EVT in the 4.5–24 h window. Do not delay thrombectomy to observe the response to a late thrombolytic.</p>
+  </div>
+
+  <h2>Imaging criteria used in each trial</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Trial</th><th>Selection criteria</th></tr></thead>
+    <tbody>
+      <tr><td><strong>WAKE-UP</strong></td><td>DWI/FLAIR mismatch: abnormal DWI signal with no visible change on FLAIR in the same region</td></tr>
+      <tr><td><strong>THAWS</strong></td><td>DWI/FLAIR mismatch: abnormal DWI with no marked FLAIR change</td></tr>
+      <tr><td><strong>EPITHET</strong></td><td>PWI/DWI ratio &gt;1.2 and PWI–DWI volume ≥10 mL (PWI = Tmax &gt;2 s)</td></tr>
+      <tr><td><strong>ECASS-4</strong></td><td>PWI/DWI ratio ≥1.2 and PWI ≥20 mL</td></tr>
+      <tr><td><strong>EXTEND</strong></td><td>CTP or DWI/PWI: penumbra:core ratio &gt;1.2, mismatch &gt;10 mL, core &lt;70 mL</td></tr>
+      <tr><td><strong>TIMELESS</strong></td><td>Ratio &gt;1.8, penumbra &gt;15 mL, core &lt;70 mL (RAPID)</td></tr>
+      <tr><td><strong>TRACE-III</strong></td><td>Ratio &gt;1.8, penumbra &gt;15 mL, core &lt;70 mL (iStroke)</td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">Table 3, 2026 AHA/ASA AIS guideline. Core = rCBF &lt;30% or the DWI lesion; penumbra = Tmax &gt;6 s unless stated.</p>
+
+  <h2>Trials in the 4.5–24 hour window</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Trial</th><th>Population</th><th>Agent</th><th>Primary outcome</th><th>sICH</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>TRACE-III</strong><br><small>NEJM 2024, n=516, China</small></td>
+        <td>ICA/M1–M2 LVO, no planned EVT (&lt;2% had rescue EVT), 4.5–24 h, mismatch ratio &gt;1.8</td>
+        <td>Tenecteplase 0.25</td>
+        <td>mRS 0–1: <strong>33.0% vs 24.2%</strong> (RR 1.37)</td>
+        <td>3.0% vs 0.8%</td>
+      </tr>
+      <tr>
+        <td><strong>HOPE</strong><br><small>JAMA 2025;334:788, n=372, China</small></td>
+        <td>Any AIS with perfusion mismatch, LVO or not, no initial plan for EVT, 4.5–24 h</td>
+        <td>Alteplase 0.9</td>
+        <td>mRS 0–1: <strong>40% vs 26%</strong> (adjusted RR 1.52, 95% CI 1.14–2.02, P=0.004)</td>
+        <td>3.8% vs 0.51%</td>
+      </tr>
+      <tr>
+        <td><strong>OPTION</strong><br><small>JAMA 2026, n=566, China</small><br><span class="pill">post-guideline</span></td>
+        <td><strong>Non-LVO</strong> (ICA, M1 and vertebrobasilar excluded), NIHSS 6–25 or 4–5 with disabling deficit, prestroke mRS 0–1, core &lt;50 mL, ratio ≥1.2, mismatch ≥10 mL, 4.5–24 h</td>
+        <td>Tenecteplase 0.25</td>
+        <td>mRS 0–1: <strong>43.6% vs 34.2%</strong> (RR 1.28, 95% CI 1.04–1.57, P=0.02)</td>
+        <td>2.8% vs 0%<br><small>90-day mortality 5.0% vs 3.2%</small></td>
+      </tr>
+      <tr>
+        <td><strong>EXTEND</strong><br><small>NEJM 2019, n=225</small></td>
+        <td>Mixed, 4.5–9 h, perfusion mismatch</td>
+        <td>Alteplase 0.9</td>
+        <td>mRS 0–1: <strong>35.4% vs 29.5%</strong> (adjusted OR 1.44)</td>
+        <td>6.2% vs 0.9%</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="note">
+    <div class="note__t">Reading OPTION honestly</div>
+    <p>OPTION was published in February 2026, after the guideline's literature cut-off, and therefore carries <strong>no class of recommendation</strong>. It is a single open-label trial conducted entirely in China, with blinded endpoint assessment. It is the first randomised evidence for late thrombolysis in non-LVO stroke, and the effect size is modest: NNT ≈ 11 for an excellent outcome, against an absolute sICH increase of 2.8% from a baseline of zero.</p>
+    <p style="margin-bottom:0">Whether to act on it before it appears in a guideline is a local governance decision, not a lookup.</p>
+  </div>
+
+  <div class="note note--danger">
+    <div class="note__t">A safety signal worth knowing</div>
+    <p style="margin-bottom:0">Where NCCT hypodensity is <em>larger</em> than the perfusion-defined core, the mismatch is internally inconsistent and sICH risk is higher. Read the plain CT alongside the perfusion maps rather than trusting the automated output alone. All standard contraindications to thrombolysis apply unchanged in the extended window.</p>
+  </div>
+
+  <h2>If perfusion imaging is unavailable</h2>
+  <p>MRI with DWI–FLAIR mismatch is the guideline-supported alternative for unknown-onset stroke — a DWI lesion with no corresponding FLAIR change indicates a biological onset likely within 4.5 hours. For CT-only selection of wake-up stroke, TWIST showed a favourable direction of effect but was underpowered; the guideline lists this as an open question, especially important for low-resource settings.</p>
+
+  <p class="src">Section 4.6.3 and Table 3, 2026 AHA/ASA AIS guideline; OPTION doi:10.1001/jama.2026.0210; HOPE doi:10.1001/jama.2025.12063.</p>
+</section>
+
+<!-- ====================================================================== EVT -->
+<section class="section" id="evt" data-title="Thrombectomy">
+  <h1>Mechanical thrombectomy</h1>
+  <p class="lede">The 2026 recommendations are organised by window, then by ASPECTS. Age and prestroke mRS sit inside specific rows, not across the table — read the row you are actually in.</p>
+
+  <h2>Anterior circulation: ICA or M1</h2>
+  <p>All rows below require <strong>NIHSS ≥6</strong>.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Window</th><th>ASPECTS</th><th>Additional criteria</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr>
+        <td rowspan="2"><strong>0–6 h</strong></td>
+        <td><strong>3–10</strong></td>
+        <td>Prestroke mRS 0–1</td>
+        <td><span class="cor cor-1">1</span> <span class="loe">A</span></td>
+      </tr>
+      <tr>
+        <td><strong>0–2</strong></td>
+        <td>Age &lt;80, prestroke mRS 0–1, no significant mass effect. Selected patients<sup>†</sup></td>
+        <td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td>
+      </tr>
+      <tr>
+        <td rowspan="2"><strong>6–24 h</strong></td>
+        <td><strong>6–10</strong></td>
+        <td>Prestroke mRS 0–1</td>
+        <td><span class="cor cor-1">1</span> <span class="loe">A</span></td>
+      </tr>
+      <tr>
+        <td><strong>3–5</strong></td>
+        <td>Age &lt;80, prestroke mRS 0–1, no significant mass effect. Selected patients<sup>*</sup></td>
+        <td><span class="cor cor-1">1</span> <span class="loe">A</span></td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <h3>Prestroke disability</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Prestroke mRS</th><th>Recommendation (0–6 h, ICA/M1, NIHSS ≥6, ASPECTS ≥6)</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td><strong>2</strong></td><td>EVT is reasonable, to improve functional outcome and reduce accumulated disability</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td><strong>3–4</strong></td><td>EVT might be reasonable. No completed RCT; in cohort studies 20–30% returned to their premorbid mRS</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-NR</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>M2 and distal occlusions</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Occlusion</th><th>Recommendation</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Dominant proximal M2</strong>, 0–6 h, prestroke mRS 0–1, NIHSS ≥6, ASPECTS ≥6</td><td>EVT is reasonable</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td><strong>Nondominant or codominant proximal M2, distal MCA (M3), ACA, PCA</strong></td><td>EVT is <strong>not</strong> recommended to improve functional outcome</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">A</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">Recent RCTs of medium and distal vessel occlusion showed no significant improvement with EVT, though the guideline notes there may be subgroups within this category worth further investigation.</p>
+
+  <h2>Basilar artery occlusion</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Presentation</th><th>Recommendation</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td>Baseline mRS 0–1, <strong>NIHSS ≥10</strong>, PC-ASPECTS ≥6, within <strong>24 h</strong></td><td>EVT is recommended to achieve better functional outcome and reduce mortality (ATTENTION, BAOCHE)</td><td><span class="cor cor-1">1</span> <span class="loe">A</span></td></tr>
+      <tr><td>Baseline mRS 0–1, <strong>NIHSS 6–9</strong>, PC-ASPECTS ≥6, within 24 h</td><td>Effectiveness is not well established</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td></tr>
+    </tbody>
+  </table></div>
+  <p>This is one of the ten top take-home messages of the 2026 guideline: a strong recommendation for EVT in basilar occlusion within 24 hours with NIHSS ≥10, where previous guidance was equivocal.</p>
+
+  <h2>Thrombolysis before thrombectomy</h2>
+  <div class="note">
+    <p>Bridging IVT remains standard for IVT-eligible patients. Two Chinese RCTs found EVT alone noninferior; four other trials failed to confirm superiority or noninferiority of EVT alone, favouring combined therapy for reperfusion efficacy and 90-day outcomes. No trial showed increased sICH from adding IVT.</p>
+    <p style="margin-bottom:0"><strong>Do not delay EVT after thrombolysis to assess for clinical improvement.</strong></p>
+  </div>
+
+  <h2>Technique</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Recommendation</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td>Stent retrievers, contact aspiration, or combination techniques — all recommended to achieve rapid adequate reperfusion (ASTER2, COMPASS)</td><td><span class="cor cor-1">1</span> <span class="loe">A</span></td></tr>
+      <tr><td>Reperfusion to eTICI <strong>2b/2c/3</strong>, as early as possible within the therapeutic window</td><td><span class="cor cor-1">1</span> <span class="loe">A</span></td></tr>
+      <tr><td>Either general anaesthesia or procedural sedation</td><td><span class="cor cor-1">1</span> <span class="loe">B-R</span></td></tr>
+      <tr><td>Proximal balloon guide catheters — benefit uncertain</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td></tr>
+      <tr><td>Stent retrievers for medium/distal vessel occlusions — no benefit</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">A</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Large-core thrombectomy: what the trials actually showed</h2>
+  <p>Six randomised trials, 1887 patients, pooled in Liu et al (Neurology 2025): EVT improved the ordinal 90-day mRS (generalised OR 1.6, 95% CI 1.4–1.8) and independent ambulation (mRS 0–3, RR 1.9, 95% CI 1.5–2.5), and reduced mortality (RR 0.9, 95% CI 0.8–1.0), despite higher sICH (RR 1.7, 95% CI 1.1–2.7). Benefit fell as onset-to-randomisation time lengthened. For ASPECTS 0–2, EVT increased mRS 0–3 (RR 2.1) and mRS 0–2 (RR 2.8).</p>
+
+  <div class="note note--warn">
+    <div class="note__t">Set expectations before you consent the family</div>
+    <p style="margin-bottom:0">Across the large-core trials, 19.5% of EVT patients achieved functional independence and 36.5% independent ambulation — against 7.5% functional independence with medical therapy alone. That is a genuine doubling, and it is a long way from the ~50% independence seen in the small-core era. NNT to prevent one additional instance of functional dependence is 8. The guideline states that a discussion with the patient and family, where feasible, is <em>essential</em> in this population.</p>
+  </div>
+
+  <h3><sup>*</sup> and <sup>†</sup> — who was actually studied</h3>
+  <div class="grid">
+    <div class="card">
+      <p style="margin-bottom:6px"><strong><sup>*</sup> 6–24 h, ASPECTS 3–5</strong> (SELECT2, ANGEL-ASPECT). Under-represented or excluded: age &gt;80, renal failure, refractory hypertension (SBP ≥185 or DBP ≥110), comorbid psychiatric or medical illness confounding neurological assessment, life expectancy &lt;3 months.</p>
+    </div>
+    <div class="card">
+      <p style="margin-bottom:6px"><strong><sup>†</sup> 0–6 h, ASPECTS 0–2</strong> (LASTE). Excluded: age ≥80, significant head and neck vessel tortuosity, comorbid conditions confounding neurological assessment, seizure at onset preventing accurate NIHSS, strong suspicion of underlying intracranial stenosis, life expectancy &lt;6 months.</p>
+    </div>
+  </div>
+
+  <h2>Landmark thrombectomy trials</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Trial</th><th>Key criteria</th><th>Window</th><th>n</th><th>Primary outcome</th></tr></thead>
+    <tbody>
+      <tr><td><strong>MR CLEAN</strong><br><small>NEJM 2015</small></td><td>ICA/M1/M2/A1/A2, NIHSS ≥2</td><td>≤6 h</td><td>500</td><td>mRS shift adjusted OR 1.67; mRS 0–2 32.6% vs 19.1%. First positive EVT RCT; NCCT + CTA only</td></tr>
+      <tr><td><strong>DAWN</strong><br><small>NEJM 2018</small></td><td>ICA/M1, mRS 0–1, clinical–core mismatch</td><td>6–24 h</td><td>206</td><td>mRS 0–2 49% vs 13%; NNT 2.8</td></tr>
+      <tr><td><strong>DEFUSE 3</strong><br><small>NEJM 2018</small></td><td>ICA/M1, mRS 0–2, ratio ≥1.8, core &lt;70 mL</td><td>6–16 h</td><td>182</td><td>mRS 0–2 45% vs 17%, OR 2.77; NNT 3.6</td></tr>
+      <tr><td><strong>RESCUE-Japan LIMIT</strong><br><small>NEJM 2022</small></td><td>ICA/M1, ASPECTS 3–5, NIHSS ≥6, mRS 0–1</td><td>≤6 h (or ≤24 h with no FLAIR change)</td><td>203</td><td>mRS 0–3 31.0% vs 12.7%, common OR 2.43</td></tr>
+      <tr><td><strong>ANGEL-ASPECT</strong><br><small>NEJM 2023</small></td><td>ICA/M1, ASPECTS 3–5 or core 70–100 mL, age 18–80</td><td>≤24 h</td><td>456</td><td>mRS shift favouring EVT; stopped early for efficacy</td></tr>
+      <tr><td><strong>SELECT2</strong><br><small>NEJM 2023</small></td><td>ICA/M1, ASPECTS 3–5 or core ≥50 mL, age 18–85</td><td>≤24 h</td><td>352</td><td>Generalised OR 1.51 (95% CI 1.20–1.89); stopped early for efficacy. Median core 74–77 mL</td></tr>
+      <tr><td><strong>TENSION</strong><br><small>Lancet 2023</small></td><td>ICA/M1, ASPECTS 3–5, NIHSS &lt;26, mRS 0–2</td><td>≤12 h</td><td>253</td><td>mRS shift favouring EVT; mortality 40.2% vs 51.2%</td></tr>
+      <tr><td><strong>LASTE</strong><br><small>NEJM 2024</small></td><td>ICA/M1, ASPECTS 0–5, mRS 0–1, age &lt;80</td><td>≤6.5 h (or unknown onset with negative FLAIR)</td><td>333</td><td>Median mRS 4 vs 6; generalised OR 1.63 (1.29–2.06), P&lt;0.001. Mortality 36.1% vs 55.5%</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Global exclusions worth checking before the angio suite</h2>
+  <p>These are not guideline recommendations — they are the practical exclusions applied across the large-core trials and worth a deliberate check: current haemodialysis, metastatic malignancy, ventricular assist device, and life expectancy under a year from an underlying medical condition. Where a patient sits outside every trial population, say so explicitly in the consent conversation.</p>
+
+  <p class="src">Sections 4.7.1–4.7.4, 2026 AHA/ASA AIS guideline; Liu C, et al. Neurology 2025;104:e213443. doi:10.1212/WNL.0000000000213443.</p>
+</section>
+
+<!-- ===================================================================== POST -->
+<section class="section" id="post" data-title="Monitoring &amp; blood pressure">
+  <h1>After reperfusion: monitoring and blood pressure</h1>
+  <p class="lede">The 2026 guideline's clearest negative message: more intensive blood-pressure lowering does not help after thrombolysis, and harms after thrombectomy.</p>
+
+  <h2>Blood pressure targets at a glance</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Phase</th><th>Target</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Before IVT</strong></td><td>Lower to <strong>SBP &lt;185 and DBP &lt;110</strong> before starting</td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td><strong>Before EVT</strong> (no IVT given)</td><td>Reasonable to maintain <strong>≤185/110</strong></td><td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td><strong>First 24 h after IVT</strong></td><td>Maintain <strong>&lt;180/105</strong></td><td><span class="cor cor-1">1</span> <span class="loe">B-R</span></td></tr>
+      <tr><td><strong>During and 24 h after EVT</strong></td><td>Reasonable to maintain <strong>≤180/105</strong></td><td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td><strong>After IVT, mild–moderate stroke</strong></td><td>Intensive SBP &lt;140 (vs &lt;180) — <strong>not recommended</strong>, no improvement in functional outcome</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td></tr>
+      <tr><td><strong>After successful EVT</strong> (mTICI 2b/2c/3, anterior circulation)</td><td>Intensive SBP &lt;140 for the first 72 h is <strong>harmful</strong></td><td><span class="cor cor-3h">3: Harm</span> <span class="loe">A</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note note--danger">
+    <div class="note__t">Complete reperfusion does not license a lower target</div>
+    <p style="margin-bottom:0">This is spelled out in the top take-home messages: intensive systolic lowering to &lt;140 mmHg is not recommended <em>even in the setting of complete reperfusion</em> (TICI 3). The instinct to protect a freshly reperfused brain by dropping the pressure is the exact behaviour the trials found harmful.</p>
+  </div>
+
+  <h2>Patients who received neither IVT nor EVT</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Situation</th><th>Guidance</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td>BP &lt;220/120, no comorbid indication</td><td>Initiating or restarting antihypertensives in the first 48–72 h is <strong>not effective</strong> to prevent death or dependency. Around 75% of patients lower spontaneously within days</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">A</span></td></tr>
+      <tr><td>BP ≥220/120, no comorbid indication</td><td>Benefit of treating within 48–72 h is uncertain. Reduction is still generally advised; individualise, aiming for an initial reduction of about <strong>15%</strong></td><td><span class="cor cor-2b">2b</span> <span class="loe">C-EO</span></td></tr>
+      <tr><td>Comorbid condition demanding BP control — acute coronary event, acute heart failure, aortic dissection, post-thrombolysis sICH, pre-eclampsia/eclampsia</td><td>Early treatment is indicated. Individualise, balancing cerebral against systemic organ perfusion; initial reduction of about 15%</td><td><span class="cor cor-1">1</span> <span class="loe">C-EO</span></td></tr>
+      <tr><td>Hypotension and hypovolaemia</td><td>Correct, to maintain systemic perfusion sufficient for organ function</td><td><span class="cor cor-1">1</span> <span class="loe">C-LD</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Neurological and BP observations after thrombolysis</h2>
+  <div class="card">
+    <p style="margin-bottom:6px"><strong>Every 15 min for 2 h → every 30 min for 6 h → hourly until 24 h.</strong></p>
+    <ul style="margin-bottom:0">
+      <li>Increase frequency if SBP &gt;180 or DBP &gt;105; treat to keep at or below those levels.</li>
+      <li>Admit to an intensive care or stroke unit.</li>
+      <li>Delay nasogastric tubes, indwelling catheters and arterial lines where the patient can be safely managed without them.</li>
+      <li>Repeat CT or MRI at 24 h before starting any antiplatelet or anticoagulant.</li>
+    </ul>
+  </div>
+
+  <div class="note note--warn">
+    <div class="note__t">Any of these → stop the infusion and get an emergency head CT</div>
+    <p style="margin-bottom:0">Severe headache · acute hypertension · nausea or vomiting · any worsening of the neurological examination.</p>
+  </div>
+
+  <p class="src">Section 4.3 and Table 7, 2026 AHA/ASA AIS guideline.</p>
+</section>
+
+<!-- ======================================================= IVT COMPLICATIONS -->
+<section class="section" id="complications-ivt" data-title="Bleeding &amp; angioedema">
+  <h1>Thrombolysis complications</h1>
+  <p class="lede">Two protocols worth knowing before you need them, both reproduced from the guideline.</p>
+
+  <h2>Symptomatic intracranial bleeding within 24 h of IVT</h2>
+  <div class="card">
+    <ol>
+      <li><strong>Stop</strong> the alteplase infusion, or the tenecteplase push if still in progress.</li>
+      <li><strong>Emergent labs:</strong> CBC, PT (INR), aPTT, fibrinogen, type and cross-match.</li>
+      <li><strong>Emergent non-enhanced head CT</strong> if there is clinical concern.</li>
+      <li><strong>Cryoprecipitate</strong> (includes factor VIII): 10 units infused over 10–30 min, to maintain fibrinogen ≥150 mg/dL. As a rule of thumb, 10 units raises fibrinogen by roughly 50 mg/dL.</li>
+      <li><strong>Antifibrinolytic:</strong> tranexamic acid 1000 mg IV over 10 min, <em>or</em> ε-aminocaproic acid 4–5 g over 1 h followed by 1 g IV until bleeding is controlled (peak onset at 3 h). Potentially useful in all patients, and particularly where blood products are declined or cryoprecipitate is not rapidly available.</li>
+      <li><strong>Consult</strong> haematology and neurosurgery as necessary.</li>
+      <li><strong>Supportive therapy:</strong> blood pressure, ICP, CPP, MAP, temperature and glucose control.</li>
+    </ol>
+  </div>
+  <p class="src">Table 5, 2026 AHA/ASA AIS guideline.</p>
+
+  <h2>Orolingual angioedema</h2>
+  <div class="note note--danger">
+    <div class="note__t">Airway first</div>
+    <p>Intubation may not be necessary if oedema is limited to the anterior tongue and lips. Oedema involving the <strong>larynx, palate, floor of mouth or oropharynx</strong>, or rapid progression within 30 minutes, carries a much higher risk of needing an airway.</p>
+    <p style="margin-bottom:0">Awake fibreoptic intubation is optimal. Nasotracheal intubation risks epistaxis after a thrombolytic; cricothyroidotomy is rarely needed and equally problematic after thrombolysis.</p>
+  </div>
+  <div class="card">
+    <ol>
+      <li>Discontinue the thrombolytic infusion (if alteplase) and hold ACE inhibitors.</li>
+      <li>Methylprednisolone 125 mg IV.</li>
+      <li>Diphenhydramine 50 mg IV.</li>
+      <li>Ranitidine 50 mg IV or famotidine 20 mg IV.</li>
+      <li>If angioedema continues to increase: epinephrine 0.1% (1 mg/mL) 0.3 mL subcutaneously, or nebulised 0.5 mg.</li>
+      <li>Icatibant (selective bradykinin B2 receptor antagonist) 30 mg (3 mL) subcutaneously into the abdomen; a further 30 mg may be given at 6-hourly intervals, to a maximum of 3 injections in 24 h.</li>
+      <li>Plasma-derived C1 esterase inhibitor 20 IU/kg has been used successfully in hereditary and ACE-inhibitor-related angioedema.</li>
+    </ol>
+    <p style="margin-bottom:0">Provide supportive care throughout.</p>
+  </div>
+  <p class="src">Table 6, 2026 AHA/ASA AIS guideline.</p>
+</section>
+
+<!-- =============================================================== SUPPORTIVE -->
+<section class="section" id="supportive" data-title="Supportive care">
+  <h1>General supportive care</h1>
+  <p class="lede">Most of the outcome gain on the ward comes from avoiding harm rather than adding treatment.</p>
+
+  <h2>Glucose</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Recommendation</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td>Treat hypoglycaemia (&lt;60 mg/dL)</td><td><span class="cor cor-1">1</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td>Reasonable to treat persistent hyperglycaemia to a range of <strong>140–180 mg/dL</strong>, with close monitoring</td><td><span class="cor cor-2a">2a</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td>IV insulin targeting <strong>80–130 mg/dL is not recommended</strong></td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">A</span></td></tr>
+    </tbody>
+  </table></div>
+  <p>This is a 2026 change. SHINE randomised 1151 patients and stopped early for futility: no benefit on 3-month function, and severe hypoglycaemia (&lt;40 mg/dL) occurred <em>only</em> in the intensive arm. Risk without benefit.</p>
+
+  <h2>Temperature</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Recommendation</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td>In hyperthermia, target normothermia — including nurse-initiated fever protocols (monitoring and treating temperatures &gt;37.5 °C). Improves functional outcome and reduces death</td><td><span class="cor cor-1">1</span> <span class="loe">B-R</span></td></tr>
+      <tr><td>Identify and treat the source of hyperthermia — usually infection rather than central fever</td><td><span class="cor cor-1">1</span> <span class="loe">C-EO</span></td></tr>
+      <tr><td>Induced hypothermia or prophylactic fever prevention in normothermic patients</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Swallowing</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Recommendation</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Bedside swallow screen before any oral liquid or food</strong></td><td><span class="cor cor-1">1</span> <span class="loe">C-EO</span></td></tr>
+      <tr><td>Reasonable for screening to be done by speech pathologists or other trained professionals</td><td><span class="cor cor-2a">2a</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td>Where the patient fails or cannot participate in bedside screening, endoscopic evaluation of swallowing is reasonable</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td>An oral hygiene protocol may be reasonable to reduce pneumonia risk</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-NR</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Venous thromboembolism prophylaxis</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Recommendation</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Intermittent pneumatic compression</strong> in addition to routine care, for impaired mobility without contraindication</td><td><span class="cor cor-1">1</span> <span class="loe">B-R</span></td></tr>
+      <tr><td>Prophylactic-dose subcutaneous heparin (UFH or LMWH) is reasonable for impaired mobility</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td></tr>
+      <tr><td>Benefit of prophylactic heparin over none, for overall survival, is not well established</td><td><span class="cor cor-2b">2b</span> <span class="loe">A</span></td></tr>
+      <tr><td>Benefit of prophylactic LMWH over prophylactic UFH is uncertain</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Things not to do routinely</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Intervention</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td>Prophylactic antibiotics — reduce infection incidence but have not improved functional outcome (PASS and two other large RCTs)</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">A</span></td></tr>
+      <tr><td>Routine indwelling bladder catheters — catheter-associated UTI risk</td><td><span class="cor cor-3h">3: Harm</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td>Prophylactic antiseizure medication</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">C-LD</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Also worth doing</h2>
+  <ul>
+    <li><strong>Stroke unit care</strong> — the single most reliably beneficial organisational intervention in stroke.</li>
+    <li><strong>Skin assessment</strong> with an objective risk scale; patients with impaired mobility are at high risk of pressure injury.</li>
+    <li><strong>Palliative care referral</strong> is reasonable for selected patients and families <span class="cor cor-2a">COR 2a</span>.</li>
+  </ul>
+
+  <p class="src">Sections 4.4, 4.5, 5.2, 5.4, 5.6, 6.5, 2026 AHA/ASA AIS guideline.</p>
+</section>
+
+<!-- ========================================================== ANTITHROMBOTICS -->
+<section class="section" id="antithrombotics" data-title="Antithrombotics &amp; prevention">
+  <h1>Antithrombotics and early secondary prevention</h1>
+
+  <h2>Aspirin</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Recommendation</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td>Aspirin within 48 h of stroke onset, to reduce death and dependency</td><td><span class="cor cor-1">1</span> <span class="loe">A</span></td></tr>
+      <tr><td>Antiplatelet therapy in the first 24 h after IVT — risk uncertain. Might be considered where a concomitant condition makes such treatment substantially beneficial, or withholding it substantially risky</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td>Antiplatelet in preference to oral anticoagulation for noncardioembolic AIS or TIA</td><td><span class="cor cor-1">1</span> <span class="loe">A</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Dual antiplatelet therapy</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Population</th><th>Regimen</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Minor stroke NIHSS ≤3</strong> or high-risk TIA (ABCD² ≥4), not given IVT</td>
+        <td>Aspirin + clopidogrel <strong>with a clopidogrel loading dose</strong>, started within <strong>24 h</strong>, continued <strong>21 days</strong>, then single antiplatelet</td>
+        <td><span class="cor cor-1">1</span> <span class="loe">A</span></td>
+      </tr>
+      <tr>
+        <td><strong>NIHSS ≤5</strong> or high-risk TIA (ABCD² ≥6, or symptomatic ≥50% intracranial/extracranial stenosis), within 24 h, not given IVT</td>
+        <td>Ticagrelor (with loading dose) + aspirin for <strong>30 days</strong> (THALES)</td>
+        <td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td>
+      </tr>
+      <tr>
+        <td><strong>NIHSS ≤5</strong> or high-risk TIA within <strong>24–72 h</strong>, or NIHSS 4–5 within 24 h, presumed atherosclerotic (≥50% stenosis or imaging pattern of large-artery atherosclerosis), not given IVT</td>
+        <td>Aspirin + clopidogrel for 21 days, then single antiplatelet (INSPIRES)</td>
+        <td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td>
+      </tr>
+      <tr>
+        <td><strong>CYP2C19 loss-of-function allele</strong>, NIHSS ≤3 or high-risk TIA within 24 h, not given IVT</td>
+        <td>Ticagrelor + aspirin 21 days, then ticagrelor monotherapy, in preference to clopidogrel + aspirin</td>
+        <td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <h3>The DAPT trials</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Trial</th><th>Inclusion</th><th>Regimen</th><th>Within</th><th>NNT</th></tr></thead>
+    <tbody>
+      <tr><td><strong>CHANCE</strong></td><td>AIS NIHSS ≤3 or TIA ABCD² ≥4</td><td>Clopidogrel 300 mg load → 75 mg/d + aspirin 75 mg, 21 days, then clopidogrel</td><td>24 h</td><td>28</td></tr>
+      <tr><td><strong>POINT</strong></td><td>AIS NIHSS ≤3 or TIA ABCD² ≥4</td><td>Clopidogrel 600 mg load → 75 mg/d + aspirin 50–325 mg/d, 90 days</td><td>12 h</td><td>67</td></tr>
+      <tr><td><strong>THALES</strong></td><td>AIS NIHSS ≤5 or TIA ABCD² ≥6</td><td>Ticagrelor 180 mg load → 90 mg bd + aspirin 300–325 mg load → 75–100 mg/d, 30 days</td><td>24 h</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note note--warn">
+    <div class="note__t">Two failure modes the guideline calls out</div>
+    <p>Continuing DAPT <strong>beyond 90 days</strong> does not reduce recurrent stroke and increases bleeding.</p>
+    <p style="margin-bottom:0">And DAPT is routinely used outside its evidence. In the READAPT cohort of 1070 patients at 51 Italian centres, 32.2% started DAPT late (&gt;24 h), 63.2% never received a clopidogrel loading dose, and <strong>only 7.8% actually met the trial criteria</strong>. Late initiation, severe stroke, and post-thrombolysis use are all untested.</p>
+  </div>
+
+  <h3>What not to use</h3>
+  <ul>
+    <li><strong>Ticagrelor over aspirin</strong> as monotherapy in minor stroke / high-risk TIA <span class="cor cor-3n">3: No Benefit</span></li>
+    <li><strong>Triple therapy</strong> (aspirin + clopidogrel + dipyridamole) <span class="cor cor-3h">3: Harm</span> — increased bleeding</li>
+    <li><strong>Adding an antiplatelet to oral anticoagulation</strong> in stroke with AF, absent active CAD or a recent stent <span class="cor cor-3h">3: Harm</span></li>
+  </ul>
+
+  <h2>Anticoagulation</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Situation</th><th>Guidance</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Atrial fibrillation</strong>, carefully selected (e.g. milder severity)</td><td>Early oral anticoagulation is low risk and reasonable versus delayed. Efficacy for preventing early recurrence is not established (ELAN, OPTIMAS)</td><td><span class="cor cor-2a">2a</span> <span class="loe">A</span></td></tr>
+      <tr><td><strong>Early anticoagulation within 48 h</strong> generally</td><td>Does not reduce early neurological worsening or increase favourable outcome — not recommended</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">A</span></td></tr>
+      <tr><td>Ipsilateral high-grade ICA stenosis</td><td>Benefit of urgent anticoagulation not well established</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td>Ipsilateral nonocclusive extracranial intraluminal thrombus</td><td>Safety and efficacy of short-term anticoagulation not well established</td><td><span class="cor cor-2b">2b</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td>Haemorrhagic transformation occurs</td><td>Initiation or continuation may be considered depending on the scenario and underlying indication</td><td><span class="cor cor-2b">2b</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td>Argatroban as an adjunct to IVT</td><td>Not effective for long-term functional outcome</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">A</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">In ELAN, early anticoagulation (within 48 h for minor/moderate stroke, day 6–7 for major stroke) gave a numerical but not statistically significant reduction in the composite of recurrent stroke, systemic embolism, major bleeding, sICH or vascular death. OPTIMAS randomised 3648 patients to DOAC ≤4 days versus 7–14 days.</p>
+
+  <h2>Cervical artery dissection</h2>
+  <p>For extracranial carotid or vertebral dissection, either antiplatelet or anticoagulant therapy for at least 3 months is reasonable to prevent recurrent stroke <span class="cor cor-2a">COR 2a</span> <span class="loe">B-R</span>. Note separately that thrombolysis in extracranial cervical dissection is reasonably safe within 4.5 h and probably recommended.</p>
+
+  <h2>Already on aspirin at the time of the event?</h2>
+  <p>The effectiveness of increasing the aspirin dose or switching agents is not well established <span class="cor cor-2b">COR 2b</span> <span class="loe">B-NR</span>. Agent selection for early secondary prevention should be individualised on risk factors, cost, tolerance and known relative efficacy <span class="cor cor-1">COR 1</span> <span class="loe">C-EO</span>.</p>
+
+  <p class="src">Sections 4.8, 4.9 and Table 9, 2026 AHA/ASA AIS guideline.</p>
+</section>
+
+<!-- ============================================================ COMPLICATIONS -->
+<section class="section" id="complications" data-title="Swelling, surgery, seizures">
+  <h1>Brain swelling, surgery and seizures</h1>
+
+  <h2>Anticipating malignant oedema</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Recommendation</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td>In large cerebral or cerebellar infarction, hold an <strong>early discussion of care options and likely outcomes</strong> with the patient (if feasible) and family, to establish patient-centred preferences</td><td><span class="cor cor-1">1</span> <span class="loe">C-EO</span></td></tr>
+      <tr><td>Close monitoring for neurological worsening during the first days after stroke</td><td><span class="cor cor-1">1</span> <span class="loe">C-EO</span></td></tr>
+      <tr><td>Early transfer to an institution with neurosurgical and critical care expertise for those at increased risk of malignant swelling</td><td><span class="cor cor-1">1</span> <span class="loe">C-LD</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Medical management of swelling</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Intervention</th><th>Guidance</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td>Osmotic therapy (mannitol or hypertonic saline)</td><td>Reasonable as a <strong>bridge to surgery</strong> in neurological decline from swelling</td><td><span class="cor cor-2a">2a</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td>IV glibenclamide (glyburide), large hemispheric infarction age 18–70</td><td>Does not improve functional outcome (CHARM)</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td></tr>
+      <tr><td>Hypothermia, barbiturates or corticosteroids for swelling</td><td>Should not be administered — no evidence of efficacy, potential for harm</td><td><span class="cor cor-3h">3: Harm</span> <span class="loe">C-LD</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Decompressive craniectomy — supratentorial</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Population</th><th>Recommendation</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Age ≤60</strong>, unilateral MCA infarction, neurological deterioration within 48 h from swelling despite medical therapy</td><td>Decompressive craniectomy with dural expansion is <strong>beneficial</strong> — reduces mortality and improves functional outcome (DECIMAL, DESTINY, HAMLET, HeADDFIRST, HeMMI)</td><td><span class="cor cor-1">1</span> <span class="loe">A</span></td></tr>
+      <tr><td><strong>Age &gt;60</strong>, same scenario</td><td>May be considered to reduce mortality. Trials in this group showed a survival benefit but <em>not</em> improved functional outcome</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td></tr>
+      <tr><td>Trigger for surgery</td><td>Decreased level of consciousness attributed to brain swelling is a reasonable trigger</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td>Prior thrombolysis with malignant oedema despite medical therapy</td><td>Early craniectomy within 48 h may still be considered, without additional safety concerns</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-NR</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Cerebellar infarction</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Situation</th><th>Recommendation</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td>Obstructive hydrocephalus</td><td><strong>Ventriculostomy</strong>, to improve neurological function and decrease mortality. Concomitant or subsequent decompressive craniectomy may or may not be needed depending on infarct size, neurological condition, degree of brainstem compression and response to medical management</td><td><span class="cor cor-1">1</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td>Neurological deterioration from brainstem compression, or infarct volume <strong>≥35 mL</strong></td><td><strong>Decompressive suboccipital craniectomy with dural expansion should be performed</strong></td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="note note--warn">
+    <div class="note__t">The trap</div>
+    <p style="margin-bottom:0">A cerebellar infarct that looks small on the initial CT can obstruct the fourth ventricle two days later. Upward herniation is a real but manageable risk of ventriculostomy alone — mitigate with conservative CSF drainage or subsequent decompression. Identify these patients early and get surgical consultation; this often means early transfer.</p>
+  </div>
+
+  <h2>Seizures</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Recommendation</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td>After an unprovoked post-stroke seizure, management including antiseizure medication is recommended, chosen on patient-specific characteristics, to reduce recurrence</td><td><span class="cor cor-1">1</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td>Prophylactic antiseizure medication to prevent seizures or improve outcome</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">C-LD</span></td></tr>
+    </tbody>
+  </table></div>
+  <p>The guideline notes there is insufficient evidence to recommend a specific agent, a duration, or routine EEG monitoring. Choose on drug interactions and adverse-effect profile; individualise duration on seizure freedom, seizure severity and tolerability.</p>
+
+  <p class="src">Sections 6.1–6.5, 2026 AHA/ASA AIS guideline.</p>
+</section>
+
+<!-- ====================================================================== ICH -->
+<section class="section" id="ich" data-title="Intracerebral haemorrhage">
+  <h1>Spontaneous intracerebral haemorrhage</h1>
+  <div class="note note--warn">
+    <div class="note__t">Different source document</div>
+    <p style="margin-bottom:0">This section is <strong>not</strong> from the 2026 AIS guideline, which covers ischaemic stroke only. It draws on the <strong>2022 AHA/ASA Guideline for the Management of Patients With Spontaneous Intracerebral Hemorrhage</strong> (doi:10.1161/STR.0000000000000407) plus named trials published since. Classes shown are from that 2022 document.</p>
+  </div>
+
+  <p class="lede">Haematoma expansion happens in the first hours and predicts death. Everything in the acute phase is aimed at that window: pressure, reversal, and a surgical decision.</p>
+
+  <h2>The first hour</h2>
+  <div class="card">
+    <ol>
+      <li><strong>Airway, GCS, NIHSS.</strong> Note the exact time of onset and the last dose of any anticoagulant.</li>
+      <li><strong>Non-contrast CT</strong> — volume by ABC/2, intraventricular extension, location (lobar vs deep), midline shift.</li>
+      <li><strong>Blood pressure</strong> — start lowering within 2 hours, reach target within 1 hour.</li>
+      <li><strong>Reverse the anticoagulant</strong> — the single most time-critical drug decision. <a href="#reversal">Reversal table →</a></li>
+      <li><strong>Neurosurgical consultation</strong> for cerebellar haemorrhage, hydrocephalus, intraventricular extension, or a lobar haematoma of 30–80 mL.</li>
+      <li><strong>Avoid early prognostication.</strong> Do not withdraw care in the first 24 hours; early do-not-resuscitate orders are an independent predictor of death.</li>
+    </ol>
+  </div>
+
+  <h2>Blood pressure</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Situation</th><th>Target</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td>Mild–moderate ICH presenting with SBP 150–220</td><td>Acute lowering to a target of <strong>140</strong>, maintained in the range <strong>130–150</strong>, is safe and may be reasonable</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td></tr>
+      <tr><td>Timing</td><td>Initiate treatment <strong>within 2 h</strong> of onset and reach target <strong>within 1 h</strong></td><td><span class="cor cor-2a">2a</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td>Delivery</td><td>Careful titration to smooth, sustained control — avoiding peaks and large variability in SBP — can be beneficial</td><td><span class="cor cor-2a">2a</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td>Mild–moderate ICH with SBP &gt;150</td><td>Lowering SBP to <strong>&lt;130 is potentially harmful</strong></td><td><span class="cor cor-3h">3: Harm</span> <span class="loe">B-R</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">Smooth and stable matters as much as the number: variability and overshoot are both associated with worse outcome.</p>
+
+  <div class="note note--ok">
+    <div class="note__t">INTERACT3 — the bundle beats any single component</div>
+    <p style="margin-bottom:0">A stepped-wedge cluster-randomised trial across 121 hospitals in 10 countries (n=7036) tested a goal-directed care bundle: intensive SBP lowering to &lt;140, glucose control (6.1–7.8 mmol/L without diabetes, 7.8–10.0 with), temperature ≤37.5 °C, and reversal of warfarin to INR &lt;1.5, each within 1 hour. Poor functional outcome fell (common OR 0.86, 95% CI 0.76–0.97, P=0.015) with fewer serious adverse events (16.0% vs 20.1%). <em>Lancet</em> 2023;402:27–40. doi:10.1016/S0140-6736(23)00806-1</p>
+  </div>
+
+  <h2>Glucose, temperature, seizures, VTE</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Domain</th><th>Guidance</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td>Glucose</td><td>Monitor and treat hypoglycaemia <span class="cor cor-1">1</span>; treat moderate–severe hyperglycaemia &gt;180–200 mg/dL <span class="cor cor-2a">2a</span></td><td><span class="loe">C-LD</span></td></tr>
+      <tr><td>Temperature</td><td>Avoid elevated temperatures; efficacy of therapeutic hypothermia unclear</td><td><span class="cor cor-2b">2b</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td>Clinical or electrographic seizures</td><td>Antiseizure medication is recommended</td><td><span class="cor cor-1">1</span> <span class="loe">C-LD / C-EO</span></td></tr>
+      <tr><td>Seizure prophylaxis without seizures</td><td>Not beneficial</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td>VTE — mechanical</td><td><strong>Intermittent pneumatic compression starting on the day of diagnosis</strong></td><td><span class="cor cor-1">1</span> <span class="loe">B-R</span></td></tr>
+      <tr><td>VTE — pharmacological</td><td>Low-dose UFH or LMWH at <strong>24–48 h</strong> from onset may be reasonable</td><td><span class="cor cor-2b">2b</span> <span class="loe">C-LD</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Surgery</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Situation</th><th>Guidance</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Cerebellar haemorrhage</strong> with neurological deterioration, brainstem compression, or hydrocephalus</td><td>Immediate surgical evacuation, with or without EVD, is recommended <span class="cor cor-1">COR 1</span>. This is the clearest surgical indication in ICH</td></tr>
+      <tr><td><strong>Hydrocephalus</strong> with decreased level of consciousness</td><td>Ventricular drainage is recommended <span class="cor cor-1">COR 1</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td><strong>Intraventricular extension or infratentorial ICH</strong></td><td>Transfer to a centre with neurosurgical capability may be considered <span class="cor cor-2b">COR 2b</span></td></tr>
+      <tr><td><strong>Lobar haematoma 30–80 mL</strong> within 24 h of last known well</td><td><strong>ENRICH</strong> (NEJM 2024, n=300): minimally invasive trans-sulcal parafascicular evacuation improved the utility-weighted mRS at 180 days (0.458 vs 0.374; posterior probability of superiority 0.981). The benefit was confined to <strong>lobar</strong> haemorrhages (difference 0.127) with no signal in anterior basal ganglia (−0.013). 30-day mortality 9.3% vs 18.0%; postoperative rebleeding with deterioration in 3.3%. doi:10.1056/NEJMoa2404603 — postdates the 2022 guideline</td></tr>
+      <tr><td><strong>Deep / basal ganglia haemorrhage</strong></td><td>No trial has shown functional benefit from evacuation, including the basal ganglia stratum of ENRICH</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>ICH score</h2>
+  <p>A 0–6 point severity score derived by Hemphill et al (2001) that predicts 30-day mortality. Use it to communicate severity and structure a family conversation — <strong>not</strong> to justify limiting care in the first 24 hours. <a href="#calculators">Open the calculator →</a></p>
+
+  <p class="src">2022 AHA/ASA ICH guideline (doi:10.1161/STR.0000000000000407); INTERACT3; ENRICH. Classes as published in the 2022 document.</p>
+</section>
+
+<!-- ================================================================= REVERSAL -->
+<section class="section" id="reversal" data-title="Anticoagulation reversal">
+  <h1>Anticoagulation reversal in intracranial haemorrhage</h1>
+  <p class="lede">Establish the agent and the time of the last dose first. That pair determines everything below.</p>
+
+  <div class="tablewrap"><table>
+    <thead><tr><th>Agent</th><th>Reversal</th><th>Notes</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Warfarin / VKA</strong><br><small>INR ≥2.0</small></td>
+        <td><strong>4-factor PCC</strong> plus <strong>vitamin K</strong> IV</td>
+        <td>Vitamin K should be given <em>directly after</em> factor replacement <span class="cor cor-1">COR 1</span> <span class="loe">C-LD</span> — PCC works in minutes, vitamin K sustains the correction for hours. Give both</td>
+        <td><span class="cor cor-1">1</span> <span class="loe">B-R</span></td>
+      </tr>
+      <tr>
+        <td><strong>Dabigatran</strong></td>
+        <td><strong>Idarucizumab</strong> 5 g IV</td>
+        <td>Activated PCC or PCC may be considered if idarucizumab is unavailable <span class="cor cor-2b">COR 2b</span>. Dabigatran is dialysable</td>
+        <td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td>
+      </tr>
+      <tr>
+        <td><strong>Apixaban, rivaroxaban, edoxaban</strong></td>
+        <td><strong>Andexanet alfa</strong></td>
+        <td>4-factor or activated PCC may be considered if andexanet is unavailable <span class="cor cor-2b">COR 2b</span> <span class="loe">B-NR</span></td>
+        <td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td>
+      </tr>
+      <tr>
+        <td><strong>Unfractionated heparin</strong></td>
+        <td><strong>Protamine sulfate</strong></td>
+        <td>Reasonable for reversal</td>
+        <td><span class="cor cor-2a">2a</span> <span class="loe">C-LD</span></td>
+      </tr>
+      <tr>
+        <td><strong>LMWH</strong></td>
+        <td>Protamine — partial reversal only</td>
+        <td>May be considered; protamine neutralises anti-IIa but only partially neutralises anti-Xa activity</td>
+        <td><span class="cor cor-2b">2b</span> <span class="loe">C-LD</span></td>
+      </tr>
+      <tr>
+        <td><strong>Thrombolytic-associated ICH</strong></td>
+        <td>Cryoprecipitate ± antifibrinolytic</td>
+        <td>See the <a href="#complications-ivt">post-thrombolysis bleeding protocol</a></td>
+        <td>Table 5, AIS guideline</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <h2>Antiplatelet-associated ICH</h2>
+  <div class="note note--danger">
+    <div class="note__t">Do not transfuse platelets reflexively</div>
+    <p>In aspirin-treated ICH <em>not</em> undergoing emergency neurosurgery, <strong>platelet transfusion is potentially harmful and should not be administered</strong> <span class="cor cor-3h">COR 3: Harm</span> <span class="loe">B-R</span> — the PATCH trial found worse outcomes with transfusion.</p>
+    <p style="margin-bottom:0">Where emergency neurosurgery is planned, platelet transfusion <em>might</em> be considered to reduce postoperative bleeding <span class="cor cor-2b">COR 2b</span> <span class="loe">C-LD</span>. The effectiveness of desmopressin is uncertain <span class="cor cor-2b">COR 2b</span> <span class="loe">C-LD</span>.</p>
+  </div>
+
+  <h2>Andexanet alfa: what ANNEXA-I showed</h2>
+  <div class="card">
+    <p>530 patients with intracerebral haemorrhage who had taken a factor Xa inhibitor within 15 hours, randomised to andexanet or usual care (85.5% of the usual-care arm received PCC).</p>
+    <ul>
+      <li><strong>Haemostatic efficacy</strong> 67.0% vs 53.1% (adjusted difference 13.4 points, 95% CI 4.6–22.2, P=0.003)</li>
+      <li>Median reduction in anti-Xa activity 94.5% vs 26.9% (P&lt;0.001)</li>
+      <li><strong>Thrombotic events 10.3% vs 5.6%</strong> (difference 4.6 points, 95% CI 0.1–9.2, P=0.048) — <strong>ischaemic stroke 6.5% vs 1.5%</strong></li>
+      <li><strong>No appreciable difference</strong> in modified Rankin score or 30-day death</li>
+    </ul>
+    <p style="margin-bottom:0">Andexanet controls the haematoma better than usual care, at the cost of a real thrombotic signal, and without a demonstrated functional benefit. That trade-off belongs in the decision, not underneath it. NEJM 2024;390:1745–55. doi:10.1056/NEJMoa2313040</p>
+  </div>
+
+  <div class="note">
+    <div class="note__t">Restarting anticoagulation afterwards</div>
+    <p style="margin-bottom:0">A separate decision, made days later, weighing the indication (mechanical valve &gt; AF), the ICH location (lobar and probable amyloid angiopathy carry higher rebleeding risk than deep hypertensive ICH), and the patient's overall trajectory. Involve stroke neurology and cardiology.</p>
+  </div>
+
+  <p class="src">2022 AHA/ASA ICH guideline; ANNEXA-I doi:10.1056/NEJMoa2313040. Confirm all doses against your local formulary and pharmacy protocol before administration.</p>
+</section>
+
+<!-- ==================================================================== NIHSS -->
+<section class="section" id="nihss" data-title="NIHSS calculator">
+  <h1>NIHSS calculator</h1>
+  <p class="lede">Score every item. Maximum 42. Scores are additive and untestable items score as instructed, not as zero by assumption.</p>
+
+  <div class="readout">
+    <div class="row">
+      <div>
+        <div class="readout__label">Total NIHSS</div>
+        <div class="readout__value" id="nihssTotal" data-summary="">0</div>
+      </div>
+      <div>
+        <div class="readout__label">Severity</div>
+        <div class="readout__value" style="font-size:19px" id="nihssSeverity">No stroke symptoms</div>
+      </div>
+    </div>
+    <div class="readout__note">Severity bands are conventional descriptors, not treatment thresholds. A low NIHSS with a disabling deficit still warrants thrombolysis.</div>
+  </div>
+
+  <div class="row no-print" style="margin-bottom:14px">
+    <button class="btn" id="nihssExpand" style="flex:0 0 auto">Expand all</button>
+    <button class="btn" id="nihssCopy" style="flex:0 0 auto">Copy to note</button>
+    <button class="btn" id="nihssReset" style="flex:0 0 auto">Reset</button>
+  </div>
+
+  <details class="nihss-item" open><summary>1a. Level of consciousness <span class="badge" data-k="1a">0</span></summary>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="n1a" value="0" checked><span><b>0</b> Alert, keenly responsive</span></label>
+      <label class="opt"><input type="radio" name="n1a" value="1"><span><b>1</b> Not alert, arousable by minor stimulation to obey, answer or respond</span></label>
+      <label class="opt"><input type="radio" name="n1a" value="2"><span><b>2</b> Not alert, requires repeated or painful stimulation to make movements</span></label>
+      <label class="opt"><input type="radio" name="n1a" value="3"><span><b>3</b> Responds only with reflex motor or autonomic effects, or is totally unresponsive</span></label>
+    </div>
+  </details>
+
+  <details class="nihss-item"><summary>1b. LOC questions — month and age <span class="badge" data-k="1b">0</span></summary>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="n1b" value="0" checked><span><b>0</b> Answers both correctly</span></label>
+      <label class="opt"><input type="radio" name="n1b" value="1"><span><b>1</b> Answers one correctly</span></label>
+      <label class="opt"><input type="radio" name="n1b" value="2"><span><b>2</b> Answers neither correctly</span></label>
+    </div>
+  </details>
+
+  <details class="nihss-item"><summary>1c. LOC commands — open/close eyes, grip/release <span class="badge" data-k="1c">0</span></summary>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="n1c" value="0" checked><span><b>0</b> Performs both tasks correctly</span></label>
+      <label class="opt"><input type="radio" name="n1c" value="1"><span><b>1</b> Performs one task correctly</span></label>
+      <label class="opt"><input type="radio" name="n1c" value="2"><span><b>2</b> Performs neither task correctly</span></label>
+    </div>
+  </details>
+
+  <details class="nihss-item"><summary>2. Best gaze <span class="badge" data-k="2">0</span></summary>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="n2" value="0" checked><span><b>0</b> Normal</span></label>
+      <label class="opt"><input type="radio" name="n2" value="1"><span><b>1</b> Partial gaze palsy — abnormal gaze in one or both eyes, without forced deviation or total gaze paresis</span></label>
+      <label class="opt"><input type="radio" name="n2" value="2"><span><b>2</b> Forced deviation or total gaze paresis not overcome by the oculocephalic manoeuvre</span></label>
+    </div>
+  </details>
+
+  <details class="nihss-item"><summary>3. Visual fields <span class="badge" data-k="3">0</span></summary>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="n3" value="0" checked><span><b>0</b> No visual loss</span></label>
+      <label class="opt"><input type="radio" name="n3" value="1"><span><b>1</b> Partial hemianopia</span></label>
+      <label class="opt"><input type="radio" name="n3" value="2"><span><b>2</b> Complete hemianopia</span></label>
+      <label class="opt"><input type="radio" name="n3" value="3"><span><b>3</b> Bilateral hemianopia, including cortical blindness</span></label>
+    </div>
+  </details>
+
+  <details class="nihss-item"><summary>4. Facial palsy <span class="badge" data-k="4">0</span></summary>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="n4" value="0" checked><span><b>0</b> Normal symmetrical movements</span></label>
+      <label class="opt"><input type="radio" name="n4" value="1"><span><b>1</b> Minor paralysis — flattened nasolabial fold, asymmetry on smiling</span></label>
+      <label class="opt"><input type="radio" name="n4" value="2"><span><b>2</b> Partial paralysis — total or near-total paralysis of the lower face</span></label>
+      <label class="opt"><input type="radio" name="n4" value="3"><span><b>3</b> Complete paralysis of one or both sides, upper and lower face</span></label>
+    </div>
+  </details>
+
+  <details class="nihss-item"><summary>5a. Motor arm — left <span class="badge" data-k="5a">0</span></summary>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="n5a" value="0" checked><span><b>0</b> No drift — holds 90° (or 45°) for the full 10 seconds</span></label>
+      <label class="opt"><input type="radio" name="n5a" value="1"><span><b>1</b> Drift — holds initially but drifts before 10 seconds, does not hit the bed</span></label>
+      <label class="opt"><input type="radio" name="n5a" value="2"><span><b>2</b> Some effort against gravity — cannot attain or maintain position, drifts to the bed</span></label>
+      <label class="opt"><input type="radio" name="n5a" value="3"><span><b>3</b> No effort against gravity — limb falls</span></label>
+      <label class="opt"><input type="radio" name="n5a" value="4"><span><b>4</b> No movement</span></label>
+      <label class="opt"><input type="radio" name="n5a" value="UN"><span><b>UN</b> Amputation or joint fusion — untestable, not scored</span></label>
+    </div>
+  </details>
+
+  <details class="nihss-item"><summary>5b. Motor arm — right <span class="badge" data-k="5b">0</span></summary>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="n5b" value="0" checked><span><b>0</b> No drift — holds 90° (or 45°) for the full 10 seconds</span></label>
+      <label class="opt"><input type="radio" name="n5b" value="1"><span><b>1</b> Drift before 10 seconds, does not hit the bed</span></label>
+      <label class="opt"><input type="radio" name="n5b" value="2"><span><b>2</b> Some effort against gravity, drifts to the bed</span></label>
+      <label class="opt"><input type="radio" name="n5b" value="3"><span><b>3</b> No effort against gravity — limb falls</span></label>
+      <label class="opt"><input type="radio" name="n5b" value="4"><span><b>4</b> No movement</span></label>
+      <label class="opt"><input type="radio" name="n5b" value="UN"><span><b>UN</b> Amputation or joint fusion — untestable, not scored</span></label>
+    </div>
+  </details>
+
+  <details class="nihss-item"><summary>6a. Motor leg — left <span class="badge" data-k="6a">0</span></summary>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="n6a" value="0" checked><span><b>0</b> No drift — holds 30° for the full 5 seconds</span></label>
+      <label class="opt"><input type="radio" name="n6a" value="1"><span><b>1</b> Drift — falls by 5 seconds but does not hit the bed</span></label>
+      <label class="opt"><input type="radio" name="n6a" value="2"><span><b>2</b> Some effort against gravity — falls to the bed by 5 seconds</span></label>
+      <label class="opt"><input type="radio" name="n6a" value="3"><span><b>3</b> No effort against gravity — falls immediately</span></label>
+      <label class="opt"><input type="radio" name="n6a" value="4"><span><b>4</b> No movement</span></label>
+      <label class="opt"><input type="radio" name="n6a" value="UN"><span><b>UN</b> Amputation or joint fusion — untestable, not scored</span></label>
+    </div>
+  </details>
+
+  <details class="nihss-item"><summary>6b. Motor leg — right <span class="badge" data-k="6b">0</span></summary>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="n6b" value="0" checked><span><b>0</b> No drift — holds 30° for the full 5 seconds</span></label>
+      <label class="opt"><input type="radio" name="n6b" value="1"><span><b>1</b> Drift — falls by 5 seconds but does not hit the bed</span></label>
+      <label class="opt"><input type="radio" name="n6b" value="2"><span><b>2</b> Some effort against gravity — falls to the bed</span></label>
+      <label class="opt"><input type="radio" name="n6b" value="3"><span><b>3</b> No effort against gravity — falls immediately</span></label>
+      <label class="opt"><input type="radio" name="n6b" value="4"><span><b>4</b> No movement</span></label>
+      <label class="opt"><input type="radio" name="n6b" value="UN"><span><b>UN</b> Amputation or joint fusion — untestable, not scored</span></label>
+    </div>
+  </details>
+
+  <details class="nihss-item"><summary>7. Limb ataxia <span class="badge" data-k="7">0</span></summary>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="n7" value="0" checked><span><b>0</b> Absent</span></label>
+      <label class="opt"><input type="radio" name="n7" value="1"><span><b>1</b> Present in one limb</span></label>
+      <label class="opt"><input type="radio" name="n7" value="2"><span><b>2</b> Present in two limbs</span></label>
+    </div>
+  </details>
+
+  <details class="nihss-item"><summary>8. Sensory <span class="badge" data-k="8">0</span></summary>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="n8" value="0" checked><span><b>0</b> Normal — no sensory loss</span></label>
+      <label class="opt"><input type="radio" name="n8" value="1"><span><b>1</b> Mild to moderate loss — pinprick less sharp or dull on the affected side</span></label>
+      <label class="opt"><input type="radio" name="n8" value="2"><span><b>2</b> Severe to total loss — not aware of being touched in face, arm and leg</span></label>
+    </div>
+  </details>
+
+  <details class="nihss-item"><summary>9. Best language <span class="badge" data-k="9">0</span></summary>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="n9" value="0" checked><span><b>0</b> No aphasia</span></label>
+      <label class="opt"><input type="radio" name="n9" value="1"><span><b>1</b> Mild to moderate aphasia — some loss of fluency or comprehension, without significant limitation on ideas expressed</span></label>
+      <label class="opt"><input type="radio" name="n9" value="2"><span><b>2</b> Severe aphasia — fragmentary expression, listener must infer and probe, limited information exchanged</span></label>
+      <label class="opt"><input type="radio" name="n9" value="3"><span><b>3</b> Mute or global aphasia — no usable speech or auditory comprehension</span></label>
+    </div>
+  </details>
+
+  <details class="nihss-item"><summary>10. Dysarthria <span class="badge" data-k="10">0</span></summary>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="n10" value="0" checked><span><b>0</b> Normal</span></label>
+      <label class="opt"><input type="radio" name="n10" value="1"><span><b>1</b> Mild to moderate — slurs at least some words, at worst understood with some difficulty</span></label>
+      <label class="opt"><input type="radio" name="n10" value="2"><span><b>2</b> Severe — speech so slurred as to be unintelligible, out of proportion to any dysphasia</span></label>
+      <label class="opt"><input type="radio" name="n10" value="UN"><span><b>UN</b> Intubated or other physical barrier — untestable, not scored</span></label>
+    </div>
+  </details>
+
+  <details class="nihss-item"><summary>11. Extinction and inattention (neglect) <span class="badge" data-k="11">0</span></summary>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="n11" value="0" checked><span><b>0</b> No abnormality</span></label>
+      <label class="opt"><input type="radio" name="n11" value="1"><span><b>1</b> Inattention or extinction to bilateral simultaneous stimulation in one sensory modality</span></label>
+      <label class="opt"><input type="radio" name="n11" value="2"><span><b>2</b> Profound hemi-inattention or extinction to more than one modality; does not recognise own hand, or orients to only one side of space</span></label>
+    </div>
+  </details>
+
+  <div class="note">
+    <div class="note__t">Severity bands</div>
+    <div class="tablewrap" style="margin:6px 0 0"><table>
+      <thead><tr><th>Score</th><th>Descriptor</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>No stroke symptoms</td><td>—</td></tr>
+        <tr><td>1–4</td><td>Minor</td><td>Thrombolysis if disabling; DAPT if not</td></tr>
+        <tr><td>5–15</td><td>Moderate</td><td>Standard thrombolysis candidate</td></tr>
+        <tr><td>16–20</td><td>Moderate–severe</td><td>Higher sICH risk; individualise</td></tr>
+        <tr><td>21–42</td><td>Severe</td><td>Weigh benefit against risk carefully</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- ====================================================================== MRS -->
+<section class="section" id="mrs" data-title="Modified Rankin Scale">
+  <h1>Modified Rankin Scale</h1>
+  <p class="lede">Degree of disability or dependence in daily activities. Prestroke mRS is a formal eligibility criterion for thrombectomy — get it from a collateral history, not a guess.</p>
+
+  <div class="tablewrap"><table>
+    <thead><tr><th style="width:56px">Score</th><th>Grade</th><th>Description</th><th>Functional test</th></tr></thead>
+    <tbody>
+      <tr><td><span class="mrs-dot" style="background:#1e6b3a">0</span></td><td><strong>No symptoms</strong></td><td>No symptoms at all</td><td>Normal function</td></tr>
+      <tr><td><span class="mrs-dot" style="background:#3d8b56">1</span></td><td><strong>No significant disability</strong></td><td>Symptoms, but able to carry out all usual duties and activities</td><td>All pre-stroke activities</td></tr>
+      <tr><td><span class="mrs-dot" style="background:#a1620a">2</span></td><td><strong>Slight disability</strong></td><td>Unable to carry out all previous activities, but able to look after own affairs without assistance</td><td>Independent in ADLs; cannot do everything they used to</td></tr>
+      <tr><td><span class="mrs-dot" style="background:#c07414">3</span></td><td><strong>Moderate disability</strong></td><td>Requires some help, but able to walk without assistance</td><td>Walks independently; needs help with some tasks</td></tr>
+      <tr><td><span class="mrs-dot" style="background:#b3261e">4</span></td><td><strong>Moderately severe</strong></td><td>Unable to walk without assistance and unable to attend to own bodily needs without assistance</td><td>Cannot walk unaided; cannot manage own bodily care</td></tr>
+      <tr><td><span class="mrs-dot" style="background:#8a1d17">5</span></td><td><strong>Severe disability</strong></td><td>Bedridden, incontinent, requiring constant nursing care</td><td>Requires 24-hour nursing care</td></tr>
+      <tr><td><span class="mrs-dot" style="background:#5b6676">6</span></td><td><strong>Dead</strong></td><td>Death</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="grid">
+    <div class="card">
+      <h3 style="margin-top:0">Prestroke mRS and EVT</h3>
+      <p style="margin-bottom:0"><strong>0–1</strong> — the population of essentially every thrombectomy trial<br>
+      <strong>2</strong> — reasonable within 6 h, ICA/M1, ASPECTS ≥6 <span class="cor cor-2a">2a</span><br>
+      <strong>3–4</strong> — might be reasonable, same window <span class="cor cor-2b">2b</span>; no RCT<br>
+      <strong>5</strong> — outside all trial populations</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">As a trial endpoint</h3>
+      <p style="margin-bottom:0"><strong>mRS 0–1</strong> — excellent outcome; the primary endpoint of most thrombolysis trials<br>
+      <strong>mRS 0–2</strong> — functional independence; standard-core EVT trials<br>
+      <strong>mRS 0–3</strong> — independent ambulation; the realistic endpoint in large-core EVT trials</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">Getting it right at 3 a.m.</h3>
+      <p style="margin-bottom:0">Ask family or EMS: <em>"Before this stroke, could they walk, dress and manage their own affairs independently?"</em> Yes → likely mRS 0–2. Then probe specifically about walking aids and who does the shopping — those two questions separate 2 from 3 more reliably than anything else.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================== ASPECTS -->
+<section class="section" id="aspects" data-title="ASPECTS scorer">
+  <h1>ASPECTS scorer</h1>
+  <p class="lede">Ten regions of the MCA territory. Start at 10 and subtract one point for each region showing early ischaemic change. Tick the regions that are <strong>affected</strong>.</p>
+
+  <div class="readout">
+    <div class="row">
+      <div><div class="readout__label">ASPECTS</div><div class="readout__value" id="aspectsScore">10</div></div>
+      <div><div class="readout__label">Band</div><div class="readout__value" style="font-size:16px" id="aspectsBand">ASPECTS ≥6 — standard-core pathway</div></div>
+    </div>
+    <div class="readout__note">Affected regions: <span id="aspectsRegions">none</span></div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3 style="margin-top:0">Ganglionic level</h3>
+      <p style="font-size:13px;color:var(--text-dim)">At the level of the thalamus and basal ganglia</p>
+      <label class="opt"><input type="checkbox" class="aspects-region" value="C — caudate"><span><b>C</b> Caudate</span></label>
+      <label class="opt"><input type="checkbox" class="aspects-region" value="L — lentiform"><span><b>L</b> Lentiform nucleus</span></label>
+      <label class="opt"><input type="checkbox" class="aspects-region" value="IC — internal capsule"><span><b>IC</b> Internal capsule</span></label>
+      <label class="opt"><input type="checkbox" class="aspects-region" value="I — insular ribbon"><span><b>I</b> Insular ribbon</span></label>
+      <label class="opt"><input type="checkbox" class="aspects-region" value="M1 — anterior MCA cortex"><span><b>M1</b> Anterior MCA cortex</span></label>
+      <label class="opt"><input type="checkbox" class="aspects-region" value="M2 — lateral MCA cortex"><span><b>M2</b> MCA cortex lateral to the insular ribbon</span></label>
+      <label class="opt"><input type="checkbox" class="aspects-region" value="M3 — posterior MCA cortex"><span><b>M3</b> Posterior MCA cortex</span></label>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">Supraganglionic level</h3>
+      <p style="font-size:13px;color:var(--text-dim)">Rostral to the ganglionic structures, above the lateral ventricles</p>
+      <label class="opt"><input type="checkbox" class="aspects-region" value="M4 — anterior MCA territory"><span><b>M4</b> Anterior MCA territory, superior to M1</span></label>
+      <label class="opt"><input type="checkbox" class="aspects-region" value="M5 — lateral MCA territory"><span><b>M5</b> Lateral MCA territory, superior to M2</span></label>
+      <label class="opt"><input type="checkbox" class="aspects-region" value="M6 — posterior MCA territory"><span><b>M6</b> Posterior MCA territory, superior to M3</span></label>
+      <button class="btn no-print" id="aspectsReset" style="margin-top:12px">Reset</button>
+    </div>
+  </div>
+
+  <div class="note">
+    <div class="note__t">Scoring notes</div>
+    <ul style="margin-bottom:0">
+      <li>Subtract a point only for regions with <strong>clear early ischaemic change</strong> — parenchymal hypoattenuation or focal swelling with loss of grey–white differentiation.</li>
+      <li>The change must be visible on <strong>more than one axial cut</strong> to count.</li>
+      <li>ASPECTS applies to the MCA territory only. For posterior circulation use <strong>PC-ASPECTS</strong>, which the basilar EVT recommendation requires to be ≥6.</li>
+      <li>Reduced density predicts infarction; it is not proof of irreversible tissue loss. See <a href="#imaging">the note on "core"</a>.</li>
+    </ul>
+  </div>
+
+  <h3>What the number changes</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>ASPECTS</th><th>0–6 h, ICA/M1</th><th>6–24 h, ICA/M1</th></tr></thead>
+    <tbody>
+      <tr><td><strong>6–10</strong></td><td>EVT recommended <span class="cor cor-1">1</span></td><td>EVT recommended <span class="cor cor-1">1</span></td></tr>
+      <tr><td><strong>3–5</strong></td><td>EVT recommended <span class="cor cor-1">1</span></td><td>EVT recommended, age &lt;80 <span class="cor cor-1">1</span></td></tr>
+      <tr><td><strong>0–2</strong></td><td>EVT reasonable, age &lt;80 <span class="cor cor-2a">2a</span></td><td>Outside the recommendations — individualised</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============================================================== CALCULATORS -->
+<section class="section" id="calculators" data-title="Dose, clock &amp; ICH score">
+  <h1>Clock and scores</h1>
+
+  <h2>Time from last known well</h2>
+  <div class="card">
+    <div class="row">
+      <div class="field">
+        <label for="lkwTime">Last known well (24 h clock)</label>
+        <input type="time" id="lkwTime">
+      </div>
+      <div class="field" style="display:flex;align-items:flex-end">
+        <button class="btn" id="clockNow" style="width:100%">Set to now</button>
+      </div>
+    </div>
+    <div class="readout">
+      <div class="readout__label">Elapsed</div>
+      <div class="readout__value" id="clockOut">—</div>
+      <div class="readout__note" id="clockNote"></div>
+    </div>
+    <p class="src" style="margin-bottom:0">Uses this device's clock. If the last-known-well time is later than the current time, it is assumed to be yesterday. Always confirm the time against the EMS record and a collateral history — a wrong LKW is the commonest reason a treatable patient is not treated, and vice versa.</p>
+  </div>
+
+  <h2>ICH score</h2>
+  <p>Hemphill et al, <em>Stroke</em> 2001. Predicts 30-day mortality after spontaneous intracerebral haemorrhage.</p>
+  <div class="card">
+    <div class="row">
+      <div class="field">
+        <label for="ichGcs">Glasgow Coma Scale</label>
+        <select id="ichGcs"><option value="0">13–15 (0)</option><option value="1">5–12 (1)</option><option value="2">3–4 (2)</option></select>
+      </div>
+      <div class="field">
+        <label for="ichVol">ICH volume</label>
+        <select id="ichVol"><option value="0">&lt;30 mL (0)</option><option value="1">≥30 mL (1)</option></select>
+      </div>
+      <div class="field">
+        <label for="ichIvh">Intraventricular haemorrhage</label>
+        <select id="ichIvh"><option value="0">No (0)</option><option value="1">Yes (1)</option></select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label for="ichInf">Infratentorial origin</label>
+        <select id="ichInf"><option value="0">No (0)</option><option value="1">Yes (1)</option></select>
+      </div>
+      <div class="field">
+        <label for="ichAge">Age</label>
+        <select id="ichAge"><option value="0">&lt;80 years (0)</option><option value="1">≥80 years (1)</option></select>
+      </div>
+    </div>
+    <div class="readout">
+      <div class="readout__label">ICH score</div>
+      <div class="readout__value" id="ichScore">0</div>
+      <div class="readout__note" id="ichMort"></div>
+    </div>
+    <div class="note note--danger" style="margin-bottom:0">
+      <div class="note__t">Use it to describe, not to decide</div>
+      <p style="margin-bottom:0">Mortality figures come from a small single-centre derivation cohort in which many patients had care withdrawn — the prediction is partly self-fulfilling. The ICH score should not be used to justify limiting treatment in the first 24 hours.</p>
+    </div>
+  </div>
+
+  <h2>Estimating ICH volume: ABC/2</h2>
+  <div class="card">
+    <p><strong>(A × B × C) ÷ 2</strong>, in centimetres, gives volume in millilitres.</p>
+    <ul style="margin-bottom:0">
+      <li><strong>A</strong> — greatest haemorrhage diameter on the slice with the largest area</li>
+      <li><strong>B</strong> — diameter perpendicular to A on that same slice</li>
+      <li><strong>C</strong> — number of slices with visible haemorrhage × slice thickness, counting a slice as 1 if it has &gt;75% of the largest area, 0.5 if 25–75%, and 0 if less</li>
+    </ul>
+  </div>
+
+  <p class="src">The thrombolytic dose calculator lives with <a href="#dosing">dosing and administration</a>. NIHSS and ASPECTS have their own pages.</p>
+</section>
+
+<!-- =================================================================== TRIALS -->
+<section class="section" id="trials" data-title="Trial library">
+  <h1>Trial library</h1>
+  <p class="lede">Every trial cited in this guide, in one filterable table. Type a drug, a vessel, a year or an acronym.</p>
+
+  <div class="row no-print" style="margin-bottom:6px">
+    <input type="text" id="trialFilter" placeholder="Filter trials — try 'tenecteplase', 'basilar', 'large core'…" autocomplete="off">
+  </div>
+  <p class="src" id="trialCount">&nbsp;</p>
+
+  <div class="tablewrap"><table id="trialTable">
+    <thead><tr><th>Trial</th><th>Domain</th><th>Population &amp; window</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td><strong>NINDS rt-PA</strong><br><small>NEJM 1995</small></td><td>IV thrombolysis</td><td>AIS ≤3 h, n=624, alteplase 0.9</td><td>mRS 0–1 39% vs 26%, OR 1.7, P&lt;0.001. sICH 6.4% vs 0.6%. NNT ≈8. The trial that created the field</td></tr>
+      <tr><td><strong>ECASS III</strong><br><small>NEJM 2008</small></td><td>IV thrombolysis</td><td>AIS 3–4.5 h, age 18–80, n=821</td><td>mRS 0–1 52.4% vs 45.2%, OR 1.34, P=0.04. sICH 2.4% vs 0.2%. Extended the window to 4.5 h</td></tr>
+      <tr><td><strong>IST-3</strong><br><small>Lancet 2012</small></td><td>IV thrombolysis</td><td>AIS ≤6 h, no upper age limit, n=3035</td><td>OHS 0–2 at 6 months 37% vs 35%, OR 1.13, P=0.25. Supported benefit including age &gt;80 in pooled analyses</td></tr>
+      <tr><td><strong>WAKE-UP</strong><br><small>NEJM 2018</small></td><td>Extended window</td><td>Unknown onset, DWI–FLAIR mismatch, n=503</td><td>mRS 0–1 53.3% vs 41.8%, P=0.02. Established MRI mismatch selection</td></tr>
+      <tr><td><strong>THAWS</strong></td><td>Extended window</td><td>Unknown onset, DWI–FLAIR mismatch, n=131</td><td>mRS 0–1 47.1% vs 48.3%, RR 0.97. Halted early after WAKE-UP; underpowered</td></tr>
+      <tr><td><strong>EXTEND</strong><br><small>NEJM 2019</small></td><td>Extended window</td><td>4.5–9 h, perfusion mismatch, n=225</td><td>mRS 0–1 35.4% vs 29.5%, adjusted OR 1.44. sICH 6.2% vs 0.9%</td></tr>
+      <tr><td><strong>TRACE-III</strong><br><small>NEJM 2024</small></td><td>Extended window</td><td>LVO 4.5–24 h without EVT, n=516, tenecteplase</td><td>mRS 0–1 33.0% vs 24.2%, RR 1.37. sICH 3.0% vs 0.8%</td></tr>
+      <tr><td><strong>HOPE</strong><br><small>JAMA 2025;334:788</small></td><td>Extended window</td><td>Perfusion mismatch 4.5–24 h, LVO or not, no planned EVT, n=372, alteplase</td><td>mRS 0–1 40% vs 26%, adjusted RR 1.52 (1.14–2.02), P=0.004. sICH 3.8% vs 0.51%. doi:10.1001/jama.2025.12063</td></tr>
+      <tr><td><strong>OPTION</strong><br><small>JAMA 2026</small></td><td>Extended window</td><td>Non-LVO 4.5–24 h, core &lt;50 mL, ratio ≥1.2, n=566, tenecteplase</td><td>mRS 0–1 43.6% vs 34.2%, RR 1.28 (1.04–1.57), P=0.02. sICH 2.8% vs 0%. doi:10.1001/jama.2026.0210</td></tr>
+      <tr><td><strong>TIMELESS</strong><br><small>NEJM 2024</small></td><td>Extended window + EVT</td><td>4.5–24 h with EVT, perfusion-selected, tenecteplase vs placebo</td><td>Neutral — no improvement in functional outcome. doi:10.1056/NEJMoa2402980</td></tr>
+      <tr><td><strong>AcT</strong><br><small>Lancet 2022</small></td><td>Agent choice</td><td>AIS ≤4.5 h, pragmatic, n=1600, Canada</td><td>mRS 0–1 36.9% vs 34.8%. Noninferior. sICH 3.4% vs 3.2%. Largest TNK noninferiority trial</td></tr>
+      <tr><td><strong>TRACE-2</strong><br><small>Lancet 2023</small></td><td>Agent choice</td><td>AIS ≤4.5 h, n=1430</td><td>mRS 0–1 62.7% vs 56.6%. Noninferior. sICH 2.0% vs 2.0%</td></tr>
+      <tr><td><strong>ATTEST-2</strong><br><small>Lancet Neurol 2024</small></td><td>Agent choice</td><td>AIS ≤4.5 h, n=754, UK</td><td>mRS 0–1 56% vs 58%. Noninferior. sICH 3% vs 4%</td></tr>
+      <tr><td><strong>TASTE</strong><br><small>Lancet Neurol 2024</small></td><td>Agent choice</td><td>AIS ≤4.5 h, perfusion-selected, n=578, Australia</td><td>Noninferiority confirmed</td></tr>
+      <tr><td><strong>NOR-TEST 2</strong></td><td>Agent choice — dose</td><td>Tenecteplase <strong>0.4 mg/kg</strong> vs alteplase</td><td>Terminated early for worse safety and functional outcomes. 0.4 mg/kg is the wrong dose in stroke</td></tr>
+      <tr><td><strong>PRISMS</strong></td><td>Minor stroke</td><td>Non-disabling deficit ≤3 h, alteplase vs aspirin</td><td>No benefit. Source of the operational definition of "clearly disabling" in Table 4</td></tr>
+      <tr><td><strong>MR CLEAN</strong><br><small>NEJM 2015</small></td><td>Thrombectomy</td><td>ICA/M1/M2/A1/A2, NIHSS ≥2, ≤6 h, n=500</td><td>mRS shift adjusted OR 1.67; mRS 0–2 32.6% vs 19.1%. First positive EVT trial</td></tr>
+      <tr><td><strong>ESCAPE, EXTEND-IA, SWIFT PRIME, REVASCAT, THRACE</strong></td><td>Thrombectomy</td><td>Anterior LVO ≤6–8 h, 2015</td><td>The landmark set. Pooled in HERMES: benefit persisted at age ≥80 (common OR 3.68, 1.95–6.92)</td></tr>
+      <tr><td><strong>DAWN</strong><br><small>NEJM 2018</small></td><td>Late thrombectomy</td><td>ICA/M1, clinical–core mismatch, 6–24 h, n=206</td><td>mRS 0–2 49% vs 13%. NNT 2.8. doi:10.1056/NEJMoa1706442</td></tr>
+      <tr><td><strong>DEFUSE 3</strong><br><small>NEJM 2018</small></td><td>Late thrombectomy</td><td>ICA/M1, ratio ≥1.8 and core &lt;70 mL, 6–16 h, n=182</td><td>mRS 0–2 45% vs 17%, OR 2.77. NNT 3.6. doi:10.1056/NEJMoa1713973</td></tr>
+      <tr><td><strong>AURORA</strong></td><td>Late thrombectomy</td><td>Individual patient data meta-analysis, 6–24 h</td><td>Adjusted common OR 2.54 (1.83–3.54), P&lt;0.0001. No heterogeneity between volumetric and non-volumetric selection</td></tr>
+      <tr><td><strong>RESCUE-Japan LIMIT</strong><br><small>NEJM 2022</small></td><td>Large core</td><td>ICA/M1, ASPECTS 3–5, NIHSS ≥6, mRS 0–1, ≤6 h (or ≤24 h without FLAIR change), n=203</td><td>mRS 0–3 31.0% vs 12.7%, common OR 2.43</td></tr>
+      <tr><td><strong>ANGEL-ASPECT</strong><br><small>NEJM 2023</small></td><td>Large core</td><td>ICA/M1, ASPECTS 3–5 or core 70–100 mL, age 18–80, ≤24 h, n=456</td><td>mRS shift favouring EVT; stopped early for efficacy. sICH 6.1% vs 2.7%</td></tr>
+      <tr><td><strong>SELECT2</strong><br><small>NEJM 2023</small></td><td>Large core</td><td>ICA/M1, ASPECTS 3–5 or core ≥50 mL, age 18–85, ≤24 h, n=352</td><td>Generalised OR 1.51 (1.20–1.89); stopped early for efficacy. Median core 74–77 mL. Exploratory: ≥26 mL of ≤26 HU hypodensity predicted no benefit</td></tr>
+      <tr><td><strong>TENSION</strong><br><small>Lancet 2023</small></td><td>Large core</td><td>ICA/M1, ASPECTS 3–5, NIHSS &lt;26, mRS 0–2, ≤12 h, n=253</td><td>mRS shift favouring EVT. Mortality 40.2% vs 51.2%</td></tr>
+      <tr><td><strong>LASTE</strong><br><small>NEJM 2024</small></td><td>Very large core</td><td>ICA/M1, <strong>ASPECTS 0–5</strong>, mRS 0–1, age &lt;80, ≤6.5 h, n=333</td><td>Median mRS 4 vs 6; generalised OR 1.63 (1.29–2.06), P&lt;0.001. Mortality 36.1% vs 55.5%. The only trial to systematically enrol ASPECTS 0–2</td></tr>
+      <tr><td><strong>TESLA</strong></td><td>Large core</td><td>ASPECTS 2–5, ≤24 h, NCCT selection</td><td>Did not meet its primary endpoint threshold; included in the 6-trial meta-analysis</td></tr>
+      <tr><td><strong>Liu et al meta-analysis</strong><br><small>Neurology 2025;104:e213443</small></td><td>Large core</td><td>6 RCTs, n=1887</td><td>Ordinal mRS generalised OR 1.6 (1.4–1.8); mRS 0–3 RR 1.9 (1.5–2.5); mortality RR 0.9 (0.8–1.0); sICH RR 1.7 (1.1–2.7). Benefit fell with longer onset-to-randomisation. doi:10.1212/WNL.0000000000213443</td></tr>
+      <tr><td><strong>ATTENTION, BAOCHE</strong></td><td>Basilar</td><td>Basilar occlusion ≤24 h, NIHSS ≥10, PC-ASPECTS ≥6</td><td>Improved functional outcome and reduced mortality. Basis for the COR 1 basilar recommendation</td></tr>
+      <tr><td><strong>ASTER2, COMPASS</strong></td><td>EVT technique</td><td>Aspiration vs stent retriever</td><td>Contact aspiration noninferior to stent retriever in efficacy and safety</td></tr>
+      <tr><td><strong>CHANCE</strong></td><td>DAPT</td><td>NIHSS ≤3 or TIA ABCD² ≥4, within 24 h</td><td>Clopidogrel 300 mg load + aspirin × 21 days. NNT 28</td></tr>
+      <tr><td><strong>POINT</strong></td><td>DAPT</td><td>NIHSS ≤3 or TIA ABCD² ≥4, within 12 h</td><td>Clopidogrel 600 mg load + aspirin × 90 days. NNT 67; bleeding rose after day 21</td></tr>
+      <tr><td><strong>THALES</strong></td><td>DAPT</td><td>NIHSS ≤5 or TIA ABCD² ≥6, within 24 h</td><td>Ticagrelor + aspirin × 30 days</td></tr>
+      <tr><td><strong>INSPIRES</strong></td><td>DAPT</td><td>NIHSS ≤5 or high-risk TIA within 24–72 h, atherosclerotic</td><td>Clopidogrel + aspirin × 21 days. Basis for the 24–72 h COR 2a recommendation</td></tr>
+      <tr><td><strong>ELAN</strong></td><td>Anticoagulation timing</td><td>AIS with AF, early vs late DOAC</td><td>Numerical, not statistically significant, reduction in the composite outcome. Risk difference −1.18 (−2.84 to 0.47)</td></tr>
+      <tr><td><strong>OPTIMAS</strong></td><td>Anticoagulation timing</td><td>AIS with AF, n=3648, DOAC ≤4 days vs 7–14 days</td><td>Supports early initiation as low risk</td></tr>
+      <tr><td><strong>SHINE</strong></td><td>Glucose</td><td>Hyperglycaemic AIS, intensive 80–130 vs 80–180 mg/dL, n=1151</td><td>Stopped early for futility. No 3-month benefit; severe hypoglycaemia only in the intensive arm</td></tr>
+      <tr><td><strong>CHARM</strong></td><td>Oedema</td><td>Large hemispheric infarction, IV glibenclamide, n=535</td><td>No improvement in functional outcome</td></tr>
+      <tr><td><strong>DECIMAL, DESTINY, HAMLET, HeADDFIRST, HeMMI</strong></td><td>Hemicraniectomy</td><td>Malignant MCA infarction, decompression within 48 h</td><td>Survival and functional benefit at 12 months for age ≤60; survival benefit only above 60</td></tr>
+      <tr><td><strong>RACECAT</strong></td><td>Systems of care</td><td>Non-urban Catalonia, mothership vs drip-and-ship</td><td>Did not resolve optimal prehospital destination</td></tr>
+      <tr><td><strong>B_PROUD, BEST-MSU</strong></td><td>Systems of care</td><td>Mobile stroke units vs conventional EMS</td><td>Faster treatment and better functional outcomes. Basis for the new MSU recommendations</td></tr>
+      <tr><td><strong>PRESTO</strong></td><td>Prehospital scales</td><td>8 LVO scales, n=1039, Netherlands</td><td>AUC 0.72–0.83 for anterior LVO detection</td></tr>
+      <tr><td><strong>INTERACT3</strong><br><small>Lancet 2023;402:27</small></td><td>ICH</td><td>Care bundle, 121 hospitals, 10 countries, n=7036</td><td>Poor outcome reduced, common OR 0.86 (0.76–0.97), P=0.015. Fewer serious adverse events. doi:10.1016/S0140-6736(23)00806-1</td></tr>
+      <tr><td><strong>ANNEXA-I</strong><br><small>NEJM 2024;390:1745</small></td><td>ICH reversal</td><td>FXa-inhibitor-associated ICH within 15 h, n=530</td><td>Haemostatic efficacy 67.0% vs 53.1% (P=0.003); thrombotic events 10.3% vs 5.6% (P=0.048), ischaemic stroke 6.5% vs 1.5%; no difference in mRS or 30-day death. doi:10.1056/NEJMoa2313040</td></tr>
+      <tr><td><strong>ENRICH</strong><br><small>NEJM 2024;390:1277</small></td><td>ICH surgery</td><td>Lobar or anterior basal ganglia ICH 30–80 mL within 24 h, n=300</td><td>Utility-weighted mRS at 180 days 0.458 vs 0.374, posterior probability 0.981. Benefit confined to lobar. 30-day death 9.3% vs 18.0%. doi:10.1056/NEJMoa2404603</td></tr>
+      <tr><td><strong>PATCH</strong></td><td>ICH</td><td>Platelet transfusion in antiplatelet-associated ICH</td><td>Worse outcomes with transfusion. Basis for the COR 3: Harm recommendation</td></tr>
+      <tr><td><strong>PASS</strong></td><td>Supportive care</td><td>Preventive antibiotics after stroke</td><td>No difference in 3-month mRS</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================================================================= EVIDENCE -->
+<section class="section" id="evidence" data-title="How to read COR/LOE">
+  <h1>How to read the classifications</h1>
+  <p class="lede">Every recommendation in this guide carries the class and level of evidence assigned by the guideline writing committee. They mean specific things.</p>
+
+  <h2>Class of recommendation — how strongly, and in which direction</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Class</th><th>Meaning</th><th>Typical phrasing</th></tr></thead>
+    <tbody>
+      <tr><td><span class="cor cor-1">1</span> Strong</td><td>Benefit greatly outweighs risk</td><td>"is recommended", "should be performed", "is indicated"</td></tr>
+      <tr><td><span class="cor cor-2a">2a</span> Moderate</td><td>Benefit outweighs risk</td><td>"is reasonable", "can be useful", "can be beneficial"</td></tr>
+      <tr><td><span class="cor cor-2b">2b</span> Weak</td><td>Benefit is greater than or equal to risk</td><td>"may be reasonable", "might be considered", "usefulness is not well established"</td></tr>
+      <tr><td><span class="cor cor-3n">3: No Benefit</span></td><td>Benefit equals risk — moderate or strong evidence of no effect</td><td>"is not recommended", "is not indicated", "is not useful"</td></tr>
+      <tr><td><span class="cor cor-3h">3: Harm</span></td><td>Risk exceeds benefit</td><td>"is potentially harmful", "should not be performed"</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Level of evidence — how good the underlying data are</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Level</th><th>Basis</th></tr></thead>
+    <tbody>
+      <tr><td><span class="loe">A</span></td><td>High-quality evidence from more than one randomised trial, or meta-analyses of high-quality RCTs</td></tr>
+      <tr><td><span class="loe">B-R</span></td><td>Moderate-quality evidence from one or more randomised trials, or meta-analyses of such</td></tr>
+      <tr><td><span class="loe">B-NR</span></td><td>Moderate-quality evidence from one or more well-designed nonrandomised or observational studies</td></tr>
+      <tr><td><span class="loe">C-LD</span></td><td>Limited data — randomised or nonrandomised studies with design or execution limitations, or physiological studies in humans</td></tr>
+      <tr><td><span class="loe">C-EO</span></td><td>Expert opinion, based on clinical experience</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note note--warn">
+    <div class="note__t">Two habits worth keeping</div>
+    <p><strong>A Class 3 is a real recommendation.</strong> "3: No Benefit" and "3: Harm" carry the same strength as a Class 1 — they are strong recommendations to <em>not</em> do something. Intensive BP lowering after successful thrombectomy is Class 3: Harm, Level A: as well evidenced as anything in the document.</p>
+    <p style="margin-bottom:0"><strong>Read the whole row, not the chip.</strong> A COR 1 recommendation qualified by "age &lt;80, prestroke mRS 0–1, ASPECTS 3–5, no significant mass effect" is Class 1 <em>for that population</em>, and silent about anyone else.</p>
+  </div>
+
+  <h2>What the guideline does not claim</h2>
+  <p>The AHA/ASA state that guidelines define practices meeting the needs of patients in most, but not all, circumstances, and should not replace clinical judgement — recommendations must be considered in the context of individual patient values, preferences and associated conditions. That framing applies with even more force to a summary such as this one.</p>
+</section>
+
+<!-- ==================================================================== ABOUT -->
+<section class="section" id="about" data-title="About, licence &amp; sources">
+  <h1>About this guide</h1>
+
+  <h2>What this is</h2>
+  <p>A free, open-source, offline-capable reference for the acute management of stroke, aimed at stroke neurologists, emergency physicians, nurses, advanced practice clinicians, residents and students. It is derived from published guidelines and peer-reviewed trials, and it is deliberately generic: no institution's protocol, activation criteria or workflow appears anywhere in it.</p>
+
+  <h2>Disclaimer</h2>
+  <div class="note note--danger">
+    <p><strong>This is an educational reference, not medical advice.</strong> It does not establish a standard of care and it has not been validated as a clinical decision support system or cleared by any regulatory authority as a medical device.</p>
+    <p>The clinician using it remains solely responsible for every decision. Drug doses, thresholds and criteria must be verified against the primary literature, the product labelling and local protocol before they are acted on. The authors and contributors accept no liability arising from use of this material.</p>
+    <p style="margin-bottom:0">Guidelines change. Check the version and date below against the current AHA/ASA publications.</p>
+  </div>
+
+  <h2>Primary sources</h2>
+  <ul>
+    <li>Prabhakaran S, Gonzalez NR, Zachrison KS, et al. <strong>2026 Guideline for the Early Management of Patients With Acute Ischemic Stroke: A Guideline From the American Heart Association/American Stroke Association.</strong> <em>Stroke.</em> 2026;57. <a href="https://doi.org/10.1161/STR.0000000000000513" rel="noopener">doi:10.1161/STR.0000000000000513</a></li>
+    <li>Greenberg SM, Ziai WC, Cordonnier C, et al. <strong>2022 Guideline for the Management of Patients With Spontaneous Intracerebral Hemorrhage.</strong> <em>Stroke.</em> 2022;53:e282–e361. <a href="https://doi.org/10.1161/STR.0000000000000407" rel="noopener">doi:10.1161/STR.0000000000000407</a></li>
+    <li>Liu C, Abdalkader M, Sang H, et al. <strong>Endovascular thrombectomy for large ischemic core stroke: a systematic review and meta-analysis.</strong> <em>Neurology.</em> 2025;104:e213443. <a href="https://doi.org/10.1212/WNL.0000000000213443" rel="noopener">doi:10.1212/WNL.0000000000213443</a></li>
+    <li>Ma G, Mo R, Zuo Y, et al. <strong>Tenecteplase for acute non–large vessel occlusion 4.5 to 24 hours after ischemic stroke: the OPTION randomized clinical trial.</strong> <em>JAMA.</em> 2026. <a href="https://doi.org/10.1001/jama.2026.0210" rel="noopener">doi:10.1001/jama.2026.0210</a></li>
+    <li>Zhou Y, He Y, Campbell BCV, et al. <strong>Alteplase for acute ischemic stroke at 4.5 to 24 hours: the HOPE randomized clinical trial.</strong> <em>JAMA.</em> 2025;334:788–797. <a href="https://doi.org/10.1001/jama.2025.12063" rel="noopener">doi:10.1001/jama.2025.12063</a></li>
+    <li>Connolly SJ, Sharma M, Cohen AT, et al. <strong>Andexanet for factor Xa inhibitor–associated acute intracerebral hemorrhage.</strong> <em>N Engl J Med.</em> 2024;390:1745–1755. <a href="https://doi.org/10.1056/NEJMoa2313040" rel="noopener">doi:10.1056/NEJMoa2313040</a></li>
+    <li>Pradilla G, Ratcliff JJ, Hall AJ, et al. <strong>Trial of early minimally invasive removal of intracerebral hemorrhage.</strong> <em>N Engl J Med.</em> 2024;390:1277–1289. <a href="https://doi.org/10.1056/NEJMoa2404603" rel="noopener">doi:10.1056/NEJMoa2404603</a></li>
+    <li>Ma L, Hu X, Song L, et al. <strong>INTERACT3: an international, stepped wedge cluster randomised controlled trial.</strong> <em>Lancet.</em> 2023;402:27–40. <a href="https://doi.org/10.1016/S0140-6736(23)00806-1" rel="noopener">doi:10.1016/S0140-6736(23)00806-1</a></li>
+    <li>Hemphill JC, Bonovich DC, Besmertis L, et al. <strong>The ICH score: a simple, reliable grading scale for intracerebral hemorrhage.</strong> <em>Stroke.</em> 2001;32:891–897.</li>
+  </ul>
+  <p class="src">Individual trials cited in the <a href="#trials">trial library</a> carry their own references. Recommendation wording is paraphrased for brevity; where precision matters, read the source.</p>
+
+  <h2>Copyright</h2>
+  <p>Clinical recommendations are facts about the published literature and are summarised here in the authors' own words. No figures, tables or extended text are reproduced from any copyrighted publication. Guideline documents remain the copyright of the American Heart Association; trial reports remain the copyright of their publishers. If you hold rights in any material you believe is reproduced here beyond fair use, open an issue and it will be removed.</p>
+
+  <h2>Licence and contributing</h2>
+  <p>The software is MIT licensed; the clinical content is released under <strong>CC BY 4.0</strong> — reuse it, adapt it for your own institution, translate it, as long as you attribute the source. Corrections are welcome and wanted: if a recommendation here misstates the guideline, or a number is wrong, open an issue or a pull request with the citation.</p>
+
+  <h2>Version</h2>
+  <p class="src">Version <span id="buildVersion">1.0.0</span>. Content current to the 2026 AHA/ASA acute ischaemic stroke guideline, the 2022 AHA/ASA spontaneous ICH guideline, and named trials published through February 2026.</p>
+
+  <div class="footer">
+    <p>Built as a public resource. No tracking, no analytics, no accounts, no network requests after the first load.</p>
+  </div>
+</section>
+
+</main>
+</div>
+
+<div class="overlay" id="searchOverlay" hidden>
+  <div class="searchbox" role="dialog" aria-modal="true" aria-label="Search">
+    <input type="text" id="searchInput" placeholder="Search every table, row and footnote…" autocomplete="off" spellcheck="false">
+    <div class="results" id="searchResults"></div>
+    <div class="searchfoot"><span><kbd>↑</kbd><kbd>↓</kbd> navigate</span><span><kbd>↵</kbd> open</span><span><kbd>esc</kbd> close</span></div>
+  </div>
+</div>
+
+<script src="assets/js/app.js"></script>
+</body>
+</html>
