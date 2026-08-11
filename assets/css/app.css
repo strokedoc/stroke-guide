@@ -14,11 +14,13 @@
   --border: #d8dde5;
   --brand: #0e5c8a;
   --brand-2: #0e7c7b;
+  --brand-strong: #0e5c8a;   /* filled surfaces that carry white text */
+  --brand-strong-2: #0e7c7b;
   --accent: #0e7c7b;
 
   --red: #b3261e;
   --red-bg: #fdf1f0;
-  --amber: #a1620a;
+  --amber: #8a5507;
   --amber-bg: #fdf6ea;
   --green: #1e6b3a;
   --green-bg: #eef8f1;
@@ -46,6 +48,8 @@ html[data-theme="dark"] {
   --border: #2b3441;
   --brand: #63b3e8;
   --brand-2: #4fc9c7;
+  --brand-strong: #1d6ea3;
+  --brand-strong-2: #12756f;
   --accent: #4fc9c7;
 
   --red: #ff8f85;
@@ -87,7 +91,7 @@ summary:focus-visible, [tabindex]:focus-visible {
 /* ---------- Skip link ---------- */
 .skip {
   position: absolute; left: -9999px; top: 0; z-index: 200;
-  background: var(--brand); color: #fff; padding: 10px 16px; border-radius: 0 0 8px 0;
+  background: var(--brand-strong); color: #fff; padding: 10px 16px; border-radius: 0 0 8px 0;
 }
 .skip:focus { left: 0; }
 
@@ -104,7 +108,7 @@ summary:focus-visible, [tabindex]:focus-visible {
 .hdr__brand > span:last-child { min-width: 0; overflow: hidden; }
 .hdr__mark {
   width: 30px; height: 30px; border-radius: 8px; flex: 0 0 auto;
-  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  background: linear-gradient(135deg, var(--brand-strong), var(--brand-strong-2));
   display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 14px;
 }
 .hdr__title { font-size: 15px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -132,8 +136,7 @@ kbd {
 @media (max-width: 620px) {
   .hdr__sub { display: none; }
   .hdr__title { font-size: 14px; }
-  #installBtn { font-size: 0; padding: 0 9px; }
-  #installBtn svg { font-size: 13px; }
+  .btn-label { display: none; }
 }
 @media (max-width: 470px) {
   .hdr { gap: 6px; padding: 0 8px; }
@@ -255,7 +258,7 @@ td small { color: var(--text-dim); }
   background: var(--surface); color: var(--text-dim); cursor: pointer;
   font-family: inherit; font-size: 13px; font-weight: 600;
 }
-.tab[aria-selected="true"] { background: var(--brand); border-color: var(--brand); color: #fff; }
+.tab[aria-selected="true"] { background: var(--brand-strong); border-color: var(--brand-strong); color: #fff; }
 .tabpanel[hidden] { display: none; }
 
 /* ---------- Forms / calculators ---------- */
@@ -270,12 +273,12 @@ input[type="number"], input[type="text"], input[type="time"], select {
 .row > * { flex: 1 1 150px; }
 
 .readout {
-  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  background: linear-gradient(135deg, var(--brand-strong), var(--brand-strong-2));
   color: #fff; border-radius: var(--radius); padding: 16px 18px; margin: 14px 0;
 }
-.readout__label { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; opacity: .85; }
+.readout__label { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; opacity: .95; }
 .readout__value { font-size: 30px; font-weight: 800; line-height: 1.1; }
-.readout__note { font-size: 12.5px; opacity: .9; margin-top: 6px; }
+.readout__note { font-size: 12.5px; opacity: 1; margin-top: 6px; }
 .readout .row > * { color: #fff; }
 
 .btn {
@@ -284,7 +287,7 @@ input[type="number"], input[type="text"], input[type="time"], select {
   font-family: inherit; font-size: 13.5px; font-weight: 600;
 }
 .btn:hover { background: var(--surface-3); }
-.btn--primary { background: var(--brand); border-color: var(--brand); color: #fff; }
+.btn--primary { background: var(--brand-strong); border-color: var(--brand-strong); color: #fff; }
 .btn--primary:hover { filter: brightness(1.08); }
 
 /* NIHSS */
@@ -322,7 +325,6 @@ input[type="number"], input[type="text"], input[type="time"], select {
 .result { display: block; width: 100%; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--border); padding: 11px 17px; cursor: pointer; font-family: inherit; color: var(--text); }
 .result:hover, .result.sel { background: var(--surface-2); }
 .result__crumb { font-size: 11px; color: var(--brand-2); font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
-.result__title { font-size: 14.5px; font-weight: 600; }
 .result__snip { font-size: 12.5px; color: var(--text-dim); }
 .result mark { background: var(--amber-bg); color: var(--text); padding: 0 2px; border-radius: 3px; }
 .searchfoot { padding: 8px 17px; font-size: 12px; color: var(--text-dim); display: flex; gap: 14px; flex-wrap: wrap; }
@@ -352,3 +354,30 @@ input[type="number"], input[type="text"], input[type="time"], select {
   .card, .tablewrap { box-shadow: none; break-inside: avoid; }
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; color: #555; }
 }
+
+/* ---------- Mobile table scrolling (P2) ---------- */
+@media (max-width: 700px) {
+  .tablewrap table { min-width: 560px; }
+}
+
+/* ---------- Mobile quick bar (P4) ---------- */
+.quickbar { display: none; }
+@media (max-width: 960px) {
+  .quickbar {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 60;
+    display: flex; background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .quickbar a, .quickbar button {
+    flex: 1; text-align: center; padding: 11px 4px 10px; min-height: 48px;
+    font-family: var(--sans); font-size: 12px; font-weight: 600;
+    color: var(--text-dim); text-decoration: none;
+    background: none; border: 0; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+  }
+  .quickbar a[aria-current="page"] { color: var(--brand); }
+  .quickbar svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .main { padding-bottom: 96px; }
+}
+@media print { .quickbar { display: none !important; } }

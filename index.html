@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" data-version="1.0.0">
+<html lang="en" data-theme="light" data-version="1.1.0">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -42,7 +42,7 @@
   </button>
   <button class="iconbtn" id="installBtn" hidden aria-label="Install app">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
-    Install
+    <span class="btn-label">Install</span>
   </button>
   <button class="iconbtn" id="themeBtn" aria-label="Switch theme">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
@@ -164,7 +164,8 @@
         <select id="pfTime">
           <option value="">Select…</option>
           <option value="2">Within 4.5 h</option>
-          <option value="7">4.5–9 h</option>
+          <option value="5">4.5–6 h</option>
+          <option value="7">6–9 h</option>
           <option value="16">9–24 h</option>
           <option value="30">More than 24 h</option>
         </select>
@@ -200,7 +201,8 @@
         <label for="pfOccl">Occlusion on CTA/MRA</label>
         <select id="pfOccl">
           <option value="">Select…</option>
-          <option value="none">None / not imaged</option>
+          <option value="noneg">No occlusion on CTA/MRA</option>
+          <option value="none">Vascular imaging not done</option>
           <option value="lvo">ICA or M1</option>
           <option value="m2">Proximal M2 (dominant)</option>
           <option value="basilar">Basilar</option>
@@ -250,7 +252,7 @@
   </div>
 
   <h2>Result</h2>
-  <div id="pfOut"></div>
+  <div id="pfOut" aria-live="polite"></div>
 </section>
 
 <!-- =============================================================== PREHOSPITAL -->
@@ -457,6 +459,19 @@
     <li><strong>Sonothrombolysis</strong> — no benefit in NOR-SASS or CLOTBUST-ER</li>
   </ul>
 
+  <h2>Other fibrinolytic agents</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Agent</th><th>Recommendation</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Reteplase</strong></td><td>Within 4.5 h and <em>not</em> undergoing EVT, may be considered instead of alteplase to increase the odds of an excellent 90-day outcome</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td></tr>
+      <tr><td><strong>Mutant prourokinase</strong></td><td>Within 4.5 h and not undergoing EVT, may be considered instead of alteplase — lower odds of bleeding, noninferior for excellent outcome</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td></tr>
+      <tr><td>Mutant prourokinase <em>plus</em> low-dose alteplase</td><td>Not recommended</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td></tr>
+      <tr><td><strong>Desmoteplase</strong>, 3–9 h</td><td>Not recommended for improving functional independence at 90 days</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">A</span></td></tr>
+      <tr><td><strong>Sonothrombolysis</strong> as an adjunct</td><td>No clinical benefit (NOR-SASS, CLOTBUST-ER)</td><td><span class="cor cor-3n">3: No Benefit</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">Alteplase and tenecteplase remain the Class 1 options within 4.5 h. Reteplase and mutant prourokinase carry weak recommendations and are not widely available for stroke.</p>
+
   <h2>Central retinal artery occlusion</h2>
   <p>In adults with acute nonarteritic CRAO causing disabling visual loss who are otherwise eligible, the usefulness of IVT within 4.5 h is <em>uncertain</em> <span class="cor cor-2b">COR 2b</span> <span class="loe">C-LD</span>. Three European randomised trials (THEIA, TenCRAOS, REVISION) will settle this; decide within a shared decision-making frame referencing the patient's baseline visual function.</p>
 
@@ -567,7 +582,7 @@
         <select id="wtUnit"><option value="kg">kg</option><option value="lb">lb</option></select>
       </div>
     </div>
-    <div class="readout">
+    <div class="readout" aria-live="polite">
       <div class="row">
         <div><div class="readout__label">Total dose</div><div class="readout__value" id="doseOut">—</div></div>
         <div><div class="readout__label">Volume / bolus</div><div class="readout__value" id="volOut">—</div></div>
@@ -588,7 +603,7 @@
     </tbody>
   </table></div>
   <ul>
-    <li>Single IV bolus. Maximum 25 mg.</li>
+    <li>Single IV bolus over 5–10 seconds. Maximum 25 mg.</li>
     <li>If the patient is &lt;50 kg and an accurate weight is known, 1-kg-band dosing may be used.</li>
     <li><strong>Do not delay thrombolysis to obtain an exact weight.</strong> With estimated weights, 1-kg-band dosing is not necessarily safer than 10-kg-band dosing.</li>
   </ul>
@@ -863,6 +878,11 @@
     </tbody>
   </table></div>
 
+  <div class="note">
+    <div class="note__t">Getting under 185/110 before the bolus</div>
+    <p style="margin-bottom:0">The guideline sets targets but does not mandate an agent. In practice, short-acting titratable IV agents are used — <strong>labetalol</strong>, <strong>nicardipine</strong> and <strong>clevidipine</strong> are the ones most commonly stocked for this purpose. Choose and dose according to your own formulary and protocol; the principle from the guideline is smooth, sustained control rather than a rapid overshoot, and hypertension that cannot be brought under control was an exclusion in the thrombolysis trials.</p>
+  </div>
+
   <h2>Neurological and BP observations after thrombolysis</h2>
   <div class="card">
     <p style="margin-bottom:6px"><strong>Every 15 min for 2 h → every 30 min for 6 h → hourly until 24 h.</strong></p>
@@ -927,6 +947,27 @@
   <h1>General supportive care</h1>
   <p class="lede">Most of the outcome gain on the ward comes from avoiding harm rather than adding treatment.</p>
 
+  <h2>Airway, breathing and oxygenation</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Recommendation</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td>In acute stroke with <strong>decreased consciousness or bulbar dysfunction</strong>, airway support and ventilatory assistance as needed for airway maintenance, protection and adequate ventilation and oxygenation</td><td><span class="cor cor-1">1</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td>In hypoxia, supplemental oxygen to maintain <strong>SpO₂ &gt;94%</strong></td><td><span class="cor cor-1">1</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td>Normobaric hyperoxia before EVT — within 6 h, NIHSS 10–20, ASPECTS ≥6, anterior LVO (M1 or carotid terminus) with planned EVT — may be reasonable</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">Supplemental oxygen is for hypoxia. There is no recommendation to give it to a normoxic patient.</p>
+
+  <h2>Head positioning</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Recommendation</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td>Routine <strong>0-degree</strong> head positioning versus 30 degrees for 24 h — no benefit for functional outcome (HeadPoST)</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td></tr>
+      <tr><td>Routine <strong>Trendelenburg</strong> (−20 degrees) versus 0–30 degrees, in probable large-artery atherosclerosis with no reperfusion option — no benefit (HOPES-2)</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">Position for airway safety, aspiration risk and comfort — not as a haemodynamic intervention.</p>
+
   <h2>Glucose</h2>
   <div class="tablewrap"><table>
     <thead><tr><th>Recommendation</th><th>Class</th></tr></thead>
@@ -956,6 +997,17 @@
       <tr><td>Reasonable for screening to be done by speech pathologists or other trained professionals</td><td><span class="cor cor-2a">2a</span> <span class="loe">C-LD</span></td></tr>
       <tr><td>Where the patient fails or cannot participate in bedside screening, endoscopic evaluation of swallowing is reasonable</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td></tr>
       <tr><td>An oral hygiene protocol may be reasonable to reduce pneumonia risk</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td><strong>Pharyngeal electrical stimulation</strong> can be beneficial in stroke with dysphagia — new in 2026</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Nutrition</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Recommendation</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td>Start an <strong>enteral diet within 7 days</strong> of admission</td><td><span class="cor cor-1">1</span> <span class="loe">B-R</span></td></tr>
+      <tr><td>Nutritional screening to direct management early, preferably <strong>within 48 h</strong>, using a tool validated in acute stroke</td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td>In dysphagia, nasogastric feeding for the first 7 days; percutaneous gastrostomy where inability to swallow safely is expected to persist beyond <strong>2–3 weeks</strong></td><td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td></tr>
     </tbody>
   </table></div>
 
@@ -967,6 +1019,7 @@
       <tr><td>Prophylactic-dose subcutaneous heparin (UFH or LMWH) is reasonable for impaired mobility</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td></tr>
       <tr><td>Benefit of prophylactic heparin over none, for overall survival, is not well established</td><td><span class="cor cor-2b">2b</span> <span class="loe">A</span></td></tr>
       <tr><td>Benefit of prophylactic LMWH over prophylactic UFH is uncertain</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td></tr>
+      <tr><td><strong>Elastic compression stockings cause harm</strong> in patients with impaired mobility — skin breakdown, ulceration and tissue necrosis — compared with usual care. Use intermittent pneumatic compression instead</td><td><span class="cor cor-3h">3: Harm</span> <span class="loe">B-R</span></td></tr>
     </tbody>
   </table></div>
 
@@ -1019,7 +1072,7 @@
         <td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td>
       </tr>
       <tr>
-        <td><strong>NIHSS ≤5</strong> or high-risk TIA within <strong>24–72 h</strong>, or NIHSS 4–5 within 24 h, presumed atherosclerotic (≥50% stenosis or imaging pattern of large-artery atherosclerosis), not given IVT</td>
+        <td><strong>NIHSS ≤5</strong> or high-risk TIA (ABCD² ≥4) within <strong>24–72 h</strong>, or NIHSS 4–5 within 24 h, presumed atherosclerotic (≥50% stenosis or imaging pattern of large-artery atherosclerosis), not given IVT</td>
         <td>Aspirin + clopidogrel for 21 days, then single antiplatelet (INSPIRES)</td>
         <td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td>
       </tr>
@@ -1286,7 +1339,7 @@
   <h1>NIHSS calculator</h1>
   <p class="lede">Score every item. Maximum 42. Scores are additive and untestable items score as instructed, not as zero by assumption.</p>
 
-  <div class="readout">
+  <div class="readout" aria-live="polite">
     <div class="row">
       <div>
         <div class="readout__label">Total NIHSS</div>
@@ -1307,7 +1360,7 @@
   </div>
 
   <details class="nihss-item" open><summary>1a. Level of consciousness <span class="badge" data-k="1a">0</span></summary>
-    <div class="opts">
+    <div class="opts" role="radiogroup" aria-label="1a. Level of consciousness">
       <label class="opt"><input type="radio" name="n1a" value="0" checked><span><b>0</b> Alert, keenly responsive</span></label>
       <label class="opt"><input type="radio" name="n1a" value="1"><span><b>1</b> Not alert, arousable by minor stimulation to obey, answer or respond</span></label>
       <label class="opt"><input type="radio" name="n1a" value="2"><span><b>2</b> Not alert, requires repeated or painful stimulation to make movements</span></label>
@@ -1316,7 +1369,7 @@
   </details>
 
   <details class="nihss-item"><summary>1b. LOC questions — month and age <span class="badge" data-k="1b">0</span></summary>
-    <div class="opts">
+    <div class="opts" role="radiogroup" aria-label="1b. LOC questions — month and age">
       <label class="opt"><input type="radio" name="n1b" value="0" checked><span><b>0</b> Answers both correctly</span></label>
       <label class="opt"><input type="radio" name="n1b" value="1"><span><b>1</b> Answers one correctly</span></label>
       <label class="opt"><input type="radio" name="n1b" value="2"><span><b>2</b> Answers neither correctly</span></label>
@@ -1324,7 +1377,7 @@
   </details>
 
   <details class="nihss-item"><summary>1c. LOC commands — open/close eyes, grip/release <span class="badge" data-k="1c">0</span></summary>
-    <div class="opts">
+    <div class="opts" role="radiogroup" aria-label="1c. LOC commands — open/close eyes, grip/release">
       <label class="opt"><input type="radio" name="n1c" value="0" checked><span><b>0</b> Performs both tasks correctly</span></label>
       <label class="opt"><input type="radio" name="n1c" value="1"><span><b>1</b> Performs one task correctly</span></label>
       <label class="opt"><input type="radio" name="n1c" value="2"><span><b>2</b> Performs neither task correctly</span></label>
@@ -1332,7 +1385,7 @@
   </details>
 
   <details class="nihss-item"><summary>2. Best gaze <span class="badge" data-k="2">0</span></summary>
-    <div class="opts">
+    <div class="opts" role="radiogroup" aria-label="2. Best gaze">
       <label class="opt"><input type="radio" name="n2" value="0" checked><span><b>0</b> Normal</span></label>
       <label class="opt"><input type="radio" name="n2" value="1"><span><b>1</b> Partial gaze palsy — abnormal gaze in one or both eyes, without forced deviation or total gaze paresis</span></label>
       <label class="opt"><input type="radio" name="n2" value="2"><span><b>2</b> Forced deviation or total gaze paresis not overcome by the oculocephalic manoeuvre</span></label>
@@ -1340,7 +1393,7 @@
   </details>
 
   <details class="nihss-item"><summary>3. Visual fields <span class="badge" data-k="3">0</span></summary>
-    <div class="opts">
+    <div class="opts" role="radiogroup" aria-label="3. Visual fields">
       <label class="opt"><input type="radio" name="n3" value="0" checked><span><b>0</b> No visual loss</span></label>
       <label class="opt"><input type="radio" name="n3" value="1"><span><b>1</b> Partial hemianopia</span></label>
       <label class="opt"><input type="radio" name="n3" value="2"><span><b>2</b> Complete hemianopia</span></label>
@@ -1349,7 +1402,7 @@
   </details>
 
   <details class="nihss-item"><summary>4. Facial palsy <span class="badge" data-k="4">0</span></summary>
-    <div class="opts">
+    <div class="opts" role="radiogroup" aria-label="4. Facial palsy">
       <label class="opt"><input type="radio" name="n4" value="0" checked><span><b>0</b> Normal symmetrical movements</span></label>
       <label class="opt"><input type="radio" name="n4" value="1"><span><b>1</b> Minor paralysis — flattened nasolabial fold, asymmetry on smiling</span></label>
       <label class="opt"><input type="radio" name="n4" value="2"><span><b>2</b> Partial paralysis — total or near-total paralysis of the lower face</span></label>
@@ -1358,7 +1411,7 @@
   </details>
 
   <details class="nihss-item"><summary>5a. Motor arm — left <span class="badge" data-k="5a">0</span></summary>
-    <div class="opts">
+    <div class="opts" role="radiogroup" aria-label="5a. Motor arm — left">
       <label class="opt"><input type="radio" name="n5a" value="0" checked><span><b>0</b> No drift — holds 90° (or 45°) for the full 10 seconds</span></label>
       <label class="opt"><input type="radio" name="n5a" value="1"><span><b>1</b> Drift — holds initially but drifts before 10 seconds, does not hit the bed</span></label>
       <label class="opt"><input type="radio" name="n5a" value="2"><span><b>2</b> Some effort against gravity — cannot attain or maintain position, drifts to the bed</span></label>
@@ -1369,7 +1422,7 @@
   </details>
 
   <details class="nihss-item"><summary>5b. Motor arm — right <span class="badge" data-k="5b">0</span></summary>
-    <div class="opts">
+    <div class="opts" role="radiogroup" aria-label="5b. Motor arm — right">
       <label class="opt"><input type="radio" name="n5b" value="0" checked><span><b>0</b> No drift — holds 90° (or 45°) for the full 10 seconds</span></label>
       <label class="opt"><input type="radio" name="n5b" value="1"><span><b>1</b> Drift before 10 seconds, does not hit the bed</span></label>
       <label class="opt"><input type="radio" name="n5b" value="2"><span><b>2</b> Some effort against gravity, drifts to the bed</span></label>
@@ -1380,7 +1433,7 @@
   </details>
 
   <details class="nihss-item"><summary>6a. Motor leg — left <span class="badge" data-k="6a">0</span></summary>
-    <div class="opts">
+    <div class="opts" role="radiogroup" aria-label="6a. Motor leg — left">
       <label class="opt"><input type="radio" name="n6a" value="0" checked><span><b>0</b> No drift — holds 30° for the full 5 seconds</span></label>
       <label class="opt"><input type="radio" name="n6a" value="1"><span><b>1</b> Drift — falls by 5 seconds but does not hit the bed</span></label>
       <label class="opt"><input type="radio" name="n6a" value="2"><span><b>2</b> Some effort against gravity — falls to the bed by 5 seconds</span></label>
@@ -1391,7 +1444,7 @@
   </details>
 
   <details class="nihss-item"><summary>6b. Motor leg — right <span class="badge" data-k="6b">0</span></summary>
-    <div class="opts">
+    <div class="opts" role="radiogroup" aria-label="6b. Motor leg — right">
       <label class="opt"><input type="radio" name="n6b" value="0" checked><span><b>0</b> No drift — holds 30° for the full 5 seconds</span></label>
       <label class="opt"><input type="radio" name="n6b" value="1"><span><b>1</b> Drift — falls by 5 seconds but does not hit the bed</span></label>
       <label class="opt"><input type="radio" name="n6b" value="2"><span><b>2</b> Some effort against gravity — falls to the bed</span></label>
@@ -1402,7 +1455,7 @@
   </details>
 
   <details class="nihss-item"><summary>7. Limb ataxia <span class="badge" data-k="7">0</span></summary>
-    <div class="opts">
+    <div class="opts" role="radiogroup" aria-label="7. Limb ataxia">
       <label class="opt"><input type="radio" name="n7" value="0" checked><span><b>0</b> Absent</span></label>
       <label class="opt"><input type="radio" name="n7" value="1"><span><b>1</b> Present in one limb</span></label>
       <label class="opt"><input type="radio" name="n7" value="2"><span><b>2</b> Present in two limbs</span></label>
@@ -1410,7 +1463,7 @@
   </details>
 
   <details class="nihss-item"><summary>8. Sensory <span class="badge" data-k="8">0</span></summary>
-    <div class="opts">
+    <div class="opts" role="radiogroup" aria-label="8. Sensory">
       <label class="opt"><input type="radio" name="n8" value="0" checked><span><b>0</b> Normal — no sensory loss</span></label>
       <label class="opt"><input type="radio" name="n8" value="1"><span><b>1</b> Mild to moderate loss — pinprick less sharp or dull on the affected side</span></label>
       <label class="opt"><input type="radio" name="n8" value="2"><span><b>2</b> Severe to total loss — not aware of being touched in face, arm and leg</span></label>
@@ -1418,7 +1471,7 @@
   </details>
 
   <details class="nihss-item"><summary>9. Best language <span class="badge" data-k="9">0</span></summary>
-    <div class="opts">
+    <div class="opts" role="radiogroup" aria-label="9. Best language">
       <label class="opt"><input type="radio" name="n9" value="0" checked><span><b>0</b> No aphasia</span></label>
       <label class="opt"><input type="radio" name="n9" value="1"><span><b>1</b> Mild to moderate aphasia — some loss of fluency or comprehension, without significant limitation on ideas expressed</span></label>
       <label class="opt"><input type="radio" name="n9" value="2"><span><b>2</b> Severe aphasia — fragmentary expression, listener must infer and probe, limited information exchanged</span></label>
@@ -1427,7 +1480,7 @@
   </details>
 
   <details class="nihss-item"><summary>10. Dysarthria <span class="badge" data-k="10">0</span></summary>
-    <div class="opts">
+    <div class="opts" role="radiogroup" aria-label="10. Dysarthria">
       <label class="opt"><input type="radio" name="n10" value="0" checked><span><b>0</b> Normal</span></label>
       <label class="opt"><input type="radio" name="n10" value="1"><span><b>1</b> Mild to moderate — slurs at least some words, at worst understood with some difficulty</span></label>
       <label class="opt"><input type="radio" name="n10" value="2"><span><b>2</b> Severe — speech so slurred as to be unintelligible, out of proportion to any dysphasia</span></label>
@@ -1436,7 +1489,7 @@
   </details>
 
   <details class="nihss-item"><summary>11. Extinction and inattention (neglect) <span class="badge" data-k="11">0</span></summary>
-    <div class="opts">
+    <div class="opts" role="radiogroup" aria-label="11. Extinction and inattention (neglect)">
       <label class="opt"><input type="radio" name="n11" value="0" checked><span><b>0</b> No abnormality</span></label>
       <label class="opt"><input type="radio" name="n11" value="1"><span><b>1</b> Inattention or extinction to bilateral simultaneous stimulation in one sensory modality</span></label>
       <label class="opt"><input type="radio" name="n11" value="2"><span><b>2</b> Profound hemi-inattention or extinction to more than one modality; does not recognise own hand, or orients to only one side of space</span></label>
@@ -1451,8 +1504,8 @@
         <tr><td>0</td><td>No stroke symptoms</td><td>—</td></tr>
         <tr><td>1–4</td><td>Minor</td><td>Thrombolysis if disabling; DAPT if not</td></tr>
         <tr><td>5–15</td><td>Moderate</td><td>Standard thrombolysis candidate</td></tr>
-        <tr><td>16–20</td><td>Moderate–severe</td><td>Higher sICH risk; individualise</td></tr>
-        <tr><td>21–42</td><td>Severe</td><td>Weigh benefit against risk carefully</td></tr>
+        <tr><td>16–20</td><td>Moderate–severe</td><td>Strong reperfusion candidate — screen for large vessel occlusion</td></tr>
+        <tr><td>21–42</td><td>Severe</td><td>Treat if eligible; absolute benefit is largest in severe stroke. Screen for LVO and for airway risk</td></tr>
       </tbody>
     </table></div>
   </div>
@@ -1502,7 +1555,7 @@
   <h1>ASPECTS scorer</h1>
   <p class="lede">Ten regions of the MCA territory. Start at 10 and subtract one point for each region showing early ischaemic change. Tick the regions that are <strong>affected</strong>.</p>
 
-  <div class="readout">
+  <div class="readout" aria-live="polite">
     <div class="row">
       <div><div class="readout__label">ASPECTS</div><div class="readout__value" id="aspectsScore">10</div></div>
       <div><div class="readout__label">Band</div><div class="readout__value" style="font-size:16px" id="aspectsBand">ASPECTS ≥6 — standard-core pathway</div></div>
@@ -1568,7 +1621,7 @@
         <button class="btn" id="clockNow" style="width:100%">Set to now</button>
       </div>
     </div>
-    <div class="readout">
+    <div class="readout" aria-live="polite">
       <div class="readout__label">Elapsed</div>
       <div class="readout__value" id="clockOut">—</div>
       <div class="readout__note" id="clockNote"></div>
@@ -1603,7 +1656,7 @@
         <select id="ichAge"><option value="0">&lt;80 years (0)</option><option value="1">≥80 years (1)</option></select>
       </div>
     </div>
-    <div class="readout">
+    <div class="readout" aria-live="polite">
       <div class="readout__label">ICH score</div>
       <div class="readout__value" id="ichScore">0</div>
       <div class="readout__note" id="ichMort"></div>
@@ -1765,7 +1818,7 @@
   <p>The software is MIT licensed; the clinical content is released under <strong>CC BY 4.0</strong> — reuse it, adapt it for your own institution, translate it, as long as you attribute the source. Corrections are welcome and wanted: if a recommendation here misstates the guideline, or a number is wrong, open an issue or a pull request with the citation.</p>
 
   <h2>Version</h2>
-  <p class="src">Version <span id="buildVersion">1.0.0</span>. Content current to the 2026 AHA/ASA acute ischaemic stroke guideline, the 2022 AHA/ASA spontaneous ICH guideline, and named trials published through February 2026.</p>
+  <p class="src">Version <span id="buildVersion">1.1.0</span>. Content current to the 2026 AHA/ASA acute ischaemic stroke guideline, the 2022 AHA/ASA spontaneous ICH guideline, and named trials published through February 2026.</p>
 
   <div class="footer">
     <p>Built as a public resource. No tracking, no analytics, no accounts, no network requests after the first load.</p>
@@ -1775,10 +1828,26 @@
 </main>
 </div>
 
+
+<nav class="quickbar no-print" aria-label="Quick tools">
+  <a href="#pathfinder">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h6M4 12h10M4 18h7"/><path d="m16 8 4 4-4 4"/></svg>
+    Pathway</a>
+  <a href="#nihss">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h4"/></svg>
+    NIHSS</a>
+  <a href="#dosing">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m11 4 9 9-4 4-9-9z"/><path d="m7 12-3 3 5 5 3-3"/><path d="M14 7 9 12"/></svg>
+    Dosing</a>
+  <button type="button" id="quickSearch">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    Search</button>
+</nav>
+
 <div class="overlay" id="searchOverlay" hidden>
   <div class="searchbox" role="dialog" aria-modal="true" aria-label="Search">
-    <input type="text" id="searchInput" placeholder="Search every table, row and footnote…" autocomplete="off" spellcheck="false">
-    <div class="results" id="searchResults"></div>
+    <input type="text" id="searchInput" aria-label="Search the guide" placeholder="Search every table, row and footnote…" autocomplete="off" spellcheck="false">
+    <div class="results" id="searchResults" role="listbox" aria-label="Search results" aria-live="polite"></div>
     <div class="searchfoot"><span><kbd>↑</kbd><kbd>↓</kbd> navigate</span><span><kbd>↵</kbd> open</span><span><kbd>esc</kbd> close</span></div>
   </div>
 </div>
