@@ -1058,40 +1058,6 @@
   }
   addFeedbackLinks();
 
-  /* -------------------------------------------------- scoring diagrams */
-  /* The diagrams are a second surface onto the same checkboxes, not a second
-     source of truth: a tap sets the box and fires its change event, so the
-     existing scorer runs untouched, and the paint always reads back off the
-     boxes. data-r matches the checkbox value exactly. */
-  function paintDiagrams() {
-    $$('.dgm__svg').forEach(function (svg) {
-      var sel = svg.getAttribute('data-map') === 'pc' ? '.pc-region' : '.aspects-region';
-      var rgns = $$('.rgn', svg), labels = $$('.dgm__lbl text', svg);
-      rgns.forEach(function (r, i) {
-        var box = $$(sel).filter(function (b) { return b.value === r.getAttribute('data-r'); })[0];
-        var on = !!(box && box.checked);
-        r.classList.toggle('on', on);
-        /* Labels are drawn in the same order as the regions, so a filled
-           region flips its own label to white rather than losing it. */
-        if (labels[i]) labels[i].classList.toggle('on', on);
-      });
-    });
-  }
-  $$('.dgm__svg').forEach(function (svg) {
-    var sel = svg.getAttribute('data-map') === 'pc' ? '.pc-region' : '.aspects-region';
-    $$('.rgn', svg).forEach(function (r) {
-      var label = r.getAttribute('data-r');
-      r.addEventListener('click', function () {
-        var box = $$(sel).filter(function (b) { return b.value === label; })[0];
-        if (!box) return;
-        box.checked = !box.checked;
-        box.dispatchEvent(new Event('change'));
-      });
-    });
-  });
-  $$('.aspects-region, .pc-region').forEach(function (b) { b.addEventListener('change', paintDiagrams); });
-  paintDiagrams();
-
   /* ----------------------------------------------------- home screen tiles */
   /* Every section lives in the DOM at once, so the tiles just mirror whatever
      each calculator's own readout currently says.  Refreshed when the home

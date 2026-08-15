@@ -4,7 +4,7 @@
    content corrections land on the next launch, not the one after.
    Bump CACHE on every content release. */
 
-var CACHE = 'asg-v1.12.0';
+var CACHE = 'asg-v1.13.0';
 
 var ASSETS = [
   './',
@@ -16,7 +16,14 @@ var ASSETS = [
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/icon-512-maskable.png',
-  './icons/icon-180.png'
+  './icons/icon-180.png',
+  /* Reference plates. They are the only heavy assets here (~290 KB for the
+     set), so they are precached deliberately: an ASPECTS diagram is useless
+     if it needs a signal. Regenerate with tools/build-images.py. */
+  './assets/images/aspects/aspects-ganglionic.webp',
+  './assets/images/aspects/aspects-supraganglionic.webp',
+  './assets/images/aspects/pc-aspects-supratentorial.webp',
+  './assets/images/aspects/pc-aspects-infratentorial.webp'
 ];
 
 self.addEventListener('install', function (e) {
