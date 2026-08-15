@@ -4,6 +4,8 @@ An evidence-based, offline-capable bedside reference for the acute management of
 
 **Live app:** https://strokedoc.github.io/stroke-guide/
 
+**Author:** Harsh Patel, MD — Vascular Neurologist
+
 It is a progressive web app: one page, no dependencies, no build step, no network calls after the first load. Add it to a home screen and it works in a code cart, an ambulance bay, or a rural CT suite with no signal.
 
 ---

@@ -462,6 +462,15 @@ input[type="time"], input[type="number"], input[type="text"], select {
 }
 .toollist__v::after { content: "›"; margin-left: 10px; color: var(--text-dim); font-family: var(--sans); font-weight: 400; }
 
+.author {
+  margin: 16px 0 4px; padding: 13px 16px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-left: 3px solid var(--brand-2); border-radius: var(--radius);
+}
+.author__n { font-size: 16px; font-weight: 700; }
+.author__r { font-size: 14px; color: var(--brand-2); font-weight: 600; }
+.author__x { font-size: 12.5px; color: var(--text-dim); margin-top: 2px; }
+
 .disclose { margin: 22px 0; border-top: 1px solid var(--border); padding-top: 12px; }
 .disclose > summary { cursor: pointer; font-weight: 700; font-size: 15px; padding: 6px 0; }
 .disclose > summary::marker { color: var(--text-dim); }

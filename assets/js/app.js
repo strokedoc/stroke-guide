@@ -494,6 +494,32 @@
     var nihss = parseFloat(pf('pfNihss'));
     var lines = [];
 
+    /* The disabling question exists to separate mild-but-disabling from
+       mild-and-not. The guideline's COR 3: No Benefit applies to "mild
+       non-disabling stroke deficits", and the whole adjudication — PRISMS,
+       Table 4, the stated knowledge gap — is framed around NIHSS 0 to 5.
+       Above that the question does not arise, and a deficit severe enough to
+       qualify for thrombectomy is disabling by the enrolment criteria of
+       every EVT trial. So two things answer it on the clinician's behalf,
+       and each names itself in the card so the reasoning stays visible. */
+    var evtGradeOcclusion = occl === 'lvo' || occl === 'basilar' || occl === 'm2';
+    var disablingBy = disabling === 'yes' ? 'stated'
+      : (!isNaN(nihss) && nihss >= 6) ? 'nihss'
+      : evtGradeOcclusion ? 'occlusion' : '';
+    /* An explicit "non-disabling" still wins — the clinician saw the patient.
+       But if it contradicts NIHSS >=6 or a large-vessel occlusion, say so. */
+    var disablingConflict = disabling === 'no' && (( !isNaN(nihss) && nihss >= 6) || evtGradeOcclusion);
+    var disablingMet = disabling !== 'no' && disablingBy !== '';
+    var disablingWhy = disablingBy === 'nihss'
+      ? ' <br><br><strong>Why this fired without the disabling question:</strong> NIHSS ' + nihss +
+        ' is outside the mild range the disabling/non-disabling distinction applies to — the guideline reserves that judgement for NIHSS 0–5.'
+      : disablingBy === 'occlusion'
+      ? ' <br><br><strong>Why this fired without the disabling question:</strong> a ' +
+        (occl === 'basilar' ? 'basilar' : occl === 'm2' ? 'proximal M2' : 'an ICA or M1') +
+        ' occlusion carries a disabling deficit by the enrolment criteria of the thrombectomy trials. ' +
+        '<span class="cor cor-1">COR 1</span> <span class="loe">A</span>: in patients eligible for both, IVT is recommended alongside EVT and must not be delayed to observe response.'
+      : '';
+
     /* Perfusion comes in as the two numbers the software prints — core and
        Tmax>6 s volumes — and the mismatch arithmetic is done here, tested
        against each trial's own profile. Thresholds as stated in the 2026
@@ -541,6 +567,21 @@
         'Give <a href="#antithrombotics">DAPT</a> instead: for NIHSS ≤3 or high-risk TIA, aspirin + clopidogrel with a loading dose, within 24 h, for 21 days ' +
         '<span class="cor cor-1">COR 1</span>. For NIHSS 4–5 see the 24–72 h and ticagrelor rows. ' +
         'Re-read <a href="#thrombolysis">the disabling-deficit definition</a> before you settle on "non-disabling" — lower-limb weakness preventing walking scores 2 on the NIHSS and is disabling.');
+      /* "Non-disabling" alongside NIHSS >=6 or a large-vessel occlusion is a
+         contradiction, not a preference. Surface it rather than acting on it
+         silently in either direction. */
+      if (disablingConflict) {
+        add('danger', null, 'This does not add up — check before you withhold thrombolysis',
+          'You recorded a <strong>non-disabling</strong> deficit, but ' +
+          (!isNaN(nihss) && nihss >= 6
+            ? 'also an <strong>NIHSS of ' + nihss + '</strong>. The guideline reserves the disabling/non-disabling judgement for NIHSS 0–5; a score of 6 or more is not a mild deficit. '
+            : '') +
+          (evtGradeOcclusion
+            ? 'also ' + (occl === 'basilar' ? 'a <strong>basilar occlusion</strong>' : occl === 'm2' ? 'a <strong>proximal M2 occlusion</strong>' : 'an <strong>ICA or M1 occlusion</strong>') +
+              '. Every thrombectomy trial enrolled disabling deficits. '
+            : '') +
+          'If the deficit really is non-disabling, the card above stands. If it is not, correct the answer — this is the difference between treating and not treating.');
+      }
     };
 
     if (ich === 'yes') {
@@ -558,23 +599,26 @@
       add('danger', null, 'Absolute contraindication to thrombolysis recorded',
         'Do not give IV thrombolysis. <strong>Assess thrombectomy eligibility independently</strong> — a contraindication to thrombolysis does not exclude EVT.');
     } else if (hours <= 4.5) {
-      if (disabling === 'yes') {
+      if (disablingMet) {
         add(contra === 'relative' ? 'warn' : 'ok', { cls: '1', label: 'COR 1' },
           'IV thrombolysis now — tenecteplase 0.25 mg/kg or alteplase 0.9 mg/kg',
-          'Disabling deficit within 4.5 h. Treat on NCCT alone — do <em>not</em> wait for CTA/CTP or MRI. ' +
-          'BP must be &lt;185/110 before the bolus. Check glucose first. <a href="#dosing">Dosing</a> · <a href="#contraindications">Contraindications</a>' + relCaveat);
+          'Within 4.5 h with a disabling deficit. Treat on NCCT alone — do <em>not</em> wait for CTA/CTP or MRI. ' +
+          'BP must be &lt;185/110 before the bolus. Check glucose first. <a href="#dosing">Dosing</a> · <a href="#contraindications">Contraindications</a>' +
+          relCaveat + disablingWhy);
       } else if (disabling === 'no') {
         nonDisablingCard();
       } else {
         add('warn', null, 'Decide whether the deficit is disabling',
-          'This is the highest-yield decision in the 4.5-hour window, and NIHSS alone does not answer it. See <a href="#thrombolysis">the Table 4 guidance</a>.');
+          'This is the highest-yield decision in the 4.5-hour window, and NIHSS alone does not answer it. ' +
+          'Enter an NIHSS above, or record the occlusion — either can answer it for you. See <a href="#thrombolysis">the Table 4 guidance</a>.');
       }
     } else if (hours <= 6) {
       if (disabling === 'no') {
         nonDisablingCard();
-      } else if (disabling !== 'yes') {
+      } else if (!disablingMet) {
         add('warn', null, 'Decide whether the deficit is disabling',
-          'This is the highest-yield decision for thrombolysis in this window, and NIHSS alone does not answer it. See <a href="#thrombolysis">the Table 4 guidance</a>.');
+          'This is the highest-yield decision for thrombolysis in this window, and NIHSS alone does not answer it. ' +
+          'Enter an NIHSS above, or record the occlusion — either can answer it for you. See <a href="#thrombolysis">the Table 4 guidance</a>.');
       } else if (!havePerf) {
         add('note', { cls: '2a', label: 'COR 2a' }, 'Extended-window thrombolysis may be reasonable (4.5–9 h)',
           'This requires salvageable penumbra on automated perfusion imaging — enter the core and Tmax&gt;6 s volumes above and the tool will test the ' + P_EXTEND + '. ' +
@@ -833,7 +877,7 @@
         }
       }
 
-      if (hours <= 4.5 && contra !== 'absolute' && disabling === 'yes' && ich !== 'yes' && mrs !== '5') {
+      if (hours <= 4.5 && contra !== 'absolute' && disablingMet && ich !== 'yes' && mrs !== '5') {
         add('note', null, 'Do not delay thrombectomy to watch for a response to thrombolysis',
           'Bridging IVT remains standard where the patient is thrombolysis-eligible. Delaying EVT to assess for clinical improvement after the bolus is explicitly not recommended.');
       }
