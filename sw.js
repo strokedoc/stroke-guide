@@ -1,10 +1,10 @@
 /* Acute Stroke Guide — service worker.
-   Strategy: precache the whole app on install; serve cache-first so the guide
-   opens instantly with no signal; refresh the cache in the background so a
-   connected device picks up content updates on the next launch.
+   Strategy: precache the whole app on install; serve assets cache-first so
+   the guide opens instantly with no signal; fetch navigations network-first so
+   content corrections land on the next launch, not the one after.
    Bump CACHE on every content release. */
 
-var CACHE = 'asg-v1.10.0';
+var CACHE = 'asg-v1.12.0';
 
 var ASSETS = [
   './',
@@ -42,27 +42,28 @@ self.addEventListener('fetch', function (e) {
   if (req.method !== 'GET') return;
   if (new URL(req.url).origin !== self.location.origin) return;
 
+  /* Navigations are network-first so a correction reaches the clinician on the
+     next launch rather than the one after it; the cache is the offline
+     fallback. Everything else is served from the precache, which install()
+     populates atomically for one CACHE version and activate() swaps in whole.
+
+     Runtime responses are deliberately NOT written back into the versioned
+     cache. Doing that was how a v1 index.html could end up paired with a v2
+     stylesheet — a mixed-version render in a clinical reference. The version
+     bump is the only thing that changes cached content. */
+  if (req.mode === 'navigate') {
+    e.respondWith(
+      fetch(req).catch(function () {
+        return caches.match(req, { ignoreSearch: true })
+          .then(function (hit) { return hit || caches.match('./index.html'); });
+      })
+    );
+    return;
+  }
+
   e.respondWith(
     caches.match(req, { ignoreSearch: true }).then(function (hit) {
-      var network = fetch(req).then(function (res) {
-        if (res && res.ok) {
-          var copy = res.clone();
-          return caches.open(CACHE).then(function (c) {
-            return c.put(req, copy);
-          }).then(function () { return res; }, function () { return res; });
-        }
-        return res;
-      });
-      if (hit) {
-        /* Keep the worker alive long enough to finish the background refresh. */
-        e.waitUntil(network.catch(function () {}));
-        return hit;
-      }
-      return network.catch(function () {
-        /* An app-shell fallback is appropriate only for page navigation.  Returning
-           HTML for a missing script, image, or manifest breaks those resources. */
-        return req.mode === 'navigate' ? caches.match('./index.html') : Response.error();
-      });
+      return hit || fetch(req);
     })
   );
 });

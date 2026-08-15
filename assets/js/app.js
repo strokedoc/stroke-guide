@@ -309,7 +309,7 @@
       var band = kg < 60 ? 15 : kg < 70 ? 17.5 : kg < 80 ? 20 : kg < 90 ? 22.5 : 25;
       out.textContent = band + ' mg';
       vol.textContent = (band / 5).toFixed(1) + ' mL';
-      msg.push('10-kg band dosing (AHA 2026 Table 7); single IV bolus over 5 s');
+      msg.push('10-kg band dosing (AHA 2026 Table 7); single IV bolus over 5–10 s');
       var perKg = Math.min(kg * 0.25, 25);
       msg.push('0.25 mg/kg exact = ' + perKg.toFixed(1) + ' mg');
       if (kg < 50) msg.push('⚠ <50 kg: if an accurate weight is known, 1-kg-band dosing may be used');
@@ -1112,6 +1112,30 @@
       if (src) el.textContent = src.textContent;
     });
   }
+
+  /* The hero used to hard-code the number of pathfinder questions, which
+     drifted the moment an input was added. Count the real inputs. */
+  var pfCount = $('#pfCount');
+  if (pfCount) {
+    var n = $$('#pathfinder select, #pathfinder input').length;
+    pfCount.textContent = n ? ' · ' + n + ' questions' : '';
+  }
+
+  /* Flag the tables that actually overflow so the scroll hint only appears
+     where it is true — recalculated on resize and on orientation change. */
+  function markScrollableTables() {
+    $$('.tablewrap').forEach(function (w) {
+      var t = w.querySelector('table');
+      w.classList.toggle('is-scrollable', !!t && t.scrollWidth > w.clientWidth + 2);
+    });
+  }
+  $$('.tablewrap').forEach(function (w) {
+    w.addEventListener('scroll', function () {
+      w.classList.toggle('is-scrolled-end', w.scrollLeft + w.clientWidth >= w.scrollWidth - 4);
+    });
+  });
+  markScrollableTables();
+  window.addEventListener('resize', markScrollableTables);
 
   /* ------------------------------------------------------------ kick off */
   buildGuide();    /* before route(), so generated links get current-page marking */

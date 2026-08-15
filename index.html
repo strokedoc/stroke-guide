@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" data-version="1.10.0">
+<html lang="en" data-theme="light" data-version="1.12.0">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -8,6 +8,22 @@
 <meta name="description" content="Evidence-based bedside reference for acute ischaemic stroke and intracerebral haemorrhage, built on the 2026 AHA/ASA guideline. Offline-capable, free, open source.">
 <meta name="theme-color" content="#ffffff">
 <meta name="color-scheme" content="light dark">
+<script>
+/* Resolve the theme before first paint. Without this the page paints white,
+   then flips — which in a darkened reading room is a flash in the face.
+   app.js re-applies the same value on load; this only front-runs it. */
+(function () {
+  try {
+    var t = JSON.parse(localStorage.getItem('asg:theme'));
+    if (t !== 'dark' && t !== 'light') {
+      t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+    var m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.setAttribute('content', t === 'dark' ? '#161b23' : '#ffffff');
+  } catch (e) {}
+})();
+</script>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
@@ -101,7 +117,7 @@
   <a class="hero" href="#pathfinder">
     <span class="hero__t">Reperfusion pathfinder</span>
     <span class="hero__d">Time, deficit, occlusion and core → the recommendations that apply, each with its class and the trials behind it.</span>
-    <span class="hero__go">Start · 9 questions</span>
+    <span class="hero__go">Start<span id="pfCount"></span></span>
   </a>
 
   <a class="lkwcard" href="#clock">
@@ -307,7 +323,7 @@
     <tbody>
       <tr><td><strong>CPSS</strong> (Cincinnati)</td><td>Any stroke — facial droop, arm drift, speech</td><td>Sensitivity 0.89, specificity 0.69 in the best-quality study (2019 Cochrane review)</td></tr>
       <tr><td><strong>LAPSS</strong> (Los Angeles)</td><td>Any stroke, with exclusion screen</td><td>Mean sensitivity 0.83, specificity 0.93</td></tr>
-      <tr><td><strong>RACE, G-FAST, CG-FAST, LAMS, PASS, C-STAT, FAST-PLUS</strong></td><td>Anterior large vessel occlusion</td><td>AUC 0.72–0.83 across all eight scales in PRESTO (n=1039, 12% had anterior LVO). Sensitivity 38–62%, specificity 78–88% in a second Dutch cohort</td></tr>
+      <tr><td><strong>RACE, G-FAST, CG-FAST, LAMS, PASS, C-STAT, FAST-PLUS</strong></td><td>Anterior large vessel occlusion</td><td>AUC 0.72–0.83 across all eight scales compared in PRESTO — these seven plus CPSS (n=1039, 12% had anterior LVO). Sensitivity 38–62%, specificity 78–88% in a second Dutch cohort</td></tr>
     </tbody>
   </table></div>
   <p class="src">The guideline names these scales as a class rather than endorsing one. RACE &gt;4 is the threshold used in the guideline's direct-to-angiography recommendation.</p>
@@ -320,6 +336,18 @@
 
   <h2>Mobile stroke units</h2>
   <p>MSUs are now recommended where available: multiple randomised studies, including B_PROUD and BEST-MSU, show faster thrombolysis and better functional outcomes than conventional EMS for eligible patients. This is a new recommendation in the 2026 guideline.</p>
+
+  <h2>Do not start treatment in the ambulance</h2>
+  <p>Three prehospital interventions have been tested and rejected. The first carries <span class="cor cor-3h">COR 3: Harm</span> at <span class="loe">A</span> — the strongest evidence the committee assigns, against a drug still carried on many ambulances.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Intervention</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Transdermal glyceryl trinitrate</strong> (nitroglycerin) started prehospital — does not improve functional outcome and is <strong>potentially harmful</strong> (RIGHT-2)</td><td><span class="cor cor-3h">3: Harm</span> <span class="loe">A</span></td></tr>
+      <tr><td><strong>Intensive BP control in the field</strong> to a systolic target of 130–140</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td></tr>
+      <tr><td><strong>Remote ischaemic conditioning</strong> by arm cuff inflation en route</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">The ambulance's job is recognition, prenotification and destination. Section 2.3, 2026 AHA/ASA AIS guideline.</p>
 
   <p class="src">Section 2 (Stroke Systems of Care and Prehospital Management), 2026 AHA/ASA AIS guideline.</p>
 </section>
@@ -347,6 +375,19 @@
     <p>Determine glucose before initiating IVT: severe hypoglycaemia (typically &lt;50 mg/dL) and severe hyperglycaemia (&gt;400 mg/dL) both mimic stroke. Correct it, then reassess.</p>
     <p style="margin-bottom:0">If disabling deficits persist <em>after</em> correction to normoglycaemia, give thrombolysis <span class="cor cor-1">COR 1</span> — abnormal glucose is not a reason to withhold treatment once corrected.</p>
   </div>
+
+  <h2>Tests that must not delay treatment</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Test</th><th>Guidance</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td>Baseline <strong>ECG</strong></td><td>Recommended, but <strong>should not delay</strong> IVT or EVT</td><td><span class="cor cor-1">1</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td>Baseline <strong>troponin</strong></td><td>Recommended, but <strong>should not delay</strong> IVT or EVT</td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td><strong>Coagulation studies</strong></td><td>Reasonable not to delay IVT waiting for haematology or coagulation results if there is no reason to suspect an abnormality</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td><strong>MRI for microbleeds</strong></td><td>Give IVT without first obtaining MRI to exclude cerebral microbleeds</td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td><strong>CTA / CTP / MRI</strong> within 4.5 h</td><td>Initiate IVT as quickly as possible, avoiding delays from additional multimodal imaging</td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">Glucose is the one exception — it is the single test that must precede the bolus. Sections 3 and 4.6, 2026 AHA/ASA AIS guideline.</p>
 
   <h2>Severity measurement</h2>
   <p>A stroke severity scale — preferably the NIHSS — is recommended at baseline and after reperfusion therapy <span class="cor cor-1">COR 1</span> <span class="loe">B-NR</span>. Baseline NIHSS is among the strongest predictors of 30- and 90-day mortality and independence; the 24-hour NIHSS, adjusted for baseline, is the best single predictor of 90-day function. <a href="#nihss">Open the NIHSS calculator →</a></p>
@@ -407,7 +448,8 @@
       <tr><td>Critically hypoperfused tissue (penumbra)</td><td>Tmax &gt;6 s on CTP or PWI</td></tr>
       <tr><td>Mismatch volume</td><td>Hypoperfused volume minus core volume</td></tr>
       <tr><td>Mismatch ratio</td><td>Hypoperfused volume ÷ core volume</td></tr>
-      <tr><td>Target mismatch profile (DEFUSE 3 / TIMELESS / TRACE-III)</td><td>Ratio ≥1.8, mismatch ≥15 mL, core &lt;70 mL</td></tr>
+      <tr><td>Target mismatch profile — <strong>DEFUSE 3</strong></td><td>Ratio ≥1.8, mismatch ≥15 mL, core &lt;70 mL</td></tr>
+      <tr><td>Target mismatch profile — <strong>TIMELESS, TRACE-III</strong></td><td>Ratio &gt;1.8, mismatch &gt;15 mL, core &lt;70 mL</td></tr>
       <tr><td>EXTEND / HOPE / OPTION profile</td><td>Ratio ≥1.2, mismatch ≥10 mL, core &lt;70 mL (EXTEND, HOPE) or &lt;50 mL (OPTION)</td></tr>
       <tr><td>DWI–FLAIR mismatch (WAKE-UP)</td><td>DWI lesion present with no marked corresponding FLAIR signal change; DWI lesion &lt;⅓ MCA territory. Signal intensity ratio &lt;1.2 was recommended for randomisation</td></tr>
     </tbody>
@@ -497,7 +539,9 @@
       <tr><td><strong>Mutant prourokinase</strong></td><td>Within 4.5 h and not undergoing EVT, may be considered instead of alteplase — lower odds of bleeding, noninferior for excellent outcome</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td></tr>
       <tr><td>Mutant prourokinase <em>plus</em> low-dose alteplase</td><td>Not recommended</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td></tr>
       <tr><td><strong>Desmoteplase</strong>, 3–9 h</td><td>Not recommended for improving functional independence at 90 days</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">A</span></td></tr>
-      <tr><td><strong>Sonothrombolysis</strong> as an adjunct</td><td>No clinical benefit (NOR-SASS, CLOTBUST-ER)</td><td><span class="cor cor-3n">3: No Benefit</span></td></tr>
+      <tr><td><strong>Sonothrombolysis</strong> as an adjunct</td><td>No clinical benefit (NOR-SASS, CLOTBUST-ER)</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">A</span></td></tr>
+      <tr><td><strong>Streptokinase</strong>, within 6 h</td><td><strong>Should not be administered</strong> — no improvement in functional outcome and increased mortality</td><td><span class="cor cor-3h">3: Harm</span> <span class="loe">A</span></td></tr>
+      <tr><td><strong>Urokinase</strong>, within 6 h</td><td>Not beneficial for decreasing death or dependency</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td></tr>
     </tbody>
   </table></div>
   <p class="src">Alteplase and tenecteplase remain the Class 1 options within 4.5 h. Reteplase and mutant prourokinase carry weak recommendations and are not widely available for stroke.</p>
@@ -1003,6 +1047,8 @@
       <tr><td><strong>Haemodynamic augmentation</strong> by haemodilution, high-dose albumin, or chemical vasodilators such as pentoxifylline</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">A</span></td></tr>
       <tr><td><strong>Mechanical haemodynamic augmentation</strong> — counterpulsation devices, sphenopalatine ganglion stimulation</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td></tr>
       <tr><td><strong>Emergent carotid endarterectomy or stenting</strong> for acute stroke or unstable deficit from high-grade carotid stenosis or occlusion <em>without</em> an intracranial occlusion</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td><strong>SSRIs</strong> to improve motor recovery or functional status</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">A</span></td></tr>
+      <tr><td><strong>High-dose, very early mobilisation within 24 h</strong> of onset — not recommended and <strong>may be harmful</strong> (AVERT)</td><td><span class="cor cor-3h">3: Harm</span> <span class="loe">B-R</span></td></tr>
     </tbody>
   </table></div>
   <p class="src">2026 AIS guideline sections 4.10, 4.11 and 4.12. Tandem cervical and intracranial occlusion during thrombectomy is a different question and is decided in the angio suite — see <a href="#evt">thrombectomy</a>.</p>
@@ -1036,7 +1082,8 @@
       <tr><td>Reasonable for screening to be done by speech pathologists or other trained professionals</td><td><span class="cor cor-2a">2a</span> <span class="loe">C-LD</span></td></tr>
       <tr><td>Where the patient fails or cannot participate in bedside screening, endoscopic evaluation of swallowing is reasonable</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td></tr>
       <tr><td>An oral hygiene protocol may be reasonable to reduce pneumonia risk</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-NR</span></td></tr>
-      <tr><td><strong>Pharyngeal electrical stimulation</strong> can be beneficial in stroke with dysphagia — new in 2026</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td></tr>
+      <tr><td><strong>Pharyngeal electrical stimulation</strong>, non-tracheostomised stroke with dysphagia — may be reasonable to improve swallowing function (new in 2026)</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td></tr>
+      <tr><td><strong>Pharyngeal electrical stimulation</strong> after ventilator weaning, in severe stroke with dysphagia requiring tracheotomy — reasonable to facilitate readiness for decannulation</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td></tr>
     </tbody>
   </table></div>
 
@@ -1727,45 +1774,52 @@
        below, which remains the accessible control — hence aria-hidden here. -->
   <div class="dgm">
     <figure class="dgm__f">
-      <svg viewBox="0 0 220 240" class="dgm__svg" aria-hidden="true" data-map="aspects">
-        <ellipse class="dgm__brain" cx="110" cy="120" rx="86" ry="108"/>
-        <line class="dgm__mid" x1="110" y1="14" x2="110" y2="226"/>
-        <g class="dgm__rgns">
-          <path class="rgn" data-r="M1 — anterior MCA cortex" d="M110 22 A86 108 0 0 0 40 60 L66 82 A56 74 0 0 1 110 56 Z"/>
-          <path class="rgn" data-r="M2 — lateral MCA cortex" d="M40 60 A86 108 0 0 0 40 180 L66 158 A56 74 0 0 1 66 82 Z"/>
-          <path class="rgn" data-r="M3 — posterior MCA cortex" d="M40 180 A86 108 0 0 0 110 218 L110 184 A56 74 0 0 1 66 158 Z"/>
-          <ellipse class="rgn" data-r="I — insular ribbon" cx="74" cy="122" rx="6" ry="27"/>
-          <ellipse class="rgn" data-r="L — lentiform" cx="88" cy="124" rx="11" ry="21"/>
-          <ellipse class="rgn" data-r="IC — internal capsule" cx="100" cy="126" rx="5" ry="17"/>
-          <ellipse class="rgn" data-r="C — caudate" cx="99" cy="94" rx="8" ry="12"/>
+      <svg class="dgm__svg" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 260">
+        <path class="dgm__brain" d="M120 19C91 19 66 29 49 47 33 64 25 90 27 119c2 31 14 62 34 83 17 18 37 28 59 29 22-1 42-11 59-29 20-21 32-52 34-83 2-29-6-55-22-72-17-18-42-28-71-28Z"/>
+        <path class="dgm__mid" d="M120 23c-3 31-3 61 0 91 3 31 3 63 0 113"/>
+        <path class="dgm__detail" d="M42 78c16-15 36-23 58-24M41 157c17 18 35 27 55 31M48 192c16 13 33 20 50 22"/>
+        <path class="dgm__detail" d="M85 78c-9 3-15 9-17 18 0 8 6 13 14 13 10-1 16-8 17-18 0-7-5-12-14-13ZM104 112c-5 3-7 9-6 15 2 5 6 8 11 8 5 0 9-3 11-8 1-6-1-12-6-15Z"/>
+        <path class="dgm__detail" d="M121 111c5 3 7 9 6 15-2 5-6 8-11 8-5 0-9-3-11-8-1-6 1-12 6-15"/>
+        <path class="dgm__detail" d="M132 63c11 4 19 11 24 20M183 111c10 8 15 19 16 32M174 181c7 7 12 15 14 25"/>
+        <g class="dgm__regions" aria-label="Scoreable right hemisphere regions">
+        <path class="rgn" data-r="C — caudate" d="M130 77c6-6 13-8 18-5 5 3 7 9 5 15-3 7-8 13-16 16-5 1-9-1-10-6-2-7-1-14 3-20Z"/>
+        <path class="rgn" data-r="L — lentiform" d="M160 93c10-8 20-7 27 2 6 8 6 19 0 29-7 11-18 16-30 14-6-1-9-6-8-13 2-13 6-24 11-32Z"/>
+        <path class="rgn" data-r="IC — internal capsule" d="M151 91c4 1 7 4 8 8-5 10-8 22-8 35-2 4-5 6-9 5-4-1-6-5-5-9 1-16 5-29 14-39Z"/>
+        <path class="rgn" data-r="I — insular ribbon" d="M190 88c5 3 9 8 10 15 3 13 1 26-5 39-2 4-5 6-8 4-3-2-3-6-1-11 5-13 6-27 2-40-1-3-1-5 2-7Z"/>
+        <path class="rgn" data-r="M1 — anterior MCA cortex" d="M128 43c18 1 34 8 45 20 3 3 2 8-2 10-5 2-10 0-14-3-8-7-18-11-30-12-5 0-8-3-8-8 0-4 4-7 9-7Z"/>
+        <path class="rgn" data-r="M2 — lateral MCA cortex" d="M184 75c11 10 17 23 18 40 1 17-3 32-12 45-3 5-8 6-12 3-3-3-3-7 0-12 7-11 10-23 9-36-1-12-5-23-12-31-3-4-2-8 1-10 3-2 6-1 8 1Z"/>
+        <path class="rgn" data-r="M3 — posterior MCA cortex" d="M178 174c5 0 8 4 7 9-3 15-10 28-21 39-4 4-9 4-12 1-3-3-3-7 1-11 9-10 15-21 18-34 1-3 3-4 7-4Z"/>
         </g>
         <g class="dgm__lbl">
-          <text x="74" y="62" text-anchor="middle">M1</text>
-          <text x="44" y="122" text-anchor="middle">M2</text>
-          <text x="74" y="182" text-anchor="middle">M3</text>
-          <text x="74" y="126" text-anchor="middle">I</text>
-          <text x="88" y="128" text-anchor="middle">L</text>
-          <text x="100" y="156" text-anchor="middle">IC</text>
-          <text x="99" y="80" text-anchor="middle">C</text>
+        <text x="138" y="91">C</text>
+        <text x="160" y="115">L</text>
+        <text x="143" y="120">IC</text>
+        <text x="166" y="133">I</text>
+        <text x="143" y="57">M1</text>
+        <text x="190" y="121">M2</text>
+        <text x="163" y="197">M3</text>
         </g>
-      </svg>
+        </svg>
       <figcaption>Ganglionic level — thalamus and basal ganglia</figcaption>
     </figure>
     <figure class="dgm__f">
-      <svg viewBox="0 0 220 240" class="dgm__svg" aria-hidden="true" data-map="aspects">
-        <ellipse class="dgm__brain" cx="110" cy="120" rx="86" ry="108"/>
-        <line class="dgm__mid" x1="110" y1="14" x2="110" y2="226"/>
-        <g class="dgm__rgns">
-          <path class="rgn" data-r="M4 — anterior MCA territory" d="M110 22 A86 108 0 0 0 40 60 L110 108 Z"/>
-          <path class="rgn" data-r="M5 — lateral MCA territory" d="M40 60 A86 108 0 0 0 40 180 L110 132 L110 108 Z"/>
-          <path class="rgn" data-r="M6 — posterior MCA territory" d="M40 180 A86 108 0 0 0 110 218 L110 132 Z"/>
+      <svg class="dgm__svg" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 260">
+        <path class="dgm__brain" d="M120 28C92 28 68 37 51 53 35 69 28 93 30 120c2 28 13 56 31 76 16 17 36 27 59 28 23-1 43-11 59-28 18-20 29-48 31-76 2-27-5-51-21-67-17-16-41-25-70-25Z"/>
+        <path class="dgm__mid" d="M120 31c-3 29-3 58 0 87 3 30 3 60 0 102"/>
+        <path class="dgm__detail" d="M69 83c7-8 16-12 26-12 8 1 13 5 15 12-4 8-12 13-22 13-10 0-17-5-19-13ZM126 83c7-8 16-12 26-12 8 1 13 5 15 12-4 8-12 13-22 13-10 0-17-5-19-13Z"/>
+        <path class="dgm__detail" d="M45 104c13-9 29-14 46-14M46 161c14 14 30 22 47 24M52 193c12 10 27 16 42 18"/>
+        <path class="dgm__detail" d="M139 55c11 3 22 9 31 18M184 89c10 12 15 27 15 42M178 166c6 8 9 17 10 27"/>
+        <g class="dgm__regions" aria-label="Scoreable right hemisphere regions">
+        <path class="rgn" data-r="M4 — anterior MCA territory" d="M129 48c17 1 32 7 44 18 4 4 4 8 1 11-3 3-8 2-12-1-9-8-20-12-33-13-5 0-8-3-8-8 0-4 3-7 8-7Z"/>
+        <path class="rgn" data-r="M5 — lateral MCA territory" d="M184 80c11 12 17 27 17 45 0 17-5 33-14 47-3 5-8 6-12 3-3-3-3-7 0-12 7-12 11-25 11-39 0-13-4-25-12-35-3-4-3-8 0-10 3-2 7-1 10 1Z"/>
+        <path class="rgn" data-r="M6 — posterior MCA territory" d="M174 181c5-1 9 2 9 7-1 14-7 26-17 37-4 4-9 5-12 2-3-3-3-7 1-11 8-9 13-19 14-30 0-3 2-5 5-5Z"/>
         </g>
         <g class="dgm__lbl">
-          <text x="80" y="70" text-anchor="middle">M4</text>
-          <text x="62" y="122" text-anchor="middle">M5</text>
-          <text x="80" y="176" text-anchor="middle">M6</text>
+        <text x="143" y="62">M4</text>
+        <text x="180" y="125">M5</text>
+        <text x="163" y="202">M6</text>
         </g>
-      </svg>
+        </svg>
       <figcaption>Supraganglionic level — above the lateral ventricles</figcaption>
     </figure>
   </div>
@@ -1826,30 +1880,32 @@
 
   <div class="dgm">
     <figure class="dgm__f dgm__f--wide">
-      <svg viewBox="0 0 260 210" class="dgm__svg" aria-hidden="true" data-map="pc">
-        <ellipse class="dgm__brain" cx="130" cy="105" rx="106" ry="94"/>
-        <line class="dgm__mid" x1="130" y1="14" x2="130" y2="196"/>
-        <g class="dgm__rgns">
-          <ellipse class="rgn" data-r="left thalamus" cx="106" cy="52" rx="20" ry="15"/>
-          <ellipse class="rgn" data-r="right thalamus" cx="154" cy="52" rx="20" ry="15"/>
-          <ellipse class="rgn rgn--w2" data-r="midbrain" cx="130" cy="88" rx="26" ry="17"/>
-          <ellipse class="rgn rgn--w2" data-r="pons" cx="130" cy="129" rx="32" ry="21"/>
-          <path class="rgn" data-r="left cerebellum" d="M96 112 A46 46 0 0 0 84 168 L60 156 A62 62 0 0 1 74 104 Z"/>
-          <path class="rgn" data-r="right cerebellum" d="M164 112 A46 46 0 0 1 176 168 L200 156 A62 62 0 0 0 186 104 Z"/>
-          <ellipse class="rgn" data-r="left occipital" cx="100" cy="180" rx="24" ry="14"/>
-          <ellipse class="rgn" data-r="right occipital" cx="160" cy="180" rx="24" ry="14"/>
+      <svg class="dgm__svg" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 260">
+        <path class="dgm__brain" d="M55 30c17-14 39-20 65-20s48 6 65 20c15 12 24 29 26 49 3 25-6 48-23 64-9 9-20 15-31 18l-9 51H92l-9-51c-11-3-22-9-31-18-17-16-26-39-23-64 2-20 11-37 26-49Z"/>
+        <path class="dgm__mid" d="M120 18v187"/>
+        <path class="dgm__detail" d="M53 52c15-14 34-21 56-22M187 52c-15-14-34-21-56-22M42 167c12 11 27 17 42 19M198 167c-12 11-27 17-42 19"/>
+        <path class="dgm__detail" d="M75 119c-10 10-16 23-17 37M165 119c10 10 16 23 17 37M99 207h42"/>
+        <g class="dgm__regions" aria-label="PC-ASPECTS scoreable regions">
+        <path class="rgn" data-r="left thalamus" d="M76 70c8-9 18-13 29-10 7 2 11 8 10 15-2 12-10 21-23 25-9 2-17-2-20-10-2-7-1-14 4-20Z"/>
+        <path class="rgn" data-r="right thalamus" d="M164 70c-8-9-18-13-29-10-7 2-11 8-10 15 2 12 10 21 23 25 9 2 17-2 20-10 2-7 1-14-4-20Z"/>
+        <path class="rgn" data-r="midbrain" d="M101 111c5-7 11-10 19-10s14 3 19 10c3 5 3 11 0 16-5 7-11 10-19 10s-14-3-19-10c-3-5-3-11 0-16Z"/>
+        <path class="rgn" data-r="pons" d="M92 145c7-7 16-10 28-10s21 3 28 10c5 5 5 13 0 19-7 7-16 10-28 10s-21-3-28-10c-5-6-5-14 0-19Z"/>
+        <path class="rgn" data-r="left cerebellum" d="M47 142c9-11 20-16 33-14 11 2 18 10 19 21 1 15-5 28-18 37-11 8-23 7-33-2-9-9-12-21-9-31 1-4 4-8 8-11Z"/>
+        <path class="rgn" data-r="right cerebellum" d="M193 142c-9-11-20-16-33-14-11 2-18 10-19 21-1 15 5 28 18 37 11 8 23 7 33-2 9-9 12-21 9-31-1-4-4-8-8-11Z"/>
+        <path class="rgn" data-r="left occipital" d="M48 43c10-12 24-18 40-19 10 0 18 6 20 15 2 11-3 23-13 32-12 9-26 11-40 5-10-5-14-15-11-25 1-3 2-6 4-9Z"/>
+        <path class="rgn" data-r="right occipital" d="M192 43c-10-12-24-18-40-19-10 0-18 6-20 15-2 11 3 23 13 32 12 9 26 11 40 5 10-5 14-15 11-25-1-3-2-6-4-9Z"/>
         </g>
         <g class="dgm__lbl">
-          <text x="106" y="56" text-anchor="middle">Thal</text>
-          <text x="154" y="56" text-anchor="middle">Thal</text>
-          <text x="130" y="92" text-anchor="middle">Midbrain 2</text>
-          <text x="130" y="134" text-anchor="middle">Pons 2</text>
-          <text x="78" y="140" text-anchor="middle">Cbll</text>
-          <text x="182" y="140" text-anchor="middle">Cbll</text>
-          <text x="100" y="184" text-anchor="middle">Occip</text>
-          <text x="160" y="184" text-anchor="middle">Occip</text>
+        <text x="82" y="86">Thal</text>
+        <text x="135" y="86">Thal</text>
+        <text x="101" y="123">Midbrain ×2</text>
+        <text x="106" y="157">Pons ×2</text>
+        <text x="54" y="163">Cbll</text>
+        <text x="166" y="163">Cbll</text>
+        <text x="59" y="48">Occip</text>
+        <text x="151" y="48">Occip</text>
         </g>
-      </svg>
+        </svg>
       <figcaption>Posterior circulation — pons and midbrain score 2 points each</figcaption>
     </figure>
   </div>
@@ -2146,7 +2202,7 @@
   <p>The software is MIT licensed; the clinical content is released under <strong>CC BY 4.0</strong> — reuse it, adapt it for your own institution, translate it, as long as you attribute the source. Corrections are welcome and wanted: if a recommendation here misstates the guideline, or a number is wrong, open an issue or a pull request with the citation.</p>
 
   <h2>Version</h2>
-  <p class="src">Version <span id="buildVersion">1.7.1</span>. Content current to the 2026 AHA/ASA acute ischaemic stroke guideline, the 2022 AHA/ASA spontaneous ICH guideline, and named trials published through February 2026.</p>
+  <p class="src">Version <span id="buildVersion">1.12.0</span>. Content current to the 2026 AHA/ASA acute ischaemic stroke guideline, the 2022 AHA/ASA spontaneous ICH guideline, and named trials published through February 2026.</p>
 
   <div class="footer">
     <p>Built as a public resource. No tracking, no analytics, no accounts, no network requests after the first load.</p>
