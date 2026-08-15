@@ -170,17 +170,29 @@
   function closeSearch() { overlay.hidden = true; }
 
   /* Clinicians type abbreviations and US spellings; the content is en-GB prose. */
+  /* The guide is written in US spelling. These map the abbreviations and the
+     British forms a UK- or Commonwealth-trained reader would type onto the
+     words actually in the text. Values must be lowercase — the index is
+     matched in lowercase. */
   var ALIASES = {
     tpa: 'alteplase', 'r-tpa': 'alteplase', rtpa: 'alteplase', 't-pa': 'alteplase',
     tnk: 'tenecteplase', lytic: 'thrombolysis', lytics: 'thrombolysis',
     thrombolytic: 'thrombolysis', ivt: 'thrombolysis',
     evt: 'thrombectomy', mt: 'thrombectomy', ecr: 'thrombectomy',
     sbp: 'blood pressure', dbp: 'blood pressure', bp: 'blood pressure',
-    noac: 'doac', hemorrhage: 'haemorrhage', hemorrhagic: 'haemorrhagic',
-    hemicrani: 'hemicraniectomy', craniectomy: 'craniectomy',
-    edema: 'oedema', anesthesia: 'anaesthesia', ischemic: 'ischaemic',
-    lvo: 'large vessel occlusion', lkw: 'last known well', sich: 'sICH',
-    dapt: 'dual antiplatelet', vte: 'venous thromboembolism'
+    noac: 'doac', hemicrani: 'hemicraniectomy',
+    lvo: 'large vessel occlusion', lkw: 'last known well', sich: 'sich',
+    dapt: 'dual antiplatelet', vte: 'venous thromboembolism',
+    toe: 'tee', transoesophageal: 'tee', transesophageal: 'tee',
+    tte: 'transthoracic', ilr: 'loop recorder',
+    /* British spellings in, US spellings out */
+    haemorrhage: 'hemorrhage', haemorrhagic: 'hemorrhagic', haematoma: 'hematoma',
+    oedema: 'edema', ischaemic: 'ischemic', ischaemia: 'ischemia',
+    anaesthesia: 'anesthesia', paediatric: 'pediatric', aetiology: 'etiology',
+    oesophageal: 'esophageal', anaemia: 'anemia', glycaemic: 'glycemic',
+    hypoglycaemia: 'hypoglycemia', hyperglycaemia: 'hyperglycemia',
+    randomised: 'randomized', centre: 'center', centres: 'centers',
+    labelled: 'labeled', judgement: 'judgment', manoeuvre: 'maneuver'
   };
 
   function renderResults(q) {
@@ -536,7 +548,7 @@
     var disablingMet = disabling !== 'no' && disablingBy !== '';
     var disablingWhy = disablingBy === 'nihss'
       ? ' <br><br><strong>Why this fired without the disabling question:</strong> NIHSS ' + nihss +
-        ' is outside the mild range the disabling/non-disabling distinction applies to — the guideline reserves that judgement for NIHSS 0–5.'
+        ' is outside the mild range the disabling/non-disabling distinction applies to — the guideline reserves that judgment for NIHSS 0–5.'
       : disablingBy === 'occlusion'
       ? ' <br><br><strong>Why this fired without the disabling question:</strong> a ' +
         (occl === 'basilar' ? 'basilar' : occl === 'm2' ? 'proximal M2' : 'an ICA or M1') +
@@ -582,7 +594,7 @@
     /* A relative contraindication never blocks treatment, but it must never be
        silently ignored either — append it to every thrombolysis card. */
     var relCaveat = contra === 'relative'
-      ? ' <br><br><strong>A relative contraindication was recorded.</strong> Table 8 classifies these as individualised risk–benefit decisions, usually with the relevant consultant. For a severe, clearly disabling deficit, benefit generally outweighs bleeding risk — but review the specific condition before the bolus. <a href="#contraindications">Relative contraindications</a>'
+      ? ' <br><br><strong>A relative contraindication was recorded.</strong> Table 8 classifies these as individualized risk–benefit decisions, usually with the relevant consultant. For a severe, clearly disabling deficit, benefit generally outweighs bleeding risk — but review the specific condition before the bolus. <a href="#contraindications">Relative contraindications</a>'
       : '';
 
     var nonDisablingCard = function () {
@@ -598,7 +610,7 @@
         add('danger', null, 'This does not add up — check before you withhold thrombolysis',
           'You recorded a <strong>non-disabling</strong> deficit, but ' +
           (!isNaN(nihss) && nihss >= 6
-            ? 'also an <strong>NIHSS of ' + nihss + '</strong>. The guideline reserves the disabling/non-disabling judgement for NIHSS 0–5; a score of 6 or more is not a mild deficit. '
+            ? 'also an <strong>NIHSS of ' + nihss + '</strong>. The guideline reserves the disabling/non-disabling judgment for NIHSS 0–5; a score of 6 or more is not a mild deficit. '
             : '') +
           (evtGradeOcclusion
             ? 'also ' + (occl === 'basilar' ? 'a <strong>basilar occlusion</strong>' : occl === 'm2' ? 'a <strong>proximal M2 occlusion</strong>' : 'an <strong>ICA or M1 occlusion</strong>') +
@@ -609,9 +621,9 @@
     };
 
     if (ich === 'yes') {
-      add('danger', null, 'Haemorrhage on imaging — stop the ischaemic pathway',
-        'Thrombolysis is an absolute contraindication when CT shows acute intracranial haemorrhage. Switch to the ' +
-        '<a href="#ich">intracerebral haemorrhage pathway</a>: blood pressure control, anticoagulation reversal, neurosurgical review.');
+      add('danger', null, 'Hemorrhage on imaging — stop the ischemic pathway',
+        'Thrombolysis is an absolute contraindication when CT shows acute intracranial hemorrhage. Switch to the ' +
+        '<a href="#ich">intracerebral hemorrhage pathway</a>: blood pressure control, anticoagulation reversal, neurosurgical review.');
       out.innerHTML = lines.join('');
       return;
     }
@@ -699,17 +711,17 @@
       } else if (occl === 'nonlvo' || occl === 'noneg') {
         if (!havePerf) {
           add('note', null, 'Non-LVO, 6–24 h — selection is by perfusion',
-            'The only randomised evidence is OPTION (JAMA 2026, postdates the guideline, <strong>no class of recommendation</strong>): non-LVO stroke, NIHSS 6–25 or 4–5 with a disabling deficit, prestroke mRS 0–1, core &lt;50 mL, ratio ≥1.2, mismatch ≥10 mL. ' +
+            'The only randomized evidence is OPTION (JAMA 2026, postdates the guideline, <strong>no class of recommendation</strong>): non-LVO stroke, NIHSS 6–25 or 4–5 with a disabling deficit, prestroke mRS 0–1, core &lt;50 mL, ratio ≥1.2, mismatch ≥10 mL. ' +
             'Enter the core and Tmax&gt;6 s volumes above and the tool will test the profile. <a href="#extended">Detail</a>' + relCaveat);
         } else if (meetsOPTION) {
           add('note', null, 'Non-LVO, 6–24 h — OPTION profile met',
-            'Your values — ' + perfVals + ' — meet the OPTION profile (core &lt;50 mL, ratio ≥1.2, mismatch ≥10 mL). OPTION (JAMA 2026) randomised 566 such patients (NIHSS 6–25 or 4–5 with a disabling deficit, prestroke mRS 0–1) to tenecteplase versus standard care: mRS 0–1 43.6% vs 34.2% (RR 1.28), sICH 2.8% vs 0%. ' +
+            'Your values — ' + perfVals + ' — meet the OPTION profile (core &lt;50 mL, ratio ≥1.2, mismatch ≥10 mL). OPTION (JAMA 2026) randomized 566 such patients (NIHSS 6–25 or 4–5 with a disabling deficit, prestroke mRS 0–1) to tenecteplase versus standard care: mRS 0–1 43.6% vs 34.2% (RR 1.28), sICH 2.8% vs 0%. ' +
             'It postdates the 2026 AHA guideline literature cut-off and <strong>carries no class of recommendation</strong> — whether to act on it is a local governance decision.' +
             (meetsEXTEND ? nineHrNote : '') + ' <a href="#extended">Detail</a>' + relCaveat);
         } else if (meetsEXTEND) {
           add('note', null, 'Meets EXTEND but not OPTION',
             'Your values — ' + perfVals + ' — miss the OPTION profile (core &lt;50 mL, ratio ≥1.2, mismatch ≥10 mL) but meet the ' + P_EXTEND + '.' + nineHrNote +
-            ' Beyond 9 h there is no randomised support for IVT in non-LVO stroke at these values.' + relCaveat);
+            ' Beyond 9 h there is no randomized support for IVT in non-LVO stroke at these values.' + relCaveat);
         } else {
           add('warn', { cls: '3n', label: 'Criteria not met' }, 'Perfusion profile not met — late IVT is not indicated',
             'Your values — ' + perfVals + ' — meet neither the OPTION profile (core &lt;50 mL, ratio ≥1.2, mismatch ≥10 mL) nor the ' + P_EXTEND + '. Move to <a href="#antithrombotics">antithrombotics</a> and <a href="#supportive">supportive care</a>.');
@@ -750,7 +762,7 @@
       }
       if (mrs === '3-4') {
         add('warn', null, 'Prestroke mRS 3–4 — decide case by case',
-          basis + ' But <strong>no completed randomised trial</strong> has tested thrombectomy in moderate prestroke disability, and good outcomes are less frequent than with mRS 0–2 — ' +
+          basis + ' But <strong>no completed randomized trial</strong> has tested thrombectomy in moderate prestroke disability, and good outcomes are less frequent than with mRS 0–2 — ' +
           'in cohort studies 20–30% of such patients returned to their premorbid mRS. ' +
           '<strong>This is a case-by-case decision</strong> for the treating team with the patient\'s family, weighing premorbid function, the realistic ceiling of recovery, comorbidity and goals of care — not something to read off a table. ' +
           'The question is return to <em>their</em> baseline, not independence. <a href="#evt">Full criteria</a>');
@@ -768,7 +780,7 @@
 
     if (occl === 'nonlvo') {
       add('warn', { cls: '3n', label: 'COR 3: No Benefit' }, 'Medium or distal vessel — thrombectomy not recommended',
-        'EVT is not recommended for nondominant or codominant proximal M2, distal MCA (M3), ACA or PCA occlusions <span class="loe">A</span> — recent randomised trials of medium and distal vessel occlusion showed no functional benefit. ' +
+        'EVT is not recommended for nondominant or codominant proximal M2, distal MCA (M3), ACA or PCA occlusions <span class="loe">A</span> — recent randomized trials of medium and distal vessel occlusion showed no functional benefit. ' +
         'A <em>dominant</em> proximal M2 is the exception: select it above. <a href="#evt">Detail</a>');
     } else if (occl === 'none') {
       if (!isNaN(hours) && hours <= 24) {
@@ -778,9 +790,9 @@
       }
     } else if (occl === 'lvo' || occl === 'basilar' || occl === 'm2') {
       if (isNaN(hours)) {
-        add('warn', null, 'Thrombectomy window', 'Enter the time from last known well. EVT trials extend to 24 h; beyond that there is no randomised evidence.');
+        add('warn', null, 'Thrombectomy window', 'Enter the time from last known well. EVT trials extend to 24 h; beyond that there is no randomized evidence.');
       } else if (hours > 24) {
-        add('warn', null, 'Beyond the thrombectomy evidence', 'EVT trials extend to 24 h from last known well. Beyond that there is no randomised evidence.');
+        add('warn', null, 'Beyond the thrombectomy evidence', 'EVT trials extend to 24 h from last known well. Beyond that there is no randomized evidence.');
       } else if (occl === 'basilar') {
         /* The basilar recommendation specifies baseline mRS 0-1, so the same
            prestroke-function gate applies here as in the anterior circulation. */
@@ -815,7 +827,7 @@
         } else if (mrsBlocksEvt('A basilar occlusion within 24 h meets the vessel and time criteria.')) {
           /* handled by the shared gate */
         } else if (mrs === '2') {
-          add('note', null, 'Basilar occlusion, prestroke mRS 2 — individualised',
+          add('note', null, 'Basilar occlusion, prestroke mRS 2 — individualized',
             'The basilar recommendation is written for baseline mRS 0–1; unlike the anterior circulation there is no separate mRS 2 recommendation. Reasonable to consider on an individual basis. ' + basilarCore);
         }
       } else if (occl === 'm2') {
@@ -825,11 +837,11 @@
           var m2NihssLow = !isNaN(nihss) && nihss < 6;
           add(m2NihssLow ? 'warn' : 'note', m2NihssLow ? null : { cls: '2a', label: 'COR 2a' }, 'Dominant proximal M2 within 6 h',
             'Reasonable when prestroke mRS 0–1, NIHSS ≥6 and ASPECTS ≥6 <span class="loe">B-NR</span>.' +
-            (m2NihssLow ? ' <strong>Entered NIHSS ' + nihss + ' is below that threshold</strong> — outside the trial population; individualise.' : '') + ' ' +
+            (m2NihssLow ? ' <strong>Entered NIHSS ' + nihss + ' is below that threshold</strong> — outside the trial population; individualize.' : '') + ' ' +
             'EVT is <strong>not</strong> recommended <span class="cor cor-3n">COR 3: No Benefit</span> <span class="loe">A</span> for nondominant or codominant proximal M2, distal MCA, ACA or PCA occlusions. <a href="#evt">Detail</a>');
         } else {
           add('warn', null, 'Proximal M2 beyond 6 h — outside the recommendation',
-            'The M2 recommendation <span class="cor cor-2a">COR 2a</span> is written for the 0–6 h window only. Beyond 6 h there is no recommendation for M2 thrombectomy, and recent trials of medium and distal vessel occlusion were negative overall. Individualised decision. <a href="#evt">Detail</a>');
+            'The M2 recommendation <span class="cor cor-2a">COR 2a</span> is written for the 0–6 h window only. Beyond 6 h there is no recommendation for M2 thrombectomy, and recent trials of medium and distal vessel occlusion were negative overall. Individualized decision. <a href="#evt">Detail</a>');
         }
       } else if (!aspects) {
         add('warn', null, 'Select ASPECTS to assess thrombectomy eligibility',
@@ -849,7 +861,7 @@
             if (age === '80plus') {
               title = 'ASPECTS 0–2 at age ≥80 — outside the recommendation';
               kind = 'warn';
-              body = 'The <span class="cor cor-2a">COR 2a</span> recommendation for ASPECTS 0–2 specifies <strong>age &lt;80</strong>. LASTE, the only trial to systematically enrol ASPECTS 0–2, excluded patients aged 80 and over outright. This is an individualised decision made explicitly outside the evidence base, and it should be named as such with the family. ';
+              body = 'The <span class="cor cor-2a">COR 2a</span> recommendation for ASPECTS 0–2 specifies <strong>age &lt;80</strong>. LASTE, the only trial to systematically enrol ASPECTS 0–2, excluded patients aged 80 and over outright. This is an individualized decision made explicitly outside the evidence base, and it should be named as such with the family. ';
             } else {
               cor = { cls: '2a', label: 'COR 2a' };
               title = 'EVT reasonable — ICA/M1, 0–6 h, ASPECTS 0–2';
@@ -867,7 +879,7 @@
             if (age === '80plus') {
               title = 'Large core beyond 6 h at age ≥80 — outside the recommendation';
               kind = 'warn';
-              body = 'The 6–24 h ASPECTS 3–5 recommendation specifies <strong>age &lt;80</strong>. SELECT2 and ANGEL-ASPECT under-enrolled or excluded older patients, along with those with renal failure, refractory hypertension (SBP ≥185 or DBP ≥110), comorbidity confounding neurological assessment, or life expectancy &lt;3 months. This is an individualised decision outside the evidence base — name it as such with the family. ';
+              body = 'The 6–24 h ASPECTS 3–5 recommendation specifies <strong>age &lt;80</strong>. SELECT2 and ANGEL-ASPECT under-enrolled or excluded older patients, along with those with renal failure, refractory hypertension (SBP ≥185 or DBP ≥110), comorbidity confounding neurological assessment, or life expectancy &lt;3 months. This is an individualized decision outside the evidence base — name it as such with the family. ';
             } else {
               cor = { cls: '1', label: 'COR 1' };
               title = 'EVT recommended — ICA/M1, 6–24 h, ASPECTS 3–5';
@@ -876,14 +888,14 @@
           } else if (aspects === '0-2') {
             title = 'ASPECTS 0–2 beyond 6 h — outside the recommendations';
             kind = 'warn';
-            body = 'The <span class="cor cor-2a">COR 2a</span> recommendation for ASPECTS 0–2 is limited to the 0–6 h window, because LASTE enrolled within 6.5 h. Beyond 6 h this is off-evidence and an individualised decision. ';
+            body = 'The <span class="cor cor-2a">COR 2a</span> recommendation for ASPECTS 0–2 is limited to the 0–6 h window, because LASTE enrolled within 6.5 h. Beyond 6 h this is off-evidence and an individualized decision. ';
           }
         }
 
         if (title) {
           body += 'All rows require <strong>NIHSS ≥6</strong>.';
           if (!isNaN(nihss) && nihss < 6) {
-            body += ' <strong>Entered NIHSS ' + nihss + ' is below that threshold</strong> — the pivotal EVT trials enrolled NIHSS ≥6, so this sits outside the trial population and is an individualised decision, not a straightforward recommendation.';
+            body += ' <strong>Entered NIHSS ' + nihss + ' is below that threshold</strong> — the pivotal EVT trials enrolled NIHSS ≥6, so this sits outside the trial population and is an individualized decision, not a straightforward recommendation.';
             cor = null; kind = 'warn';
           }
 
@@ -891,7 +903,7 @@
              recommendation is written for mRS 0-1, extending to 2 within 6 h.
              Above that the trials give no support, so the card must not keep
              saying "EVT recommended" — the imaging and window finding becomes
-             background to an individualised decision, not the conclusion. */
+             background to an individualized decision, not the conclusion. */
           var imagingBasis = title;
 
           if (mrs === '0-1') {
@@ -899,7 +911,7 @@
           } else if (mrs === '2') {
             body += hours <= 6
               ? ' <strong>Prestroke mRS 2:</strong> reasonable within 6 h for ICA/M1 with ASPECTS ≥6 <span class="cor cor-2a">COR 2a</span>.'
-              : ' <strong>Prestroke mRS 2 beyond 6 h:</strong> the mRS 2 recommendation is written for the 0–6 h window; the 6–24 h recommendations require mRS 0–1. Individualised.';
+              : ' <strong>Prestroke mRS 2 beyond 6 h:</strong> the mRS 2 recommendation is written for the 0–6 h window; the 6–24 h recommendations require mRS 0–1. Individualized.';
             if (hours > 6) { cor = null; kind = 'warn'; }
           } else if (mrsBlocksEvt('On time and imaging alone this would be “' + imagingBasis + '”.')) {
             title = '';   /* handled by the shared gate */
@@ -919,9 +931,9 @@
     }
 
     if (!lines.length) add('warn', null, 'Not enough information yet', 'Fill in the fields above.');
-    lines.push('<p class="src">Generated from the recommendation tables in the 2026 AHA/ASA acute ischaemic stroke guideline. ' +
+    lines.push('<p class="src">Generated from the recommendation tables in the 2026 AHA/ASA acute ischemic stroke guideline. ' +
       'It restates published criteria for the inputs you gave — it does not know this patient, does not weigh their individual risks, ' +
-      'and is not a substitute for the treating team\'s judgement. Read the linked section before acting on any card.</p>');
+      'and is not a substitute for the treating team\'s judgment. Read the linked section before acting on any card.</p>');
     out.innerHTML = lines.join('');
   }
   $$('#pathfinder select').forEach(function (el) { el.addEventListener('change', pathfinder); });
@@ -943,7 +955,7 @@
       var summary = [
         'Reperfusion pathfinder',
         'Last known well: ' + (opt('pfTime') || '—'),
-        'Haemorrhage on NCCT: ' + (opt('pfIch') || '—'),
+        'Hemorrhage on NCCT: ' + (opt('pfIch') || '—'),
         'Deficit disabling: ' + (opt('pfDisabling') || '—'),
         'NIHSS: ' + (pf('pfNihss') || '—'),
         'Thrombolysis contraindications: ' + (opt('pfContra') || '—'),
@@ -1145,7 +1157,7 @@
      column at 79px, both one word per line. Two columns are no better: a
      short label beside prose gets squeezed to nothing, because the browser
      gives width to whichever column has more text. Every table with a header
-     row is stamped and restacked as labelled cards; the markup stays a plain
+     row is stamped and restacked as labeled cards; the markup stays a plain
      table for desktop, print and screen readers. */
   function labelTableCells() {
     $$('.tablewrap table').forEach(function (t) {

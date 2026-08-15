@@ -12,7 +12,7 @@ It is a progressive web app: one page, no dependencies, no build step, no networ
 
 ## What it covers
 
-| Ischaemic stroke | Haemorrhagic stroke | Tools |
+| Ischemic stroke | Hemorrhagic stroke | Tools |
 | --- | --- | --- |
 | Prehospital triage, LVO scales, destination | ICH first hour, BP targets, INTERACT3 bundle | Reperfusion pathfinder |
 | ED time targets and evaluation | Anticoagulation reversal by agent | NIHSS calculator with copy-to-note |
@@ -34,9 +34,9 @@ Content is derived from published guidelines and peer-reviewed trials:
 - Greenberg SM, et al. **2022 Guideline for the Management of Patients With Spontaneous Intracerebral Hemorrhage.** *Stroke.* 2022;53:e282–e361. [doi:10.1161/STR.0000000000000407](https://doi.org/10.1161/STR.0000000000000407)
 - Individual trials are cited in-app with DOIs in the trial library.
 
-Content published after a guideline's literature cut-off (OPTION, ENRICH, ANNEXA-I) is labelled as such in-app and carries no class of recommendation.
+Content published after a guideline's literature cut-off (OPTION, ENRICH, ANNEXA-I) is labeled as such in-app and carries no class of recommendation.
 
-**Sourcing transparency.** Every class and level label in this guide was read off the full text of its source guideline, recommendation by recommendation — the 2026 AIS guideline for the ischaemic-stroke sections, the 2022 ICH guideline for intracerebral haemorrhage and anticoagulation reversal. Trials published after a guideline are named as trials and carry no class label. If you spot an error, please open an issue.
+**Sourcing transparency.** Every class and level label in this guide was read off the full text of its source guideline, recommendation by recommendation — the 2026 AIS guideline for the ischemic-stroke sections, the 2022 ICH guideline for intracerebral hemorrhage and anticoagulation reversal. Trials published after a guideline are named as trials and carry no class label. If you spot an error, please open an issue.
 
 No figures, tables or extended text are reproduced from any copyrighted publication. Recommendations are facts about the literature, restated in the authors' own words.
 
@@ -46,7 +46,7 @@ No institutional protocol, activation criterion, screening tool or workflow from
 
 ## Disclaimer
 
-**Educational reference only.** Not medical advice. It does not establish a standard of care, has not been validated as a clinical decision support system, and is not cleared by any regulatory authority as a medical device. The clinician remains solely responsible for every decision. Verify doses, thresholds and criteria against the primary literature, product labelling and local protocol before acting on them.
+**Educational reference only.** Not medical advice. It does not establish a standard of care, has not been validated as a clinical decision support system, and is not cleared by any regulatory authority as a medical device. The clinician remains solely responsible for every decision. Verify doses, thresholds and criteria against the primary literature, product labeling and local protocol before acting on them.
 
 ## Running it locally
 
@@ -56,7 +56,7 @@ No toolchain required — it is static files.
 python3 -m http.server 8811
 ```
 
-Then open http://localhost:8811. A service worker needs `http://` or `https://`, so open it through a server rather than as a `file://` URL if you want to test offline behaviour.
+Then open http://localhost:8811. A service worker needs `http://` or `https://`, so open it through a server rather than as a `file://` URL if you want to test offline behavior.
 
 ## Project layout
 
@@ -66,7 +66,7 @@ assets/css/app.css         theming (light/dark), layout, print styles
 assets/js/app.js           routing, search index, calculators, pathfinder
 manifest.webmanifest       PWA manifest
 sw.js                      service worker — precache, cache-first
-icons/                     app icons (rendered master + rasterised sizes)
+icons/                     app icons (rendered master + rasterized sizes)
 ```
 
 Search builds its index from the DOM at runtime, so **new content is searchable automatically** — there is no separate index to maintain.
@@ -85,7 +85,7 @@ When changing content, bump `CACHE` in `sw.js` and `data-version` on the `<html>
 
 GitHub Pages serves `main` from the repository root. `index.html` is at the root, so a push to `main` is the deploy — there is no build step and no workflow.
 
-## Licence
+## License
 
 - **Software** (HTML/CSS/JS): [MIT](LICENSE)
 - **Clinical content**: [CC BY 4.0](LICENSE-CONTENT) — reuse, adapt for your own institution, translate it. Attribute the source.
