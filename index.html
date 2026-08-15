@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" data-version="1.20.0">
+<html lang="en" data-theme="light" data-version="1.21.0">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -85,6 +85,7 @@
 
   <h4>Ward &amp; ICU</h4>
   <a href="#supportive">Supportive care</a>
+  <a href="#workup">Diagnostic workup</a>
   <a href="#antithrombotics">Antithrombotics &amp; prevention</a>
   <a href="#complications">Swelling, surgery, seizures</a>
   <a href="#dissection">Cervical artery dissection</a>
@@ -1137,29 +1138,73 @@
   <p class="src">Sections 4.4, 4.5, 5.2, 5.4, 5.6, 6.5, 2026 AHA/ASA AIS guideline.</p>
 </section>
 
+<!-- ================================================================== WORKUP -->
+<section class="section" id="workup" data-title="Diagnostic workup">
+  <h1>Diagnostic workup</h1>
+  <p class="lede">Working out why it happened. This is post-acute: by the time you are here the patient has had a non-contrast CT, usually a CTA head and neck, and the reperfusion decision is behind you.</p>
+
+  <div class="note">
+    <div class="note__t">The point of all of it</div>
+    <p style="margin-bottom:0">Every test below exists to answer one question — <strong>what caused this, and does the answer change the drug?</strong> Large-artery atherosclerosis, cardioembolism, small-vessel disease and dissection lead to different secondary prevention. A workup that does not change management is not urgent.</p>
+  </div>
+
+  <h2>Imaging</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Test</th><th>When</th></tr></thead>
+    <tbody>
+      <tr><td><strong>CTA or MRA head and neck</strong></td><td>If not already done in the acute phase. Vessel imaging from arch to vertex is what separates large-artery disease from everything else</td></tr>
+      <tr><td><strong>MRI brain without contrast</strong></td><td>Confirms the infarct, dates it, and shows the pattern — a single territory, scattered bilateral emboli, or deep small-vessel disease each point somewhere different</td></tr>
+      <tr><td><strong>Carotid Doppler</strong></td><td><strong>Only if it adds something.</strong> Reach for it when CTA or MRA is inconclusive, or when you need dynamic flow information a static angiogram cannot give — velocities across a stenosis, or flow direction. It is not a routine add-on once you have good vessel imaging</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Cardiac</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Test</th><th>When</th></tr></thead>
+    <tbody>
+      <tr><td><strong>ECG</strong></td><td>Everyone. Atrial fibrillation on a single strip settles the question before any other test is ordered</td></tr>
+      <tr><td><strong>Transthoracic echo</strong></td><td>Everyone. Ventricular function, valves, and an obvious source</td></tr>
+      <tr><td><strong>TOE or cardiac MRI</strong></td><td>When cardioembolism is suspected and the TTE has not explained it — looking specifically for a <strong>PFO</strong> or <strong>left atrial appendage thrombus</strong>, neither of which a transthoracic study reliably excludes</td></tr>
+      <tr><td><strong>Prolonged rhythm monitoring</strong></td><td>Suspected cardioembolic stroke with no AF on telemetry. Arrange it <strong>before discharge</strong> — a 30-day event monitor, or an implantable loop recorder where suspicion is high. Paroxysmal AF is missed by short monitoring, and finding it changes an antiplatelet to an anticoagulant</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Bloods</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Test</th><th>Usual target</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Lipid panel</strong></td><td><strong>LDL-C below 70 mg/dL</strong> with a statin, adding ezetimibe if needed — that target carries <span class="cor cor-1">COR 1</span> <span class="loe">A</span> for atherosclerotic disease</td></tr>
+      <tr><td><strong>HbA1c</strong></td><td><strong>Below 7.0%</strong> as the usual goal. Worth knowing the guideline does not set a single number — it asks for the goal to be individualised to the patient and their risk of hypoglycaemia</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Selected cases only</h2>
+  <p>Neither of the following is routine. Order them when something about the presentation asks for it.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Workup</th><th>What to send, and when</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Thrombophilia</strong></td>
+        <td>In the acute phase send only the <strong>arterial</strong> panel: <strong>β2-glycoprotein I antibodies</strong>, <strong>anticardiolipin antibodies</strong>, and arguably a <strong>lupus anticoagulant</strong>. Leave the rest of the thrombophilia screen to outpatient follow-up once the acute phase has resolved — acute thrombosis, heparin and warfarin all distort protein C, protein S and antithrombin, so a level drawn now mostly tells you the patient has had a stroke</td>
+      </tr>
+      <tr>
+        <td><strong>Vasculitis</strong></td>
+        <td>Consider a <strong>four-vessel catheter angiogram</strong> where CNS vasculitis is suspected — non-invasive imaging misses small and medium vessel disease, and the beading it is looking for is often below CTA and MRA resolution. Pair it with the inflammatory workup and, where the question stays open, discuss brain biopsy</td>
+      </tr>
+      <tr>
+        <td><strong>Occult malignancy</strong></td>
+        <td>CT chest, abdomen and pelvis where the picture suggests a cancer-associated hypercoagulable state — multi-territory infarcts, markedly raised D-dimer, unexplained weight loss, or venous and arterial thrombosis together</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <p class="src">Simplified for bedside use: this is a workup order, not a graded recommendation set. Where a target carries a class it is shown. Underlying source: section 3 and section 4.3, 2021 AHA/ASA secondary prevention guideline (doi:10.1161/STR.0000000000000375).</p>
+</section>
+
 <!-- ========================================================== ANTITHROMBOTICS -->
 <section class="section" id="antithrombotics" data-title="Antithrombotics &amp; prevention">
   <h1>Antithrombotics and early secondary prevention</h1>
 
-  <h2>Finding the cause</h2>
-  <p>Every choice above depends on the mechanism, and the workup that establishes it happens during this admission. From the 2021 secondary prevention guideline.</p>
-  <div class="tablewrap"><table>
-    <thead><tr><th>Test</th><th>Indication</th><th>Class</th></tr></thead>
-    <tbody>
-      <tr><td><strong>ECG</strong></td><td>In anyone with suspected stroke or TIA, to screen for atrial fibrillation and flutter</td><td><span class="cor cor-1">1</span> <span class="loe">B-R</span></td></tr>
-      <tr><td><strong>CT or MRI of the brain</strong></td><td>To confirm symptomatic ischaemic cerebrovascular disease. If the first study is negative and stroke is still suspected, a follow-up study is reasonable <span class="cor cor-2a">2a</span> <span class="loe">B-NR</span> — and after a suspected TIA, follow-up MRI <span class="cor cor-2a">2a</span></td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
-      <tr><td><strong>Non-invasive cervical carotid imaging</strong></td><td>Anterior circulation infarct or TIA in a candidate for revascularisation</td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
-      <tr><td><strong>Baseline bloods</strong></td><td>FBC, PT, aPTT and the rest, once the diagnosis is confirmed</td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
-      <tr><td><strong>Intracranial and vertebrobasilar imaging</strong></td><td>CTA or MRA, to identify atherosclerotic disease — the finding that drives the regimen above</td><td><span class="cor cor-2a">2a</span> <span class="loe">C-LD</span></td></tr>
-      <tr><td><strong>Echocardiography</strong></td><td>Cryptogenic stroke, with or without contrast, for a cardiac or transcardiac source</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td></tr>
-      <tr><td><strong>Prolonged rhythm monitoring</strong></td><td>Cryptogenic stroke without a contraindication to anticoagulation — mobile telemetry, implantable loop recorder or external monitor. The point is that finding AF changes the drug</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td></tr>
-      <tr><td><strong>Hypercoagulable and infective screen</strong></td><td>Cryptogenic stroke — inherited or acquired thrombophilia, bloodstream or CSF infection</td><td><span class="cor cor-2a">2a</span> <span class="loe">C-LD</span></td></tr>
-      <tr><td><strong>TOE, cardiac CT or cardiac MRI</strong></td><td>Embolic stroke of undetermined source, for cardioaortic sources</td><td><span class="cor cor-2b">2b</span> <span class="loe">C-LD</span></td></tr>
-    </tbody>
-  </table></div>
-  <p class="src">Section 3, 2021 AHA/ASA secondary prevention guideline (doi:10.1161/STR.0000000000000375).</p>
-
-  
   <div class="tabs" data-tabs role="tablist" aria-label="Antithrombotic class">
     <button class="tab" role="tab" id="tabAntiplatelet" aria-controls="paneAntiplatelet" aria-selected="true">Antiplatelets</button>
     <button class="tab" role="tab" id="tabAnticoag" aria-controls="paneAnticoag" aria-selected="false">Anticoagulation</button>
@@ -2241,7 +2286,7 @@
   <p>The software is MIT licensed; the clinical content is released under <strong>CC BY 4.0</strong> — reuse it, adapt it for your own institution, translate it, as long as you attribute the source. Corrections are welcome and wanted: if a recommendation here misstates the guideline, or a number is wrong, open an issue or a pull request with the citation.</p>
 
   <h2>Version</h2>
-  <p class="src">Version <span id="buildVersion">1.20.0</span>. Content current to the 2026 AHA/ASA acute ischaemic stroke guideline, the 2022 AHA/ASA spontaneous ICH guideline, and named trials published through February 2026.</p>
+  <p class="src">Version <span id="buildVersion">1.21.0</span>. Content current to the 2026 AHA/ASA acute ischaemic stroke guideline, the 2022 AHA/ASA spontaneous ICH guideline, and named trials published through February 2026.</p>
 
   <div class="footer">
     <p>Built as a public resource. No tracking, no analytics, no accounts, no network requests after the first load.</p>
