@@ -1025,7 +1025,6 @@
       if (src) el.textContent = src.textContent;
     });
   }
-  if ($('#homeSearch')) $('#homeSearch').addEventListener('click', openSearch);
 
   /* ------------------------------------------------------------ kick off */
   buildGuide();    /* before route(), so generated links get current-page marking */
