@@ -497,6 +497,7 @@
     var contra = pf('pfContra');
     var occl = pf('pfOccl');
     var aspects = pf('pfAspects');
+    var pcAspects = pf('pfPcAspects');
     var mrs = pf('pfMrs');
     var age = pf('pfAge');
     var flair = pf('pfFlair');
@@ -772,7 +773,18 @@
         var basilarCore = 'Recommended when <strong>baseline mRS 0–1</strong>, <strong>NIHSS ≥10</strong> and <strong>PC-ASPECTS ≥6</strong> (ATTENTION, BAOCHE) <span class="loe">A</span>. ' +
           'For NIHSS 6–9 with the same imaging, effectiveness is not well established <span class="cor cor-2b">COR 2b</span>. ' +
           'Note that PC-ASPECTS, not the anterior-circulation ASPECTS, is the relevant score here — <a href="#aspects">score it</a>. <a href="#evt">Detail</a>';
-        if (mrs === '0-1') {
+        /* PC-ASPECTS >=6 is a criterion of both basilar rows, not a footnote:
+           ATTENTION and BAOCHE both required it, so a score below 6 puts the
+           patient outside the evidence rather than lower down the same table. */
+        if (pcAspects === 'lt6') {
+          add('warn', null, 'PC-ASPECTS below 6 — outside the basilar EVT evidence',
+            'Both basilar recommendations — the <span class="cor cor-1">COR 1</span> for NIHSS ≥10 and the <span class="cor cor-2b">COR 2b</span> for NIHSS 6–9 — specify <strong>PC-ASPECTS ≥6</strong>. ' +
+            'ATTENTION and BAOCHE both used that threshold as a radiographic entry criterion, and the guideline names the role of EVT at lower scores as an explicit evidence gap rather than recommending against it. ' +
+            'Treating here is a decision made outside the trial population, and it should be named as such with the family. <a href="#evt">Detail</a>');
+        } else if (!pcAspects) {
+          add('warn', null, 'Score PC-ASPECTS to complete the basilar assessment',
+            'Both basilar rows require <strong>PC-ASPECTS ≥6</strong>, and the anterior-circulation ASPECTS does not answer it. <a href="#aspects">Score it here</a> — pons and midbrain are worth 2 points each.');
+        } else if (mrs === '0-1') {
           /* NIHSS is optional — when entered, pick the row it actually falls
              in rather than showing the flat COR 1 headline with both rows
              described in prose underneath. */
@@ -923,6 +935,7 @@
         'Thrombolysis contraindications: ' + (opt('pfContra') || '—'),
         'Occlusion: ' + (opt('pfOccl') || '—'),
         'ASPECTS: ' + (opt('pfAspects') || '—'),
+        'PC-ASPECTS: ' + (opt('pfPcAspects') || '—'),
         'Perfusion: ' + perfLine,
         'DWI–FLAIR mismatch: ' + (opt('pfFlair') || 'MRI not done'),
         'Prestroke mRS: ' + (opt('pfMrs') || '—'),
