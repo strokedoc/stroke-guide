@@ -21,7 +21,9 @@ PLATES = [
     'aspects-supraganglionic',
     'pc-aspects-supratentorial',
     'pc-aspects-infratentorial',
-    'scoring-key',
+    # scoring-key is intentionally absent: it restates the region lists and
+    # point weights the in-app scorer already carries, and two sources for one
+    # fact is how they drift apart.
 ]
 
 def main():

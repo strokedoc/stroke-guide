@@ -10,16 +10,29 @@ CT/CTA/MRI examination.
   and M3. The caudate head hugs the frontal horn; the internal capsule is a
   narrow boomerang medial to the lentiform nucleus; and the insular ribbon lies
   lateral to the lentiform nucleus along the Sylvian fissure.
-- `aspects-ganglionic-v1.png` — original plate retained for comparison.
-- `aspects-ganglionic-v2.png` — versioned copy of the corrected plate.
-- `aspects-ganglionic-v3.png` — versioned copy with the corrected internal
-  capsule and lentiform overlays.
 - `aspects-supraganglionic.png` — M4, M5, and M6.
 - `pc-aspects-supratentorial.png` — paired thalami and PCA territories.
 - `pc-aspects-infratentorial.png` — paired cerebellar hemispheres, midbrain,
   and pons.
-- `scoring-key.png` — combined point-deduction key.
-- `scoring-key.svg` — editable vector source for the key.
+- `scoring-key.png` / `scoring-key.svg` — combined point-deduction key.
+  **Not shipped in the app**: it restates the region lists and point weights
+  the in-app scorer already carries, and two sources for one fact is how they
+  drift apart. Kept here for print or teaching use.
+
+## Build
+
+These PNGs are the masters and are not served. `tools/build-images.py`
+downscales them to 900 px and writes the `.webp` the app actually loads —
+about 350 KB for the set against 8 MB of PNG, which matters because the
+service worker precaches every shipped asset. Re-run it after replacing any
+master:
+
+```
+python3 tools/build-images.py
+```
+
+Superseded revisions are not kept alongside the current plate; git history is
+the archive.
 
 ## Scoring represented
 
