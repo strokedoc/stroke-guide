@@ -38,6 +38,7 @@
     var t = target.getAttribute('data-title');
     document.title = (t ? t + ' — ' : '') + 'Acute Stroke Guide';
     if (!opts || !opts.keepScroll) window.scrollTo(0, 0);
+    if (id === 'start') syncTiles();
     closeNav();
     if (opts && opts.focusText) highlightText(target, opts.focusText);
   }
@@ -53,24 +54,63 @@
     route();
   });
 
-  /* ------------------------------------------------------------ mobile nav */
-  function openNav() {
-    $('#sidebar').classList.add('open');
-    $('#navToggle').setAttribute('aria-expanded', 'true');
-    if (!$('.scrim')) {
-      var s = document.createElement('div');
-      s.className = 'scrim';
-      s.addEventListener('click', closeNav);
-      document.body.appendChild(s);
-    }
+  /* ----------------------------------------------------------- nav sheets */
+  /* The bottom bar's Guide and Tools tabs open sheets instead of one long
+     drawer.  Both are generated from the sidebar's own <h4>/<a> list so the
+     set of sections is declared once, in the markup, and cannot drift. */
+  var SHEETS = { guide: $('#guideSheet'), tools: $('#toolsSheet') };
+
+  function buildSheets() {
+    var groups = { guide: [], tools: [] };
+    var current = null;
+    Array.prototype.forEach.call($('#sidebar').children, function (el) {
+      if (el.tagName === 'H4') {
+        current = { title: el.textContent, links: [] };
+        groups[el.textContent === 'Tools' ? 'tools' : 'guide'].push(current);
+      } else if (el.tagName === 'A' && current) {
+        current.links.push({ href: el.getAttribute('href'), text: el.textContent });
+      }
+    });
+    Object.keys(groups).forEach(function (key) {
+      var body = SHEETS[key].querySelector('.sheet__body');
+      body.innerHTML = groups[key].map(function (g) {
+        /* A single-group sheet doesn't need its group heading repeated. */
+        var head = groups[key].length > 1 ? '<h4>' + esc(g.title) + '</h4>' : '';
+        return head + g.links.map(function (l) {
+          return '<a href="' + esc(l.href) + '">' + esc(l.text) + '</a>';
+        }).join('');
+      }).join('');
+    });
+    /* Sheet links participate in current-section highlighting. */
+    navLinks = navLinks.concat($$('.sheet a[href^="#"]'));
   }
-  function closeNav() {
-    $('#sidebar').classList.remove('open');
-    $('#navToggle').setAttribute('aria-expanded', 'false');
-    var s = $('.scrim'); if (s) s.remove();
+
+  function openSheet(key) {
+    closeSheets();
+    SHEETS[key].hidden = false;
+    document.body.classList.add('sheet-open');
+    $('#' + key + 'Btn').setAttribute('aria-expanded', 'true');
+    var cur = SHEETS[key].querySelector('a[aria-current="page"]') || SHEETS[key].querySelector('a');
+    if (cur) cur.focus();
   }
-  $('#navToggle').addEventListener('click', function () {
-    $('#sidebar').classList.contains('open') ? closeNav() : openNav();
+  function closeSheets() {
+    Object.keys(SHEETS).forEach(function (key) {
+      SHEETS[key].hidden = true;
+      $('#' + key + 'Btn').setAttribute('aria-expanded', 'false');
+    });
+    document.body.classList.remove('sheet-open');
+  }
+  /* `closeNav` is the one name routing calls when a section opens. */
+  function closeNav() { closeSheets(); }
+
+  Object.keys(SHEETS).forEach(function (key) {
+    $('#' + key + 'Btn').addEventListener('click', function () {
+      SHEETS[key].hidden ? openSheet(key) : closeSheets();
+    });
+    /* Tapping the backdrop or Done closes; taps inside the panel do not. */
+    SHEETS[key].addEventListener('click', function (e) {
+      if (e.target === SHEETS[key] || e.target.classList.contains('sheet__close')) closeSheets();
+    });
   });
 
   $('#themeBtn').addEventListener('click', function () {
@@ -222,6 +262,7 @@
       if (e.key === 'Enter') { e.preventDefault(); pick(sel); return; }
       return;
     }
+    if (e.key === 'Escape' && document.body.classList.contains('sheet-open')) { closeSheets(); return; }
     if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || (e.key === '/' && !typing)) { e.preventDefault(); openSearch(); }
   });
 
@@ -387,6 +428,35 @@
       $$('.aspects-region').forEach(function (b) { b.checked = false; }); aspectsUpdate();
     });
     aspectsUpdate();
+  }
+
+  /* --------------------------------------------------------- PC-ASPECTS */
+  /* Same 10-point ceiling as the anterior score, but weighted: pons and
+     midbrain are 2 points each and are scored whole (no grading by extent).
+     `pmi` is how many deducted points came from the brainstem, 0/2/4 — a
+     prompt to check the published pons-midbrain index (which BAOCHE capped at
+     <3), NOT that index itself, which grades pons and midbrain 0-2 by extent. */
+  function pcUpdate() {
+    var boxes = $$('.pc-region');
+    var hit = boxes.filter(function (b) { return b.checked; });
+    var lost = hit.reduce(function (a, b) { return a + Number(b.getAttribute('data-pts')); }, 0);
+    var pmi = hit.reduce(function (a, b) { return a + (b.getAttribute('data-pmi') ? Number(b.getAttribute('data-pts')) : 0); }, 0);
+    var score = 10 - lost;
+    $('#pcScore').textContent = score;
+    $('#pcPmi').textContent = pmi;
+    var band;
+    if (score >= 6 && pmi >= 3) band = 'PC-ASPECTS ≥6, but all deductions are brainstem — check the pons–midbrain index';
+    else if (score >= 6) band = 'PC-ASPECTS ≥6 — meets the imaging criterion';
+    else band = 'PC-ASPECTS <6 — outside the trial evidence';
+    $('#pcBand').textContent = band;
+    $('#pcRegions').textContent = hit.length ? hit.map(function (b) { return b.value; }).join(', ') : 'none';
+  }
+  if ($('#pcScore')) {
+    $$('.pc-region').forEach(function (b) { b.addEventListener('change', pcUpdate); });
+    $('#pcReset').addEventListener('click', function () {
+      $$('.pc-region').forEach(function (b) { b.checked = false; }); pcUpdate();
+    });
+    pcUpdate();
   }
 
   /* -------------------------------------------------------- LKW time clock */
@@ -660,7 +730,7 @@
            prestroke-function gate applies here as in the anterior circulation. */
         var basilarCore = 'Recommended when <strong>baseline mRS 0–1</strong>, <strong>NIHSS ≥10</strong> and <strong>PC-ASPECTS ≥6</strong> (ATTENTION, BAOCHE) <span class="loe">A</span>. ' +
           'For NIHSS 6–9 with the same imaging, effectiveness is not well established <span class="cor cor-2b">COR 2b</span>. ' +
-          'Note that PC-ASPECTS, not the anterior-circulation ASPECTS, is the relevant score here. <a href="#evt">Detail</a>';
+          'Note that PC-ASPECTS, not the anterior-circulation ASPECTS, is the relevant score here — <a href="#aspects">score it</a>. <a href="#evt">Detail</a>';
         if (mrs === '0-1') {
           /* NIHSS is optional — when entered, pick the row it actually falls
              in rather than showing the flat COR 1 headline with both rows
@@ -947,7 +1017,24 @@
   }
   addFeedbackLinks();
 
+  /* ----------------------------------------------------- home screen tiles */
+  /* Every section lives in the DOM at once, so the tiles just mirror whatever
+     each calculator's own readout currently says.  Refreshed when the home
+     screen is shown — the only moment the values can be looked at. */
+  function syncTiles() {
+    /* Recompute the clock first — elapsed time since LKW is the one value
+       that goes stale on its own between visits. */
+    if ($('#lkwTime')) clockUpdate();
+    [['#tileNihss', '#nihssTotal'], ['#tileAspects', '#aspectsScore'],
+     ['#tileClock', '#clockOut'], ['#tileIch', '#ichScore']].forEach(function (pair) {
+      var tile = $(pair[0]), src = $(pair[1]);
+      if (tile && src) tile.textContent = src.textContent;
+    });
+  }
+  if ($('#homeSearch')) $('#homeSearch').addEventListener('click', openSearch);
+
   /* ------------------------------------------------------------ kick off */
+  buildSheets();   /* before route(), so sheet links get current-page marking */
   route();
   buildIndex();
   var v = $('#buildVersion');

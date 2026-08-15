@@ -34,7 +34,7 @@ Content is derived from published guidelines and peer-reviewed trials:
 
 Content published after a guideline's literature cut-off (OPTION, ENRICH, ANNEXA-I) is labelled as such in-app and carries no class of recommendation.
 
-**Sourcing transparency.** The ischaemic-stroke sections were written against the full text of the 2026 guideline, recommendation by recommendation. The 2022 ICH guideline is paywalled, so the class and level labels in the ICH and reversal sections came from published summaries rather than the source document; that is stated in-app at the point of use. If you have access and spot an error, please open an issue.
+**Sourcing transparency.** Every class and level label in this guide was read off the full text of its source guideline, recommendation by recommendation — the 2026 AIS guideline for the ischaemic-stroke sections, the 2022 ICH guideline for intracerebral haemorrhage and anticoagulation reversal. Trials published after a guideline are named as trials and carry no class label. If you spot an error, please open an issue.
 
 No figures, tables or extended text are reproduced from any copyrighted publication. Recommendations are facts about the literature, restated in the authors' own words.
 

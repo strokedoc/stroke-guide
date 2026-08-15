@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" data-version="1.7.1">
+<html lang="en" data-theme="light" data-version="1.8.0">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -20,9 +20,6 @@
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="hdr">
-  <button class="iconbtn" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-  </button>
   <a class="hdr__brand" href="#start">
     <img class="hdr__mark" src="icons/icon-192.png" alt="" width="30" height="30" decoding="async">
     <span>
@@ -52,7 +49,7 @@
 <div class="layout">
 <nav class="sidebar" id="sidebar" aria-label="Sections">
   <h4>Start</h4>
-  <a href="#start">How to use this guide</a>
+  <a href="#start">Home</a>
   <a href="#pathfinder">Reperfusion pathfinder</a>
 
   <h4>Hyperacute pathway</h4>
@@ -82,7 +79,7 @@
   <h4>Tools</h4>
   <a href="#nihss">NIHSS calculator</a>
   <a href="#mrs">Modified Rankin Scale</a>
-  <a href="#aspects">ASPECTS scorer</a>
+  <a href="#aspects">ASPECTS &amp; PC-ASPECTS</a>
   <a href="#calculators">Dose, clock &amp; ICH score</a>
 
   <h4>Reference</h4>
@@ -94,9 +91,41 @@
 <main class="main" id="main">
 
 <!-- ==================================================================== START -->
-<section class="section active" id="start" data-title="How to use this guide">
-  <h1>Acute Stroke Guide</h1>
-  <p class="lede">A bedside reference for acute ischaemic stroke and intracerebral haemorrhage, written directly from the 2026 AHA/ASA guideline and the trials behind it. Works offline. Free and open source.</p>
+<section class="section active" id="start" data-title="Home">
+  <h1 class="sr-only">Acute Stroke Guide</h1>
+
+  <button type="button" class="homesearch" id="homeSearch">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <span>Search every table and footnote</span>
+  </button>
+
+  <h2 class="homehead">Working a case</h2>
+  <a class="hero" href="#pathfinder">
+    <span class="hero__t">Reperfusion pathfinder</span>
+    <span class="hero__d">Time, deficit, occlusion and core → the recommendations that apply, each with its class and the trials behind it.</span>
+    <span class="hero__go">Start · 9 questions</span>
+  </a>
+
+  <h2 class="homehead">Score and dose</h2>
+  <div class="tiles">
+    <a class="tile" href="#nihss"><span class="tile__v" id="tileNihss">0</span><span class="tile__t">NIHSS</span><span class="tile__s">15 items · copy to note</span></a>
+    <a class="tile" href="#aspects"><span class="tile__v" id="tileAspects">10</span><span class="tile__t">ASPECTS</span><span class="tile__s">anterior &amp; posterior</span></a>
+    <a class="tile" href="#calculators"><span class="tile__v" id="tileClock">—</span><span class="tile__t">Since LKW</span><span class="tile__s">sets the whole clock</span></a>
+    <a class="tile" href="#calculators"><span class="tile__v" id="tileIch">0</span><span class="tile__t">ICH score</span><span class="tile__s">Hemphill 2001</span></a>
+  </div>
+
+  <h2 class="homehead">Jump to a decision</h2>
+  <nav class="decisions" aria-label="Common decisions">
+    <a href="#thrombolysis">Should I thrombolyse?</a>
+    <a href="#contraindications">Is there a contraindication?</a>
+    <a href="#extended">Is it too late for thrombolysis?</a>
+    <a href="#evt">Is this a thrombectomy case?</a>
+    <a href="#ich">The scan shows blood</a>
+    <a href="#reversal">Reverse their anticoagulant</a>
+    <a href="#post">Blood pressure after reperfusion</a>
+    <a href="#complications-ivt">They are deteriorating after thrombolysis</a>
+    <a href="#antithrombotics">When do I start an antithrombotic?</a>
+  </nav>
 
   <div class="note note--warn">
     <div class="note__t">Read this first</div>
@@ -104,44 +133,25 @@
     <p style="margin-bottom:0">Nothing here is site-specific: there are no local activation criteria, no local screening tools and no institutional workflows. If your hospital's protocol differs, your hospital's protocol governs.</p>
   </div>
 
-  <h2>Four ways in</h2>
-  <div class="grid">
-    <div class="card">
-      <h3 style="margin-top:0">1 · Answer a question fast</h3>
-      <p>Press <kbd>⌘K</kbd> (or <kbd>/</kbd>) anywhere and search the whole guide — every table, row and footnote is indexed. Try <em>angioedema</em>, <em>DOAC</em>, <em>PC-ASPECTS</em>.</p>
-    </div>
-    <div class="card">
-      <h3 style="margin-top:0">2 · Work a live case</h3>
-      <p>The <a href="#pathfinder">Reperfusion pathfinder</a> turns time, deficit, occlusion and core into the specific recommendations that apply, each with its class and the trials behind it.</p>
-    </div>
-    <div class="card">
-      <h3 style="margin-top:0">3 · Score and dose</h3>
-      <p><a href="#nihss">NIHSS</a> with copy-to-note, <a href="#aspects">ASPECTS</a>, <a href="#calculators">tenecteplase and alteplase dosing</a>, the LKW clock and the <a href="#calculators">ICH score</a>.</p>
-    </div>
-    <div class="card">
-      <h3 style="margin-top:0">4 · Teach or revise</h3>
-      <p>The <a href="#trials">trial library</a> holds every trial cited here with its population, window, result and DOI, filterable in one box.</p>
-    </div>
-  </div>
-
-  <h2>Install it on the phone in your pocket</h2>
-  <p>This is a progressive web app. Once loaded it caches itself and works with no signal — a code cart, an ambulance bay and a rural CT scanner all count as offline.</p>
-  <ul>
-    <li><strong>iPhone / iPad:</strong> open in Safari → Share → <em>Add to Home Screen</em>.</li>
-    <li><strong>Android:</strong> Chrome will offer <em>Install app</em>; or use the <em>Install</em> button in the header.</li>
-    <li><strong>Desktop:</strong> Chrome/Edge show an install icon in the address bar.</li>
-  </ul>
-
-  <h2>What is in here, and what is not</h2>
-  <div class="tablewrap"><table>
-    <thead><tr><th>Covered</th><th>Not covered</th></tr></thead>
-    <tbody>
-      <tr><td>Adult acute ischaemic stroke: prehospital through early in-hospital care</td><td>Paediatric stroke beyond a pointer to the guideline's new section</td></tr>
-      <tr><td>IV thrombolysis, thrombectomy, extended windows, post-reperfusion care</td><td>Rehabilitation and long-term secondary prevention</td></tr>
-      <tr><td>Spontaneous intracerebral haemorrhage and anticoagulation reversal</td><td>Subarachnoid haemorrhage, aneurysm and AVM management</td></tr>
-      <tr><td>Malignant oedema, cerebellar infarction, seizures</td><td>Cerebral venous thrombosis, carotid revascularisation timing</td></tr>
-    </tbody>
-  </table></div>
+  <details class="disclose">
+    <summary>Install it, and what is in scope</summary>
+    <p>This is a progressive web app. Once loaded it caches itself and works with no signal — a code cart, an ambulance bay and a rural CT scanner all count as offline.</p>
+    <ul>
+      <li><strong>iPhone / iPad:</strong> open in Safari → Share → <em>Add to Home Screen</em>.</li>
+      <li><strong>Android:</strong> Chrome will offer <em>Install app</em>; or use the <em>Install</em> button in the header.</li>
+      <li><strong>Desktop:</strong> Chrome/Edge show an install icon in the address bar.</li>
+    </ul>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Covered</th><th>Not covered</th></tr></thead>
+      <tbody>
+        <tr><td>Adult acute ischaemic stroke: prehospital through early in-hospital care</td><td>Paediatric stroke beyond a pointer to the guideline's new section</td></tr>
+        <tr><td>IV thrombolysis, thrombectomy, extended windows, post-reperfusion care</td><td>Rehabilitation and long-term secondary prevention</td></tr>
+        <tr><td>Spontaneous intracerebral haemorrhage and anticoagulation reversal</td><td>Subarachnoid haemorrhage, aneurysm and AVM management</td></tr>
+        <tr><td>Malignant oedema, cerebellar infarction, seizures</td><td>Cerebral venous thrombosis, carotid revascularisation timing</td></tr>
+      </tbody>
+    </table></div>
+    <p style="margin-bottom:0">The <a href="#trials">trial library</a> holds every trial cited here with its population, window, result and DOI, filterable in one box. Full sourcing and licence in <a href="#about">About</a>.</p>
+  </details>
 
   <div class="footer">
     <p>Source of record: Prabhakaran S, et al. <em>2026 Guideline for the Early Management of Patients With Acute Ischemic Stroke.</em> Stroke. 2026;57. doi:10.1161/STR.0000000000000513. Where content comes from elsewhere — the 2022 ICH guideline, or trials published after the guideline's literature cut-off — it is labelled as such at the point of use.</p>
@@ -791,7 +801,7 @@
   <div class="tablewrap"><table>
     <thead><tr><th>Presentation</th><th>Recommendation</th><th>Class</th></tr></thead>
     <tbody>
-      <tr><td>Baseline mRS 0–1, <strong>NIHSS ≥10</strong>, PC-ASPECTS ≥6, within <strong>24 h</strong></td><td>EVT is recommended to achieve better functional outcome and reduce mortality (ATTENTION, BAOCHE)</td><td><span class="cor cor-1">1</span> <span class="loe">A</span></td></tr>
+      <tr><td>Baseline mRS 0–1, <strong>NIHSS ≥10</strong>, <a href="#aspects">PC-ASPECTS</a> ≥6, within <strong>24 h</strong></td><td>EVT is recommended to achieve better functional outcome and reduce mortality (ATTENTION, BAOCHE)</td><td><span class="cor cor-1">1</span> <span class="loe">A</span></td></tr>
       <tr><td>Baseline mRS 0–1, <strong>NIHSS 6–9</strong>, PC-ASPECTS ≥6, within 24 h</td><td>Effectiveness is not well established</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td></tr>
     </tbody>
   </table></div>
@@ -1314,7 +1324,7 @@
   <div class="note note--warn">
     <div class="note__t">Different source document</div>
     <p>This section is <strong>not</strong> from the 2026 AIS guideline, which covers ischaemic stroke only. It draws on the <strong>2022 AHA/ASA Guideline for the Management of Patients With Spontaneous Intracerebral Hemorrhage</strong> (<a href="https://doi.org/10.1161/STR.0000000000000407" rel="noopener">doi:10.1161/STR.0000000000000407</a>) plus named trials published since.</p>
-    <p style="margin-bottom:0"><strong>Sourcing note.</strong> The ischaemic-stroke sections of this guide were written against the full text of the 2026 guideline. The 2022 ICH guideline sits behind a publisher paywall, so the class and level labels in this section were taken from published summaries of it rather than read off the source document. The substance is well established and consistent across those summaries, but treat the specific COR/LOE labels here as second-hand and confirm against the guideline before quoting them. Corrections from anyone with access are welcome — see <a href="#about">About</a>.</p>
+    <p style="margin-bottom:0"><strong>Sourcing note.</strong> The class and level labels in this section and in <a href="#reversal">Anticoagulation reversal</a> were read off the full text of the 2022 guideline and checked recommendation by recommendation. Where a trial published after 2022 is cited — INTERACT3, ENRICH, ANNEXA-I — it is named as such and carries no class label, because none has been assigned yet.</p>
   </div>
 
   <p class="lede">Haematoma expansion happens in the first hours and predicts death. Everything in the acute phase is aimed at that window: pressure, reversal, and a surgical decision.</p>
@@ -1337,7 +1347,7 @@
     <tbody>
       <tr><td>Mild–moderate ICH presenting with SBP 150–220</td><td>Acute lowering to a target of <strong>140</strong>, maintained in the range <strong>130–150</strong>, is safe and may be reasonable</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td></tr>
       <tr><td>Timing</td><td>Initiate treatment <strong>within 2 h</strong> of onset and reach target <strong>within 1 h</strong></td><td><span class="cor cor-2a">2a</span> <span class="loe">C-LD</span></td></tr>
-      <tr><td>Delivery</td><td>Careful titration to smooth, sustained control — avoiding peaks and large variability in SBP — can be beneficial</td><td><span class="cor cor-2a">2a</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td>Delivery</td><td>Careful titration to smooth, sustained control — avoiding peaks and large variability in SBP — can be beneficial</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td></tr>
       <tr><td>Mild–moderate ICH with SBP &gt;150</td><td>Lowering SBP to <strong>&lt;130 is potentially harmful</strong></td><td><span class="cor cor-3h">3: Harm</span> <span class="loe">B-R</span></td></tr>
     </tbody>
   </table></div>
@@ -1348,7 +1358,7 @@
     <p style="margin-bottom:0">A stepped-wedge cluster-randomised trial across 121 hospitals in 10 countries (n=7036) tested a goal-directed care bundle: intensive SBP lowering to &lt;140, glucose control (6.1–7.8 mmol/L without diabetes, 7.8–10.0 with), temperature ≤37.5 °C, and reversal of warfarin to INR &lt;1.5, each within 1 hour. Poor functional outcome fell (common OR 0.86, 95% CI 0.76–0.97, P=0.015) with fewer serious adverse events (16.0% vs 20.1%). <em>Lancet</em> 2023;402:27–40. doi:10.1016/S0140-6736(23)00806-1</p>
   </div>
 
-  <h2>Glucose, temperature, seizures, VTE</h2>
+  <h2>Glucose, temperature, seizures, ICP, VTE</h2>
   <div class="tablewrap"><table>
     <thead><tr><th>Domain</th><th>Guidance</th><th>Class</th></tr></thead>
     <tbody>
@@ -1356,8 +1366,10 @@
       <tr><td>Temperature</td><td>Avoid elevated temperatures; efficacy of therapeutic hypothermia unclear</td><td><span class="cor cor-2b">2b</span> <span class="loe">C-LD</span></td></tr>
       <tr><td>Clinical or electrographic seizures</td><td>Antiseizure medication is recommended</td><td><span class="cor cor-1">1</span> <span class="loe">C-LD / C-EO</span></td></tr>
       <tr><td>Seizure prophylaxis without seizures</td><td>Not beneficial</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-NR</span></td></tr>
-      <tr><td>VTE — mechanical</td><td><strong>Intermittent pneumatic compression starting on the day of diagnosis</strong></td><td><span class="cor cor-1">1</span> <span class="loe">B-R</span></td></tr>
-      <tr><td>VTE — pharmacological</td><td>Low-dose UFH or LMWH at <strong>24–48 h</strong> from onset may be reasonable</td><td><span class="cor cor-2b">2b</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td>Raised ICP</td><td>Bolus hyperosmolar therapy may be considered for transiently reducing ICP <span class="cor cor-2b">2b</span> <span class="loe">C-LD</span>; <em>prophylactic</em> hyperosmolar therapy is not well established <span class="cor cor-2b">2b</span> <span class="loe">B-NR</span></td><td><span class="cor cor-2b">2b</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td>Corticosteroids for raised ICP</td><td><strong>Should not be administered.</strong> A strong recommendation against, not an absence of evidence</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td></tr>
+      <tr><td>VTE — mechanical</td><td><strong>Intermittent pneumatic compression starting on the day of diagnosis</strong>, in non-ambulatory patients. Graduated compression stockings alone are <em>not</em> beneficial <span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td><td><span class="cor cor-1">1</span> <span class="loe">B-R</span></td></tr>
+      <tr><td>VTE — pharmacological</td><td>Low-dose UFH or LMWH is useful in non-ambulatory patients <span class="cor cor-2a">2a</span> <span class="loe">C-LD</span>; starting it at <strong>24–48 h</strong> from onset may be reasonable</td><td><span class="cor cor-2b">2b</span> <span class="loe">C-LD</span></td></tr>
     </tbody>
   </table></div>
 
@@ -1365,9 +1377,11 @@
   <div class="tablewrap"><table>
     <thead><tr><th>Situation</th><th>Guidance</th></tr></thead>
     <tbody>
-      <tr><td><strong>Cerebellar haemorrhage</strong> with neurological deterioration, brainstem compression, or hydrocephalus</td><td>Immediate surgical evacuation, with or without EVD, is recommended <span class="cor cor-1">COR 1</span>. This is the clearest surgical indication in ICH</td></tr>
-      <tr><td><strong>Hydrocephalus</strong> with decreased level of consciousness</td><td>Ventricular drainage is recommended <span class="cor cor-1">COR 1</span> <span class="loe">B-NR</span></td></tr>
-      <tr><td><strong>Intraventricular extension or infratentorial ICH</strong></td><td>Transfer to a centre with neurosurgical capability may be considered <span class="cor cor-2b">COR 2b</span></td></tr>
+      <tr><td><strong>Cerebellar haemorrhage</strong> with neurological deterioration, brainstem compression, hydrocephalus, <strong>or volume ≥15 mL</strong></td><td>Immediate surgical evacuation, with or without EVD, is recommended <span class="cor cor-1">COR 1</span> <span class="loe">B-NR</span>. This is the clearest surgical indication in ICH. Note the volume criterion stands on its own — a cerebellar haematoma of 15 mL or more qualifies before any deterioration is seen</td></tr>
+      <tr><td><strong>Hydrocephalus</strong> with decreased level of consciousness</td><td>Ventricular drainage is recommended <span class="cor cor-1">COR 1</span> <span class="loe">B-NR</span>. With large IVH and impaired consciousness, EVD is recommended over medical management alone <span class="cor cor-1">COR 1</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td><strong>Supratentorial ICH &gt;20–30 mL</strong> with GCS 5–12</td><td>Minimally invasive evacuation — endoscopic or stereotactic aspiration, with or without a thrombolytic — <strong>can be useful to reduce mortality</strong> compared with medical management <span class="cor cor-2a">COR 2a</span> <span class="loe">B-R</span>. Its effect on <em>functional</em> outcome is uncertain <span class="cor cor-2b">COR 2b</span> <span class="loe">B-R</span>. This is the strongest supratentorial evacuation recommendation in the guideline, and it is a mortality claim, not a function claim</td></tr>
+      <tr><td><strong>Craniotomy</strong> for supratentorial ICH</td><td>Usefulness for improving function or mortality is uncertain <span class="cor cor-2b">COR 2b</span> <span class="loe">A</span>. In a deteriorating patient it might be considered as a lifesaving measure <span class="cor cor-2b">COR 2b</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td><strong>Intraventricular extension or infratentorial ICH</strong></td><td>Transfer to a centre with neurosurgical capability may be considered <span class="cor cor-2b">COR 2b</span> <span class="loe">B-NR</span></td></tr>
       <tr><td><strong>Lobar haematoma 30–80 mL</strong> within 24 h of last known well</td><td><strong>ENRICH</strong> (NEJM 2024, n=300): minimally invasive trans-sulcal parafascicular evacuation improved the utility-weighted mRS at 180 days (0.458 vs 0.374; posterior probability of superiority 0.981). The benefit was confined to <strong>lobar</strong> haemorrhages (difference 0.127) with no signal in anterior basal ganglia (−0.013). 30-day mortality 9.3% vs 18.0%; postoperative rebleeding with deterioration in 3.3%. doi:10.1056/NEJMoa2404603 — postdates the 2022 guideline</td></tr>
       <tr><td><strong>Deep / basal ganglia haemorrhage</strong></td><td>No trial has shown functional benefit from evacuation, including the basal ganglia stratum of ENRICH</td></tr>
     </tbody>
@@ -1376,7 +1390,7 @@
   <h2>ICH score</h2>
   <p>A 0–6 point severity score derived by Hemphill et al (2001) that predicts 30-day mortality. Use it to communicate severity and structure a family conversation — <strong>not</strong> to justify limiting care in the first 24 hours. <a href="#calculators">Open the calculator →</a></p>
 
-  <p class="src">2022 AHA/ASA ICH guideline (doi:10.1161/STR.0000000000000407); INTERACT3; ENRICH. Classes as published in the 2022 document.</p>
+  <p class="src">2022 AHA/ASA ICH guideline (doi:10.1161/STR.0000000000000407), sections 5.1–5.5 and 6; INTERACT3; ENRICH. Classes verified against the published document.</p>
 </section>
 
 <!-- ================================================================= REVERSAL -->
@@ -1670,9 +1684,16 @@
 </section>
 
 <!-- ================================================================== ASPECTS -->
-<section class="section" id="aspects" data-title="ASPECTS scorer">
-  <h1>ASPECTS scorer</h1>
-  <p class="lede">Ten regions of the MCA territory. Start at 10 and subtract one point for each region showing early ischaemic change. Tick the regions that are <strong>affected</strong>.</p>
+<section class="section" id="aspects" data-title="ASPECTS &amp; PC-ASPECTS">
+  <h1>ASPECTS &amp; PC-ASPECTS</h1>
+  <p class="lede">Start at 10 and subtract for each region showing early ischaemic change. Tick the regions that are <strong>affected</strong>.</p>
+
+  <div class="tabs" data-tabs role="tablist" aria-label="Circulation">
+    <button class="tab" role="tab" id="tabAnterior" aria-controls="paneAnterior" aria-selected="true">Anterior — ASPECTS</button>
+    <button class="tab" role="tab" id="tabPosterior" aria-controls="panePosterior" aria-selected="false">Posterior — PC-ASPECTS</button>
+  </div>
+
+  <div id="paneAnterior" role="tabpanel" aria-labelledby="tabAnterior">
 
   <div class="readout" aria-live="polite">
     <div class="row">
@@ -1709,7 +1730,7 @@
     <ul style="margin-bottom:0">
       <li>Subtract a point only for regions with <strong>clear early ischaemic change</strong> — parenchymal hypoattenuation or focal swelling with loss of grey–white differentiation.</li>
       <li>The change must be visible on <strong>more than one axial cut</strong> to count.</li>
-      <li>ASPECTS applies to the MCA territory only. For posterior circulation use <strong>PC-ASPECTS</strong>, which the basilar EVT recommendation requires to be ≥6.</li>
+      <li>ASPECTS applies to the MCA territory only. For a basilar occlusion switch to <strong>PC-ASPECTS</strong> above.</li>
       <li>Reduced density predicts infarction; it is not proof of irreversible tissue loss. See <a href="#imaging">the note on "core"</a>.</li>
     </ul>
   </div>
@@ -1723,6 +1744,57 @@
       <tr><td><strong>0–2</strong></td><td>EVT reasonable, age &lt;80 <span class="cor cor-2a">2a</span></td><td>Outside the recommendations — individualised</td></tr>
     </tbody>
   </table></div>
+  </div><!-- /paneAnterior -->
+
+  <div id="panePosterior" role="tabpanel" aria-labelledby="tabPosterior" hidden>
+
+  <div class="readout" aria-live="polite">
+    <div class="row">
+      <div><div class="readout__label">PC-ASPECTS</div><div class="readout__value" id="pcScore">10</div></div>
+      <div><div class="readout__label">Band</div><div class="readout__value" style="font-size:16px" id="pcBand">PC-ASPECTS ≥6 — meets the imaging criterion</div></div>
+    </div>
+    <div class="readout__note">Affected regions: <span id="pcRegions">none</span> · Brainstem points lost: <span id="pcPmi">0</span> of 4</div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3 style="margin-top:0">Brainstem — 2 points each</h3>
+      <p style="font-size:13px;color:var(--text-dim)">Scored whole, regardless of side or extent of the change</p>
+      <label class="opt"><input type="checkbox" class="pc-region" data-pts="2" data-pmi="1" value="pons"><span><b>Pons</b> <span class="pill">2 pts</span></span></label>
+      <label class="opt"><input type="checkbox" class="pc-region" data-pts="2" data-pmi="1" value="midbrain"><span><b>Midbrain</b> <span class="pill">2 pts</span></span></label>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">Paired regions — 1 point each side</h3>
+      <p style="font-size:13px;color:var(--text-dim)">Tick each side separately</p>
+      <label class="opt"><input type="checkbox" class="pc-region" data-pts="1" value="left thalamus"><span>Left thalamus</span></label>
+      <label class="opt"><input type="checkbox" class="pc-region" data-pts="1" value="right thalamus"><span>Right thalamus</span></label>
+      <label class="opt"><input type="checkbox" class="pc-region" data-pts="1" value="left occipital"><span>Left occipital lobe</span></label>
+      <label class="opt"><input type="checkbox" class="pc-region" data-pts="1" value="right occipital"><span>Right occipital lobe</span></label>
+      <label class="opt"><input type="checkbox" class="pc-region" data-pts="1" value="left cerebellum"><span>Left cerebellar hemisphere</span></label>
+      <label class="opt"><input type="checkbox" class="pc-region" data-pts="1" value="right cerebellum"><span>Right cerebellar hemisphere</span></label>
+      <button class="btn no-print" id="pcReset" style="margin-top:12px">Reset</button>
+    </div>
+  </div>
+
+  <div class="note">
+    <div class="note__t">Scoring notes</div>
+    <ul style="margin-bottom:0">
+      <li>PC-ASPECTS is a 10-point scale like the anterior score, but the regions are weighted: <strong>pons and midbrain are 2 points each</strong>, and each is scored as a single structure regardless of lateralisation or the extent of the change. Thalami, occipital lobes and cerebellar hemispheres are 1 point per side.</li>
+      <li><strong>Where the points were lost matters.</strong> BAOCHE excluded patients with a <em>pons–midbrain index</em> ≥3, meaning extensive brainstem infarction — so a PC-ASPECTS of 6 made up entirely of pons and midbrain is not the same patient as a 6 spread across cortex. The counter above shows how many of your deducted points came from the brainstem, as a prompt to look. It is <strong>not</strong> the pons–midbrain index itself: that index scores pons and midbrain 0–2 each by <em>extent</em> of involvement, which PC-ASPECTS deliberately does not do. Score it separately if the distinction is going to change the decision.</li>
+      <li>Applies to basilar and posterior-circulation occlusion. For MCA territory switch back to ASPECTS above.</li>
+    </ul>
+  </div>
+
+  <h3>What the number changes</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Situation</th><th>Recommendation</th></tr></thead>
+    <tbody>
+      <tr><td>Basilar occlusion, prestroke mRS 0–1, <strong>NIHSS ≥10</strong>, PC-ASPECTS <strong>≥6</strong>, within 24 h</td><td>EVT is recommended to improve function and reduce mortality <span class="cor cor-1">1</span> <span class="loe">A</span> (ATTENTION, BAOCHE)</td></tr>
+      <tr><td>Basilar occlusion, prestroke mRS 0–1, <strong>NIHSS 6–9</strong>, PC-ASPECTS ≥6, within 24 h</td><td>Effectiveness is not well established <span class="cor cor-2b">2b</span> <span class="loe">B-R</span> — only 17 such patients were randomised in BAOCHE</td></tr>
+      <tr><td>PC-ASPECTS <strong>&lt;6</strong></td><td>No evidence base. The guideline names this an explicit gap rather than a recommendation against</td></tr>
+    </tbody>
+  </table></div>
+  </div><!-- /panePosterior -->
 </section>
 
 <!-- ============================================================== CALCULATORS -->
@@ -1961,20 +2033,37 @@
 </div>
 
 
-<nav class="quickbar no-print" aria-label="Quick tools">
+<nav class="quickbar no-print" aria-label="Main">
   <a href="#pathfinder">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h6M4 12h10M4 18h7"/><path d="m16 8 4 4-4 4"/></svg>
-    Pathway</a>
-  <a href="#nihss">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h4"/></svg>
-    NIHSS</a>
-  <a href="#dosing">
+    Pathfinder</a>
+  <button type="button" id="guideBtn" aria-expanded="false" aria-controls="guideSheet">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M9 7.5h6M9 11h4"/></svg>
+    Guide</button>
+  <button type="button" id="toolsBtn" aria-expanded="false" aria-controls="toolsSheet">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m11 4 9 9-4 4-9-9z"/><path d="m7 12-3 3 5 5 3-3"/><path d="M14 7 9 12"/></svg>
-    Dosing</a>
+    Tools</button>
   <button type="button" id="quickSearch">
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
     Search</button>
 </nav>
+
+<!-- Both sheets are built from the .sidebar link list at runtime, so sections
+     are declared in exactly one place.  See buildSheets() in app.js. -->
+<div class="sheet no-print" id="guideSheet" hidden>
+  <div class="sheet__panel" role="dialog" aria-modal="true" aria-label="Guide sections">
+    <div class="sheet__grip"></div>
+    <div class="sheet__head"><h2>Guide</h2><button type="button" class="sheet__close" aria-label="Close">Done</button></div>
+    <div class="sheet__body"></div>
+  </div>
+</div>
+<div class="sheet no-print" id="toolsSheet" hidden>
+  <div class="sheet__panel" role="dialog" aria-modal="true" aria-label="Tools">
+    <div class="sheet__grip"></div>
+    <div class="sheet__head"><h2>Tools</h2><button type="button" class="sheet__close" aria-label="Close">Done</button></div>
+    <div class="sheet__body"></div>
+  </div>
+</div>
 
 <div class="overlay" id="searchOverlay" hidden>
   <div class="searchbox" role="dialog" aria-modal="true" aria-label="Search">
