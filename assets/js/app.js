@@ -25,11 +25,21 @@
 
   /* -------------------------------------------------------------- routing */
   var sections = $$('.section');
+  var current = null;
   var navLinks = $$('.sidebar a[href^="#"], .quickbar a[href^="#"]');
+
+  /* Where the current section was opened from, so a section reached through
+     Guide or Tools can offer a way back to that list instead of making the
+     user re-open it from the bottom bar. Home is the floor. */
+  var cameFrom = 'start';
 
   function show(id, opts) {
     var target = document.getElementById(id);
     if (!target || !target.classList.contains('section')) { id = 'start'; target = document.getElementById('start'); }
+    var previous = current;
+    current = id;
+    if (previous && previous !== id) cameFrom = previous;
+    updateBackLinks(id);
     sections.forEach(function (s) { s.classList.toggle('active', s === target); });
     navLinks.forEach(function (a) {
       if (a.getAttribute('href') === '#' + id) a.setAttribute('aria-current', 'page');
@@ -1047,6 +1057,32 @@
   }
 
   /* --------------------------------------------------- section feedback */
+  /* A back control at the top of every section except Home. Generated rather
+     than hand-added 28 times so it cannot drift as sections are added. */
+  function addBackLinks() {
+    $$('.section').forEach(function (sec) {
+      if (sec.id === 'start' || sec.querySelector('.backlink')) return;
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'backlink no-print';
+      b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg><span></span>';
+      b.addEventListener('click', function () { location.hash = '#' + cameFrom; });
+      sec.insertBefore(b, sec.firstChild);
+    });
+  }
+
+  var BACK_LABEL = { guide: 'Guide', tools: 'Tools', start: 'Home', trials: 'Trial library' };
+  function updateBackLinks(id) {
+    var sec = document.getElementById(id);
+    if (!sec) return;
+    var b = sec.querySelector('.backlink');
+    if (!b) return;
+    var t = document.getElementById(cameFrom);
+    var label = BACK_LABEL[cameFrom] || (t && t.getAttribute('data-title')) || 'Back';
+    b.querySelector('span').textContent = label;
+    b.setAttribute('aria-label', 'Back to ' + label);
+  }
+
   /* One "report an issue" link per section, generated rather than hand-added
      25 times over, so it can't drift as sections are added or removed.
      Pre-fills a GitHub issue with the fields CONTRIBUTING.md asks for. */
@@ -1100,6 +1136,26 @@
     pfCount.textContent = n ? ' · ' + n + ' questions' : '';
   }
 
+  /* Below 560px a 3+ column table cannot give every column a readable width —
+     the mRS grade column was landing at 57px, one word per line. Rather than
+     hand-tuning column widths table by table, each cell is stamped with its
+     column heading and the stylesheet restacks the row as a labelled card.
+     One mechanism, every table, and the markup stays a plain table for
+     desktop, print and screen readers. */
+  function labelTableCells() {
+    $$('.tablewrap table').forEach(function (t) {
+      var heads = $$('thead th', t).map(function (h) { return h.textContent.trim(); });
+      if (heads.length < 3) return;              /* two columns read fine as-is */
+      t.classList.add('stackable');
+      $$('tbody tr', t).forEach(function (tr) {
+        $$('td', tr).forEach(function (td, i) {
+          if (heads[i]) td.setAttribute('data-label', heads[i]);
+        });
+      });
+    });
+  }
+  labelTableCells();
+
   /* Flag the tables that actually overflow so the scroll hint only appears
      where it is true — recalculated on resize and on orientation change. */
   function markScrollableTables() {
@@ -1116,8 +1172,50 @@
   markScrollableTables();
   window.addEventListener('resize', markScrollableTables);
 
+  /* ------------------------------------------------- bars during pinch-zoom */
+  /* Pinch-zoom scales the whole page, fixed elements included, so the header
+     and bottom bar grow and drift out of the visible region exactly when the
+     user is zoomed in on something and needs them least in the way. The
+     visual viewport reports the zoomed region; counter-scaling the two bars by
+     1/scale and translating them to its origin keeps them the same physical
+     size and glued to the edges, so only the content zooms. */
+  var vv = window.visualViewport;
+  if (vv) {
+    var hdr = $('.hdr'), bar = $('.quickbar');
+    var pinning = false;
+    function pinBars() {
+      pinning = false;
+      var s = vv.scale;
+      if (s <= 1.01) {                       /* unzoomed: let CSS do its job */
+        if (hdr) hdr.style.transform = hdr.style.width = '';
+        if (bar) bar.style.transform = bar.style.width = '';
+        return;
+      }
+      var w = vv.width * s + 'px';
+      if (hdr) {
+        hdr.style.width = w;
+        hdr.style.transform = 'translate(' + vv.offsetLeft + 'px,' + vv.offsetTop + 'px) scale(' + (1 / s) + ')';
+      }
+      if (bar) {
+        /* Bottom-anchored: its own height shrinks by 1/s once scaled. */
+        var y = vv.offsetTop + vv.height - bar.offsetHeight / s;
+        bar.style.width = w;
+        bar.style.transform = 'translate(' + vv.offsetLeft + 'px,' + (y - (innerHeight - bar.offsetHeight)) + 'px) scale(' + (1 / s) + ')';
+      }
+    }
+    function queuePin() {
+      if (pinning) return;
+      pinning = true;
+      requestAnimationFrame(pinBars);
+    }
+    vv.addEventListener('resize', queuePin);
+    vv.addEventListener('scroll', queuePin);
+    pinBars();
+  }
+
   /* ------------------------------------------------------------ kick off */
   buildGuide();    /* before route(), so generated links get current-page marking */
+  addBackLinks(); /* before route(), so a deep link finds a button to label */
   route();
   buildIndex();
   var v = $('#buildVersion');

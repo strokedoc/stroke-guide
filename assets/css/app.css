@@ -77,6 +77,7 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 body {
+  padding-top: var(--header-h);   /* the header is fixed; reserve its space */
   font-family: var(--sans);
   background: var(--bg);
   color: var(--text);
@@ -106,7 +107,9 @@ summary:focus-visible, [tabindex]:focus-visible {
 
 /* ---------- Header ---------- */
 .hdr {
-  position: sticky; top: 0; z-index: 60;
+  /* Fixed rather than sticky so the visual-viewport handler can pin it to the
+     zoomed viewport — a sticky element cannot be transformed reliably. */
+  position: fixed; top: 0; left: 0; right: 0; z-index: 60;
   height: var(--header-h);
   display: flex; align-items: center; gap: 10px;
   padding: 0 12px;
@@ -122,6 +125,7 @@ summary:focus-visible, [tabindex]:focus-visible {
 .hdr__title { font-size: 15px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .hdr__sub { font-size: 11px; color: var(--text-dim); white-space: nowrap; }
 .hdr__spacer { flex: 1; }
+.hdr, .quickbar { transform-origin: left top; will-change: transform; }
 
 .iconbtn {
   height: 44px; min-width: 44px; padding: 0 11px;
@@ -287,6 +291,16 @@ input[type="number"], input[type="text"], input[type="time"], select {
 .readout {
   background: linear-gradient(135deg, var(--brand-strong), var(--brand-strong-2));
   color: #fff; border-radius: var(--radius); padding: 16px 18px; margin: 14px 0;
+  /* The running score follows you down the item list — scoring an NIHSS means
+     15 taps, and having to scroll back up to read the total after each one is
+     the whole reason this is slower on a phone than on paper. */
+  position: sticky; top: calc(var(--header-h) + 6px); z-index: 40;
+  box-shadow: var(--shadow);
+}
+@media (max-width: 700px) {
+  /* Compact once stuck, so it takes a strip rather than a third of the screen. */
+  .readout { padding: 11px 14px; }
+  .readout__value { font-size: 25px; }
 }
 .readout__label { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; opacity: .95; }
 .readout__value { font-size: 30px; font-weight: 800; line-height: 1.1; }
@@ -392,19 +406,41 @@ input[type="time"], input[type="number"], input[type="text"], select {
    needed a horizontal scroll on every row. Two- and three-column tables now
    wrap and stay whole; only genuinely wide tables (4+ columns, e.g. the trial
    library) still scroll, and those are for reading, not for a live decision. */
+/* ---------- Mobile tables ----------
+   Below 700px a 3+ column table cannot give every column a readable width —
+   the mRS grade column was landing at 57px, one word per line. Each cell is
+   stamped with its column heading (labelTableCells) and the row is restacked
+   as a labelled card: reading down beats reading across. Two-column tables
+   are left alone; they already fit. One breakpoint, so there is no width band
+   where a table neither stacks nor fits. */
 @media (max-width: 700px) {
+  .tablewrap { overflow-x: auto; border: 0; background: none; border-radius: 0; }
   .tablewrap table { min-width: 0; }
-  /* Only the reference tables — 5 or more columns, e.g. the trial library —
-     still scroll. Those are for reading, not for a decision at the bedside. */
-  .tablewrap:has(th:nth-child(5)) table { min-width: 560px; }
   table { font-size: 13px; }
   th, td { padding: 8px 9px; overflow-wrap: anywhere; }
   th { white-space: normal; }
-}
-/* Browsers without :has() keep the old behaviour rather than losing the
-   scroll on wide tables. */
-@supports not selector(:has(*)) {
-  @media (max-width: 700px) { .tablewrap table { min-width: 560px; } }
+
+  table.stackable, table.stackable tbody, table.stackable tr, table.stackable td { display: block; width: auto; }
+  table.stackable thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+  table.stackable tr {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 4px 2px; margin-bottom: 10px;
+    box-shadow: var(--shadow);
+  }
+  table.stackable tr:hover { background: var(--surface); }
+  table.stackable td { border-bottom: 0; padding: 5px 12px; }
+  table.stackable td:empty { display: none; }
+  table.stackable td::before {
+    content: attr(data-label);
+    display: block; font-size: 10.5px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .07em;
+    color: var(--text-dim); margin-bottom: 1px;
+  }
+  /* The first cell names the row; repeating its column heading adds nothing. */
+  table.stackable td:first-child::before { display: none; }
+  table.stackable td:first-child { font-weight: 700; padding-top: 9px; }
+  /* A stacked table is a column of cards — nothing scrolls sideways. */
+  .tablewrap.is-scrollable::after { content: none; }
 }
 
 /* ---------- Home screen ---------- */
@@ -490,6 +526,19 @@ input[type="time"], input[type="number"], input[type="text"], select {
 .toollist__v::after { content: "›"; margin-left: 10px; color: var(--text-dim); font-family: var(--sans); font-weight: 400; }
 
 .field__h { font-weight: 400; color: var(--text-dim); font-size: 11.5px; }
+
+.backlink {
+  display: none; align-items: center; gap: 6px;
+  min-height: 44px; margin: -4px 0 2px; padding: 0 8px 0 4px;
+  font-size: 14.5px; font-weight: 600; color: var(--brand);
+  background: none; border: 0; cursor: pointer; font-family: inherit;
+  border-radius: 8px; align-self: flex-start;
+}
+.backlink:hover { background: var(--surface-2); }
+.backlink svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+/* Only where there is no sidebar to orient you. */
+@media (max-width: 960px) { .backlink { display: inline-flex; } }
+@media print { .backlink { display: none !important; } }
 
 /* ---------- Reference plates ----------
    Static illustrations that teach the region layout. The scoring itself stays
