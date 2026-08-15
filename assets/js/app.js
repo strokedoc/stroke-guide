@@ -50,7 +50,7 @@
     if (!opts || !opts.keepScroll) window.scrollTo(0, 0);
     if (id === 'start' || id === 'tools') syncTiles();
     closeNav();
-    if (opts && opts.focusText) highlightText(target, opts.focusText);
+    if (opts && opts.focusEl) flash(opts.focusEl);
   }
 
   function route(opts) { show((location.hash || '#start').slice(1), opts); }
@@ -128,7 +128,7 @@
         var text = (el.textContent || '').replace(/\s+/g, ' ').trim();
         if (text.length < 3) return;
         if (/^H[123]$/.test(el.tagName)) currentHeading = text;
-        index.push({ id: sec.id, section: secTitle, heading: currentHeading, text: text, low: text.toLowerCase() });
+        index.push({ id: sec.id, section: secTitle, heading: currentHeading, text: text, low: text.toLowerCase(), el: el });
       });
     });
   }
@@ -215,27 +215,31 @@
   function pick(i) {
     var r = current[i]; if (!r) return;
     closeSearch();
-    var focusText = r.e.text.slice(0, 80);
-    if (location.hash === '#' + r.e.id) show(r.e.id, { focusText: focusText });
-    else { location.hash = '#' + r.e.id; setTimeout(function () { highlightText(document.getElementById(r.e.id), focusText); }, 60); }
+    if (location.hash === '#' + r.e.id) show(r.e.id, { focusEl: r.e.el });
+    else { location.hash = '#' + r.e.id; setTimeout(function () { flash(r.e.el); }, 60); }
   }
 
-  function highlightText(scope, text) {
-    if (!scope || !text) return;
-    var needle = text.replace(/\s+/g, ' ').trim().slice(0, 60).toLowerCase();
-    var els = $$('h1,h2,h3,p,li,td,th,summary,.note__t', scope);
-    for (var i = 0; i < els.length; i++) {
-      if ((els[i].textContent || '').replace(/\s+/g, ' ').trim().toLowerCase().indexOf(needle) === 0) {
-        var host = els[i].closest('details');
-        if (host) host.open = true;
-        els[i].scrollIntoView({ block: 'center' });
-        els[i].style.transition = 'background-color .4s';
-        els[i].style.backgroundColor = 'var(--amber-bg)';
-        setTimeout(function (el) { return function () { el.style.backgroundColor = ''; }; }(els[i]), 2200);
-        return;
-      }
-    }
+  /* Open the tab that contains an element, if it sits in a closed one. */
+  function revealTab(el) {
+    var panel = el.closest('[role="tabpanel"]');
+    if (!panel || !panel.hidden) return;
+    var tab = $('[aria-controls="' + panel.id + '"]');
+    if (tab) tab.click();
   }
+
+  /* Reveal and flash the exact element a search hit came from. The index
+     stores the node, so there is nothing to re-find and nothing to mismatch. */
+  function flash(el) {
+    if (!el) return;
+    var d = el.closest('details');
+    if (d) d.open = true;
+    revealTab(el);
+    el.scrollIntoView({ block: 'center' });
+    el.style.transition = 'background-color .4s';
+    el.style.backgroundColor = 'var(--amber-bg)';
+    setTimeout(function () { el.style.backgroundColor = ''; }, 2200);
+  }
+
 
   input.addEventListener('input', function () { renderResults(input.value); });
   results.addEventListener('click', function (e) {

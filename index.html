@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" data-version="1.19.0">
+<html lang="en" data-theme="light" data-version="1.20.0">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -1141,7 +1141,32 @@
 <section class="section" id="antithrombotics" data-title="Antithrombotics &amp; prevention">
   <h1>Antithrombotics and early secondary prevention</h1>
 
-  <h2>Aspirin</h2>
+  <h2>Finding the cause</h2>
+  <p>Every choice above depends on the mechanism, and the workup that establishes it happens during this admission. From the 2021 secondary prevention guideline.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Test</th><th>Indication</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td><strong>ECG</strong></td><td>In anyone with suspected stroke or TIA, to screen for atrial fibrillation and flutter</td><td><span class="cor cor-1">1</span> <span class="loe">B-R</span></td></tr>
+      <tr><td><strong>CT or MRI of the brain</strong></td><td>To confirm symptomatic ischaemic cerebrovascular disease. If the first study is negative and stroke is still suspected, a follow-up study is reasonable <span class="cor cor-2a">2a</span> <span class="loe">B-NR</span> — and after a suspected TIA, follow-up MRI <span class="cor cor-2a">2a</span></td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td><strong>Non-invasive cervical carotid imaging</strong></td><td>Anterior circulation infarct or TIA in a candidate for revascularisation</td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td><strong>Baseline bloods</strong></td><td>FBC, PT, aPTT and the rest, once the diagnosis is confirmed</td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td><strong>Intracranial and vertebrobasilar imaging</strong></td><td>CTA or MRA, to identify atherosclerotic disease — the finding that drives the regimen above</td><td><span class="cor cor-2a">2a</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td><strong>Echocardiography</strong></td><td>Cryptogenic stroke, with or without contrast, for a cardiac or transcardiac source</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td></tr>
+      <tr><td><strong>Prolonged rhythm monitoring</strong></td><td>Cryptogenic stroke without a contraindication to anticoagulation — mobile telemetry, implantable loop recorder or external monitor. The point is that finding AF changes the drug</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td></tr>
+      <tr><td><strong>Hypercoagulable and infective screen</strong></td><td>Cryptogenic stroke — inherited or acquired thrombophilia, bloodstream or CSF infection</td><td><span class="cor cor-2a">2a</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td><strong>TOE, cardiac CT or cardiac MRI</strong></td><td>Embolic stroke of undetermined source, for cardioaortic sources</td><td><span class="cor cor-2b">2b</span> <span class="loe">C-LD</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">Section 3, 2021 AHA/ASA secondary prevention guideline (doi:10.1161/STR.0000000000000375).</p>
+
+  
+  <div class="tabs" data-tabs role="tablist" aria-label="Antithrombotic class">
+    <button class="tab" role="tab" id="tabAntiplatelet" aria-controls="paneAntiplatelet" aria-selected="true">Antiplatelets</button>
+    <button class="tab" role="tab" id="tabAnticoag" aria-controls="paneAnticoag" aria-selected="false">Anticoagulation</button>
+  </div>
+
+  <div id="paneAntiplatelet" role="tabpanel" aria-labelledby="tabAntiplatelet">
+<h2>Aspirin</h2>
   <div class="tablewrap"><table>
     <thead><tr><th>Recommendation</th><th>Class</th></tr></thead>
     <tbody>
@@ -1196,7 +1221,7 @@
   <h3>Symptomatic intracranial atherosclerosis</h3>
   <div class="note note--ok">
     <div class="note__t">The regimen</div>
-    <p style="margin-bottom:0"><strong>Aspirin 325 mg/d + clopidogrel 300 mg load then 75 mg/d</strong>, both continued for <strong>90 days</strong>, then <strong>aspirin alone</strong> — alongside SBP &lt;140 mmHg, high-intensity statin and moderate physical activity from day one. This is the SAMMPRIS medical arm, and it is the reason that arm beat stenting.</p>
+    <p style="margin-bottom:0"><strong>Aspirin 325 mg/d + clopidogrel 75 mg/d</strong>, both continued for <strong>90 days</strong>, then <strong>aspirin alone</strong> — alongside SBP &lt;140 mmHg, high-intensity statin and moderate physical activity from day one. This is the SAMMPRIS medical arm, and it is the reason that arm beat stenting.</p>
   </div>
   <div class="tablewrap"><table>
     <thead><tr><th>Population</th><th>Recommendation</th><th>Class</th></tr></thead>
@@ -1248,9 +1273,10 @@
       </tr>
     </tbody>
   </table></div>
-  <div class="note note--warn">
-    <div class="note__t">On the loading dose</div>
-    <p style="margin-bottom:0">The 300 mg clopidogrel load is <strong>widely used and reasonable</strong>, but it is worth knowing it is carried across rather than derived here. The intracranial-stenosis recommendation says only "the addition of clopidogrel 75 mg/d to aspirin", and the SAMMPRIS medical protocol did not specify a load. The load is the CHANCE and POINT convention from minor stroke and high-risk TIA, where the guideline does write "with loading dose" and carries <span class="cor cor-1">COR 1</span> <span class="loe">A</span>. Front-loading in a patient with a 70–99% stenosis and an unstable plaque is a defensible extrapolation — it is simply not what this row was graded on.</p>
+  <div class="note">
+    <div class="note__t">Two ticagrelor rows, two thresholds — they are not in conflict</div>
+    <p>Ticagrelor plus aspirin for 30 days appears here and again under <a href="#antithrombotics">dual antiplatelet therapy</a>, with different entry criteria, because they come from different documents.</p>
+    <p style="margin-bottom:0">The <strong>2026 AIS guideline</strong> writes it as an acute minor-stroke regimen — NIHSS ≤5 or high-risk TIA, where <strong>≥50%</strong> intracranial <em>or extracranial</em> stenosis is one of the qualifying routes in <span class="cor cor-2b">COR 2b</span> <span class="loe">B-R</span>. The <strong>2021 secondary prevention guideline</strong> writes it as a stenosis-specific regimen at a lower threshold — ipsilateral <strong>&gt;30%</strong> of a <em>major intracranial</em> artery, <span class="cor cor-2b">COR 2b</span> <span class="loe">B-NR</span>. Same trial, same drug, different populations. If your patient qualifies under either, the recommendation stands; the lower threshold simply has weaker evidence behind it.</p>
   </div>
   <div class="note">
     <div class="note__t">What SAMMPRIS actually tested</div>
@@ -1266,25 +1292,14 @@
     <li><strong>Adding an antiplatelet to oral anticoagulation</strong> in stroke with AF, absent active CAD or a recent stent <span class="cor cor-3h">3: Harm</span></li>
   </ul>
 
-  <h2>Finding the cause</h2>
-  <p>Every choice above depends on the mechanism, and the workup that establishes it happens during this admission. From the 2021 secondary prevention guideline.</p>
-  <div class="tablewrap"><table>
-    <thead><tr><th>Test</th><th>Indication</th><th>Class</th></tr></thead>
-    <tbody>
-      <tr><td><strong>ECG</strong></td><td>In anyone with suspected stroke or TIA, to screen for atrial fibrillation and flutter</td><td><span class="cor cor-1">1</span> <span class="loe">B-R</span></td></tr>
-      <tr><td><strong>CT or MRI of the brain</strong></td><td>To confirm symptomatic ischaemic cerebrovascular disease. If the first study is negative and stroke is still suspected, a follow-up study is reasonable <span class="cor cor-2a">2a</span> <span class="loe">B-NR</span> — and after a suspected TIA, follow-up MRI <span class="cor cor-2a">2a</span></td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
-      <tr><td><strong>Non-invasive cervical carotid imaging</strong></td><td>Anterior circulation infarct or TIA in a candidate for revascularisation</td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
-      <tr><td><strong>Baseline bloods</strong></td><td>FBC, PT, aPTT and the rest, once the diagnosis is confirmed</td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
-      <tr><td><strong>Intracranial and vertebrobasilar imaging</strong></td><td>CTA or MRA, to identify atherosclerotic disease — the finding that drives the regimen above</td><td><span class="cor cor-2a">2a</span> <span class="loe">C-LD</span></td></tr>
-      <tr><td><strong>Echocardiography</strong></td><td>Cryptogenic stroke, with or without contrast, for a cardiac or transcardiac source</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td></tr>
-      <tr><td><strong>Prolonged rhythm monitoring</strong></td><td>Cryptogenic stroke without a contraindication to anticoagulation — mobile telemetry, implantable loop recorder or external monitor. The point is that finding AF changes the drug</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td></tr>
-      <tr><td><strong>Hypercoagulable and infective screen</strong></td><td>Cryptogenic stroke — inherited or acquired thrombophilia, bloodstream or CSF infection</td><td><span class="cor cor-2a">2a</span> <span class="loe">C-LD</span></td></tr>
-      <tr><td><strong>TOE, cardiac CT or cardiac MRI</strong></td><td>Embolic stroke of undetermined source, for cardioaortic sources</td><td><span class="cor cor-2b">2b</span> <span class="loe">C-LD</span></td></tr>
-    </tbody>
-  </table></div>
-  <p class="src">Section 3, 2021 AHA/ASA secondary prevention guideline (doi:10.1161/STR.0000000000000375).</p>
+  <h2>Already on aspirin at the time of the event?</h2>
+  <p>The effectiveness of increasing the aspirin dose or switching agents is not well established <span class="cor cor-2b">COR 2b</span> <span class="loe">B-NR</span>. Agent selection for early secondary prevention should be individualised on risk factors, cost, tolerance and known relative efficacy <span class="cor cor-1">COR 1</span> <span class="loe">C-EO</span>.</p>
 
-  <h2>Anticoagulation</h2>
+  <p class="src">Sections 4.8, 4.9 and Table 9, 2026 AHA/ASA AIS guideline.</p>
+  </div>
+
+  <div id="paneAnticoag" role="tabpanel" aria-labelledby="tabAnticoag" hidden>
+<h2>Anticoagulation</h2>
   <div class="tablewrap"><table>
     <thead><tr><th>Situation</th><th>Guidance</th><th>Class</th></tr></thead>
     <tbody>
@@ -1334,10 +1349,7 @@
   <h2>Cervical artery dissection</h2>
   <p>Either antiplatelet or anticoagulant therapy for at least 3 months <span class="cor cor-2a">COR 2a</span> <span class="loe">B-R</span>. Agent selection, the trials and the practical detail have their own section: <a href="#dissection">Cervical artery dissection →</a></p>
 
-  <h2>Already on aspirin at the time of the event?</h2>
-  <p>The effectiveness of increasing the aspirin dose or switching agents is not well established <span class="cor cor-2b">COR 2b</span> <span class="loe">B-NR</span>. Agent selection for early secondary prevention should be individualised on risk factors, cost, tolerance and known relative efficacy <span class="cor cor-1">COR 1</span> <span class="loe">C-EO</span>.</p>
-
-  <p class="src">Sections 4.8, 4.9 and Table 9, 2026 AHA/ASA AIS guideline.</p>
+    </div>
 </section>
 
 <!-- ============================================================ COMPLICATIONS -->
@@ -2229,7 +2241,7 @@
   <p>The software is MIT licensed; the clinical content is released under <strong>CC BY 4.0</strong> — reuse it, adapt it for your own institution, translate it, as long as you attribute the source. Corrections are welcome and wanted: if a recommendation here misstates the guideline, or a number is wrong, open an issue or a pull request with the citation.</p>
 
   <h2>Version</h2>
-  <p class="src">Version <span id="buildVersion">1.19.0</span>. Content current to the 2026 AHA/ASA acute ischaemic stroke guideline, the 2022 AHA/ASA spontaneous ICH guideline, and named trials published through February 2026.</p>
+  <p class="src">Version <span id="buildVersion">1.20.0</span>. Content current to the 2026 AHA/ASA acute ischaemic stroke guideline, the 2022 AHA/ASA spontaneous ICH guideline, and named trials published through February 2026.</p>
 
   <div class="footer">
     <p>Built as a public resource. No tracking, no analytics, no accounts, no network requests after the first load.</p>
