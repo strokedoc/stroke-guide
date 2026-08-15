@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" data-version="1.8.0">
+<html lang="en" data-theme="light" data-version="1.8.1">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -48,7 +48,7 @@
 
 <div class="layout">
 <nav class="sidebar" id="sidebar" aria-label="Sections">
-  <h4>Start</h4>
+  <h4>Working a case</h4>
   <a href="#start">Home</a>
   <a href="#pathfinder">Reperfusion pathfinder</a>
 
@@ -78,9 +78,11 @@
 
   <h4>Tools</h4>
   <a href="#nihss">NIHSS calculator</a>
-  <a href="#mrs">Modified Rankin Scale</a>
   <a href="#aspects">ASPECTS &amp; PC-ASPECTS</a>
-  <a href="#calculators">Dose, clock &amp; ICH score</a>
+  <a href="#dosing">Dose calculator</a>
+  <a href="#clock">Last known well clock</a>
+  <a href="#ichscore">ICH score</a>
+  <a href="#mrs">Modified Rankin Scale</a>
 
   <h4>Reference</h4>
   <a href="#trials">Trial library</a>
@@ -106,13 +108,20 @@
     <span class="hero__go">Start · 9 questions</span>
   </a>
 
+  <a class="lkwcard" href="#clock">
+    <span class="lkwcard__l">Last known well</span>
+    <span class="lkwcard__v" id="tileClock">—</span>
+    <span class="lkwcard__d">Set it once. It drives every window in the guide.</span>
+  </a>
+
   <h2 class="homehead">Score and dose</h2>
   <div class="tiles">
     <a class="tile" href="#nihss"><span class="tile__v" id="tileNihss">0</span><span class="tile__t">NIHSS</span><span class="tile__s">15 items · copy to note</span></a>
     <a class="tile" href="#aspects"><span class="tile__v" id="tileAspects">10</span><span class="tile__t">ASPECTS</span><span class="tile__s">anterior &amp; posterior</span></a>
-    <a class="tile" href="#calculators"><span class="tile__v" id="tileClock">—</span><span class="tile__t">Since LKW</span><span class="tile__s">sets the whole clock</span></a>
-    <a class="tile" href="#calculators"><span class="tile__v" id="tileIch">0</span><span class="tile__t">ICH score</span><span class="tile__s">Hemphill 2001</span></a>
+    <a class="tile" href="#dosing"><span class="tile__v" id="tileDose">—</span><span class="tile__t">Dose</span><span class="tile__s">TNK &amp; alteplase</span></a>
+    <a class="tile" href="#ichscore"><span class="tile__v" id="tileIch">0</span><span class="tile__t">ICH score</span><span class="tile__s">Hemphill 2001</span></a>
   </div>
+  <p class="homemore"><a href="#tools">All tools →</a></p>
 
   <h2 class="homehead">Jump to a decision</h2>
   <nav class="decisions" aria-label="Common decisions">
@@ -1388,7 +1397,7 @@
   </table></div>
 
   <h2>ICH score</h2>
-  <p>A 0–6 point severity score derived by Hemphill et al (2001) that predicts 30-day mortality. Use it to communicate severity and structure a family conversation — <strong>not</strong> to justify limiting care in the first 24 hours. <a href="#calculators">Open the calculator →</a></p>
+  <p>A 0–6 point severity score derived by Hemphill et al (2001) that predicts 30-day mortality. Use it to communicate severity and structure a family conversation — <strong>not</strong> to justify limiting care in the first 24 hours. <a href="#ichscore">Open the calculator →</a></p>
 
   <p class="src">2022 AHA/ASA ICH guideline (doi:10.1161/STR.0000000000000407), sections 5.1–5.5 and 6; INTERACT3; ENRICH. Classes verified against the published document.</p>
 </section>
@@ -1798,10 +1807,26 @@
 </section>
 
 <!-- ============================================================== CALCULATORS -->
-<section class="section" id="calculators" data-title="Dose, clock &amp; ICH score">
-  <h1>Clock and scores</h1>
+<!-- ==================================================================== GUIDE -->
+<!-- Body generated from the .sidebar link list at runtime — sections are
+     declared in exactly one place.  See buildGuide() in app.js. -->
+<section class="section" id="guide" data-title="Guide">
+  <h1>Guide</h1>
+  <p class="lede">Every section, in the order a case moves through them.</p>
+  <div id="guideBody"></div>
+</section>
 
-  <h2>Time from last known well</h2>
+<!-- ==================================================================== TOOLS -->
+<section class="section" id="tools" data-title="Tools">
+  <h1>Tools</h1>
+  <p class="lede">Each one keeps its value while you move around the guide.</p>
+  <nav class="toollist" id="toolsBody" aria-label="Tools"></nav>
+</section>
+
+<section class="section" id="clock" data-title="Last known well clock">
+  <h1>Last known well clock</h1>
+  <p class="lede">Elapsed time since last known well, and the treatment windows it opens or closes.</p>
+
   <div class="card">
     <div class="row">
       <div class="field">
@@ -1820,8 +1845,13 @@
     <p class="src" style="margin-bottom:0">Uses this device's clock. If the last-known-well time is later than the current time, it is assumed to be yesterday. Always confirm the time against the EMS record and a collateral history — a wrong LKW is the commonest reason a treatable patient is not treated, and vice versa.</p>
   </div>
 
-  <h2>ICH score</h2>
-  <p>Hemphill et al, <em>Stroke</em> 2001. Predicts 30-day mortality after spontaneous intracerebral haemorrhage.</p>
+  <p class="src">Thrombolytic dosing lives with <a href="#dosing">dosing and administration</a>.</p>
+</section>
+
+<!-- =============================================================== ICH SCORE -->
+<section class="section" id="ichscore" data-title="ICH score">
+  <h1>ICH score</h1>
+  <p class="lede">Hemphill et al, <em>Stroke</em> 2001. Predicts 30-day mortality after spontaneous intracerebral haemorrhage.</p>
   <div class="card">
     <div class="row">
       <div class="field">
@@ -1868,7 +1898,7 @@
     </ul>
   </div>
 
-  <p class="src">The thrombolytic dose calculator lives with <a href="#dosing">dosing and administration</a>. NIHSS and ASPECTS have their own pages.</p>
+  <p class="src">ICH management is in <a href="#ich">intracerebral haemorrhage</a>.</p>
 </section>
 
 <!-- =================================================================== TRIALS -->
@@ -2034,36 +2064,19 @@
 
 
 <nav class="quickbar no-print" aria-label="Main">
-  <a href="#pathfinder">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h6M4 12h10M4 18h7"/><path d="m16 8 4 4-4 4"/></svg>
-    Pathfinder</a>
-  <button type="button" id="guideBtn" aria-expanded="false" aria-controls="guideSheet">
+  <a href="#start">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 9-8 9 8"/><path d="M5 9.5V20h14V9.5"/></svg>
+    Home</a>
+  <a href="#guide">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M9 7.5h6M9 11h4"/></svg>
-    Guide</button>
-  <button type="button" id="toolsBtn" aria-expanded="false" aria-controls="toolsSheet">
+    Guide</a>
+  <a href="#tools">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m11 4 9 9-4 4-9-9z"/><path d="m7 12-3 3 5 5 3-3"/><path d="M14 7 9 12"/></svg>
-    Tools</button>
+    Tools</a>
   <button type="button" id="quickSearch">
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
     Search</button>
 </nav>
-
-<!-- Both sheets are built from the .sidebar link list at runtime, so sections
-     are declared in exactly one place.  See buildSheets() in app.js. -->
-<div class="sheet no-print" id="guideSheet" hidden>
-  <div class="sheet__panel" role="dialog" aria-modal="true" aria-label="Guide sections">
-    <div class="sheet__grip"></div>
-    <div class="sheet__head"><h2>Guide</h2><button type="button" class="sheet__close" aria-label="Close">Done</button></div>
-    <div class="sheet__body"></div>
-  </div>
-</div>
-<div class="sheet no-print" id="toolsSheet" hidden>
-  <div class="sheet__panel" role="dialog" aria-modal="true" aria-label="Tools">
-    <div class="sheet__grip"></div>
-    <div class="sheet__head"><h2>Tools</h2><button type="button" class="sheet__close" aria-label="Close">Done</button></div>
-    <div class="sheet__body"></div>
-  </div>
-</div>
 
 <div class="overlay" id="searchOverlay" hidden>
   <div class="searchbox" role="dialog" aria-modal="true" aria-label="Search">

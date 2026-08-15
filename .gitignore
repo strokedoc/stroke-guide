@@ -1,3 +1,6 @@
 .DS_Store
 node_modules/
 *.log
+
+# Design-exploration artifact exports — kept locally, never published
+*(standalone).html

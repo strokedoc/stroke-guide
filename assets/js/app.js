@@ -38,7 +38,7 @@
     var t = target.getAttribute('data-title');
     document.title = (t ? t + ' — ' : '') + 'Acute Stroke Guide';
     if (!opts || !opts.keepScroll) window.scrollTo(0, 0);
-    if (id === 'start') syncTiles();
+    if (id === 'start' || id === 'tools') syncTiles();
     closeNav();
     if (opts && opts.focusText) highlightText(target, opts.focusText);
   }
@@ -54,64 +54,53 @@
     route();
   });
 
-  /* ----------------------------------------------------------- nav sheets */
-  /* The bottom bar's Guide and Tools tabs open sheets instead of one long
-     drawer.  Both are generated from the sidebar's own <h4>/<a> list so the
-     set of sections is declared once, in the markup, and cannot drift. */
-  var SHEETS = { guide: $('#guideSheet'), tools: $('#toolsSheet') };
+  /* ------------------------------------------------- Guide & Tools indexes */
+  /* The bottom bar routes to #guide and #tools like any other section — no
+     drawer, no sheet, no overlay.  #guide is generated from the sidebar's own
+     <h4>/<a> list so sections are declared once, in the markup, and cannot
+     drift.  #tools is its own list because a tool row also carries a live
+     value, which a plain nav link has no room for. */
+  var TOOLS = [
+    { href: '#nihss',    label: 'NIHSS calculator',      sub: '15 items, copy to note',    src: '#nihssTotal' },
+    { href: '#aspects',  label: 'ASPECTS & PC-ASPECTS',  sub: 'anterior and posterior',    src: '#aspectsScore' },
+    { href: '#dosing',   label: 'Dose calculator',       sub: 'tenecteplase and alteplase', src: '#doseOut' },
+    { href: '#clock',    label: 'Last known well clock', sub: 'elapsed time and windows',  src: '#clockOut' },
+    { href: '#ichscore', label: 'ICH score',             sub: 'Hemphill 2001',             src: '#ichScore' },
+    { href: '#mrs',      label: 'Modified Rankin Scale', sub: 'prestroke and outcome',     value: '0–6' },
+    { href: '#trials',   label: 'Trial library',         sub: 'every trial cited here',    count: '#trials tbody tr' }
+  ];
 
-  function buildSheets() {
-    var groups = { guide: [], tools: [] };
-    var current = null;
+  function buildGuide() {
+    var out = [], current = null;
     Array.prototype.forEach.call($('#sidebar').children, function (el) {
       if (el.tagName === 'H4') {
-        current = { title: el.textContent, links: [] };
-        groups[el.textContent === 'Tools' ? 'tools' : 'guide'].push(current);
-      } else if (el.tagName === 'A' && current) {
+        /* Tools have their own screen; Home is the screen you came from. */
+        current = el.textContent === 'Tools' ? null : { title: el.textContent, links: [] };
+        if (current) out.push(current);
+      } else if (el.tagName === 'A' && current && el.getAttribute('href') !== '#start') {
         current.links.push({ href: el.getAttribute('href'), text: el.textContent });
       }
     });
-    Object.keys(groups).forEach(function (key) {
-      var body = SHEETS[key].querySelector('.sheet__body');
-      body.innerHTML = groups[key].map(function (g) {
-        /* A single-group sheet doesn't need its group heading repeated. */
-        var head = groups[key].length > 1 ? '<h4>' + esc(g.title) + '</h4>' : '';
-        return head + g.links.map(function (l) {
+    $('#guideBody').innerHTML = out.map(function (g) {
+      return '<h4 class="homehead">' + esc(g.title) + '</h4><nav class="decisions">' +
+        g.links.map(function (l) {
           return '<a href="' + esc(l.href) + '">' + esc(l.text) + '</a>';
-        }).join('');
-      }).join('');
-    });
-    /* Sheet links participate in current-section highlighting. */
-    navLinks = navLinks.concat($$('.sheet a[href^="#"]'));
+        }).join('') + '</nav>';
+    }).join('');
+
+    $('#toolsBody').innerHTML = TOOLS.map(function (t) {
+      return '<a href="' + esc(t.href) + '">' +
+        '<span class="toollist__t">' + esc(t.label) + '<span>' + esc(t.sub) + '</span></span>' +
+        '<span class="toollist__v" data-src="' + esc(t.src || '') + '">' +
+        esc(t.value || (t.count ? String($$(t.count).length) : '')) + '</span></a>';
+    }).join('');
+
+    /* Generated links participate in current-section highlighting. */
+    navLinks = navLinks.concat($$('#guideBody a[href^="#"], #toolsBody a[href^="#"]'));
   }
 
-  function openSheet(key) {
-    closeSheets();
-    SHEETS[key].hidden = false;
-    document.body.classList.add('sheet-open');
-    $('#' + key + 'Btn').setAttribute('aria-expanded', 'true');
-    var cur = SHEETS[key].querySelector('a[aria-current="page"]') || SHEETS[key].querySelector('a');
-    if (cur) cur.focus();
-  }
-  function closeSheets() {
-    Object.keys(SHEETS).forEach(function (key) {
-      SHEETS[key].hidden = true;
-      $('#' + key + 'Btn').setAttribute('aria-expanded', 'false');
-    });
-    document.body.classList.remove('sheet-open');
-  }
-  /* `closeNav` is the one name routing calls when a section opens. */
-  function closeNav() { closeSheets(); }
-
-  Object.keys(SHEETS).forEach(function (key) {
-    $('#' + key + 'Btn').addEventListener('click', function () {
-      SHEETS[key].hidden ? openSheet(key) : closeSheets();
-    });
-    /* Tapping the backdrop or Done closes; taps inside the panel do not. */
-    SHEETS[key].addEventListener('click', function (e) {
-      if (e.target === SHEETS[key] || e.target.classList.contains('sheet__close')) closeSheets();
-    });
-  });
+  /* Routing calls this when a section opens; nothing to dismiss any more. */
+  function closeNav() {}
 
   $('#themeBtn').addEventListener('click', function () {
     var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
@@ -262,7 +251,6 @@
       if (e.key === 'Enter') { e.preventDefault(); pick(sel); return; }
       return;
     }
-    if (e.key === 'Escape' && document.body.classList.contains('sheet-open')) { closeSheets(); return; }
     if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || (e.key === '/' && !typing)) { e.preventDefault(); openSearch(); }
   });
 
@@ -1026,15 +1014,21 @@
        that goes stale on its own between visits. */
     if ($('#lkwTime')) clockUpdate();
     [['#tileNihss', '#nihssTotal'], ['#tileAspects', '#aspectsScore'],
-     ['#tileClock', '#clockOut'], ['#tileIch', '#ichScore']].forEach(function (pair) {
+     ['#tileClock', '#clockOut'], ['#tileDose', '#doseOut'],
+     ['#tileIch', '#ichScore']].forEach(function (pair) {
       var tile = $(pair[0]), src = $(pair[1]);
       if (tile && src) tile.textContent = src.textContent;
+    });
+    /* The Tools list mirrors the same readouts, declared once in TOOLS. */
+    $$('#toolsBody .toollist__v[data-src]').forEach(function (el) {
+      var src = el.getAttribute('data-src') && $(el.getAttribute('data-src'));
+      if (src) el.textContent = src.textContent;
     });
   }
   if ($('#homeSearch')) $('#homeSearch').addEventListener('click', openSearch);
 
   /* ------------------------------------------------------------ kick off */
-  buildSheets();   /* before route(), so sheet links get current-page marking */
+  buildGuide();    /* before route(), so generated links get current-page marking */
   route();
   buildIndex();
   var v = $('#buildVersion');

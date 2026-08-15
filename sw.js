@@ -4,7 +4,7 @@
    connected device picks up content updates on the next launch.
    Bump CACHE on every content release. */
 
-var CACHE = 'asg-v1.8.0';
+var CACHE = 'asg-v1.8.1';
 
 var ASSETS = [
   './',
