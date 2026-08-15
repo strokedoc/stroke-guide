@@ -1137,15 +1137,16 @@
   }
 
   /* Below 560px a 3+ column table cannot give every column a readable width —
-     the mRS grade column was landing at 57px, one word per line. Rather than
-     hand-tuning column widths table by table, each cell is stamped with its
-     column heading and the stylesheet restacks the row as a labelled card.
-     One mechanism, every table, and the markup stays a plain table for
-     desktop, print and screen readers. */
+     the mRS grade column landed at 57px and the contraindications condition
+     column at 79px, both one word per line. Two columns are no better: a
+     short label beside prose gets squeezed to nothing, because the browser
+     gives width to whichever column has more text. Every table with a header
+     row is stamped and restacked as labelled cards; the markup stays a plain
+     table for desktop, print and screen readers. */
   function labelTableCells() {
     $$('.tablewrap table').forEach(function (t) {
       var heads = $$('thead th', t).map(function (h) { return h.textContent.trim(); });
-      if (heads.length < 3) return;              /* two columns read fine as-is */
+      if (heads.length < 2) return;
       t.classList.add('stackable');
       $$('tbody tr', t).forEach(function (tr) {
         $$('td', tr).forEach(function (td, i) {
@@ -1210,6 +1211,11 @@
     }
     vv.addEventListener('resize', queuePin);
     vv.addEventListener('scroll', queuePin);
+    /* iOS does not repaint fixed elements during an active pinch, so the
+       correction has to land again once the gesture settles. */
+    window.addEventListener('orientationchange', queuePin);
+    document.addEventListener('gestureend', queuePin);
+    window.addEventListener('touchend', queuePin);
     pinBars();
   }
 
