@@ -1173,50 +1173,59 @@
   markScrollableTables();
   window.addEventListener('resize', markScrollableTables);
 
+  /* ------------------------------------------------------- plate viewer */
+  /* A plate opens full-screen, wider than the viewport so it is already
+     magnified and can be panned by scrolling — no gesture to learn, and the
+     bars are not on screen to be disturbed. */
+  var viewer = $('#plateViewer'), viewerImg = $('#plateImg');
+  if (viewer) {
+    $$('.plate img').forEach(function (img) {
+      img.addEventListener('click', function () {
+        viewerImg.src = img.currentSrc || img.src;
+        viewerImg.alt = img.alt;
+        viewer.hidden = false;
+        document.body.style.overflow = 'hidden';
+        $('#plateClose').focus();
+      });
+    });
+    function closeViewer() {
+      viewer.hidden = true;
+      viewerImg.removeAttribute('src');
+      document.body.style.overflow = '';
+    }
+    $('#plateClose').addEventListener('click', closeViewer);
+    viewer.addEventListener('click', function (e) { if (e.target !== viewerImg) closeViewer(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !viewer.hidden) closeViewer();
+    });
+  }
+
   /* ------------------------------------------------- bars during pinch-zoom */
-  /* Pinch-zoom scales the whole page, fixed elements included, so the header
-     and bottom bar grow and drift out of the visible region exactly when the
-     user is zoomed in on something and needs them least in the way. The
-     visual viewport reports the zoomed region; counter-scaling the two bars by
-     1/scale and translating them to its origin keeps them the same physical
-     size and glued to the edges, so only the content zooms. */
+  /* Counter-scaling the bars to the visual viewport was tried and does not
+     hold: iOS does not repaint fixed elements during an active pinch, so they
+     stretch and drift for the length of the gesture however correct the maths
+     is. A bar that distorts is worse than one that steps aside, so while the
+     page is zoomed both bars simply get out of the way and come back when the
+     user returns to 1x. Zoom itself stays available — never disable it. */
   var vv = window.visualViewport;
   if (vv) {
-    var hdr = $('.hdr'), bar = $('.quickbar');
-    var pinning = false;
-    function pinBars() {
-      pinning = false;
-      var s = vv.scale;
-      if (s <= 1.01) {                       /* unzoomed: let CSS do its job */
-        if (hdr) hdr.style.transform = hdr.style.width = '';
-        if (bar) bar.style.transform = bar.style.width = '';
-        return;
-      }
-      var w = vv.width * s + 'px';
-      if (hdr) {
-        hdr.style.width = w;
-        hdr.style.transform = 'translate(' + vv.offsetLeft + 'px,' + vv.offsetTop + 'px) scale(' + (1 / s) + ')';
-      }
-      if (bar) {
-        /* Bottom-anchored: its own height shrinks by 1/s once scaled. */
-        var y = vv.offsetTop + vv.height - bar.offsetHeight / s;
-        bar.style.width = w;
-        bar.style.transform = 'translate(' + vv.offsetLeft + 'px,' + (y - (innerHeight - bar.offsetHeight)) + 'px) scale(' + (1 / s) + ')';
-      }
+    var zoomed = false;
+    function syncZoomState() {
+      var z = vv.scale > 1.05;
+      if (z === zoomed) return;
+      zoomed = z;
+      document.body.classList.toggle('is-zoomed', z);
     }
-    function queuePin() {
-      if (pinning) return;
-      pinning = true;
-      requestAnimationFrame(pinBars);
+    var queued = false;
+    function queueSync() {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(function () { queued = false; syncZoomState(); });
     }
-    vv.addEventListener('resize', queuePin);
-    vv.addEventListener('scroll', queuePin);
-    /* iOS does not repaint fixed elements during an active pinch, so the
-       correction has to land again once the gesture settles. */
-    window.addEventListener('orientationchange', queuePin);
-    document.addEventListener('gestureend', queuePin);
-    window.addEventListener('touchend', queuePin);
-    pinBars();
+    vv.addEventListener('resize', queueSync);
+    vv.addEventListener('scroll', queueSync);
+    window.addEventListener('touchend', queueSync);
+    syncZoomState();
   }
 
   /* ------------------------------------------------------------ kick off */

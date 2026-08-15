@@ -125,7 +125,11 @@ summary:focus-visible, [tabindex]:focus-visible {
 .hdr__title { font-size: 15px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .hdr__sub { font-size: 11px; color: var(--text-dim); white-space: nowrap; }
 .hdr__spacer { flex: 1; }
-.hdr, .quickbar { transform-origin: left top; will-change: transform; }
+/* While the page is pinch-zoomed both bars step aside rather than stretch
+   across the viewport — see the visual-viewport handler in app.js. */
+.hdr, .quickbar { transition: opacity .14s ease; }
+body.is-zoomed .hdr, body.is-zoomed .quickbar { opacity: 0; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .hdr, .quickbar { transition: none; } }
 
 .iconbtn {
   height: 44px; min-width: 44px; padding: 0 11px;
@@ -539,6 +543,24 @@ input[type="time"], input[type="number"], input[type="text"], select {
 /* Only where there is no sidebar to orient you. */
 @media (max-width: 960px) { .backlink { display: inline-flex; } }
 @media print { .backlink { display: none !important; } }
+
+/* ---------- Full-screen plate viewer ---------- */
+.viewer {
+  position: fixed; inset: 0; z-index: 150;
+  background: #0b1a30;
+  display: flex; align-items: center; justify-content: center;
+  overflow: auto; -webkit-overflow-scrolling: touch;
+  padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+}
+.viewer img { max-width: none; width: 170%; height: auto; }
+@media (min-width: 700px) { .viewer img { width: auto; max-width: 96vw; max-height: 92vh; } }
+.viewer__close {
+  position: fixed; top: calc(env(safe-area-inset-top) + 10px); right: 12px; z-index: 2;
+  min-height: 44px; padding: 0 18px; border-radius: 999px;
+  background: rgba(255,255,255,.94); color: #0b1a30; border: 0;
+  font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer;
+}
+.plate img { cursor: zoom-in; }
 
 /* ---------- Reference plates ----------
    Static illustrations that teach the region layout. The scoring itself stays
