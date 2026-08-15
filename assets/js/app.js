@@ -995,11 +995,21 @@
   if ($('#pfOut')) {
     pathfinder();
     $('#pfReset').addEventListener('click', function () {
-      /* Dispatch change so the segmented buttons (and the mRS mirror) resync. */
-      $$('#pathfinder select').forEach(function (el) { el.selectedIndex = 0; el.dispatchEvent(new Event('change')); });
+      /* Reset restores the markup defaults — ASPECTS 6–10 and prestroke
+         mRS 0–1 start selected because a normal scan and an independent
+         patient are the common case; everything else clears to unanswered.
+         Dispatch change so the segmented buttons (and the mRS mirror) resync. */
+      $$('#pathfinder select').forEach(function (el) {
+        var def = 0;
+        Array.prototype.forEach.call(el.options, function (o, i) { if (o.defaultSelected) def = i; });
+        el.selectedIndex = def;
+        el.dispatchEvent(new Event('change'));
+      });
       $$('#pathfinder input:not([type="range"])').forEach(function (el) { el.value = ''; });
       /* '' on a range input snaps it to mid-track; park the sliders at 0. */
       $$('#pathfinder .volslider').forEach(function (el) { el.value = 0; });
+      /* Prestroke mRS returns to its default of 0, mirrored to the table and tile. */
+      if (typeof setMrs === 'function') setMrs(0);
       pathfinder();
     });
     $('#pfCopy').addEventListener('click', function () {
@@ -1119,6 +1129,9 @@
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
       });
     });
+    /* mRS 0 is the default — most patients were independent before the
+       stroke; tap a different row when this one was not. */
+    setMrs(0);
     /* Changing the pathfinder's own select must not leave a stale exact score
        on the tile: keep the exact score when it still fits the chosen band,
        otherwise show the band itself. */
