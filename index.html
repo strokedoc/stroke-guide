@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" data-version="1.9.0">
+<html lang="en" data-theme="light" data-version="1.10.0">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -549,7 +549,7 @@
         <tr><td><strong>DOAC exposure &lt;48 h</strong></td><td>Safety unknown. Emerging observational data suggest IVT may be considered after a thorough individual analysis. Weigh timing of the last dose, renal function, stroke severity, EVT availability, reversal-agent availability and DOAC-specific anti-Xa / thrombin-time assays. Record all of it — these data are how the question gets answered</td></tr>
         <tr><td>Ischaemic stroke within 3 months</td><td>May increase ICH risk. Weigh timing and size of the prior stroke</td></tr>
         <tr><td>Prior ICH</td><td>May increase sICH risk. Known amyloid angiopathy carries higher risk than ICH from a modifiable cause such as hypertension or coagulopathy — the latter may have greater treatment benefit</td></tr>
-        <tr><td>Major non-CNS trauma, 14 days–3 months</td><td>Risk of serious systemic haemorrhage requiring transfusion. Surgical consultation</td></tr>
+        <tr><td>Major non-CNS trauma <strong>within 14 days</strong></td><td>Risk of serious systemic haemorrhage requiring transfusion. Individual risk–benefit with surgical consultation</td></tr>
         <tr><td>Major non-CNS surgery within 10 days</td><td>Individual consideration with the surgical team</td></tr>
         <tr><td>GI or GU bleeding within 21 days</td><td>GI/GU consultation to establish whether the bleeding has been treated and the risk modified</td></tr>
         <tr><td>Intracranial arterial dissection</td><td>Safety unknown</td></tr>
@@ -959,7 +959,7 @@
       <li>Methylprednisolone 125 mg IV.</li>
       <li>Diphenhydramine 50 mg IV.</li>
       <li>Ranitidine 50 mg IV or famotidine 20 mg IV.</li>
-      <li>If angioedema continues to increase: epinephrine 0.1% (1 mg/mL) 0.3 mL subcutaneously, or nebulised 0.5 mg.</li>
+      <li>If angioedema continues to increase: epinephrine 0.1% (1 mg/mL) 0.3 mL <strong>intramuscularly</strong>, or nebulised 0.5 mg.</li>
       <li>Icatibant (selective bradykinin B2 receptor antagonist) 30 mg (3 mL) subcutaneously into the abdomen; a further 30 mg may be given at 6-hourly intervals, to a maximum of 3 injections in 24 h.</li>
       <li>Plasma-derived C1 esterase inhibitor 20 IU/kg has been used successfully in hereditary and ACE-inhibitor-related angioedema.</li>
     </ol>
@@ -993,6 +993,19 @@
     </tbody>
   </table></div>
   <p class="src">Position for airway safety, aspiration risk and comfort — not as a haemodynamic intervention.</p>
+
+  <h2>Treatments that do not work in acute ischaemic stroke</h2>
+  <p>Each of these is a <strong>recommendation against</strong>, not an absence of evidence — and the first two carry <span class="loe">A</span>, the strongest level the committee assigns.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Intervention</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Neuroprotective agents</strong>, pharmacological or non-pharmacological, to improve functional outcome</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">A</span></td></tr>
+      <tr><td><strong>Haemodynamic augmentation</strong> by haemodilution, high-dose albumin, or chemical vasodilators such as pentoxifylline</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">A</span></td></tr>
+      <tr><td><strong>Mechanical haemodynamic augmentation</strong> — counterpulsation devices, sphenopalatine ganglion stimulation</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td></tr>
+      <tr><td><strong>Emergent carotid endarterectomy or stenting</strong> for acute stroke or unstable deficit from high-grade carotid stenosis or occlusion <em>without</em> an intracranial occlusion</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-NR</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">2026 AIS guideline sections 4.10, 4.11 and 4.12. Tandem cervical and intracranial occlusion during thrombectomy is a different question and is decided in the angio suite — see <a href="#evt">thrombectomy</a>.</p>
 
   <h2>Glucose</h2>
   <div class="tablewrap"><table>
@@ -1709,6 +1722,55 @@
     <div class="readout__note">Affected regions: <span id="aspectsRegions">none</span></div>
   </div>
 
+  <!-- Original schematic, drawn for this app. Anatomy is fact; no figure from
+       any publication is reproduced. Tapping a region toggles its checkbox
+       below, which remains the accessible control — hence aria-hidden here. -->
+  <div class="dgm">
+    <figure class="dgm__f">
+      <svg viewBox="0 0 220 240" class="dgm__svg" aria-hidden="true" data-map="aspects">
+        <ellipse class="dgm__brain" cx="110" cy="120" rx="86" ry="108"/>
+        <line class="dgm__mid" x1="110" y1="14" x2="110" y2="226"/>
+        <g class="dgm__rgns">
+          <path class="rgn" data-r="M1 — anterior MCA cortex" d="M110 22 A86 108 0 0 0 40 60 L66 82 A56 74 0 0 1 110 56 Z"/>
+          <path class="rgn" data-r="M2 — lateral MCA cortex" d="M40 60 A86 108 0 0 0 40 180 L66 158 A56 74 0 0 1 66 82 Z"/>
+          <path class="rgn" data-r="M3 — posterior MCA cortex" d="M40 180 A86 108 0 0 0 110 218 L110 184 A56 74 0 0 1 66 158 Z"/>
+          <ellipse class="rgn" data-r="I — insular ribbon" cx="74" cy="122" rx="6" ry="27"/>
+          <ellipse class="rgn" data-r="L — lentiform" cx="88" cy="124" rx="11" ry="21"/>
+          <ellipse class="rgn" data-r="IC — internal capsule" cx="100" cy="126" rx="5" ry="17"/>
+          <ellipse class="rgn" data-r="C — caudate" cx="99" cy="94" rx="8" ry="12"/>
+        </g>
+        <g class="dgm__lbl">
+          <text x="74" y="62" text-anchor="middle">M1</text>
+          <text x="44" y="122" text-anchor="middle">M2</text>
+          <text x="74" y="182" text-anchor="middle">M3</text>
+          <text x="74" y="126" text-anchor="middle">I</text>
+          <text x="88" y="128" text-anchor="middle">L</text>
+          <text x="100" y="156" text-anchor="middle">IC</text>
+          <text x="99" y="80" text-anchor="middle">C</text>
+        </g>
+      </svg>
+      <figcaption>Ganglionic level — thalamus and basal ganglia</figcaption>
+    </figure>
+    <figure class="dgm__f">
+      <svg viewBox="0 0 220 240" class="dgm__svg" aria-hidden="true" data-map="aspects">
+        <ellipse class="dgm__brain" cx="110" cy="120" rx="86" ry="108"/>
+        <line class="dgm__mid" x1="110" y1="14" x2="110" y2="226"/>
+        <g class="dgm__rgns">
+          <path class="rgn" data-r="M4 — anterior MCA territory" d="M110 22 A86 108 0 0 0 40 60 L110 108 Z"/>
+          <path class="rgn" data-r="M5 — lateral MCA territory" d="M40 60 A86 108 0 0 0 40 180 L110 132 L110 108 Z"/>
+          <path class="rgn" data-r="M6 — posterior MCA territory" d="M40 180 A86 108 0 0 0 110 218 L110 132 Z"/>
+        </g>
+        <g class="dgm__lbl">
+          <text x="80" y="70" text-anchor="middle">M4</text>
+          <text x="62" y="122" text-anchor="middle">M5</text>
+          <text x="80" y="176" text-anchor="middle">M6</text>
+        </g>
+      </svg>
+      <figcaption>Supraganglionic level — above the lateral ventricles</figcaption>
+    </figure>
+  </div>
+  <p class="src">Schematic, not to scale, and not a substitute for reading the scan. Regions are drawn on one hemisphere — score the affected side. Tap a region or use the list below; they are the same score.</p>
+
   <div class="grid">
     <div class="card">
       <h3 style="margin-top:0">Ganglionic level</h3>
@@ -1761,6 +1823,37 @@
     </div>
     <div class="readout__note">Affected regions: <span id="pcRegions">none</span> · Brainstem points lost: <span id="pcPmi">0</span> of 4</div>
   </div>
+
+  <div class="dgm">
+    <figure class="dgm__f dgm__f--wide">
+      <svg viewBox="0 0 260 210" class="dgm__svg" aria-hidden="true" data-map="pc">
+        <ellipse class="dgm__brain" cx="130" cy="105" rx="106" ry="94"/>
+        <line class="dgm__mid" x1="130" y1="14" x2="130" y2="196"/>
+        <g class="dgm__rgns">
+          <ellipse class="rgn" data-r="left thalamus" cx="106" cy="52" rx="20" ry="15"/>
+          <ellipse class="rgn" data-r="right thalamus" cx="154" cy="52" rx="20" ry="15"/>
+          <ellipse class="rgn rgn--w2" data-r="midbrain" cx="130" cy="88" rx="26" ry="17"/>
+          <ellipse class="rgn rgn--w2" data-r="pons" cx="130" cy="129" rx="32" ry="21"/>
+          <path class="rgn" data-r="left cerebellum" d="M96 112 A46 46 0 0 0 84 168 L60 156 A62 62 0 0 1 74 104 Z"/>
+          <path class="rgn" data-r="right cerebellum" d="M164 112 A46 46 0 0 1 176 168 L200 156 A62 62 0 0 0 186 104 Z"/>
+          <ellipse class="rgn" data-r="left occipital" cx="100" cy="180" rx="24" ry="14"/>
+          <ellipse class="rgn" data-r="right occipital" cx="160" cy="180" rx="24" ry="14"/>
+        </g>
+        <g class="dgm__lbl">
+          <text x="106" y="56" text-anchor="middle">Thal</text>
+          <text x="154" y="56" text-anchor="middle">Thal</text>
+          <text x="130" y="92" text-anchor="middle">Midbrain 2</text>
+          <text x="130" y="134" text-anchor="middle">Pons 2</text>
+          <text x="78" y="140" text-anchor="middle">Cbll</text>
+          <text x="182" y="140" text-anchor="middle">Cbll</text>
+          <text x="100" y="184" text-anchor="middle">Occip</text>
+          <text x="160" y="184" text-anchor="middle">Occip</text>
+        </g>
+      </svg>
+      <figcaption>Posterior circulation — pons and midbrain score 2 points each</figcaption>
+    </figure>
+  </div>
+  <p class="src">Schematic, not to scale, and not an anatomical atlas — the regions are laid out for scoring, not for localisation. Tap a region or use the list below.</p>
 
   <div class="grid">
     <div class="card">
@@ -1827,8 +1920,8 @@
   <div class="card">
     <div class="row">
       <div class="field">
-        <label for="lkwTime">Last known well (24 h clock)</label>
-        <input type="time" id="lkwTime">
+        <label for="lkwTime">Last known well (date and time)</label>
+        <input type="datetime-local" id="lkwTime">
       </div>
       <div class="field" style="display:flex;align-items:flex-end">
         <button class="btn" id="clockNow" style="width:100%">Set to now</button>
@@ -1839,7 +1932,7 @@
       <div class="readout__value" id="clockOut">—</div>
       <div class="readout__note" id="clockNote"></div>
     </div>
-    <p class="src" style="margin-bottom:0">Uses this device's clock. If the last-known-well time is later than the current time, it is assumed to be yesterday. Always confirm the time against the EMS record and a collateral history — a wrong LKW is the commonest reason a treatable patient is not treated, and vice versa.</p>
+    <p class="src" style="margin-bottom:0">Uses this device's clock. The date is entered rather than assumed, so a last-known-well of yesterday evening or two days ago reads correctly. Always confirm the time against the EMS record and a collateral history — a wrong LKW is the commonest reason a treatable patient is not treated, and vice versa.</p>
   </div>
 
   <p class="src">Thrombolytic dosing lives with <a href="#dosing">dosing and administration</a>.</p>

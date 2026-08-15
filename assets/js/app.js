@@ -451,28 +451,37 @@
   function clockUpdate() {
     var lkw = $('#lkwTime').value;
     var out = $('#clockOut'), note = $('#clockNote');
-    if (!lkw) { out.textContent = '—'; note.textContent = 'Enter the last-known-well time.'; return; }
+    if (!lkw) { out.textContent = '—'; note.textContent = 'Enter the last-known-well date and time.'; return; }
     var now = new Date();
-    var parts = lkw.split(':');
-    var t = new Date(now); t.setHours(parseInt(parts[0], 10), parseInt(parts[1], 10), 0, 0);
-    if (t > now) t.setDate(t.getDate() - 1);           // LKW was yesterday
+    /* A time-of-day alone cannot express "yesterday evening", and guessing
+       wrong understates the elapsed time — the one direction this must never
+       fail in. The date is entered, not inferred. */
+    var t = new Date(lkw);
+    if (isNaN(t)) { out.textContent = '—'; note.textContent = 'Could not read that date and time.'; return; }
+    if (t > now) {
+      out.textContent = '—';
+      note.textContent = 'That is in the future. Check the date — a wrong last-known-well is the commonest reason a treatable patient is not treated.';
+      return;
+    }
     var mins = Math.round((now - t) / 60000);
     var h = Math.floor(mins / 60), m = mins % 60;
     out.textContent = h + ' h ' + (m < 10 ? '0' : '') + m + ' m';
     var win = [];
     if (mins <= 270) win.push('Within the 4.5-hour IVT window — if the deficit is disabling and there is no contraindication, treat as fast as possible; NCCT alone is sufficient.');
-    else if (mins <= 540) win.push('4.5–9 h: extended-window IVT possible with perfusion mismatch (COR 2a).');
+    else if (mins <= 540) win.push('4.5–9 h: for a patient <strong>not eligible for thrombectomy</strong>, perfusion-selected IVT can be beneficial (COR 2a). If EVT is available and the patient qualifies, go to EVT.');
     else if (mins <= 1440) win.push('9–24 h: EVT window; extended IVT only for LVO that cannot get EVT (COR 2b).');
     else win.push('Beyond 24 h from LKW — no established reperfusion indication.');
     if (mins <= 360) win.push('Within the 0–6 h EVT window.');
     else if (mins <= 1440) win.push('Within the 6–24 h EVT window.');
-    note.textContent = win.join(' ');
+    note.innerHTML = win.join(' ');
   }
   if ($('#lkwTime')) {
     $('#lkwTime').addEventListener('input', clockUpdate);
     $('#clockNow').addEventListener('click', function () {
       var d = new Date();
-      $('#lkwTime').value = ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2);
+      var p2 = function (n) { return ('0' + n).slice(-2); };
+      $('#lkwTime').value = d.getFullYear() + '-' + p2(d.getMonth() + 1) + '-' + p2(d.getDate()) +
+        'T' + p2(d.getHours()) + ':' + p2(d.getMinutes());
       clockUpdate();
     });
     clockUpdate();
@@ -1048,6 +1057,40 @@
     });
   }
   addFeedbackLinks();
+
+  /* -------------------------------------------------- scoring diagrams */
+  /* The diagrams are a second surface onto the same checkboxes, not a second
+     source of truth: a tap sets the box and fires its change event, so the
+     existing scorer runs untouched, and the paint always reads back off the
+     boxes. data-r matches the checkbox value exactly. */
+  function paintDiagrams() {
+    $$('.dgm__svg').forEach(function (svg) {
+      var sel = svg.getAttribute('data-map') === 'pc' ? '.pc-region' : '.aspects-region';
+      var rgns = $$('.rgn', svg), labels = $$('.dgm__lbl text', svg);
+      rgns.forEach(function (r, i) {
+        var box = $$(sel).filter(function (b) { return b.value === r.getAttribute('data-r'); })[0];
+        var on = !!(box && box.checked);
+        r.classList.toggle('on', on);
+        /* Labels are drawn in the same order as the regions, so a filled
+           region flips its own label to white rather than losing it. */
+        if (labels[i]) labels[i].classList.toggle('on', on);
+      });
+    });
+  }
+  $$('.dgm__svg').forEach(function (svg) {
+    var sel = svg.getAttribute('data-map') === 'pc' ? '.pc-region' : '.aspects-region';
+    $$('.rgn', svg).forEach(function (r) {
+      var label = r.getAttribute('data-r');
+      r.addEventListener('click', function () {
+        var box = $$(sel).filter(function (b) { return b.value === label; })[0];
+        if (!box) return;
+        box.checked = !box.checked;
+        box.dispatchEvent(new Event('change'));
+      });
+    });
+  });
+  $$('.aspects-region, .pc-region').forEach(function (b) { b.addEventListener('change', paintDiagrams); });
+  paintDiagrams();
 
   /* ----------------------------------------------------- home screen tiles */
   /* Every section lives in the DOM at once, so the tiles just mirror whatever

@@ -462,6 +462,25 @@ input[type="time"], input[type="number"], input[type="text"], select {
 }
 .toollist__v::after { content: "›"; margin-left: 10px; color: var(--text-dim); font-family: var(--sans); font-weight: 400; }
 
+/* ---------- Scoring diagrams ---------- */
+.dgm { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 14px 0 6px; }
+.dgm__f { margin: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 8px 8px; box-shadow: var(--shadow); }
+.dgm__f--wide { grid-column: 1 / -1; }
+.dgm__svg { display: block; width: 100%; height: auto; }
+.dgm__brain { fill: var(--surface-2); stroke: var(--border); stroke-width: 2; }
+.dgm__mid { stroke: var(--border); stroke-width: 2; stroke-dasharray: 4 4; }
+.dgm__rgns .rgn {
+  fill: var(--surface-3); stroke: var(--text-dim); stroke-width: 1.5;
+  cursor: pointer; transition: fill .12s ease;
+}
+.dgm__rgns .rgn:hover { fill: var(--blue-bg); }
+.dgm__rgns .rgn.on { fill: var(--red); stroke: var(--red); }
+.dgm__lbl { fill: var(--text-dim); font-size: 11px; font-weight: 700; pointer-events: none; }
+.dgm__lbl text.on { fill: #fff; }
+.dgm__f figcaption { font-size: 11.5px; color: var(--text-dim); text-align: center; margin-top: 6px; line-height: 1.35; }
+@media (prefers-reduced-motion: reduce) { .dgm__rgns .rgn { transition: none; } }
+@media (max-width: 420px) { .dgm { grid-template-columns: 1fr; } }
+
 .author {
   margin: 16px 0 4px; padding: 13px 16px;
   background: var(--surface); border: 1px solid var(--border);
