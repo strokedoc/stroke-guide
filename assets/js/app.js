@@ -23,6 +23,20 @@
   var savedTheme = store.get('theme', null);
   applyTheme(savedTheme || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
 
+  /* Night Shift is an OS-level color filter no web app can detect — it
+     already tints this screen from outside. What the OS does expose is dark
+     mode, so follow it live: a phone that goes dark on schedule at sunset
+     takes the guide with it mid-session. A theme chosen with the toggle is
+     an override and wins. */
+  if (window.matchMedia) {
+    var themeMq = window.matchMedia('(prefers-color-scheme: dark)');
+    var followSystem = function (e) {
+      if (store.get('theme', null) === null) applyTheme(e.matches ? 'dark' : 'light');
+    };
+    if (themeMq.addEventListener) themeMq.addEventListener('change', followSystem);
+    else if (themeMq.addListener) themeMq.addListener(followSystem);
+  }
+
   /* -------------------------------------------------------------- routing */
   var sections = $$('.section');
   var current = null;
