@@ -49,6 +49,7 @@
     document.title = (t ? t + ' — ' : '') + 'Acute Stroke Guide';
     if (!opts || !opts.keepScroll) window.scrollTo(0, 0);
     if (id === 'start' || id === 'tools') syncTiles();
+    if (id === 'pathfinder') syncPathfinderFromTools();
     closeNav();
     if (opts && opts.focusEl) flash(opts.focusEl);
   }
@@ -76,7 +77,7 @@
     { href: '#dosing',   label: 'Dose calculator',       sub: 'tenecteplase and alteplase', src: '#doseOut' },
     { href: '#clock',    label: 'Last known well clock', sub: 'elapsed time and windows',  src: '#clockOut' },
     { href: '#ichscore', label: 'ICH score',             sub: 'Hemphill 2001',             src: '#ichScore' },
-    { href: '#mrs',      label: 'Modified Rankin Scale', sub: 'prestroke and outcome',     value: '0–6' },
+    { href: '#mrs',      label: 'Modified Rankin Scale', sub: 'tap to record prestroke mRS', src: '#mrsOut' },
     { href: '#trials',   label: 'Trial library',         sub: 'every trial cited here',    count: '#trials tbody tr' }
   ];
 
@@ -183,8 +184,20 @@
     noac: 'doac', hemicrani: 'hemicraniectomy',
     lvo: 'large vessel occlusion', lkw: 'last known well', sich: 'sich',
     dapt: 'dual antiplatelet', vte: 'venous thromboembolism',
+    dvt: 'venous thromboembolism',
     toe: 'tee', transoesophageal: 'tee', transesophageal: 'tee',
     tte: 'transthoracic', ilr: 'loop recorder',
+    /* Rhythm and structural */
+    afib: 'atrial fibrillation', 'a-fib': 'atrial fibrillation', af: 'atrial fibrillation',
+    patent: 'pfo', foramen: 'pfo', ovale: 'pfo',
+    /* Procedures */
+    cea: 'endarterectomy', cas: 'carotid stenting',
+    cvst: 'venous thrombosis', cvt: 'venous thrombosis',
+    /* Brand names for the generics in the text */
+    plavix: 'clopidogrel', brilinta: 'ticagrelor', coumadin: 'warfarin',
+    eliquis: 'apixaban', xarelto: 'rivaroxaban', pradaxa: 'dabigatran',
+    lovenox: 'lmwh', kcentra: 'pcc', praxbind: 'idarucizumab',
+    tnkase: 'tenecteplase', activase: 'alteplase',
     /* British spellings in, US spellings out */
     haemorrhage: 'hemorrhage', haemorrhagic: 'hemorrhagic', haematoma: 'hematoma',
     oedema: 'edema', ischaemic: 'ischemic', ischaemia: 'ischemia',
@@ -520,7 +533,6 @@
     var hours = parseFloat(pf('pfTime'));
     var disabling = pf('pfDisabling');
     var ich = pf('pfIch');
-    var contra = pf('pfContra');
     var occl = pf('pfOccl');
     var aspects = pf('pfAspects');
     var pcAspects = pf('pfPcAspects');
@@ -546,6 +558,16 @@
        But if it contradicts NIHSS >=6 or a large-vessel occlusion, say so. */
     var disablingConflict = disabling === 'no' && (( !isNaN(nihss) && nihss >= 6) || evtGradeOcclusion);
     var disablingMet = disabling !== 'no' && disablingBy !== '';
+    /* The question only appears while it is genuinely open: NIHSS 0–5 (or not
+       yet scored) without an EVT-grade occlusion. Once the score or the
+       occlusion answers it, the select disappears — unless the clinician has
+       explicitly said "non-disabling", which must stay visible to be
+       correctable next to the conflict card it produces. */
+    var disablingField = $('#pfDisablingField');
+    if (disablingField) {
+      disablingField.hidden = disabling !== 'no' &&
+        ((!isNaN(nihss) && nihss >= 6) || evtGradeOcclusion);
+    }
     var disablingWhy = disablingBy === 'nihss'
       ? ' <br><br><strong>Why this fired without the disabling question:</strong> NIHSS ' + nihss +
         ' is outside the mild range the disabling/non-disabling distinction applies to — the guideline reserves that judgment for NIHSS 0–5.'
@@ -591,11 +613,11 @@
         (cor ? '<span class="cor cor-' + cor.cls + '">' + cor.label + '</span> ' : '') + title + '</div>' + body + '</div>');
     }
 
-    /* A relative contraindication never blocks treatment, but it must never be
-       silently ignored either — append it to every thrombolysis card. */
-    var relCaveat = contra === 'relative'
-      ? ' <br><br><strong>A relative contraindication was recorded.</strong> Table 8 classifies these as individualized risk–benefit decisions, usually with the relevant consultant. For a severe, clearly disabling deficit, benefit generally outweighs bleeding risk — but review the specific condition before the bolus. <a href="#contraindications">Relative contraindications</a>'
-      : '';
+    /* The contraindication check is baked into every thrombolysis card rather
+       than asked as an input — the clinician runs the list once, at the
+       moment the card tells them to, instead of clicking through a select
+       whose answer they are the source of anyway. */
+    var relCaveat = ' <br><br><strong>Provided there is no contraindication</strong> — <a href="#contraindications">run the list before the bolus</a>. An absolute contraindication stops IVT (assess thrombectomy independently); a relative one is an individualized risk–benefit decision, not an automatic stop.';
 
     var nonDisablingCard = function () {
       add('warn', { cls: '3n', label: 'COR 3: No Benefit' }, 'Non-disabling deficit — thrombolysis not recommended',
@@ -631,15 +653,12 @@
     /* ------------------------------------------------------------ thrombolysis */
     if (isNaN(hours)) {
       add('warn', null, 'Enter time from last known well', 'Every downstream decision keys off this number.');
-    } else if (contra === 'absolute') {
-      add('danger', null, 'Absolute contraindication to thrombolysis recorded',
-        'Do not give IV thrombolysis. <strong>Assess thrombectomy eligibility independently</strong> — a contraindication to thrombolysis does not exclude EVT.');
     } else if (hours <= 4.5) {
       if (disablingMet) {
-        add(contra === 'relative' ? 'warn' : 'ok', { cls: '1', label: 'COR 1' },
+        add('ok', { cls: '1', label: 'COR 1' },
           'IV thrombolysis now — tenecteplase 0.25 mg/kg or alteplase 0.9 mg/kg',
           'Within 4.5 h with a disabling deficit. Treat on NCCT alone — do <em>not</em> wait for CTA/CTP or MRI. ' +
-          'BP must be &lt;185/110 before the bolus. Check glucose first. <a href="#dosing">Dosing</a> · <a href="#contraindications">Contraindications</a>' +
+          'BP must be &lt;185/110 before the bolus. Check glucose first. <a href="#dosing">Dosing</a>' +
           relCaveat + disablingWhy);
       } else if (disabling === 'no') {
         nonDisablingCard();
@@ -738,7 +757,7 @@
     /* DWI-FLAIR is an independent, optional selection route: it never blocks
        the cards above, but a positive MRI adds the WAKE-UP pathway whenever
        the clock-based COR 1 window has passed. */
-    if (!isNaN(hours) && hours > 4.5 && contra !== 'absolute' && disabling !== 'no' && flair === 'yes') {
+    if (!isNaN(hours) && hours > 4.5 && disabling !== 'no' && flair === 'yes') {
       add('note', { cls: '2a', label: 'COR 2a' }, 'DWI–FLAIR mismatch — the WAKE-UP route',
         'A DWI lesion (&lt;⅓ of the MCA territory) with no corresponding FLAIR change indicates a biological onset likely within 4.5 h. ' +
         'For unknown-onset or wake-up stroke, IVT within <strong>4.5 h of symptom recognition</strong> can be beneficial in otherwise eligible patients (WAKE-UP) <span class="loe">B-R</span>. ' +
@@ -924,7 +943,7 @@
         }
       }
 
-      if (hours <= 4.5 && contra !== 'absolute' && disablingMet && ich !== 'yes' && mrs !== '5') {
+      if (hours <= 4.5 && disablingMet && ich !== 'yes' && mrs !== '5') {
         add('note', null, 'Do not delay thrombectomy to watch for a response to thrombolysis',
           'Bridging IVT remains standard where the patient is thrombolysis-eligible. Delaying EVT to assess for clinical improvement after the bolus is explicitly not recommended.');
       }
@@ -938,11 +957,49 @@
   }
   $$('#pathfinder select').forEach(function (el) { el.addEventListener('change', pathfinder); });
   $$('#pathfinder input').forEach(function (el) { el.addEventListener('input', pathfinder); });
+
+  /* Short selects become one-tap segmented buttons — a dropdown makes a
+     binary answer cost two taps. The <select> stays in the DOM, hidden, as
+     the single source of value: buttons set it and fire change, so the
+     pathfinder logic, Reset and Copy never know the difference. Tapping the
+     active button clears back to unanswered. The occlusion list keeps its
+     dropdown — six long options do not fit a row of pills. */
+  $$('#pathfinder select.seg-src').forEach(function (sel) {
+    var seg = document.createElement('div');
+    seg.className = 'seg';
+    seg.setAttribute('role', 'group');
+    var label = $('label[for="' + sel.id + '"]');
+    if (label) seg.setAttribute('aria-label', label.textContent.replace(/\s+/g, ' ').trim());
+    var opts = Array.prototype.slice.call(sel.options).filter(function (o) { return o.value !== ''; });
+    opts.forEach(function (o) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = o.textContent;
+      b.setAttribute('aria-pressed', 'false');
+      b.addEventListener('click', function () {
+        sel.value = sel.value === o.value ? '' : o.value;
+        sel.dispatchEvent(new Event('change'));
+      });
+      seg.appendChild(b);
+    });
+    var sync = function () {
+      Array.prototype.forEach.call(seg.children, function (b, i) {
+        b.setAttribute('aria-pressed', sel.value !== '' && opts[i].value === sel.value ? 'true' : 'false');
+      });
+    };
+    sel.addEventListener('change', sync);
+    sel.hidden = true;
+    sel.parentNode.insertBefore(seg, sel);
+    sync();
+  });
   if ($('#pfOut')) {
     pathfinder();
     $('#pfReset').addEventListener('click', function () {
-      $$('#pathfinder select').forEach(function (el) { el.selectedIndex = 0; });
-      $$('#pathfinder input').forEach(function (el) { el.value = ''; });
+      /* Dispatch change so the segmented buttons (and the mRS mirror) resync. */
+      $$('#pathfinder select').forEach(function (el) { el.selectedIndex = 0; el.dispatchEvent(new Event('change')); });
+      $$('#pathfinder input:not([type="range"])').forEach(function (el) { el.value = ''; });
+      /* '' on a range input snaps it to mid-track; park the sliders at 0. */
+      $$('#pathfinder .volslider').forEach(function (el) { el.value = 0; });
       pathfinder();
     });
     $('#pfCopy').addEventListener('click', function () {
@@ -952,13 +1009,15 @@
       var perfLine = (core !== '' && tmax !== '')
         ? 'core ' + core + ' mL, Tmax>6s ' + tmax + ' mL (mismatch ' + (tmax - core) + ' mL, ratio ' + (core > 0 ? (tmax / core).toFixed(1) : '∞') + ')'
         : 'not entered';
+      var nihssV = parseFloat(pf('pfNihss'));
+      var occlV = pf('pfOccl');
+      var autoDis = (!isNaN(nihssV) && nihssV >= 6) || occlV === 'lvo' || occlV === 'basilar' || occlV === 'm2';
       var summary = [
         'Reperfusion pathfinder',
         'Last known well: ' + (opt('pfTime') || '—'),
         'Hemorrhage on NCCT: ' + (opt('pfIch') || '—'),
-        'Deficit disabling: ' + (opt('pfDisabling') || '—'),
+        'Deficit disabling: ' + (pf('pfDisabling') ? opt('pfDisabling') : (autoDis ? 'Yes — answered by NIHSS/occlusion' : '—')),
         'NIHSS: ' + (pf('pfNihss') || '—'),
-        'Thrombolysis contraindications: ' + (opt('pfContra') || '—'),
         'Occlusion: ' + (opt('pfOccl') || '—'),
         'ASPECTS: ' + (opt('pfAspects') || '—'),
         'PC-ASPECTS: ' + (opt('pfPcAspects') || '—'),
@@ -976,6 +1035,100 @@
         return title + '\n' + clone.textContent.trim().replace(/\s+/g, ' ');
       }).join('\n\n');
       copy(summary + cards, btn);
+    });
+  }
+
+  /* The perfusion volumes can be dragged instead of typed — the number field
+     stays the value holder (blank still means "perfusion not done"; exact
+     entry still possible), the slider is just a keyboard-free way to write
+     it. Sliders don't count as pathfinder questions. */
+  [['pfCore', 'pfCoreSlider'], ['pfTmax', 'pfTmaxSlider']].forEach(function (pair) {
+    var num = $('#' + pair[0]), slider = $('#' + pair[1]);
+    if (!num || !slider) return;
+    slider.addEventListener('input', function () {
+      num.value = slider.value;
+      num.dispatchEvent(new Event('input'));
+    });
+    num.addEventListener('input', function () {
+      var v = parseFloat(num.value);
+      slider.value = isNaN(v) ? 0 : Math.min(v, parseFloat(slider.max));
+    });
+  });
+
+  /* ----------------------------------------- tools → pathfinder value sync */
+  /* Scoring the NIHSS and then retyping it into the pathfinder is a second
+     ask for the same fact. When the pathfinder opens, values already produced
+     in the tools carry across: the LKW clock sets the time band, the NIHSS
+     total fills the score, the ASPECTS/PC-ASPECTS totals pick their bands
+     (prestroke mRS flows through its own selection handler). Each carries
+     only once its tool has actually been touched — the untouched defaults,
+     NIHSS 0 and ASPECTS 10, are indistinguishable from real scores. The sync
+     runs on every open, so the tools stay the source of truth; a value can
+     still be overridden by hand while working within the pathfinder. */
+  var nihssTouched = false, aspectsTouched = false, pcTouched = false;
+  $$('#nihss input').forEach(function (el) { el.addEventListener('change', function () { nihssTouched = true; }); });
+  $$('.aspects-region').forEach(function (el) { el.addEventListener('change', function () { aspectsTouched = true; }); });
+  $$('.pc-region').forEach(function (el) { el.addEventListener('change', function () { pcTouched = true; }); });
+  function setSel(id, value) {
+    var el = $('#' + id);
+    if (el && el.value !== value) { el.value = value; el.dispatchEvent(new Event('change')); }
+  }
+  function syncPathfinderFromTools() {
+    var lkw = $('#lkwTime');
+    if (lkw && lkw.value) {
+      var mins = Math.round((new Date() - new Date(lkw.value)) / 60000);
+      if (mins >= 0) setSel('pfTime', mins <= 270 ? '2' : mins <= 360 ? '5' : mins <= 1440 ? '15' : '30');
+    }
+    if (nihssTouched && $('#pfNihss')) $('#pfNihss').value = $('#nihssTotal').textContent;
+    if (aspectsTouched) {
+      var a = parseInt($('#aspectsScore').textContent, 10);
+      if (!isNaN(a)) setSel('pfAspects', a >= 6 ? '6-10' : a >= 3 ? '3-5' : '0-2');
+    }
+    if (pcTouched) {
+      var p = parseInt($('#pcScore').textContent, 10);
+      if (!isNaN(p)) setSel('pfPcAspects', p >= 6 ? 'ge6' : 'lt6');
+    }
+    pathfinder();
+  }
+
+  /* ---------------------------------------------------------- mRS selection */
+  /* The scale table doubles as the input: tapping a row (0–5) records the
+     prestroke mRS, mirrors it to the home tile and the Tools list, and answers
+     the pathfinder's own mRS select so it is never asked twice. Row 6 (dead)
+     is not a prestroke state and stays a plain reference row. */
+  var mrsOut = $('#mrsOut');
+  if (mrsOut) {
+    var mrsRows = $$('#mrsTable tbody tr').slice(0, 6);
+    var mrsBand = function (score) { return score <= 1 ? '0-1' : score === 2 ? '2' : score <= 4 ? '3-4' : '5'; };
+    var setMrs = function (score) {
+      mrsRows.forEach(function (r, i) {
+        r.setAttribute('aria-pressed', i === score ? 'true' : 'false');
+      });
+      mrsOut.textContent = score === null ? '—' : String(score);
+      var pfMrs = $('#pfMrs');
+      /* change (not a direct pathfinder() call) so the segmented buttons sync too */
+      if (pfMrs) { pfMrs.value = score === null ? '' : mrsBand(score); pfMrs.dispatchEvent(new Event('change')); }
+    };
+    mrsRows.forEach(function (r, i) {
+      r.setAttribute('tabindex', '0');
+      r.setAttribute('role', 'button');
+      r.setAttribute('aria-pressed', 'false');
+      var toggle = function () { setMrs(r.getAttribute('aria-pressed') === 'true' ? null : i); };
+      r.addEventListener('click', toggle);
+      r.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+      });
+    });
+    /* Changing the pathfinder's own select must not leave a stale exact score
+       on the tile: keep the exact score when it still fits the chosen band,
+       otherwise show the band itself. */
+    var pfMrsSel = $('#pfMrs');
+    if (pfMrsSel) pfMrsSel.addEventListener('change', function () {
+      var sel = -1;
+      mrsRows.forEach(function (r, i) { if (r.getAttribute('aria-pressed') === 'true') sel = i; });
+      if (sel !== -1 && mrsBand(sel) === pfMrsSel.value) return;
+      mrsRows.forEach(function (r) { r.setAttribute('aria-pressed', 'false'); });
+      mrsOut.textContent = pfMrsSel.value ? pfMrsSel.value.replace('-', '–') : '—';
     });
   }
 
@@ -1133,7 +1286,7 @@
     if ($('#lkwTime')) clockUpdate();
     [['#tileNihss', '#nihssTotal'], ['#tileAspects', '#aspectsScore'],
      ['#tileClock', '#clockOut'], ['#tileDose', '#doseOut'],
-     ['#tileIch', '#ichScore']].forEach(function (pair) {
+     ['#tileMrs', '#mrsOut']].forEach(function (pair) {
       var tile = $(pair[0]), src = $(pair[1]);
       if (tile && src) tile.textContent = src.textContent;
     });
@@ -1148,7 +1301,8 @@
      drifted the moment an input was added. Count the real inputs. */
   var pfCount = $('#pfCount');
   if (pfCount) {
-    var n = $$('#pathfinder select, #pathfinder input').length;
+    /* Sliders are alternative writers for the volume fields, not questions. */
+    var n = $$('#pathfinder select, #pathfinder input:not([type="range"])').length;
     pfCount.textContent = n ? ' · ' + n + ' questions' : '';
   }
 

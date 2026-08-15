@@ -284,11 +284,38 @@ td small { color: var(--text-dim); }
 /* ---------- Forms / calculators ---------- */
 label { font-size: 13px; font-weight: 600; display: block; margin-bottom: 4px; }
 input[type="number"], input[type="text"], input[type="time"], select {
-  width: 100%; padding: 9px 11px; font-size: 15px; font-family: inherit;
+  /* 16px is the floor below which iOS Safari zooms the page on focus. */
+  width: 100%; padding: 9px 11px; font-size: 16px; font-family: inherit;
   background: var(--surface); color: var(--text);
   border: 1px solid var(--border); border-radius: 8px;
 }
 .field { margin-bottom: 12px; }
+
+/* Volume sliders — a drag-instead-of-type writer for the perfusion fields. */
+.volslider { width: 100%; margin-top: 8px; accent-color: var(--brand-2); min-height: 28px; }
+
+/* Pathfinder group headings — the card reads as five short clinical asks. */
+.pfgroup {
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: .09em;
+  color: var(--text-dim); font-weight: 700; margin: 16px 0 8px;
+}
+.card > .pfgroup:first-child { margin-top: 0; }
+
+/* Segmented one-tap answers — generated from each .seg-src select's options.
+   On a phone the buttons sit two to a row so every group has the same rhythm;
+   wider screens let them take their natural width. */
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg button {
+  flex: 1 1 calc(50% - 3px); min-height: 44px; padding: 8px 12px;
+  border: 1px solid var(--border); border-radius: 8px;
+  background: var(--surface); color: var(--text); cursor: pointer;
+  font-family: inherit; font-size: 13.5px; font-weight: 600;
+}
+@media (min-width: 700px) { .seg button { flex: 1 0 auto; } }
+.seg button:hover { background: var(--surface-2); }
+.seg button[aria-pressed="true"] { background: var(--brand-strong); border-color: var(--brand-strong); color: #fff; }
+@media (hover: none) { .seg button:hover { background: var(--surface); }
+  .seg button[aria-pressed="true"]:hover { background: var(--brand-strong); } }
 .row { display: flex; gap: 10px; flex-wrap: wrap; }
 .row > * { flex: 1 1 150px; }
 
@@ -354,7 +381,10 @@ input[type="time"], input[type="number"], input[type="text"], select {
 .opt:hover { background: var(--surface-2); }
 .opt input { margin-top: 3px; accent-color: var(--brand-2); flex: 0 0 auto; }
 
-/* mRS scale */
+/* mRS scale — the table is also the input; rows 0–5 are tappable (the JS
+   stamps them role="button"; row 6, dead, is reference only). */
+#mrsTable tbody tr[role="button"] { cursor: pointer; }
+#mrsTable tbody tr[aria-pressed="true"] { background: var(--blue-bg); box-shadow: inset 3px 0 0 var(--brand); }
 .mrs-dot {
   display: inline-grid; place-items: center; width: 28px; height: 28px;
   border-radius: 50%; color: #fff; font-weight: 800; font-size: 14px;
@@ -364,7 +394,7 @@ input[type="time"], input[type="number"], input[type="text"], select {
 .overlay { position: fixed; inset: 0; z-index: 120; background: rgba(10, 14, 20, .55); display: grid; place-items: start center; padding: 8vh 16px 16px; }
 .searchbox { width: min(680px, 100%); background: var(--surface); border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 20px 60px rgba(0,0,0,.3); overflow: hidden; }
 .searchbox input { border: 0; border-radius: 0; border-bottom: 1px solid var(--border); font-size: 17px; padding: 15px 17px; }
-.results { max-height: 58vh; overflow-y: auto; }
+.results { max-height: 58vh; max-height: 58dvh; overflow-y: auto; }
 .result { display: block; width: 100%; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--border); padding: 11px 17px; cursor: pointer; font-family: inherit; color: var(--text); }
 .result:hover, .result.sel { background: var(--surface-2); }
 .result__crumb { font-size: 11px; color: var(--brand-2); font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
@@ -390,6 +420,17 @@ input[type="time"], input[type="number"], input[type="text"], select {
 
 .toc { columns: 2; column-gap: 20px; font-size: 14px; }
 @media (max-width: 640px) { .toc { columns: 1; } }
+
+/* Touch screens have no pointer to hover with, but iOS still applies :hover
+   on tap and leaves it applied — a read-only table row stays lit after you
+   touch it. Reset hover-only backgrounds to their resting values there. */
+@media (hover: none) {
+  tbody tr:hover, .sidebar a:hover, .decisions a:hover, .toollist a:hover,
+  .opt:hover, .result:hover, .homemore:hover, .backlink:hover { background: none; }
+  .tile:hover, .lkwcard:hover { background: var(--surface); }
+  .btn:hover, .iconbtn:hover { background: var(--surface-2); }
+  .btn--primary:hover { background: var(--brand-strong); filter: none; }
+}
 
 /* ---------- Print ---------- */
 @media print {

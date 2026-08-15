@@ -4,7 +4,7 @@
    content corrections land on the next launch, not the one after.
    Bump CACHE on every content release. */
 
-var CACHE = 'asg-v1.22.0';
+var CACHE = 'asg-v1.23.0';
 
 var ASSETS = [
   './',

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" data-version="1.22.0">
+<html lang="en" data-theme="light" data-version="1.23.0">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -87,8 +87,10 @@
   <a href="#supportive">Supportive care</a>
   <a href="#workup">Diagnostic workup</a>
   <a href="#antithrombotics">Antithrombotics &amp; prevention</a>
+  <a href="#carotid">Carotid revascularization</a>
   <a href="#complications">Swelling, surgery, seizures</a>
   <a href="#dissection">Cervical artery dissection</a>
+  <a href="#cvt">Cerebral venous thrombosis</a>
 
   <h4>Hemorrhagic stroke</h4>
   <a href="#ich">Intracerebral hemorrhage</a>
@@ -132,7 +134,7 @@
     <a class="tile" href="#nihss"><span class="tile__v" id="tileNihss">0</span><span class="tile__t">NIHSS</span><span class="tile__s">15 items · copy to note</span></a>
     <a class="tile" href="#aspects"><span class="tile__v" id="tileAspects">10</span><span class="tile__t">ASPECTS</span><span class="tile__s">anterior &amp; posterior</span></a>
     <a class="tile" href="#dosing"><span class="tile__v" id="tileDose">—</span><span class="tile__t">Dose</span><span class="tile__s">TNK &amp; alteplase</span></a>
-    <a class="tile" href="#ichscore"><span class="tile__v" id="tileIch">0</span><span class="tile__t">ICH score</span><span class="tile__s">Hemphill 2001</span></a>
+    <a class="tile" href="#mrs"><span class="tile__v" id="tileMrs">—</span><span class="tile__t">Prestroke mRS</span><span class="tile__s">tap a row to record</span></a>
   </div>
   <a class="homemore" href="#tools">All tools <span aria-hidden="true">→</span></a>
 
@@ -147,6 +149,8 @@
     <a href="#post">Blood pressure after reperfusion</a>
     <a href="#complications-ivt">They are deteriorating after thrombolysis</a>
     <a href="#antithrombotics">When do I start an antithrombotic?</a>
+    <a href="#carotid">Who needs the carotid fixed, and when?</a>
+    <a href="#cvt">Could this be venous sinus thrombosis?</a>
   </nav>
 
   <div class="note note--warn">
@@ -169,7 +173,8 @@
         <tr><td>Adult acute ischemic stroke: prehospital through early in-hospital care</td><td>Pediatric stroke beyond a pointer to the guideline's new section</td></tr>
         <tr><td>IV thrombolysis, thrombectomy, extended windows, post-reperfusion care</td><td>Rehabilitation and long-term secondary prevention</td></tr>
         <tr><td>Spontaneous intracerebral hemorrhage and anticoagulation reversal</td><td>Subarachnoid hemorrhage, aneurysm and AVM management</td></tr>
-        <tr><td>Malignant edema, cerebellar infarction, seizures</td><td>Cerebral venous thrombosis, carotid revascularization timing</td></tr>
+        <tr><td>Malignant edema, cerebellar infarction, seizures</td><td>Moyamoya, vasculitis and other rare arteriopathies</td></tr>
+        <tr><td>Cervical dissection, cerebral venous thrombosis, carotid revascularization</td><td>Antithrombotic management around non-carotid surgery</td></tr>
       </tbody>
     </table></div>
     <p style="margin-bottom:0">The <a href="#trials">trial library</a> holds every trial cited here with its population, window, result and DOI, filterable in one box. Full sourcing and license in <a href="#about">About</a>.</p>
@@ -184,52 +189,69 @@
 <!-- =============================================================== PATHFINDER -->
 <section class="section" id="pathfinder" data-title="Reperfusion pathfinder">
   <h1>Reperfusion pathfinder</h1>
-  <p class="lede">Answer what you know. The tool returns the recommendations that apply, with their class of recommendation and the trials behind them. It restates the guideline — it does not weigh this patient's individual risk.</p>
+  <p class="lede">Answer what you know. The tool returns the recommendations that apply, with their class of recommendation and the trials behind them. It restates the guideline — it does not weigh this patient's individual risk. Values already produced in the tools — the clock, NIHSS, ASPECTS, prestroke mRS — carry over by themselves.</p>
   <p class="src" style="margin-bottom:14px">Enter the core and Tmax &gt;6 s volumes straight off the automated perfusion output — the tool computes mismatch volume and ratio and tests them against each trial's own profile. Leave both blank if perfusion was not done. Full table: <a href="#imaging">perfusion thresholds</a>.</p>
 
   <div class="card">
+    <p class="pfgroup">The clock</p>
+    <div class="field">
+      <label for="pfTime">Hours from last known well</label>
+      <select id="pfTime" class="seg-src">
+        <option value="">Select…</option>
+        <option value="2">Within 4.5 h</option>
+        <option value="5">4.5–6 h</option>
+        <option value="15">6–24 h</option>
+        <option value="30">More than 24 h</option>
+      </select>
+    </div>
+
+    <p class="pfgroup">The scan</p>
     <div class="row">
       <div class="field">
-        <label for="pfTime">Hours from last known well</label>
-        <select id="pfTime">
-          <option value="">Select…</option>
-          <option value="2">Within 4.5 h</option>
-          <option value="5">4.5–6 h</option>
-          <option value="15">6–24 h</option>
-          <option value="30">More than 24 h</option>
-        </select>
-      </div>
-      <div class="field">
         <label for="pfIch">Hemorrhage on NCCT?</label>
-        <select id="pfIch">
+        <select id="pfIch" class="seg-src">
           <option value="">Select…</option>
           <option value="no">No</option>
           <option value="yes">Yes</option>
         </select>
       </div>
       <div class="field">
+        <label for="pfAspects">ASPECTS <span class="field__h">anterior circulation</span></label>
+        <select id="pfAspects" class="seg-src">
+          <option value="">Select…</option>
+          <option value="6-10">6–10</option>
+          <option value="3-5">3–5</option>
+          <option value="0-2">0–2</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="pfPcAspects">PC-ASPECTS <span class="field__h">basilar only</span></label>
+        <select id="pfPcAspects" class="seg-src">
+          <option value="">Select…</option>
+          <option value="ge6">6 or more</option>
+          <option value="lt6">Less than 6</option>
+        </select>
+      </div>
+    </div>
+
+    <p class="pfgroup">The deficit</p>
+    <div class="row">
+      <div class="field">
+        <label for="pfNihss">NIHSS, if scored (optional)</label>
+        <input type="number" id="pfNihss" min="0" max="42" step="1" placeholder="e.g. 14" inputmode="numeric">
+      </div>
+      <div class="field" id="pfDisablingField">
         <label for="pfDisabling">Deficit clearly disabling?</label>
-        <select id="pfDisabling">
+        <select id="pfDisabling" class="seg-src">
           <option value="">Select…</option>
           <option value="yes">Yes — disabling</option>
           <option value="no">No — non-disabling</option>
         </select>
       </div>
-      <div class="field">
-        <label for="pfNihss">NIHSS, if scored (optional)</label>
-        <input type="number" id="pfNihss" min="0" max="42" step="1" placeholder="e.g. 14" inputmode="numeric">
-      </div>
     </div>
+
+    <p class="pfgroup">The vessels &amp; perfusion</p>
     <div class="row">
-      <div class="field">
-        <label for="pfContra">Thrombolysis contraindications</label>
-        <select id="pfContra">
-          <option value="">Select…</option>
-          <option value="none">None identified</option>
-          <option value="relative">Relative only</option>
-          <option value="absolute">At least one absolute</option>
-        </select>
-      </div>
       <div class="field">
         <label for="pfOccl">Occlusion on CTA/MRA</label>
         <select id="pfOccl">
@@ -243,35 +265,8 @@
         </select>
       </div>
       <div class="field">
-        <label for="pfAspects">ASPECTS <span class="field__h">anterior circulation</span></label>
-        <select id="pfAspects">
-          <option value="">Select…</option>
-          <option value="6-10">6–10</option>
-          <option value="3-5">3–5</option>
-          <option value="0-2">0–2</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="pfPcAspects">PC-ASPECTS <span class="field__h">basilar only</span></label>
-        <select id="pfPcAspects">
-          <option value="">Select…</option>
-          <option value="ge6">6 or more</option>
-          <option value="lt6">Less than 6</option>
-        </select>
-      </div>
-    </div>
-    <div class="row">
-      <div class="field">
-        <label for="pfCore">Core volume, mL — rCBF &lt;30% or DWI</label>
-        <input type="number" id="pfCore" min="0" step="1" placeholder="Blank if no perfusion" inputmode="decimal">
-      </div>
-      <div class="field">
-        <label for="pfTmax">Tmax &gt;6 s volume, mL</label>
-        <input type="number" id="pfTmax" min="0" step="1" placeholder="Blank if no perfusion" inputmode="decimal">
-      </div>
-      <div class="field">
         <label for="pfFlair">DWI–FLAIR mismatch, if MRI done</label>
-        <select id="pfFlair">
+        <select id="pfFlair" class="seg-src">
           <option value="">MRI not done</option>
           <option value="yes">Mismatch present</option>
           <option value="no">No mismatch</option>
@@ -280,8 +275,22 @@
     </div>
     <div class="row">
       <div class="field">
+        <label for="pfCore">Core volume, mL — rCBF &lt;30% or DWI</label>
+        <input type="number" id="pfCore" min="0" step="1" placeholder="Blank if no perfusion" inputmode="decimal">
+        <input type="range" class="volslider" id="pfCoreSlider" min="0" max="150" step="1" value="0" aria-label="Core volume slider">
+      </div>
+      <div class="field">
+        <label for="pfTmax">Tmax &gt;6 s volume, mL</label>
+        <input type="number" id="pfTmax" min="0" step="1" placeholder="Blank if no perfusion" inputmode="decimal">
+        <input type="range" class="volslider" id="pfTmaxSlider" min="0" max="250" step="1" value="0" aria-label="Tmax volume slider">
+      </div>
+    </div>
+
+    <p class="pfgroup">The patient</p>
+    <div class="row">
+      <div class="field">
         <label for="pfMrs">Prestroke mRS</label>
-        <select id="pfMrs">
+        <select id="pfMrs" class="seg-src">
           <option value="">Select…</option>
           <option value="0-1">0–1</option>
           <option value="2">2</option>
@@ -291,7 +300,7 @@
       </div>
       <div class="field">
         <label for="pfAge">Age</label>
-        <select id="pfAge">
+        <select id="pfAge" class="seg-src">
           <option value="">Select…</option>
           <option value="u80">Under 80</option>
           <option value="80plus">80 or older</option>
@@ -1516,6 +1525,157 @@
   <p class="src">Yaghi S, et al. Treatment and outcomes of cervical artery dissection in adults. Stroke 2024;55:e91–e106. doi:10.1161/STR.0000000000000457; STOP-CAD doi:10.1161/STROKEAHA.123.045731. Trial figures verified against the statement's full text and the STOP-CAD abstract.</p>
 </section>
 
+<!-- ================================================================== CAROTID -->
+<section class="section" id="carotid" data-title="Carotid revascularization">
+  <h1>Carotid revascularization</h1>
+  <p class="lede">A symptomatic high-grade carotid stenosis is one of the highest-risk lesions in stroke medicine, and the benefit of fixing it decays by the day. The order of the decisions matters: who benefits, then when, and only then which procedure.</p>
+
+  <div class="note note--warn">
+    <div class="note__t">Different source document</div>
+    <p style="margin-bottom:0">Class labels here come from the <strong>2021 AHA/ASA secondary prevention guideline</strong> (doi:10.1161/STR.0000000000000375), except the rows marked <em>2026</em>, which are from the 2026 AIS guideline. <strong>CREST-2</strong> and <strong>ACST-2</strong> postdate the 2021 guideline and carry no class label yet. Every trial figure in this section was verified against the primary abstract.</p>
+  </div>
+
+  <h2>Timing: inside two weeks — but not inside 48 hours</h2>
+  <p>The two-week rule is not a formality. In the pooled NASCET/ECST analysis, the number needed to treat with CEA to prevent one ipsilateral stroke over 5 years was <strong>5 when randomized within 2 weeks</strong> of the last event — and <strong>125 beyond 12 weeks</strong>. Every day of "let the infarct settle" spends benefit.</p>
+  <p>The floor is the first 48–72 hours. In the Swedvasc registry, CEA at day 0–2 carried a 30-day death or stroke rate of <strong>11.5%</strong>, against 3.6% at day 3–7 and 4.0% at day 8–14 (day 0–2 vs 3–7: OR 4.24, 95% CI 2.07–8.70). Surgery from day 3 onward was safe. The practical window is <strong>day 3 to day 14</strong>, and earlier inside it prevents more strokes than later.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Recommendation</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td>TIA or <strong>nondisabling</strong> stroke with an indication for revascularization — perform the procedure <strong>within 2 weeks</strong> of the index event rather than delaying</td><td><span class="cor cor-2a">2a</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td>If revascularizing <strong>within the first week</strong>, choose <strong>CEA over CAS</strong> — the periprocedural stroke penalty of stenting is largest early</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td></tr>
+      <tr><td><strong>Emergent CEA within 48 h</strong> for acute stroke or unstable deficit from carotid stenosis/occlusion without intracranial occlusion — not beneficial <em>(2026)</em></td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-NR</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="note">
+    <div class="note__t">Who waits longer than two weeks</div>
+    <p style="margin-bottom:0">The timing evidence comes from TIA and nondisabling stroke — that is what the recommendation says. A large infarct, depressed consciousness, or hemorrhagic transformation takes the patient outside it: reassess at intervals rather than booking day 10 reflexively. The trials randomized out to 120–180 days — later revascularization still helps, just less.</p>
+  </div>
+
+  <h2>Who benefits: severity of stenosis drives everything</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Symptomatic stenosis</th><th>Verdict</th><th>The numbers</th></tr></thead>
+    <tbody>
+      <tr><td><strong>70–99%</strong> (excluding near-occlusion)</td><td><strong>CEA</strong> <span class="cor cor-1">1</span> <span class="loe">A</span>, if perioperative risk &lt;6%</td><td>NASCET: 2-year ipsilateral stroke 26% medical vs 9% surgical, ARR 17%. Pooled 5-year ARR 16.0%, P&lt;0.001. Durable to 8 years</td></tr>
+      <tr><td><strong>50–69%</strong></td><td><strong>CEA selectively</strong> <span class="cor cor-1">1</span> <span class="loe">B-R</span>, weighing age, sex, comorbidity</td><td>NASCET: 5-year ipsilateral stroke 22.2% vs 15.7%, P=0.045, NNT 15. Benefit greatest in men, recent stroke, hemispheric symptoms</td></tr>
+      <tr><td><strong>&lt;50%</strong></td><td>No revascularization <span class="cor cor-3n">3: No Benefit</span> <span class="loe">A</span></td><td>Pooled: 30–49% ARR 3.2% (P=0.6); &lt;30% trended toward <em>harm</em> (ARR −2.2%)</td></tr>
+      <tr><td><strong>Near-occlusion</strong></td><td>No clear benefit — individualize</td><td>Pooled: marginal early trend, ARR −1.7% at 5 years (P=0.9)</td></tr>
+    </tbody>
+  </table></div>
+  <ul>
+    <li><strong>The elderly benefit more, not less.</strong> Pooled NNT at 5 years: <strong>5 for age ≥75</strong> vs 18 for age &lt;65 — their untreated risk is higher. Do not withhold CEA on age alone.</li>
+    <li><strong>Women benefit less</strong> from CEA overall (NNT 36 vs 9 for men, ≥50% stenosis) — in the 50–69% band especially, the case must be made per patient.</li>
+    <li>All of this assumes an operator whose periprocedural stroke/death rate is <strong>&lt;6%</strong> <span class="cor cor-1">COR 1</span> <span class="loe">A</span> — and intensive medical therapy regardless <span class="cor cor-1">COR 1</span> <span class="loe">A</span>.</li>
+  </ul>
+
+  <h2>Which procedure: CEA, carotid stenting, or TCAR</h2>
+  <p>In symptomatic patients, transfemoral carotid stenting roughly <strong>doubles the periprocedural stroke risk</strong> of surgery (CREST: 4.1% vs 2.3%, P=0.01), while CEA carries more periprocedural MI (2.3% vs 1.1%) and cranial nerve injury. After the periprocedural window the two prevent stroke equally well (ipsilateral stroke 2.0% vs 2.4% over 4 years). So the choice is decided by who bears the periprocedural risk worst — and that is the older patient: in the pooled trials, the stenting-vs-surgery periprocedural hazard was <strong>2.09 (95% CI 1.32–3.32) at age 70–74</strong> and rose further with age, while CEA risk did not change with age at all.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Patient</th><th>Prefer</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td>Age <strong>≥70</strong></td><td><strong>CEA</strong> over CAS</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td></tr>
+      <tr><td>Revascularization planned <strong>within 1 week</strong></td><td><strong>CEA</strong> over CAS</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td></tr>
+      <tr><td>Severe stenosis with a <strong>hostile surgical field</strong> — radiation-induced stenosis, restenosis after CEA</td><td><strong>CAS</strong></td><td><span class="cor cor-2a">2a</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td>Average/low endovascular risk with <strong>cardiac comorbidity</strong> that makes surgery risky</td><td>CAS as an alternative to CEA</td><td><span class="cor cor-2b">2b</span> <span class="loe">A</span></td></tr>
+      <tr><td>Recent stroke/TIA — <strong>TCAR</strong> (transcarotid revascularization with flow reversal)</td><td>Usefulness uncertain</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-NR</span></td></tr>
+    </tbody>
+  </table></div>
+  <p>TCAR avoids the aortic arch, and registry data are promising — in-hospital stroke/death 1.6% vs 3.1% for transfemoral stenting in 3,286 propensity-matched pairs (RR 0.51) — but it has <strong>never been randomized against CEA</strong>. Treat it as the better stent delivery for a patient in whom stenting was already the right call, not as a rival to surgery.</p>
+
+  <h2>Asymptomatic stenosis: CREST-2 changed the conversation</h2>
+  <p>CREST-2 (NEJM 2025) ran two parallel trials in asymptomatic ≥70% stenosis against <strong>intensive medical management (IMM)</strong>. The medical arms did well — 4-year primary event rates of 5.3–6.0%, far below the medical arms of the 1990s trials. Against that baseline, <strong>stenting + IMM beat IMM alone</strong> (2.8% vs 6.0%, P=0.02) while <strong>CEA + IMM did not reach significance</strong> (3.7% vs 5.3%, P=0.24); the procedures' own cost was 7 strokes and 1 death (stenting) and 9 strokes (CEA) in the first 44 days, against 0 and 3 in the medical arms. ACST-2 (n=3625) answers the narrower question: if an asymptomatic patient is being revascularized anyway, CAS and CEA give the same long-term protection (5-year fatal/disabling stroke 2.5% in each).</p>
+  <div class="note">
+    <div class="note__t">How to use this at the bedside</div>
+    <p style="margin-bottom:0">Asymptomatic stenosis found on workup is a <strong>medical-therapy-first</strong> diagnosis, with revascularization a selective, shared decision — not a referral reflex. And resist generalizing the CREST-2 stenting result to symptomatic disease: it was achieved by rigorously credentialed operators in anatomically favorable patients, in the population where stenting's periprocedural penalty is smallest.</p>
+  </div>
+
+  <h2>Around the procedure</h2>
+  <ul>
+    <li><strong>Antiplatelets.</strong> Aspirin continues through CEA; a DAPT course accompanies carotid stenting and TCAR (typically started before and continued ~30 days, then single agent). This is trial-protocol practice, not randomized evidence.</li>
+    <li><strong>Hyperperfusion syndrome.</strong> A chronically hypoperfused hemisphere loses autoregulation; restored flow at normal pressure becomes an injury. Ipsilateral headache, seizures, focal deficits or ICH in the first days after revascularization — highest risk with severe stenosis, contralateral occlusion, and post-procedural hypertension. New headache or neurological change after CEA/CAS = urgent imaging and strict blood pressure control (many protocols target SBP &lt;140 mmHg).</li>
+    <li><strong>Tandem lesions during thrombectomy</strong> are a different decision made in the angio suite — emergent extracranial stenting alongside EVT may be reasonable <span class="cor cor-2b">2b</span> <span class="loe">B-NR</span> <em>(2026)</em>. See <a href="#evt">Thrombectomy</a>.</li>
+  </ul>
+
+  <p class="src">Kleindorfer DO, et al. 2021 Guideline for the Prevention of Stroke in Patients With Stroke and TIA. Stroke 2021;52:e364–e467, doi:10.1161/STR.0000000000000375 — COR/LOE transcribed from the guideline text. Trial figures verified against the primary abstracts: NASCET doi:10.1056/NEJM199108153250701 and doi:10.1056/NEJM199811123392002; Rothwell pooled analyses doi:10.1016/s0140-6736(03)12228-3 and doi:10.1016/S0140-6736(04)15785-1; Swedvasc doi:10.1161/STROKEAHA.111.639344; CREST doi:10.1056/NEJMoa0912321; CSTC age analysis doi:10.1016/S0140-6736(15)01309-4; ACST-2 doi:10.1016/S0140-6736(21)01910-3; CREST-2 doi:10.1056/NEJMoa2508800. TCAR registry comparison (JAMA 2019, doi:10.1001/jama.2019.18441) is observational. The DAPT-around-stenting and SBP &lt;140 items are consensus practice, not trial-verified.</p>
+</section>
+
+<!-- ====================================================================== CVT -->
+<section class="section" id="cvt" data-title="Cerebral venous thrombosis">
+  <h1>Cerebral venous thrombosis</h1>
+  <p class="lede">0.5–3% of strokes, but a young, mostly female population and a treatable disease. The failure mode is not mismanagement — it is never thinking of the venous system at all. Once suspected, the pathway is short: confirm with venography, anticoagulate, escalate only for deterioration.</p>
+
+  <div class="note note--warn">
+    <div class="note__t">Different source document</div>
+    <p style="margin-bottom:0">This section draws on the <strong>2024 AHA/ASA Scientific Statement on cerebral venous thrombosis</strong> (Saposnik et al, doi:10.1161/STR.0000000000000456) — a statement of suggestions, not a guideline with COR/LOE — the <strong>ESO 2017 guideline</strong> (doi:10.1111/ene.13381), and the named trials. Cohort percentages are from ISCVT (n=624). Every figure was verified against the primary abstract or full text.</p>
+  </div>
+
+  <h2>When to suspect it</h2>
+  <p>The ISCVT cohort is the reference picture: mean age <strong>39</strong>, <strong>75% women</strong>. Headache in <strong>89%</strong> — usually building over days, not thunderclap — seizures at presentation in <strong>39%</strong>, focal deficits in ~37%, papilledema in 28%. A quarter present as <strong>isolated intracranial hypertension</strong>: image the venous sinuses before you call it idiopathic. Parenchymal hemorrhage is present on admission imaging in ~<strong>40%</strong> — venous hemorrhage, not arterial.</p>
+  <ul>
+    <li><strong>Ask about the risk factors:</strong> estrogen-containing contraception (54% of affected women under 50; ~8-fold odds), pregnancy and above all the <strong>puerperium</strong> (OR 10.6 — most pregnancy-related CVT is postpartum), thrombophilia (34%), head/neck or CNS infection, malignancy, dehydration. More than one factor in 44%; none found in 12%.</li>
+    <li><strong>Imaging patterns that should trigger venography:</strong> hemorrhage or edema <em>not in an arterial territory</em>; bilateral or parasagittal lesions; juxtacortical hemorrhage; a dense sinus or cortical vein ("cord sign") on plain CT; the empty delta sign after contrast.</li>
+    <li><strong>Clinical patterns:</strong> new progressive headache with any prothrombotic factor; seizure with headache; an "IIH" picture; unexplained encephalopathy in a young patient.</li>
+  </ul>
+  <div class="note">
+    <div class="note__t">D-dimer helps triage — it cannot veto imaging</div>
+    <p style="margin-bottom:0">Meta-analysis: sensitivity 93.9%, specificity 89.7%. The false negatives cluster exactly where you are most tempted to rely on it: isolated headache, longer symptom duration, single-sinus disease. ESO suggests it <em>except</em> in those situations. If suspicion is real, image the veins regardless of the D-dimer.</p>
+  </div>
+
+  <h2>Confirming it: CTV, or MRI with contrast-enhanced MRV</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Study</th><th>Role</th><th>Performance and pitfalls</th></tr></thead>
+    <tbody>
+      <tr><td><strong>CT venography</strong></td><td><strong>The fast ED answer</strong> — minutes from the scanner you are already at</td><td>95% sensitive against DSA for the venous system; thrombus = filling defect (empty delta). Costs radiation and iodinated contrast; weaker than MRI for isolated cortical vein thrombosis</td></tr>
+      <tr><td><strong>MRI + contrast-enhanced MRV</strong> (with GRE/SWI)</td><td><strong>The definitive study</strong> — preferred confirmatory test (AHA 2024), best in young patients and for follow-up</td><td>CE-MRV separates a hypoplastic sinus from thrombus; GRE/SWI approaches 100% sensitivity for cortical vein thrombosis; structural sequences characterize the parenchyma</td></tr>
+      <tr><td><strong>TOF MRV without contrast</strong></td><td>Reserve for when contrast is precluded — pregnancy, severe renal failure</td><td><strong>The trap:</strong> flow gaps in 31% of <em>normal</em> transverse sinuses (90% in the non-dominant sinus). Subacute T1-bright thrombus can also mimic flow. Never diagnose on a TOF flow gap alone — demand thrombus signal on T1/T2/GRE or a confirmatory CTV</td></tr>
+      <tr><td><strong>DSA</strong></td><td>Only when endovascular treatment is being considered</td><td>Not a routine diagnostic step</td></tr>
+    </tbody>
+  </table></div>
+  <p>Either CTV or MRV confirms the diagnosis reliably — the AHA statement names both as the optimal confirmatory tests, with MRI/MRV the recommended study where available. Whatever venogram you use, read it alongside the structural sequences, not in isolation.</p>
+
+  <h2>Anticoagulate — hemorrhage is not a contraindication</h2>
+  <p><strong>Start therapeutic-dose LMWH immediately once the diagnosis is confirmed</strong>, including when there is hemorrhagic venous infarction. The AHA statement says it plainly: venous hemorrhage "does not constitute a contraindication for anticoagulation." The trial base is small but consistent: Einhäupl's heparin RCT was stopped early for benefit (complete recovery 8/10 vs 1/10; all 3 deaths on placebo); de Bruijn's nadroparin RCT — which enrolled patients with baseline hemorrhage — produced <strong>no new symptomatic intracranial hemorrhages</strong>; the Cochrane pooled estimate favors anticoagulation (RR for death 0.33, 95% CI 0.08–1.21). Prefer <strong>LMWH over UFH</strong> (ESO; in the Misra RCT in-hospital deaths were 0/34 vs 6/32) — keep UFH for the patient who may need urgent craniectomy or endovascular treatment, or with severe renal failure.</p>
+
+  <h3>Then to an oral agent: DOAC or warfarin</h3>
+  <p>Once the patient is stable — the trial lead-in was <strong>5–15 days of parenteral anticoagulation</strong> — transition to an oral agent. The accumulated data show DOACs perform like warfarin with less major bleeding:</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Study</th><th>Design</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td><strong>RE-SPECT CVT</strong><br><small>JAMA Neurol 2019, n=120</small></td><td>RCT, dabigatran 150 mg bid vs warfarin × 24 wk after 5–15 d heparin</td><td><strong>Zero recurrent VTE in either arm</strong>; major bleeding 1.7% vs 3.3% (both warfarin bleeds intracranial); recanalization 60% vs 67%</td></tr>
+      <tr><td><strong>ACTION-CVT</strong><br><small>Stroke 2022, n=845</small></td><td>Retrospective, 27 centers, DOAC vs warfarin</td><td>Recurrent venous thrombosis aHR 0.94 (0.51–1.73); <strong>major hemorrhage aHR 0.35 (0.15–0.82)</strong> favoring DOACs; recanalization equal</td></tr>
+      <tr><td><strong>SECRET</strong><br><small>Stroke 2023, n=55</small></td><td>Phase II feasibility RCT, rivaroxaban 20 mg vs standard care</td><td>Few events overall (1 sICH, 1 recurrent CVT, both rivaroxaban arm); feasibility study, not powered for efficacy</td></tr>
+      <tr><td><strong>DOAC-CVT</strong><br><small>Lancet Neurol 2025, n=619</small></td><td>Prospective observational, 65 hospitals, DOAC vs VKA</td><td>6-month VTE + major bleeding composite <strong>3% vs 3%</strong> (weighted OR 0.99, 0.37–3.38); death 1% vs 1%</td></tr>
+    </tbody>
+  </table></div>
+  <div class="card">
+    <p><strong>The pathway:</strong></p>
+    <ol>
+      <li><strong>Day 0:</strong> therapeutic LMWH (UFH only if surgery/EVT may be imminent or severe renal failure). Baseline hemorrhage does not change this.</li>
+      <li><strong>Day ~5–15, once stable:</strong> switch to a DOAC — dabigatran is the RCT-tested agent; rivaroxaban and apixaban are supported by SECRET, ACTION-CVT and DOAC-CVT — or warfarin (INR 2–3) if a DOAC is unsuitable.</li>
+      <li><strong>Duration: 3–12 months depending on cause</strong> (AHA); indefinite for major persistent thrombophilia or recurrent VTE. The finer habit — ~3–6 months for a provoked event with a removable trigger, 6–12 for unprovoked — is consensus practice, not trial-defined.</li>
+    </ol>
+    <p style="margin-bottom:0"><strong>Exceptions:</strong> antiphospholipid syndrome → warfarin, not a DOAC. Pregnancy or breastfeeding → LMWH throughout (DOACs contraindicated; warfarin contraindicated in pregnancy).</p>
+  </div>
+
+  <h2>When anticoagulation is not enough</h2>
+  <ul>
+    <li><strong>Endovascular therapy is rescue, not routine.</strong> TO-ACT randomized severe CVT (coma, hemorrhage, deep-system thrombosis, encephalopathy) to EVT plus standard care versus standard care and was halted for futility: mRS 0–1 at 12 months <strong>67% vs 68%</strong> (RR 0.99). Reserve EVT for deterioration despite anticoagulation, thrombus propagation, or a true contraindication to anticoagulation.</li>
+    <li><strong>Decompressive craniectomy for impending herniation is lifesaving — and the survivors do well.</strong> In the multicenter surgical registry only 17.4% had an unfavorable outcome; 3 of 9 patients with <em>bilateral fixed pupils</em> recovered completely. Earlier is better (surgery within 48 h: mortality OR 0.26). Do not let coma or hemorrhage argue you out of calling neurosurgery — this is not malignant MCA infarction.</li>
+    <li><strong>Seizures:</strong> an antiseizure medication after a seizure with a supratentorial lesion; no primary prophylaxis.</li>
+    <li><strong>No steroids, no acetazolamide</strong> (ESO suggests against both). The definitive ICP treatment is the anticoagulant. Watch vision when there is papilledema.</li>
+  </ul>
+
+  <h2>The rest of the conversation</h2>
+  <ul>
+    <li><strong>Stop estrogen-containing contraception permanently.</strong> This is often the single intervention that most changes recurrence risk.</li>
+    <li><strong>Do not reflexively screen for thrombophilia or cancer</strong> (ESO). Test selectively — young, unprovoked, family history, recurrent VTE — and only where the result would change duration. Time the assays: protein C/S, antithrombin and lupus anticoagulant are unreliable on anticoagulation; genetic tests and antiphospholipid serology can be drawn anytime.</li>
+    <li><strong>Future pregnancy is not contraindicated.</strong> Recurrent CVT ≈ 9 per 1000 pregnancies. Cover subsequent pregnancies with prophylactic LMWH through pregnancy and the puerperium. CVT occurring <em>during</em> pregnancy: full-dose LMWH through pregnancy, continued ≥6 weeks postpartum (minimum 3 months total).</li>
+    <li><strong>Re-image at ~3–6 months</strong> (contrast-enhanced MRV preferred) to document the new baseline before stopping anticoagulation — expect complete recanalization in only ~37%, partial in ~48%; whether recanalization should drive duration is unsettled.</li>
+    <li><strong>Prognosis for counseling:</strong> ~79% recover to mRS 0–1; death 8.3% (ISCVT). Recurrent CVT 2.2%. Worse with age &gt;37, male sex, coma, deep-system thrombosis, hemorrhage, CNS infection, malignancy.</li>
+  </ul>
+
+  <p class="src">Saposnik G, et al. Diagnosis and management of cerebral venous thrombosis. Stroke 2024;55:e77–e90, doi:10.1161/STR.0000000000000456; Ferro JM, et al. ESO guideline. Eur J Neurol 2017;24:1203–13, doi:10.1111/ene.13381. Trial figures verified against primary abstracts: ISCVT doi:10.1161/01.STR.0000117571.76197.26; Einhäupl doi:10.1016/0140-6736(91)90607-Q; de Bruijn doi:10.1161/01.str.30.3.484; Misra doi:10.1111/j.1468-1331.2012.03690.x; RE-SPECT CVT doi:10.1001/jamaneurol.2019.2764; ACTION-CVT doi:10.1161/STROKEAHA.121.037541; SECRET doi:10.1161/STROKEAHA.123.044113; DOAC-CVT doi:10.1016/S1474-4422(24)00519-2; TO-ACT doi:10.1001/jamaneurol.2020.1022; craniectomy registry doi:10.1161/STROKEAHA.111.615393; TOF flow gaps doi via PMID 10669228; D-dimer meta doi:10.1111/j.1538-7836.2012.04637.x; pregnancy outcomes doi:10.1161/STROKEAHA.115.011955. The 3–6/6–12-month duration split, the 3–6-month re-imaging interval, and thrombophilia assay timing are consensus practice, not trial-verified.</p>
+</section>
+
 <!-- ====================================================================== ICH -->
 <section class="section" id="ich" data-title="Intracerebral hemorrhage">
   <h1>Spontaneous intracerebral hemorrhage</h1>
@@ -1858,8 +2018,9 @@
 <section class="section" id="mrs" data-title="Modified Rankin Scale">
   <h1>Modified Rankin Scale</h1>
   <p class="lede">Degree of disability or dependence in daily activities. Prestroke mRS is a formal eligibility criterion for thrombectomy — get it from a collateral history, not a guess.</p>
+  <p class="src" style="margin-bottom:10px">Tap a row (0–5) to record the <strong>prestroke</strong> mRS — it feeds the <a href="#pathfinder">pathfinder</a> and the home tile. Current: <strong id="mrsOut">—</strong></p>
 
-  <div class="tablewrap"><table>
+  <div class="tablewrap"><table id="mrsTable">
     <thead><tr><th style="width:56px">Score</th><th>Grade</th><th>Description</th><th>Functional test</th></tr></thead>
     <tbody>
       <tr><td><span class="mrs-dot" style="background:#1e6b3a">0</span></td><td><strong>No symptoms</strong></td><td>No symptoms at all</td><td>Normal function</td></tr>
@@ -2180,6 +2341,13 @@
       <tr><td><strong>THALES</strong></td><td>DAPT</td><td>NIHSS ≤5 or TIA ABCD² ≥6, within 24 h</td><td>Ticagrelor + aspirin × 30 days</td></tr>
       <tr><td><strong>INSPIRES</strong></td><td>DAPT</td><td>NIHSS ≤5 or high-risk TIA within 24–72 h, atherosclerotic</td><td>Clopidogrel + aspirin × 21 days. Basis for the 24–72 h COR 2a recommendation</td></tr>
       <tr><td><strong>SAMMPRIS</strong><br><small>NEJM 2011; final Lancet 2014</small></td><td>Intracranial atherosclerosis</td><td>TIA/stroke ≤30 days, 70–99% intracranial stenosis, n=451</td><td>Aggressive medical management (incl. DAPT × 90 days) beat stenting: 30-day stroke/death 5.8% vs 14.7%, P=0.002; sustained at median 32.4 months (15% vs 23%). Basis for 90-day DAPT in severe symptomatic ICAD. doi:10.1056/NEJMoa1105335</td></tr>
+      <tr><td><strong>NASCET</strong><br><small>NEJM 1991 &amp; 1998</small></td><td>Carotid</td><td>Symptomatic stenosis, TIA/nondisabling stroke; 70–99% n=659, &lt;70% n=2226</td><td>70–99%: 2-year ipsilateral stroke 26% medical vs 9% CEA, ARR 17% (P&lt;0.001), durable to 8 years. 50–69%: 5-year 22.2% vs 15.7% (P=0.045), NNT 15. &lt;50%: no benefit. doi:10.1056/NEJM199108153250701; doi:10.1056/NEJM199811123392002</td></tr>
+      <tr><td><strong>Rothwell pooled analyses</strong><br><small>Lancet 2003;361:107 &amp; 2004;363:915</small></td><td>Carotid</td><td>ECST + NASCET (+ VA309) IPD, n=6092 / 5893, angiograms remeasured to NASCET method</td><td>5-year ARR by stenosis: ≥70% 16.0%; 50–69% 4.6%; &lt;30% harm; near-occlusion no durable benefit. Timing: NNT 5 if ≤2 weeks vs 125 if &gt;12 weeks; NNT 5 for age ≥75 vs 18 for &lt;65; men 9 vs women 36. doi:10.1016/s0140-6736(03)12228-3; doi:10.1016/S0140-6736(04)15785-1</td></tr>
+      <tr><td><strong>Swedvasc timing</strong><br><small>Stroke 2012</small></td><td>Carotid</td><td>National registry, symptomatic CEA, n=2596, by delay from event</td><td>30-day death/stroke 11.5% at day 0–2 vs 3.6% day 3–7, 4.0% day 8–14 (OR 4.24, 2.07–8.70). Day 3 onward safe. doi:10.1161/STROKEAHA.111.639344</td></tr>
+      <tr><td><strong>CREST</strong><br><small>NEJM 2010</small></td><td>Carotid</td><td>Symptomatic + asymptomatic, n=2502, CAS vs CEA</td><td>4-year composite 7.2% vs 6.8% (HR 1.11, P=0.51). Periprocedural stroke 4.1% vs 2.3% (P=0.01); MI 1.1% vs 2.3% (P=0.03). Post-procedural ipsilateral stroke equal (2.0% vs 2.4%). doi:10.1056/NEJMoa0912321</td></tr>
+      <tr><td><strong>CSTC age meta-analysis</strong><br><small>Lancet 2016</small></td><td>Carotid</td><td>IPD from 4 CAS-vs-CEA RCTs, symptomatic, n=4754</td><td>CAS periprocedural stroke/death risk rose steeply with age (HR ~4 at ≥70 vs &lt;60); no age effect for CEA. CAS-vs-CEA periprocedural HR 2.09 (1.32–3.32) at 70–74. doi:10.1016/S0140-6736(15)01309-4</td></tr>
+      <tr><td><strong>ACST-2</strong><br><small>Lancet 2021</small></td><td>Carotid</td><td>Asymptomatic severe stenosis judged to need intervention, n=3625, CAS vs CEA</td><td>Procedural disabling stroke/death ~1% each; 5-year fatal/disabling stroke 2.5% each; any nonprocedural stroke 5.3% vs 4.5% (RR 1.16, P=0.33). doi:10.1016/S0140-6736(21)01910-3</td></tr>
+      <tr><td><strong>CREST-2</strong><br><small>NEJM 2025;394:219</small></td><td>Carotid</td><td>Asymptomatic ≥70%, two parallel RCTs vs intensive medical management; stent n=1245, CEA n=1240</td><td>4-year primary events: stenting 2.8% vs 6.0% IMM (P=0.02); CEA 3.7% vs 5.3% IMM (P=0.24, NS). Day 0–44: 7 strokes + 1 death (stent arm) vs 0; 9 strokes (CEA arm) vs 3. doi:10.1056/NEJMoa2508800</td></tr>
       <tr><td><strong>TIMING</strong><br><small>Circulation 2022</small></td><td>Anticoagulation timing</td><td>AIS with AF, n=888, DOAC ≤4 days vs 5–10 days</td><td>Noninferior. 90-day composite 6.9% vs 8.7%; recurrent stroke 3.1% vs 4.6%; zero sICH in either arm. doi:10.1161/CIRCULATIONAHA.122.060666</td></tr>
       <tr><td><strong>ELAN</strong><br><small>NEJM 2023</small></td><td>Anticoagulation timing</td><td>AIS with AF, n=2013, early vs late DOAC by infarct size</td><td>30-day composite 2.9% vs 4.1% (RD −1.18%, −2.84 to 0.47); sICH 2 per arm. doi:10.1056/NEJMoa2303048</td></tr>
       <tr><td><strong>OPTIMAS</strong><br><small>Lancet 2024</small></td><td>Anticoagulation timing</td><td>AIS with AF, n=3621, DOAC ≤4 days vs 7–14 days, no imaging size criterion</td><td>Noninferior; sICH 0.6% vs 0.7%. Included PH1 and prior anticoagulant users. doi:10.1016/S0140-6736(24)02197-4</td></tr>
@@ -2197,6 +2365,15 @@
       <tr><td><strong>CADISS</strong><br><small>Lancet Neurol 2015</small></td><td>Dissection</td><td>Cervical artery dissection, n=250, antiplatelet vs VKA × 3 months</td><td>Ischemic stroke 3/126 vs 1/124 — no difference, few events; 20% of diagnoses unconfirmed centrally</td></tr>
       <tr><td><strong>TREAT-CAD</strong><br><small>Lancet Neurol 2021</small></td><td>Dissection</td><td>Cervical artery dissection, n=194, aspirin vs VKA × 90 days</td><td>Aspirin noninferiority not shown (composite 23% vs 15%); all 7 ischemic strokes on aspirin, 5 on day 1</td></tr>
       <tr><td><strong>STOP-CAD</strong><br><small>Stroke 2024</small></td><td>Dissection</td><td>Observational, n=3636, anticoagulation vs antiplatelet</td><td>Stroke aHR 0.71 (0.45–1.12) at 30 d; benefit concentrated in occlusive dissection (aHR 0.40); major bleeding on anticoagulation rose by 180 d. doi:10.1161/STROKEAHA.123.045731</td></tr>
+      <tr><td><strong>ISCVT</strong><br><small>Stroke 2004</small></td><td>Venous thrombosis</td><td>Prospective cohort, 89 centers, 21 countries, n=624 adult CVT</td><td>The reference natural-history cohort: 75% women, mean age 39; headache 88.8%, seizures 39.3%; death 8.3%, mRS 0–1 79% at median 16 months. Outcome predictors: coma HR 2.7, deep system 2.9, CNS infection 3.3, cancer 2.9. doi:10.1161/01.STR.0000117571.76197.26</td></tr>
+      <tr><td><strong>Einhäupl 1991 &amp; de Bruijn 1999</strong></td><td>Venous thrombosis</td><td>The two heparin-vs-placebo RCTs, n=20 and n=60 (baseline hemorrhage allowed)</td><td>Einhäupl stopped early: complete recovery 8/10 vs 1/10, all 3 deaths on placebo. de Bruijn (nadroparin): poor outcome 13% vs 21% (NS) with no new symptomatic ICH. Cochrane pooled: RR death 0.33 (0.08–1.21). doi:10.1016/0140-6736(91)90607-Q; doi:10.1161/01.str.30.3.484</td></tr>
+      <tr><td><strong>Misra 2012</strong></td><td>Venous thrombosis</td><td>RCT, n=66, LMWH vs UFH</td><td>In-hospital deaths 0/34 LMWH vs 6/32 UFH (P=0.01); 3-month recovery similar. Supports LMWH first. doi:10.1111/j.1468-1331.2012.03690.x</td></tr>
+      <tr><td><strong>RE-SPECT CVT</strong><br><small>JAMA Neurol 2019</small></td><td>Venous thrombosis</td><td>RCT, n=120, dabigatran vs warfarin × 24 wk after 5–15 d parenteral heparin</td><td>Zero recurrent VTE in either arm; major bleeding 1.7% vs 3.3%; recanalization 60.0% vs 67.3%. doi:10.1001/jamaneurol.2019.2764</td></tr>
+      <tr><td><strong>ACTION-CVT</strong><br><small>Stroke 2022</small></td><td>Venous thrombosis</td><td>Retrospective, 27 centers, n=845, DOAC vs warfarin</td><td>Recurrent venous thrombosis aHR 0.94 (0.51–1.73); major hemorrhage aHR 0.35 (0.15–0.82) favoring DOACs; recanalization equal. doi:10.1161/STROKEAHA.121.037541</td></tr>
+      <tr><td><strong>SECRET</strong><br><small>Stroke 2023</small></td><td>Venous thrombosis</td><td>Phase II feasibility RCT, n=55, rivaroxaban 20 mg vs standard of care</td><td>Few events (1 sICH, 1 recurrent CVT, both rivaroxaban arm); all patients had at least partial recanalization. Feasibility, not efficacy. doi:10.1161/STROKEAHA.123.044113</td></tr>
+      <tr><td><strong>DOAC-CVT</strong><br><small>Lancet Neurol 2025</small></td><td>Venous thrombosis</td><td>Prospective observational, 65 hospitals, 23 countries, n=619, DOAC vs VKA</td><td>6-month composite of symptomatic VTE + major bleeding 3% vs 3% (weighted OR 0.99, 0.37–3.38); death 1% vs 1%. doi:10.1016/S1474-4422(24)00519-2</td></tr>
+      <tr><td><strong>TO-ACT</strong><br><small>JAMA Neurol 2020</small></td><td>Venous thrombosis</td><td>RCT, n=67, severe CVT: EVT + standard care vs standard care; halted for futility</td><td>mRS 0–1 at 12 months 67% vs 68% (RR 0.99, 0.71–1.38); mortality 12% vs 3% (P=0.20). EVT is rescue, not routine. doi:10.1001/jamaneurol.2020.1022</td></tr>
+      <tr><td><strong>Ferro 2011 surgical registry</strong><br><small>Stroke 2011</small></td><td>Venous thrombosis</td><td>Registry + systematic review, n=69, decompressive surgery for herniating CVT</td><td>Unfavorable outcome (mRS 5/death) only 17.4%; mRS 0–2 56.5%; 3/9 patients with bilateral fixed pupils recovered fully. doi:10.1161/STROKEAHA.111.615393</td></tr>
       <tr><td><strong>PATCH</strong></td><td>ICH</td><td>Platelet transfusion in antiplatelet-associated ICH</td><td>Worse outcomes with transfusion. Basis for the COR 3: Harm recommendation</td></tr>
       <tr><td><strong>PASS</strong></td><td>Supportive care</td><td>Preventive antibiotics after stroke</td><td>No difference in 3-month mRS</td></tr>
     </tbody>
@@ -2272,7 +2449,9 @@
     <li>Pradilla G, Ratcliff JJ, Hall AJ, et al. <strong>Trial of early minimally invasive removal of intracerebral hemorrhage.</strong> <em>N Engl J Med.</em> 2024;390:1277–1289. <a href="https://doi.org/10.1056/NEJMoa2404603" rel="noopener">doi:10.1056/NEJMoa2404603</a></li>
     <li>Ma L, Hu X, Song L, et al. <strong>INTERACT3: an international, stepped wedge cluster randomized controlled trial.</strong> <em>Lancet.</em> 2023;402:27–40. <a href="https://doi.org/10.1016/S0140-6736(23)00806-1" rel="noopener">doi:10.1016/S0140-6736(23)00806-1</a></li>
     <li>Hemphill JC, Bonovich DC, Besmertis L, et al. <strong>The ICH score: a simple, reliable grading scale for intracerebral hemorrhage.</strong> <em>Stroke.</em> 2001;32:891–897.</li>
-    <li>Kleindorfer DO, Towfighi A, Chaturvedi S, et al. <strong>2021 Guideline for the Prevention of Stroke in Patients With Stroke and Transient Ischemic Attack.</strong> <em>Stroke.</em> 2021;52:e364–e467. <a href="https://doi.org/10.1161/STR.0000000000000375" rel="noopener">doi:10.1161/STR.0000000000000375</a> — source of the 90-day DAPT recommendation for symptomatic intracranial atherosclerosis.</li>
+    <li>Kleindorfer DO, Towfighi A, Chaturvedi S, et al. <strong>2021 Guideline for the Prevention of Stroke in Patients With Stroke and Transient Ischemic Attack.</strong> <em>Stroke.</em> 2021;52:e364–e467. <a href="https://doi.org/10.1161/STR.0000000000000375" rel="noopener">doi:10.1161/STR.0000000000000375</a> — source of the 90-day DAPT recommendation for symptomatic intracranial atherosclerosis and of the carotid revascularization recommendations.</li>
+    <li>Saposnik G, Bushnell C, Coutinho JM, et al. <strong>Diagnosis and management of cerebral venous thrombosis: a scientific statement from the American Heart Association.</strong> <em>Stroke.</em> 2024;55:e77–e90. <a href="https://doi.org/10.1161/STR.0000000000000456" rel="noopener">doi:10.1161/STR.0000000000000456</a></li>
+    <li>Ferro JM, Bousser MG, Canhão P, et al. <strong>European Stroke Organization guideline for the diagnosis and treatment of cerebral venous thrombosis.</strong> <em>Eur J Neurol.</em> 2017;24:1203–1213. <a href="https://doi.org/10.1111/ene.13381" rel="noopener">doi:10.1111/ene.13381</a></li>
     <li>Dehbi HM, Fischer U, Åsberg S, et al. <strong>Optimal timing of anticoagulation after ischemic stroke and atrial fibrillation: individual participant data meta-analysis (CATALYST).</strong> <em>Lancet.</em> 2025;406:43–51. <a href="https://doi.org/10.1016/S0140-6736(25)00439-8" rel="noopener">doi:10.1016/S0140-6736(25)00439-8</a> — with TIMING, ELAN, OPTIMAS and START, the basis of the DOAC-timing scheme.</li>
     <li>Smythe MA, Parker D, Garwood CL, et al. <strong>Timing of initiation of oral anticoagulation after acute ischemic stroke in patients with atrial fibrillation.</strong> <em>Pharmacotherapy.</em> 2019;40:55–71. <a href="https://doi.org/10.1002/phar.2345" rel="noopener">doi:10.1002/phar.2345</a> — expert framework behind the hemorrhagic-transformation timing tiers.</li>
     <li>Yaghi S, Engelter S, Del Brutto VJ, et al. <strong>Treatment and outcomes of cervical artery dissection in adults: a scientific statement from the American Heart Association.</strong> <em>Stroke.</em> 2024;55:e91–e106. <a href="https://doi.org/10.1161/STR.0000000000000457" rel="noopener">doi:10.1161/STR.0000000000000457</a></li>
@@ -2286,7 +2465,7 @@
   <p>The software is MIT licensed; the clinical content is released under <strong>CC BY 4.0</strong> — reuse it, adapt it for your own institution, translate it, as long as you attribute the source. Corrections are welcome and wanted: if a recommendation here misstates the guideline, or a number is wrong, open an issue or a pull request with the citation.</p>
 
   <h2>Version</h2>
-  <p class="src">Version <span id="buildVersion">1.22.0</span>. Content current to the 2026 AHA/ASA acute ischemic stroke guideline, the 2022 AHA/ASA spontaneous ICH guideline, and named trials published through February 2026.</p>
+  <p class="src">Version <span id="buildVersion">1.23.0</span>. Content current to the 2026 AHA/ASA acute ischemic stroke guideline, the 2022 AHA/ASA spontaneous ICH guideline, and named trials published through February 2026.</p>
 
   <div class="footer">
     <p>Built as a public resource. No tracking, no analytics, no accounts, no network requests after the first load.</p>
