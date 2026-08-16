@@ -494,6 +494,8 @@ input[type="time"], input[type="number"], input[type="text"], select {
   color: var(--text-dim); font-weight: 700;
   margin: 22px 0 8px; padding: 0; border: 0;
 }
+/* A quiet aside on a heading — normal case, normal weight, same dim color. */
+.homehead__hint { text-transform: none; letter-spacing: 0; font-weight: 400; }
 
 .hero {
   display: block; padding: 17px 18px; border-radius: 14px;
