@@ -980,7 +980,7 @@
      pathfinder logic, Reset and Copy never know the difference. Tapping the
      active button clears back to unanswered. The occlusion list keeps its
      dropdown — six long options do not fit a row of pills. */
-  $$('#pathfinder select.seg-src').forEach(function (sel) {
+  $$('select.seg-src').forEach(function (sel) {
     var seg = document.createElement('div');
     seg.className = 'seg';
     seg.setAttribute('role', 'group');
@@ -1161,17 +1161,77 @@
     });
   }
 
+  /* ------------------------------------------------------- reversal picker */
+  /* One tap from agent to regimen. The cards restate the section's own
+     table — same doses, same class labels — so there is one source of
+     content and the picker cannot drift from it. */
+  var revOut = $('#revOut');
+  if (revOut) {
+    var REVERSAL = {
+      vka: '<div class="note note--ok"><div class="note__t"><span class="cor cor-1">COR 1</span> 4-factor PCC <em>plus</em> vitamin K 10 mg IV</div>' +
+        '<p style="margin-bottom:0"><strong>4-factor PCC 25–50 units/kg</strong> (INR-based per product label) <span class="loe">B-R</span>, and <strong>vitamin K 10 mg IV directly after</strong> the factor replacement <span class="cor cor-1">COR 1</span> <span class="loe">C-LD</span> — PCC works in minutes, vitamin K sustains the correction for hours. Give both.</p></div>',
+      xa: '<div class="note note--ok"><div class="note__t"><span class="cor cor-2a">COR 2a</span> Andexanet alfa</div>' +
+        '<p><strong>Low dose</strong> — 400 mg bolus, then 480 mg over 2 h — if the last dose was ≥8 h earlier, or apixaban ≤5 mg / rivaroxaban ≤10 mg. <strong>High dose</strong> — 800 mg bolus, then 960 mg over 2 h — otherwise, or when dose or timing is unknown <span class="loe">B-NR</span>. ANNEXA-I enrolled within 15 h of the last dose.</p>' +
+        '<p style="margin-bottom:0">If andexanet is unavailable: <strong>4-factor or activated PCC</strong> may be considered <span class="cor cor-2b">COR 2b</span> <span class="loe">B-NR</span>. Weigh ANNEXA-I\'s thrombotic signal — the trial summary is below.</p></div>',
+      dabi: '<div class="note note--ok"><div class="note__t"><span class="cor cor-2a">COR 2a</span> Idarucizumab 5 g IV</div>' +
+        '<p style="margin-bottom:0"><strong>Idarucizumab 5 g IV</strong> (two 2.5 g doses) <span class="loe">B-NR</span>. If unavailable, activated PCC or PCC may be considered <span class="cor cor-2b">COR 2b</span>. Dabigatran is dialyzable.</p></div>',
+      ufh: '<div class="note note--ok"><div class="note__t"><span class="cor cor-2a">COR 2a</span> Protamine sulfate</div>' +
+        '<p style="margin-bottom:0">Reasonable for reversal of unfractionated heparin <span class="loe">C-LD</span>.</p></div>',
+      lmwh: '<div class="note note--warn"><div class="note__t"><span class="cor cor-2b">COR 2b</span> Protamine — partial reversal only</div>' +
+        '<p style="margin-bottom:0">May be considered <span class="loe">C-LD</span>: protamine neutralizes anti-IIa but only partially neutralizes anti-Xa activity.</p></div>',
+      lytic: '<div class="note note--warn"><div class="note__t">Cryoprecipitate ± antifibrinolytic</div>' +
+        '<p style="margin-bottom:0">Follow the <a href="#complications-ivt">post-thrombolysis bleeding protocol</a> — stop any infusion, fibrinogen, imaging (Table 5, AIS guideline).</p></div>',
+      apt: '<div class="note note--danger"><div class="note__t"><span class="cor cor-3h">COR 3: Harm</span> Do not transfuse platelets reflexively</div>' +
+        '<p style="margin-bottom:0">In antiplatelet-associated ICH <em>not</em> undergoing emergency neurosurgery, platelet transfusion worsened outcomes (PATCH) <span class="loe">B-R</span>. Where emergency neurosurgery is planned, transfusion <em>might</em> be considered <span class="cor cor-2b">COR 2b</span> <span class="loe">C-LD</span>; desmopressin is of uncertain effectiveness <span class="cor cor-2b">COR 2b</span> <span class="loe">C-LD</span>.</p></div>'
+    };
+    var renderReversal = function () {
+      var v = $('#revAgent').value;
+      revOut.innerHTML = v && REVERSAL[v]
+        ? REVERSAL[v] + '<p class="src" style="margin:6px 0 0">Full table with notes below. Confirm doses against your local formulary before administration.</p>'
+        : '';
+    };
+    $('#revAgent').addEventListener('change', renderReversal);
+  }
+
   /* -------------------------------------------------------- trials filter */
   var trialFilter = $('#trialFilter');
   if (trialFilter) {
+    /* Domain chips — 70 rows justify one-tap filters. A chip and the text
+       box combine (AND), and All clears the chip. */
+    var trialGroup = null;
     function updateTrialFilter() {
       var q = trialFilter.value.toLowerCase().trim();
       var shown = 0;
       $$('#trialTable tbody tr').forEach(function (tr) {
-        var hit = !q || tr.textContent.toLowerCase().indexOf(q) !== -1;
+        var domain = tr.children[1] ? tr.children[1].textContent : '';
+        var hit = (!q || tr.textContent.toLowerCase().indexOf(q) !== -1) &&
+                  (!trialGroup || trialGroup.test(domain));
         tr.hidden = !hit; if (hit) shown++;
       });
       $('#trialCount').textContent = shown + ' trial' + (shown === 1 ? '' : 's');
+    }
+    var chipBox = $('#trialChips');
+    if (chipBox) {
+      [['All', null],
+       ['Thrombolysis', /thrombolysis|extended window|agent choice|minor stroke/i],
+       ['Thrombectomy', /thrombectomy|large core|basilar|evt technique/i],
+       ['Antithrombotics', /dapt|anticoagulation timing|atherosclerosis/i],
+       ['Carotid', /carotid/i],
+       ['CVT', /venous thrombosis/i],
+       ['Dissection', /dissection/i],
+       ['ICH', /^ich/i]
+      ].forEach(function (g, i) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'tab'; b.textContent = g[0];
+        b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+        b.addEventListener('click', function () {
+          trialGroup = g[1];
+          $$('#trialChips .tab').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+          b.setAttribute('aria-pressed', 'true');
+          updateTrialFilter();
+        });
+        chipBox.appendChild(b);
+      });
     }
     trialFilter.addEventListener('input', updateTrialFilter);
     updateTrialFilter();
@@ -1427,11 +1487,120 @@
     syncZoomState();
   }
 
+  /* ------------------------------------------------------------ wake lock */
+  /* Phones dim mid-NIHSS. Hold the screen while a working tool is open and
+     the app is visible; let go everywhere else. Fails silently where the
+     API is absent — dimming is the status quo, not an error. */
+  var TOOL_SECTIONS = { pathfinder: 1, nihss: 1, aspects: 1, dosing: 1, clock: 1, ichscore: 1, mrs: 1 };
+  var wakeLock = null;
+  function updateWakeLock() {
+    if (!('wakeLock' in navigator)) return;
+    var id = (location.hash || '#start').slice(1);
+    var want = !!TOOL_SECTIONS[id] && document.visibilityState === 'visible';
+    if (want && !wakeLock) {
+      navigator.wakeLock.request('screen').then(function (lock) {
+        wakeLock = lock;
+        lock.addEventListener('release', function () { wakeLock = null; });
+      }).catch(function () {});
+    } else if (!want && wakeLock) {
+      wakeLock.release();
+    }
+  }
+  document.addEventListener('visibilitychange', updateWakeLock);
+  window.addEventListener('hashchange', updateWakeLock);
+
+  /* ------------------------------------------------------ case persistence */
+  /* iOS evicts background PWAs freely; losing a half-scored NIHSS to that is
+     a real cost. Tool state (clock, NIHSS, ASPECTS, PC-ASPECTS, prestroke
+     mRS, weight/agent) persists across restarts and is restored with a
+     visible banner and a New patient button. A case expires 12 h after it
+     was started — stale data silently carrying to the next patient is the
+     hazard this must never create, which is also why restore is loud. */
+  var CASE_TTL = 12 * 3600e3;
+  function saveCase() {
+    var prev = store.get('case', null);
+    var mrsSel = -1;
+    if (typeof mrsRows !== 'undefined' && mrsRows) {
+      mrsRows.forEach(function (r, i) { if (r.getAttribute('aria-pressed') === 'true') mrsSel = i; });
+    }
+    store.set('case', {
+      ts: prev && prev.ts ? prev.ts : Date.now(),
+      lkw: $('#lkwTime') ? $('#lkwTime').value : '',
+      nihss: $$('#nihss .opts input:checked').map(function (i) { return i.name + '|' + i.value; }),
+      aspects: $$('.aspects-region').map(function (b) { return b.checked ? 1 : 0; }),
+      pc: $$('.pc-region').map(function (b) { return b.checked ? 1 : 0; }),
+      mrs: mrsSel,
+      wt: $('#wt') ? $('#wt').value : '',
+      wtUnit: $('#wtUnit') ? $('#wtUnit').value : 'kg',
+      agent: $('#agent') ? $('#agent').value : 'tnk'
+    });
+  }
+  (function restoreCase() {
+    var c = store.get('case', null);
+    if (!c || !c.ts) return;
+    if (Date.now() - c.ts > CASE_TTL) { store.set('case', null); return; }
+    if (c.lkw && $('#lkwTime')) { $('#lkwTime').value = c.lkw; clockUpdate(); }
+    (c.nihss || []).forEach(function (pair) {
+      var cut = pair.indexOf('|');
+      var el = $('#nihss input[name="' + pair.slice(0, cut) + '"][value="' + pair.slice(cut + 1) + '"]');
+      if (el) el.checked = true;
+    });
+    var nTouched = (c.nihss || []).some(function (p) { return !/\|0$/.test(p); });
+    if (nTouched) { nihssTouched = true; var first = $('#nihss .opts input'); if (first) first.dispatchEvent(new Event('change')); }
+    var aBoxes = $$('.aspects-region');
+    (c.aspects || []).forEach(function (v, i) { if (aBoxes[i]) aBoxes[i].checked = !!v; });
+    if ((c.aspects || []).some(Boolean)) { aspectsTouched = true; aspectsUpdate(); }
+    var pBoxes = $$('.pc-region');
+    (c.pc || []).forEach(function (v, i) { if (pBoxes[i]) pBoxes[i].checked = !!v; });
+    if ((c.pc || []).some(Boolean)) { pcTouched = true; pcUpdate(); }
+    if (typeof c.mrs === 'number' && c.mrs >= 0 && typeof setMrs === 'function') setMrs(c.mrs);
+    if (c.wt && $('#wt')) {
+      if ($('#agent')) $('#agent').value = c.agent || 'tnk';
+      if ($('#wtUnit')) $('#wtUnit').value = c.wtUnit || 'kg';
+      $('#wt').value = c.wt; doseCalc();
+    }
+    var bar = $('#caseBar');
+    if (bar) {
+      var mins = Math.round((Date.now() - c.ts) / 60000);
+      $('#caseAge').textContent = mins < 60 ? mins + ' min' : Math.floor(mins / 60) + ' h ' + (mins % 60) + ' min';
+      bar.hidden = false;
+    }
+  })();
+  var caseClear = $('#caseClear');
+  if (caseClear) caseClear.addEventListener('click', function () {
+    store.set('case', null);
+    location.reload();
+  });
+  /* Persist on the interactions that change tool state — including resets,
+     so a cleared tool stays cleared across a restart. */
+  $$('#nihss .opts input, .aspects-region, .pc-region').forEach(function (el) { el.addEventListener('change', saveCase); });
+  ['#lkwTime', '#wt'].forEach(function (s) { var el = $(s); if (el) el.addEventListener('input', saveCase); });
+  ['#wtUnit', '#agent'].forEach(function (s) { var el = $(s); if (el) el.addEventListener('change', saveCase); });
+  ['#nihssReset', '#aspectsReset', '#pcReset', '#clockNow'].forEach(function (s) { var el = $(s); if (el) el.addEventListener('click', saveCase); });
+  $$('#mrsTable tbody tr[role="button"]').forEach(function (r) { r.addEventListener('click', saveCase); });
+
+  /* ---------------------------------------------------- case summary copy */
+  /* Everything already scored, in one note-ready block. */
+  var caseCopyBtn = $('#caseCopy');
+  if (caseCopyBtn) caseCopyBtn.addEventListener('click', function () {
+    var L = [];
+    if ($('#lkwTime') && $('#lkwTime').value) L.push('Last known well: ' + $('#lkwTime').value.replace('T', ' ') + ' — ' + $('#clockOut').textContent + ' elapsed');
+    if (nihssTouched) L.push('NIHSS ' + $('#nihssTotal').textContent + ' (' + $('#nihssSeverity').textContent + ')');
+    if (aspectsTouched) L.push('ASPECTS ' + $('#aspectsScore').textContent + ' — regions lost: ' + $('#aspectsRegions').textContent);
+    if (pcTouched) L.push('PC-ASPECTS ' + $('#pcScore').textContent);
+    L.push('Prestroke mRS: ' + $('#mrsOut').textContent);
+    if ($('#wt') && $('#wt').value) {
+      L.push(($('#agent').value === 'tnk' ? 'Tenecteplase' : 'Alteplase') + ' dose: ' + $('#doseOut').textContent + ' (weight ' + $('#wt').value + ' ' + $('#wtUnit').value + ')');
+    }
+    copy('Acute stroke case summary\n' + L.join('\n') + '\n(Acute Stroke Guide v' + (document.documentElement.getAttribute('data-version') || '') + ')', this);
+  });
+
   /* ------------------------------------------------------------ kick off */
   buildGuide();    /* before route(), so generated links get current-page marking */
   addBackLinks(); /* before route(), so a deep link finds a button to label */
   route();
   buildIndex();
+  updateWakeLock();
   var v = $('#buildVersion');
   if (v) v.textContent = document.documentElement.getAttribute('data-version') || '';
 })();

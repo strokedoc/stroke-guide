@@ -278,7 +278,7 @@ td small { color: var(--text-dim); }
   background: var(--surface); color: var(--text-dim); cursor: pointer;
   font-family: inherit; font-size: 13px; font-weight: 600;
 }
-.tab[aria-selected="true"] { background: var(--brand-strong); border-color: var(--brand-strong); color: #fff; }
+.tab[aria-selected="true"], .tab[aria-pressed="true"] { background: var(--brand-strong); border-color: var(--brand-strong); color: #fff; }
 
 
 /* ---------- Forms / calculators ---------- */

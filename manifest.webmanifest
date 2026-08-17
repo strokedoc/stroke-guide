@@ -1,7 +1,7 @@
 {
   "name": "Acute Stroke Guide",
   "short_name": "Stroke Guide",
-  "description": "Evidence-based bedside reference for acute ischaemic stroke and intracerebral haemorrhage, built on the 2026 AHA/ASA guideline. Works offline.",
+  "description": "Evidence-based bedside reference for acute ischemic stroke and intracerebral hemorrhage, built on the 2026 AHA/ASA guideline. Works offline.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

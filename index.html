@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" data-version="1.23.4">
+<html lang="en" data-theme="light" data-version="1.24.0">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -61,6 +61,11 @@
 <div class="disclaimer-bar" id="disclaimerBar">
   <span><strong>Educational reference only.</strong> Not medical advice, not a substitute for clinical judgment, and not validated for autonomous decision-making. Verify against your own institution's protocol and the primary literature.</span>
   <button class="btn" id="ackBtn">Got it</button>
+</div>
+
+<div class="disclaimer-bar no-print" id="caseBar" hidden>
+  <span>Restored case data from <strong id="caseAge">—</strong> ago — scores, clock and weight carried over.</span>
+  <button class="btn" id="caseClear">New patient</button>
 </div>
 
 <div class="layout">
@@ -135,6 +140,9 @@
     <a class="tile" href="#aspects"><span class="tile__v" id="tileAspects">10</span><span class="tile__t">ASPECTS</span><span class="tile__s">anterior &amp; posterior</span></a>
     <a class="tile" href="#dosing"><span class="tile__v" id="tileDose">—</span><span class="tile__t">Dose</span><span class="tile__s">TNK &amp; alteplase</span></a>
     <a class="tile" href="#mrs"><span class="tile__v" id="tileMrs">0</span><span class="tile__t">Prestroke mRS</span><span class="tile__s">0 unless recorded otherwise</span></a>
+  </div>
+  <div class="row no-print" style="margin-top:10px">
+    <button class="btn" id="caseCopy">Copy case summary</button>
   </div>
   <a class="homemore" href="#tools">All tools <span aria-hidden="true">→</span></a>
 
@@ -1768,6 +1776,24 @@
   <h1>Anticoagulation reversal in intracranial hemorrhage</h1>
   <p class="lede">Establish the agent and the time of the last dose first. That pair determines everything below.</p>
 
+  <div class="card">
+    <h3 style="margin-top:0">Reversal picker</h3>
+    <div class="field" style="margin-bottom:0">
+      <label for="revAgent">The patient is on</label>
+      <select id="revAgent" class="seg-src">
+        <option value="">Select…</option>
+        <option value="vka">Warfarin</option>
+        <option value="xa">Apixaban / rivaroxaban / edoxaban</option>
+        <option value="dabi">Dabigatran</option>
+        <option value="ufh">Heparin</option>
+        <option value="lmwh">LMWH</option>
+        <option value="lytic">tPA / TNK</option>
+        <option value="apt">Antiplatelet only</option>
+      </select>
+    </div>
+    <div id="revOut" aria-live="polite"></div>
+  </div>
+
   <div class="tablewrap"><table>
     <thead><tr><th>Agent</th><th>Reversal</th><th>Notes</th><th>Class</th></tr></thead>
     <tbody>
@@ -2297,6 +2323,7 @@
   <h1>Trial library</h1>
   <p class="lede">Every trial cited in this guide, in one filterable table. Type a drug, a vessel, a year or an acronym.</p>
 
+  <div class="tabs no-print" id="trialChips" aria-label="Filter by domain" style="margin:0 0 8px"></div>
   <div class="row no-print" style="margin-bottom:6px">
     <label class="sr-only" for="trialFilter">Filter trials</label>
     <input type="text" id="trialFilter" placeholder="Filter trials — try 'tenecteplase', 'basilar', 'large core'…" autocomplete="off">
@@ -2465,7 +2492,7 @@
   <p>The software is MIT licensed; the clinical content is released under <strong>CC BY 4.0</strong> — reuse it, adapt it for your own institution, translate it, as long as you attribute the source. Corrections are welcome and wanted: if a recommendation here misstates the guideline, or a number is wrong, open an issue or a pull request with the citation.</p>
 
   <h2>Version</h2>
-  <p class="src">Version <span id="buildVersion">1.23.4</span>. Content current to the 2026 AHA/ASA acute ischemic stroke guideline, the 2022 AHA/ASA spontaneous ICH guideline, and named trials published through February 2026.</p>
+  <p class="src">Version <span id="buildVersion">1.24.0</span>. Content current to the 2026 AHA/ASA acute ischemic stroke guideline, the 2022 AHA/ASA spontaneous ICH guideline, and named trials published through February 2026.</p>
 
   <div class="footer">
     <p>Built as a public resource. No tracking, no analytics, no accounts, no network requests after the first load.</p>
