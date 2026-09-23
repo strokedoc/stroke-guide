@@ -694,11 +694,11 @@
         add('note', { cls: '2a', label: 'COR 2a' }, 'Extended-window thrombolysis may be reasonable (4.5–9 h)',
           'This requires salvageable penumbra on automated perfusion imaging — enter the core and Tmax&gt;6 s volumes above and the tool will test the ' + P_EXTEND + '. ' +
           'For unknown-onset stroke within 4.5 h of symptom recognition, DWI–FLAIR mismatch on MRI is the alternative selection route. ' +
-          '<strong>Where there is an LVO and thrombectomy is available, proceed straight to EVT</strong> — extended-window IVT should not delay the angio suite, and thrombolysis before EVT in this window has not shown benefit (TIMELESS). <a href="#extended">Criteria</a>' + relCaveat);
+          '<strong>Where there is an LVO and thrombectomy is available, proceed straight to EVT</strong> — extended-window IVT should not delay the angio suite, and thrombolysis before EVT in this window has not shown benefit (TIMELESS; TNK-PLUS, post-guideline). <a href="#extended">Criteria</a>' + relCaveat);
       } else if (meetsEXTEND) {
         add('note', { cls: '2a', label: 'COR 2a' }, 'Extended-window thrombolysis may be reasonable (4.5–9 h)',
           'Your values — ' + perfVals + ' — meet the ' + P_EXTEND + '. IVT may be reasonable (EXTEND, ECASS-4). ' +
-          '<strong>Where there is an LVO and thrombectomy is available, proceed straight to EVT</strong> — extended-window IVT should not delay the angio suite, and thrombolysis before EVT in this window has not shown benefit (TIMELESS). <a href="#extended">Criteria</a>' + relCaveat);
+          '<strong>Where there is an LVO and thrombectomy is available, proceed straight to EVT</strong> — extended-window IVT should not delay the angio suite, and thrombolysis before EVT in this window has not shown benefit (TIMELESS; TNK-PLUS, post-guideline). <a href="#extended">Criteria</a>' + relCaveat);
       } else {
         add('warn', { cls: '3n', label: 'Criteria not met' }, 'Perfusion profile not met — extended-window IVT is not indicated',
           'Your values — ' + perfVals + ' — do not meet the ' + P_EXTEND + ' behind the 4.5–9 h <span class="cor cor-2a">COR 2a</span> recommendation. ' +
@@ -727,16 +727,16 @@
           add('note', { cls: '2b', label: 'COR 2b' }, 'Late IVT only if thrombectomy is unavailable (6–24 h)',
             'For ICA, M1 or M2 occlusion with salvageable penumbra that <em>cannot</em> receive EVT, IVT directed by clinicians with expertise in thrombolytic stroke care may be beneficial (TRACE-III, HOPE). ' +
             'Salvageable penumbra must be demonstrated first — enter the core and Tmax&gt;6 s volumes above and the tool will test both the ' + P_TRACE3 + ' and the laxer HOPE profile (' + MM_EXTEND + '). ' +
-            '<strong>If EVT is available, EVT takes priority</strong> — TIMELESS was neutral. <a href="#extended">Detail</a>' + relCaveat);
+            '<strong>If EVT is available, EVT takes priority</strong> — TIMELESS and TNK-PLUS (post-guideline) were neutral. <a href="#extended">Detail</a>' + relCaveat);
         } else if (meetsTRACE3) {
           add('note', { cls: '2b', label: 'COR 2b' }, 'Late IVT only if thrombectomy is unavailable (6–24 h)',
             'Your values — ' + perfVals + ' — meet the ' + P_TRACE3 + '. For ICA, M1 or M2 occlusion that <em>cannot</em> receive EVT, IVT directed by clinicians with expertise in thrombolytic stroke care may be beneficial (TRACE-III, HOPE). ' +
-            '<strong>If EVT is available, EVT takes priority</strong> and there is no established role for adding late IVT — TIMELESS was neutral.' +
+            '<strong>If EVT is available, EVT takes priority</strong> and there is no established role for adding late IVT — TIMELESS and TNK-PLUS (post-guideline) were neutral.' +
             nineHrNote + ' <a href="#extended">Detail</a>' + relCaveat);
         } else if (meetsEXTEND) {
           add('note', { cls: '2b', label: 'COR 2b' }, 'Late IVT only if thrombectomy is unavailable (6–24 h, via HOPE)',
             'Your values — ' + perfVals + ' — fall short of the ' + P_TRACE3 + ' but meet HOPE\'s profile (' + MM_EXTEND + ', identical to EXTEND\'s), which enrolled out to 24 h regardless of vessel. ' +
-            'IVT directed by clinicians with expertise in thrombolytic stroke care may be beneficial. <strong>If EVT is available, EVT takes priority</strong> — TIMELESS was neutral.' +
+            'IVT directed by clinicians with expertise in thrombolytic stroke care may be beneficial. <strong>If EVT is available, EVT takes priority</strong> — TIMELESS and TNK-PLUS (post-guideline) were neutral.' +
             nineHrNote + ' <a href="#extended">Detail</a>' + relCaveat);
         } else {
           add('warn', { cls: '3n', label: 'Criteria not met' }, 'Perfusion profile not met — late IVT is not indicated',
@@ -1196,7 +1196,7 @@
   /* -------------------------------------------------------- trials filter */
   var trialFilter = $('#trialFilter');
   if (trialFilter) {
-    /* Domain chips — 70 rows justify one-tap filters. A chip and the text
+    /* Domain chips — 90-odd rows justify one-tap filters. A chip and the text
        box combine (AND), and All clears the chip. */
     var trialGroup = null;
     function updateTrialFilter() {
@@ -1215,7 +1215,7 @@
       [['All', null],
        ['Thrombolysis', /thrombolysis|extended window|agent choice|minor stroke/i],
        ['Thrombectomy', /thrombectomy|large core|basilar|evt technique/i],
-       ['Antithrombotics', /dapt|anticoagulation timing|atherosclerosis/i],
+       ['Antithrombotics', /dapt|anticoagulation timing|atherosclerosis|factor xia/i],
        ['Carotid', /carotid/i],
        ['CVT', /venous thrombosis/i],
        ['Dissection', /dissection/i],
