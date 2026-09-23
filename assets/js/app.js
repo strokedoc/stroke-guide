@@ -49,6 +49,12 @@
 
   function show(id, opts) {
     var target = document.getElementById(id);
+    /* A hash may name a heading inside a section (#carotid-dapt): open the
+       section, then scroll to the heading. */
+    var inner = null;
+    if (target && !target.classList.contains('section') && target.closest('.section')) {
+      inner = target; target = target.closest('.section'); id = target.id;
+    }
     if (!target || !target.classList.contains('section')) { id = 'start'; target = document.getElementById('start'); }
     var previous = current;
     current = id;
@@ -61,7 +67,8 @@
     });
     var t = target.getAttribute('data-title');
     document.title = (t ? t + ' — ' : '') + 'Acute Stroke Guide';
-    if (!opts || !opts.keepScroll) window.scrollTo(0, 0);
+    if (inner) inner.scrollIntoView();
+    else if (!opts || !opts.keepScroll) window.scrollTo(0, 0);
     if (id === 'start' || id === 'tools') syncTiles();
     if (id === 'pathfinder') syncPathfinderFromTools();
     closeNav();
@@ -75,7 +82,7 @@
     /* The skip link targets <main>, not a routed section.  Leave native
        fragment navigation alone instead of replacing the current page with
        the start section. */
-    if (target && !target.classList.contains('section')) { closeNav(); return; }
+    if (target && !target.classList.contains('section') && !target.closest('.section')) { closeNav(); return; }
     route();
   });
 

@@ -4,7 +4,7 @@
    content corrections land on the next launch, not the one after.
    Bump CACHE on every content release. */
 
-var CACHE = 'asg-v1.25.0';
+var CACHE = 'asg-v1.26.0';
 
 var ASSETS = [
   './',
@@ -29,7 +29,9 @@ var ASSETS = [
 self.addEventListener('install', function (e) {
   e.waitUntil(
     caches.open(CACHE)
-      .then(function (c) { return c.addAll(ASSETS); })
+      /* cache: 'reload' skips the browser's HTTP cache, which could otherwise
+         hand a fresh index.html the previous release's app.js or app.css. */
+      .then(function (c) { return c.addAll(ASSETS.map(function (u) { return new Request(u, { cache: 'reload' }); })); })
       .then(function () { return self.skipWaiting(); })
   );
 });
