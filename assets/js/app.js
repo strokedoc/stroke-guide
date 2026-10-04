@@ -681,7 +681,7 @@
         add('ok', { cls: '1', label: 'COR 1' },
           'IV thrombolysis now — tenecteplase 0.25 mg/kg or alteplase 0.9 mg/kg',
           'Within 4.5 h with a disabling deficit. Treat on NCCT alone — do <em>not</em> wait for CTA/CTP or MRI. ' +
-          'BP must be &lt;185/110 before the bolus. Check glucose first. <a href="#dosing">Dosing</a>' +
+          'BP must be &lt;185/110 before the bolus. Check glucose first: below 50 or above 400 mg/dL, correct it and reassess — if the disabling deficit persists, treat <span class="cor cor-1">COR 1</span>. <a href="#dosing">Dosing</a>' +
           relCaveat + disablingWhy);
       } else if (disabling === 'no') {
         nonDisablingCard();
@@ -698,13 +698,13 @@
           'This is the highest-yield decision for thrombolysis in this window, and NIHSS alone does not answer it. ' +
           'Enter an NIHSS above, or record the occlusion — either can answer it for you. See <a href="#thrombolysis">the Table 4 guidance</a>.');
       } else if (!havePerf) {
-        add('note', { cls: '2a', label: 'COR 2a' }, 'Extended-window thrombolysis may be reasonable (4.5–9 h)',
-          'This requires salvageable penumbra on automated perfusion imaging — enter the core and Tmax&gt;6 s volumes above and the tool will test the ' + P_EXTEND + '. ' +
+        add('note', { cls: '2a', label: 'COR 2a' }, 'Extended-window thrombolysis can be beneficial if thrombectomy is not an option (4.5–9 h)',
+          'The recommendation is for patients <strong>not eligible for thrombectomy</strong>, and it requires salvageable penumbra on automated perfusion imaging — enter the core and Tmax&gt;6 s volumes above and the tool will test the ' + P_EXTEND + '. ' +
           'For unknown-onset stroke within 4.5 h of symptom recognition, DWI–FLAIR mismatch on MRI is the alternative selection route. ' +
           '<strong>Where there is an LVO and thrombectomy is available, proceed straight to EVT</strong> — extended-window IVT should not delay the angio suite, and thrombolysis before EVT in this window has not shown benefit (TIMELESS; TNK-PLUS, post-guideline). <a href="#extended">Criteria</a>' + relCaveat);
       } else if (meetsEXTEND) {
-        add('note', { cls: '2a', label: 'COR 2a' }, 'Extended-window thrombolysis may be reasonable (4.5–9 h)',
-          'Your values — ' + perfVals + ' — meet the ' + P_EXTEND + '. IVT may be reasonable (EXTEND, ECASS-4). ' +
+        add('note', { cls: '2a', label: 'COR 2a' }, 'Extended-window thrombolysis can be beneficial if thrombectomy is not an option (4.5–9 h)',
+          'Your values — ' + perfVals + ' — meet the ' + P_EXTEND + '. For a patient not eligible for EVT, IVT can be beneficial (EXTEND, ECASS-4). ' +
           '<strong>Where there is an LVO and thrombectomy is available, proceed straight to EVT</strong> — extended-window IVT should not delay the angio suite, and thrombolysis before EVT in this window has not shown benefit (TIMELESS; TNK-PLUS, post-guideline). <a href="#extended">Criteria</a>' + relCaveat);
       } else {
         add('warn', { cls: '3n', label: 'Criteria not met' }, 'Perfusion profile not met — extended-window IVT is not indicated',
@@ -721,33 +721,32 @@
       if (disabling === 'no') {
         nonDisablingCard();
       } else if (occl === 'lvo' || occl === 'basilar' || occl === 'm2') {
-        /* The guideline's 4.5-24 h LVO COR 2b recommendation cites TRACE-III
-           and HOPE jointly, with no separate threshold per trial. HOPE used
-           the same numeric profile as EXTEND (ratio >1.2, mismatch >10 mL,
-           core <70 mL — see the imaging table) but, unlike EXTEND, enrolled
-           out to 24 h and did not require LVO. So a patient meeting only the
-           EXTEND/HOPE profile still qualifies for the full COR 2b card via
-           HOPE - this is not a lesser case cut off at 9 h. TRACE-III's own
-           thresholds are strictly tighter (ratio >1.8, mismatch >15 mL,
-           same core cutoff), so meeting TRACE-III always meets HOPE's too. */
+        /* The 4.5-24 h LVO COR 2b recommendation asks for "salvageable
+           ischemic penumbra" without setting numbers. TRACE-III, its main
+           trial, used ratio >1.8, mismatch >15 mL, core <70 mL; EXTEND's laxer
+           profile (ratio >1.2, mismatch >10 mL, same core) is the other
+           published definition. Meeting only the laxer one still counts as
+           salvageable penumbra, but the card says it is the weaker fit. HOPE
+           (JAMA 2025) used that laxer profile out to 24 h; the guideline does
+           not cite it, so it is named only as post-guideline support. */
         if (!havePerf) {
           add('note', { cls: '2b', label: 'COR 2b' }, 'Late IVT only if thrombectomy is unavailable (6–24 h)',
-            'For ICA, M1 or M2 occlusion with salvageable penumbra that <em>cannot</em> receive EVT, IVT directed by clinicians with expertise in thrombolytic stroke care may be beneficial (TRACE-III, HOPE). ' +
-            'Salvageable penumbra must be demonstrated first — enter the core and Tmax&gt;6 s volumes above and the tool will test both the ' + P_TRACE3 + ' and the laxer HOPE profile (' + MM_EXTEND + '). ' +
+            'For ICA, M1 or M2 occlusion with salvageable penumbra that <em>cannot</em> receive EVT, IVT directed by clinicians with expertise in thrombolytic stroke care may be beneficial (TRACE-III). ' +
+            'Salvageable penumbra must be demonstrated first — enter the core and Tmax&gt;6 s volumes above and the tool will test both the ' + P_TRACE3 + ' and the laxer EXTEND profile (' + MM_EXTEND + '). ' +
             '<strong>If EVT is available, EVT takes priority</strong> — TIMELESS and TNK-PLUS (post-guideline) were neutral. <a href="#extended">Detail</a>' + relCaveat);
         } else if (meetsTRACE3) {
           add('note', { cls: '2b', label: 'COR 2b' }, 'Late IVT only if thrombectomy is unavailable (6–24 h)',
-            'Your values — ' + perfVals + ' — meet the ' + P_TRACE3 + '. For ICA, M1 or M2 occlusion that <em>cannot</em> receive EVT, IVT directed by clinicians with expertise in thrombolytic stroke care may be beneficial (TRACE-III, HOPE). ' +
+            'Your values — ' + perfVals + ' — meet the ' + P_TRACE3 + '. For ICA, M1 or M2 occlusion that <em>cannot</em> receive EVT, IVT directed by clinicians with expertise in thrombolytic stroke care may be beneficial (TRACE-III). ' +
             '<strong>If EVT is available, EVT takes priority</strong> and there is no established role for adding late IVT — TIMELESS and TNK-PLUS (post-guideline) were neutral.' +
             nineHrNote + ' <a href="#extended">Detail</a>' + relCaveat);
         } else if (meetsEXTEND) {
-          add('note', { cls: '2b', label: 'COR 2b' }, 'Late IVT only if thrombectomy is unavailable (6–24 h, via HOPE)',
-            'Your values — ' + perfVals + ' — fall short of the ' + P_TRACE3 + ' but meet HOPE\'s profile (' + MM_EXTEND + ', identical to EXTEND\'s), which enrolled out to 24 h regardless of vessel. ' +
+          add('note', { cls: '2b', label: 'COR 2b' }, 'Late IVT only if thrombectomy is unavailable (6–24 h) — weaker fit',
+            'Your values — ' + perfVals + ' — fall short of the ' + P_TRACE3 + ' but meet the laxer ' + P_EXTEND + '. The recommendation asks only for salvageable penumbra and sets no numbers, so this still qualifies, but the trial behind the recommendation used the stricter profile. HOPE (JAMA 2025, post-guideline) used the laxer profile out to 24 h and was positive. ' +
             'IVT directed by clinicians with expertise in thrombolytic stroke care may be beneficial. <strong>If EVT is available, EVT takes priority</strong> — TIMELESS and TNK-PLUS (post-guideline) were neutral.' +
             nineHrNote + ' <a href="#extended">Detail</a>' + relCaveat);
         } else {
           add('warn', { cls: '3n', label: 'Criteria not met' }, 'Perfusion profile not met — late IVT is not indicated',
-            'Your values — ' + perfVals + ' — meet neither the ' + P_TRACE3 + ' nor the laxer HOPE/EXTEND profile (' + MM_EXTEND + '). ' +
+            'Your values — ' + perfVals + ' — meet neither the ' + P_TRACE3 + ' nor the laxer EXTEND profile (' + MM_EXTEND + '). ' +
             'Assess <a href="#evt">thrombectomy</a> on its own criteria — the EVT recommendations in this window are ASPECTS-based and do not require perfusion mismatch.');
         }
       } else if (occl === 'nonlvo' || occl === 'noneg') {
@@ -1189,7 +1188,7 @@
       lytic: '<div class="note note--warn"><div class="note__t">Cryoprecipitate ± antifibrinolytic</div>' +
         '<p style="margin-bottom:0">Follow the <a href="#complications-ivt">post-thrombolysis bleeding protocol</a> — stop any infusion, fibrinogen, imaging (Table 5, AIS guideline).</p></div>',
       apt: '<div class="note note--danger"><div class="note__t"><span class="cor cor-3h">COR 3: Harm</span> Do not transfuse platelets reflexively</div>' +
-        '<p style="margin-bottom:0">In antiplatelet-associated ICH <em>not</em> undergoing emergency neurosurgery, platelet transfusion worsened outcomes (PATCH) <span class="loe">B-R</span>. Where emergency neurosurgery is planned, transfusion <em>might</em> be considered <span class="cor cor-2b">COR 2b</span> <span class="loe">C-LD</span>; desmopressin is of uncertain effectiveness <span class="cor cor-2b">COR 2b</span> <span class="loe">C-LD</span>.</p></div>'
+        '<p style="margin-bottom:0">In aspirin-associated ICH <em>not</em> undergoing emergency neurosurgery, platelet transfusion is potentially harmful — PATCH found worse outcomes <span class="loe">B-R</span>. Where emergency neurosurgery is planned, transfusion <em>might</em> be considered <span class="cor cor-2b">COR 2b</span> <span class="loe">C-LD</span>; desmopressin is of uncertain effectiveness <span class="cor cor-2b">COR 2b</span> <span class="loe">C-LD</span>.</p></div>'
     };
     var renderReversal = function () {
       var v = $('#revAgent').value;

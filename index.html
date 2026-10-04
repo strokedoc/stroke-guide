@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" data-version="1.26.0">
+<html lang="en" data-theme="light" data-version="1.27.0">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -357,8 +357,18 @@
   <h2>Where to take the patient</h2>
   <div class="note">
     <div class="note__t">The 2026 change</div>
-    <p style="margin-bottom:0">Earlier guidance was "nearest thrombolytic-capable facility". The 2026 guideline now endorses considering the local system's characteristics and, <strong>in the absence of well-functioning systems with rapid interhospital transfer</strong>, direct transport to the nearest EVT-capable hospital. Where rapid transfer processes do work well, the drip-and-ship model remains appropriate. RACECAT, the cluster-randomized trial in non-urban Catalonia, did not settle this question.</p>
+    <p style="margin-bottom:0">Earlier guidance was "nearest thrombolytic-capable facility". The 2026 guideline now endorses considering the local system's characteristics and, <strong>in the absence of well-functioning systems with rapid interhospital transfer</strong>, direct transport to the nearest EVT-capable hospital. Where rapid transfer works well, drip-and-ship remains the answer: in RACECAT (non-urban Catalonia, n=1401) bypassing the local stroke center for a distant thrombectomy center did not improve 90-day outcome, and fewer patients received thrombolysis (47.5% vs 60.4%). RACECAT does not answer the question for regions without an efficient local system.</p>
   </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Recommendation</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td>Transport to the closest appropriate stroke-capable facility rather than a non-stroke hospital</td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td>Suspected LVO: direct transport to a thrombectomy-capable center can be beneficial</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td>No well-coordinated system or proficient local thrombolysis/transfer: direct transport of suspected LVO to the closest thrombectomy center may be reasonable, if it will not disqualify the patient from IVT</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td>Well-coordinated system with proficient local hospitals: bypassing to a distant (e.g. 45–60 min) thrombectomy center does not improve 3-month outcome (RACECAT)</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td></tr>
+      <tr><td>Hospitals and EMS should agree protocols that prioritize interhospital transfer to cut door-in-door-out time</td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
+    </tbody>
+  </table></div>
 
   <h2>Mobile stroke units</h2>
   <p>MSUs are now recommended where available: multiple randomized studies, including B_PROUD and BEST-MSU, show faster thrombolysis and better functional outcomes than conventional EMS for eligible patients. This is a new recommendation in the 2026 guideline.</p>
@@ -594,6 +604,21 @@
   <h1>Thrombolysis contraindications</h1>
   <p class="lede">Three tiers, taken directly from Table 8 of the guideline. Very little in the middle tier is a hard stop — most of it is a conversation with a consultant.</p>
 
+  <h2>Check these first — they sit outside Table 8</h2>
+  <p>Table 8 is not the whole list. The guideline handles glucose, blood pressure and a few other gates in its recommendations rather than in the table, so they are easy to miss.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Check</th><th>What to do</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Blood glucose</strong> — the one test that must precede the bolus</td><td>Measure before IVT. Severe hypoglycemia (typically <strong>&lt;50 mg/dL</strong>) or hyperglycemia (<strong>&gt;400 mg/dL</strong>) can mimic stroke: correct it, then reassess. <strong>Not a contraindication in itself</strong> — if a disabling deficit persists after correction to normoglycemia, give IVT</td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span><br><span class="cor cor-1">1</span> <span class="loe">C-LD</span></td></tr>
+      <tr><td><strong>Blood pressure</strong></td><td>Lower to <strong>SBP &lt;185 and DBP &lt;110</strong> before starting IVT. Do not give it until the pressure is under those limits; then keep it <strong>&lt;180/105</strong> for 24 h. <a href="#post">BP targets →</a></td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td><strong>Non-disabling deficit</strong> within 4.5 h</td><td>IVT not recommended — give DAPT instead. <a href="#thrombolysis">What counts as disabling →</a></td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td></tr>
+      <tr><td><strong>&gt;10 cerebral microbleeds</strong> on a prior MRI</td><td>Usefulness uncertain; sICH risk may be higher. 1–10 microbleeds: treatment is reasonable (<span class="cor cor-2a">2a</span>). Unknown burden: do not get an MRI first (<span class="cor cor-1">1</span>)</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td><strong>Antiplatelet therapy</strong>, single or dual</td><td>Not a contraindication — treat</td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td><strong>Full-dose heparin or LMWH</strong></td><td>Recent heparin is why the coagulation tests must come back before the bolus (see the coagulopathy row under Absolute). For therapeutic LMWH the 2026 guideline gives no rule — it lists full-dose anticoagulation alongside IVT as a knowledge gap. Older guidance treated a full dose within 24 h as a contraindication</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">Sections 4.3 and 4.6.1, 2026 AHA/ASA AIS guideline. DOAC exposure within 48 h is in the Relative tab below.</p>
+
   <div class="tabs" data-tabs role="tablist">
     <button class="tab" role="tab" aria-selected="true" aria-controls="ci-abs" id="t-abs">Absolute</button>
     <button class="tab" role="tab" aria-selected="false" aria-controls="ci-rel" id="t-rel">Relative</button>
@@ -744,13 +769,13 @@
         <td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td>
       </tr>
       <tr>
-        <td><strong>4.5–9 h from LKW</strong>, or waking with symptoms within 9 h of the sleep midpoint, with salvageable penumbra on automated perfusion imaging</td>
-        <td>IVT may be reasonable (EXTEND, ECASS-4)</td>
+        <td><strong>Not eligible for thrombectomy</strong>, 4.5–9 h from LKW or waking with symptoms within 9 h of the sleep midpoint, with salvageable penumbra on automated perfusion imaging</td>
+        <td>IVT can be beneficial (EXTEND, ECASS-4)</td>
         <td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td>
       </tr>
       <tr>
         <td><strong>4.5–24 h, LVO with salvageable penumbra, who cannot receive EVT</strong></td>
-        <td>IVT directed by clinicians with expertise in thrombolytic stroke care may be beneficial (TRACE-III, HOPE)</td>
+        <td>IVT directed by clinicians with expertise in thrombolytic stroke care may be beneficial (TRACE-III)</td>
         <td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td>
       </tr>
     </tbody>
@@ -758,7 +783,7 @@
 
   <div class="note note--warn">
     <div class="note__t">If thrombectomy is available, thrombectomy wins</div>
-    <p style="margin-bottom:0">The 4.5–24 h thrombolysis recommendation is explicitly for patients who <em>cannot</em> receive EVT. In TIMELESS, tenecteplase did not improve outcomes over placebo in patients undergoing EVT in the 4.5–24 h window, and TNK-PLUS <span class="pill">post-guideline</span> confirmed it for M1 and proximal M2 occlusion: mRS 0–2 44.2% vs 43.2%, sICH 5.1% vs 2.6%. Do not delay thrombectomy to observe the response to a late thrombolytic.</p>
+    <p style="margin-bottom:0">Both perfusion-based recommendations are written for patients who <em>cannot</em> receive EVT — the 4.5–9 h one as much as the 4.5–24 h one. In TIMELESS, tenecteplase did not improve outcomes over placebo in patients undergoing EVT in the 4.5–24 h window, and TNK-PLUS <span class="pill">post-guideline</span> confirmed it for M1 and proximal M2 occlusion: mRS 0–2 44.2% vs 43.2%, sICH 5.1% vs 2.6%. Do not delay thrombectomy to observe the response to a late thrombolytic.</p>
   </div>
 
   <h2>Imaging criteria used in each trial</h2>
@@ -788,7 +813,7 @@
         <td>3.0% vs 0.8%</td>
       </tr>
       <tr>
-        <td><strong>HOPE</strong><br><small>JAMA 2025;334:788, n=372, China</small></td>
+        <td><strong>HOPE</strong><br><small>JAMA 2025;334:788, n=372, China</small><br><span class="pill">post-guideline</span></td>
         <td>Any AIS with perfusion mismatch, LVO or not, no initial plan for EVT, 4.5–24 h</td>
         <td>Alteplase 0.9</td>
         <td>mRS 0–1: <strong>40.3% vs 26.3%</strong> (adjusted RR 1.52, 95% CI 1.14–2.02, P=0.004)</td>
@@ -917,7 +942,7 @@
     <p><strong>CHOICE-2</strong> (JAMA 2026, n=440, Spain): intra-arterial alteplase 0.225 mg/kg (maximum 20 mg) over 15 min after eTICI 2b50–3. mRS 0–1 <strong>57.5% vs 42.5%</strong> (adjusted risk difference 15.0%, 95% CI 5.7–24.3); sICH 1.4% vs 0.5%; <strong>mortality 12.1% vs 6.4%</strong> (adjusted risk difference 5.9%, 95% CI 0.5–11.3, P=0.03).</p>
     <p><strong>IAT-TOP</strong> (JAMA Neurol 2026, n=246): the same idea after basilar recanalization did not help — mRS 0–2 41.9% vs 46.7%.</p>
     <p><strong>ATTRACTION</strong> (Lancet 2026, n=1380, China): tirofiban 5 µg/kg intra-arterial bolus, then 0.1 µg/kg/min IV for 24 h, after successful anterior reperfusion. mRS 0–2 <strong>49% vs 43%</strong> (adjusted RR 1.15, 95% CI 1.03–1.27); sICH 12% vs 9% (not significant).</p>
-    <p style="margin-bottom:0">Two positive intra-arterial alteplase trials in the anterior circulation, both with more deaths in the treated arm — significantly so in CHOICE-2 — and one negative posterior-circulation trial. None has a class of recommendation. Treat these as investigational until a guideline weighs them.</p>
+    <p style="margin-bottom:0">The guideline already gives adjunctive intra-arterial thrombolysis (urokinase, alteplase or tenecteplase) after mTICI ≥2b a weak recommendation — <em>may be reasonable</em> <span class="cor cor-2b">COR 2b</span> <span class="loe">B-R</span> — on earlier trials. These newer trials do not change that class: two positive anterior-circulation trials, both with more deaths in the treated arm (significantly so in CHOICE-2), and one negative posterior-circulation trial. Tirofiban after reperfusion (ATTRACTION) has no class; tirofiban given <em>before</em> EVT is <span class="cor cor-3n">COR 3: No Benefit</span>.</p>
   </div>
 
   <h2>Technique</h2>
@@ -929,6 +954,10 @@
       <tr><td>Either general anesthesia or procedural sedation</td><td><span class="cor cor-1">1</span> <span class="loe">B-R</span></td></tr>
       <tr><td>Proximal balloon guide catheters — benefit uncertain</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td></tr>
       <tr><td>Stent retrievers for medium/distal vessel occlusions — no benefit</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">A</span></td></tr>
+      <tr><td>Tandem extracranial–intracranial occlusion: treating both, including emergent extracranial stenting, may be reasonable</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td>Rescue intracranial balloon angioplasty and/or stenting after failed EVT — benefit uncertain</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td>Adjunctive intra-arterial urokinase, alteplase or tenecteplase after mTICI ≥2b — may be reasonable</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td></tr>
+      <tr><td>Tirofiban before EVT for LVO — not useful</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td></tr>
     </tbody>
   </table></div>
 
@@ -937,7 +966,7 @@
 
   <div class="note note--warn">
     <div class="note__t">Set expectations before you consent the family</div>
-    <p style="margin-bottom:0">Across the large-core trials, 19.5% of EVT patients achieved functional independence and 36.5% independent ambulation — against 7.5% functional independence with medical therapy alone. That is a genuine doubling, and it is a long way from the ~50% independence seen in the small-core era. NNT to prevent one additional instance of functional dependence is 8. The guideline states that a discussion with the patient and family, where feasible, is <em>essential</em> in this population.</p>
+    <p style="margin-bottom:0">Across the large-core trials, 19.5% of EVT patients achieved functional independence and 36.5% independent ambulation — against 7.5% functional independence with medical therapy alone. That is more than double, and it is a long way from the ~50% independence seen in the small-core era. NNT to prevent one additional instance of functional dependence is 8. The guideline states that a discussion with the patient and family, where feasible, is <em>essential</em> in this population.</p>
   </div>
 
   <h3><sup>*</sup> and <sup>†</sup> — who was actually studied</h3>
@@ -1089,9 +1118,12 @@
       <tr><td>In acute stroke with <strong>decreased consciousness or bulbar dysfunction</strong>, airway support and ventilatory assistance as needed for airway maintenance, protection and adequate ventilation and oxygenation</td><td><span class="cor cor-1">1</span> <span class="loe">C-LD</span></td></tr>
       <tr><td>In hypoxia, supplemental oxygen to maintain <strong>SpO₂ &gt;94%</strong></td><td><span class="cor cor-1">1</span> <span class="loe">C-LD</span></td></tr>
       <tr><td>Normobaric hyperoxia before EVT — within 6 h, NIHSS 10–20, ASPECTS ≥6, anterior LVO (M1 or carotid terminus) with planned EVT — may be reasonable</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td></tr>
+      <tr><td>Supplemental oxygen <strong>without hypoxia</strong>, in patients ineligible for EVT — not recommended</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td></tr>
+      <tr><td>Hyperbaric oxygen for stroke from <strong>arterial air embolism</strong> — may be reasonable</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td>Hyperbaric oxygen for any other ischemic stroke — not recommended</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td></tr>
     </tbody>
   </table></div>
-  <p class="src">Supplemental oxygen is for hypoxia. There is no recommendation to give it to a normoxic patient.</p>
+  <p class="src">Supplemental oxygen is for hypoxia. For a normoxic patient who is not going to thrombectomy it is a recommendation against, not a neutral choice.</p>
 
   <h2>Head positioning</h2>
   <div class="tablewrap"><table>
@@ -1111,7 +1143,7 @@
       <tr><td><strong>Neuroprotective agents</strong>, pharmacological or non-pharmacological, to improve functional outcome</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">A</span></td></tr>
       <tr><td><strong>Hemodynamic augmentation</strong> by hemodilution, high-dose albumin, or chemical vasodilators such as pentoxifylline</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">A</span></td></tr>
       <tr><td><strong>Mechanical hemodynamic augmentation</strong> — counterpulsation devices, sphenopalatine ganglion stimulation</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td></tr>
-      <tr><td><strong>Emergent carotid endarterectomy or stenting</strong> for acute stroke or unstable deficit from high-grade carotid stenosis or occlusion <em>without</em> an intracranial occlusion</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td><strong>Emergent carotid endarterectomy (within 48 h)</strong> for acute stroke or unstable deficit from high-grade carotid stenosis or occlusion <em>without</em> an intracranial occlusion</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-NR</span></td></tr>
       <tr><td><strong>SSRIs</strong> to improve motor recovery or functional status</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">A</span></td></tr>
       <tr><td><strong>High-dose, very early mobilization within 24 h</strong> of onset — not recommended and <strong>may be harmful</strong> (AVERT)</td><td><span class="cor cor-3h">3: Harm</span> <span class="loe">B-R</span></td></tr>
     </tbody>
@@ -1149,7 +1181,7 @@
     <tbody>
       <tr><td><strong>Bedside swallow screen before any oral liquid or food</strong></td><td><span class="cor cor-1">1</span> <span class="loe">C-EO</span></td></tr>
       <tr><td>Reasonable for screening to be done by speech pathologists or other trained professionals</td><td><span class="cor cor-2a">2a</span> <span class="loe">C-LD</span></td></tr>
-      <tr><td>Where the patient fails or cannot participate in bedside screening, endoscopic evaluation of swallowing is reasonable</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td>Where the patient fails or cannot participate in bedside screening, an instrumental swallowing assessment — endoscopic evaluation (FEES) or videofluoroscopy — is reasonable</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td></tr>
       <tr><td>An oral hygiene protocol may be reasonable to reduce pneumonia risk</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-NR</span></td></tr>
       <tr><td><strong>Pharyngeal electrical stimulation</strong>, non-tracheostomized stroke with dysphagia — may be reasonable to improve swallowing function (new in 2026)</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td></tr>
       <tr><td><strong>Pharyngeal electrical stimulation</strong> after ventilator weaning, in severe stroke with dysphagia requiring tracheotomy — reasonable to facilitate readiness for decannulation</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-R</span></td></tr>
@@ -1190,7 +1222,7 @@
 
   <h2>Also worth doing</h2>
   <ul>
-    <li><strong>Stroke unit care</strong> — the single most reliably beneficial organizational intervention in stroke.</li>
+    <li><strong>Stroke unit care</strong> — the single most reliably beneficial organizational intervention in stroke <span class="cor cor-1">COR 1</span> <span class="loe">B-R</span>.</li>
     <li><strong>Skin assessment</strong> with an objective risk scale; patients with impaired mobility are at high risk of pressure injury.</li>
     <li><strong>Palliative care referral</strong> is reasonable for selected patients and families <span class="cor cor-2a">COR 2a</span>.</li>
   </ul>
@@ -1278,6 +1310,7 @@
       <tr><td>Aspirin within 48 h of stroke onset, to reduce death and dependency</td><td><span class="cor cor-1">1</span> <span class="loe">A</span></td></tr>
       <tr><td>Antiplatelet therapy in the first 24 h after IVT — risk uncertain. Might be considered where a concomitant condition makes such treatment substantially beneficial, or withholding it substantially risky</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-NR</span></td></tr>
       <tr><td>Antiplatelet in preference to oral anticoagulation for noncardioembolic AIS or TIA</td><td><span class="cor cor-1">1</span> <span class="loe">A</span></td></tr>
+      <tr><td>IV tirofiban — efficacy for clinical outcome not well established</td><td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td></tr>
     </tbody>
   </table></div>
 
@@ -1314,7 +1347,9 @@
     <tbody>
       <tr><td><strong>CHANCE</strong></td><td>AIS NIHSS ≤3 or TIA ABCD² ≥4</td><td>Clopidogrel 300 mg load → 75 mg/d + aspirin 75 mg, 21 days, then clopidogrel</td><td>24 h</td><td>28</td></tr>
       <tr><td><strong>POINT</strong></td><td>AIS NIHSS ≤3 or TIA ABCD² ≥4</td><td>Clopidogrel 600 mg load → 75 mg/d + aspirin 50–325 mg/d, 90 days</td><td>12 h</td><td>67</td></tr>
-      <tr><td><strong>THALES</strong></td><td>AIS NIHSS ≤5 or TIA ABCD² ≥6</td><td>Ticagrelor 180 mg load → 90 mg bd + aspirin 300–325 mg load → 75–100 mg/d, 30 days</td><td>24 h</td><td>—</td></tr>
+      <tr><td><strong>THALES</strong></td><td>AIS NIHSS ≤5 or TIA ABCD² ≥6</td><td>Ticagrelor 180 mg load → 90 mg bd + aspirin 300–325 mg load → 75–100 mg/d, 30 days</td><td>24 h</td><td>91</td></tr>
+      <tr><td><strong>CHANCE 2</strong></td><td>AIS NIHSS ≤3 or TIA ABCD² ≥4, CYP2C19 loss-of-function carrier</td><td>Ticagrelor 180 mg load → 90 mg bd + aspirin 75–300 mg load → 75 mg/d, 21 days, then ticagrelor</td><td>24 h</td><td>63</td></tr>
+      <tr><td><strong>INSPIRES</strong></td><td>AIS NIHSS ≤5 or TIA ABCD² ≥4, presumed atherosclerotic</td><td>Clopidogrel 300 mg load → 75 mg/d + aspirin 100–300 mg load → 100 mg/d, 21 days, then clopidogrel</td><td>72 h</td><td>53</td></tr>
     </tbody>
   </table></div>
   <div class="note note--warn">
@@ -1435,7 +1470,7 @@
   <div class="note note--warn">
     <div class="note__t">Edges of the evidence</div>
     <p>Very severe stroke (NIHSS &gt;20) was under-represented in all four trials — median NIHSS was 3–6.5. The trials tested <strong>DOACs only</strong>: for warfarin (mechanical valve, valvular AF) none of this applies directly, though warfarin's delayed onset means it can reasonably be started 2–5 days earlier than a DOAC would be. Infarct size classification in ELAN was a local visual read on NCCT or DWI — not a volumetric measurement.</p>
-    <p style="margin-bottom:0"><strong>Do not bridge with heparin.</strong> Parenteral anticoagulation within 48 h increases hemorrhagic transformation without preventing recurrence, and full-dose heparin bridging was not used in any of the timing trials.</p>
+    <p style="margin-bottom:0"><strong>Do not bridge with heparin.</strong> Across 28 trials of early anticoagulation, it modestly reduced early recurrent stroke (OR 0.75) but raised symptomatic ICH (OR 2.47) and extracranial bleeding, with no effect on death or dependency — hence <span class="cor cor-3n">COR 3: No Benefit</span> within 48 h. Full-dose heparin bridging was not used in any of the DOAC timing trials.</p>
   </div>
 
   <h3>The timing trials</h3>
@@ -1782,7 +1817,7 @@
       <li><strong>Blood pressure</strong> — start lowering within 2 hours, reach target within 1 hour.</li>
       <li><strong>Reverse the anticoagulant</strong> — the single most time-critical drug decision. <a href="#reversal">Reversal table →</a></li>
       <li><strong>Neurosurgical consultation</strong> for cerebellar hemorrhage, hydrocephalus, intraventricular extension, or a lobar hematoma of 30–80 mL.</li>
-      <li><strong>Avoid early prognostication.</strong> Do not withdraw care in the first 24 hours; early do-not-resuscitate orders are an independent predictor of death.</li>
+      <li><strong>Avoid early prognostication.</strong> Without a prior documented wish to limit care, hold off new DNAR orders and withdrawal of support until at least the second full hospital day; early DNAR orders are an independent predictor of death.</li>
     </ol>
   </div>
 
@@ -1843,7 +1878,7 @@
     <tbody>
       <tr><td><strong>Score the hemorrhage</strong></td><td>A baseline measure of overall severity is recommended as part of the initial evaluation</td><td><span class="cor cor-1">1</span> <span class="loe">B-NR</span></td></tr>
       <tr><td><strong>Do not prognosticate from it</strong></td><td>A baseline severity score <strong>should not be used as the sole basis</strong> for forecasting individual prognosis or for limiting life-sustaining treatment</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-NR</span></td></tr>
-      <tr><td><strong>Postpone new DNAR orders</strong></td><td>Where there is no pre-existing documented request to limit life-sustaining therapy, aggressive care including postponement of new DNAR orders until at least the second full day is reasonable</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td></tr>
+      <tr><td><strong>Postpone new DNAR orders</strong></td><td>Where there is no pre-existing documented request to limit life-sustaining therapy, aggressive care, including postponing new DNAR orders or withdrawal of support until at least the second full hospital day, is reasonable</td><td><span class="cor cor-2a">2a</span> <span class="loe">B-NR</span></td></tr>
       <tr><td><strong>DNAR is not comfort-only</strong></td><td>In a patient who does have DNAR status, <strong>limiting other medical and surgical interventions</strong> — unless the patient or surrogate explicitly specified it — <strong>is associated with harm</strong>. DNAR means do not attempt resuscitation, and nothing else</td><td><span class="cor cor-3h">3: Harm</span> <span class="loe">B-NR</span></td></tr>
       <tr><td><strong>Shared decision-making</strong></td><td>Where the patient cannot fully participate, a shared model between surrogates and clinicians is reasonable</td><td><span class="cor cor-2a">2a</span> <span class="loe">C-LD</span></td></tr>
     </tbody>
@@ -2424,7 +2459,7 @@
       <tr><td><strong>THAWS</strong></td><td>Extended window</td><td>Unknown onset, DWI–FLAIR mismatch, n=131</td><td>mRS 0–1 47.1% vs 48.3%, RR 0.97. Halted early after WAKE-UP; underpowered</td></tr>
       <tr><td><strong>EXTEND</strong><br><small>NEJM 2019</small></td><td>Extended window</td><td>4.5–9 h, perfusion mismatch, n=225</td><td>mRS 0–1 35.4% vs 29.5%, adjusted RR 1.44 (1.01–2.06). sICH 6.2% vs 0.9%</td></tr>
       <tr><td><strong>TRACE-III</strong><br><small>NEJM 2024</small></td><td>Extended window</td><td>LVO 4.5–24 h without EVT, n=516, tenecteplase</td><td>mRS 0–1 33.0% vs 24.2%, RR 1.37. sICH 3.0% vs 0.8%</td></tr>
-      <tr><td><strong>HOPE</strong><br><small>JAMA 2025;334:788</small></td><td>Extended window</td><td>Perfusion mismatch 4.5–24 h, LVO or not, no planned EVT, n=372, alteplase</td><td>mRS 0–1 40.3% vs 26.3%, adjusted RR 1.52 (1.14–2.02), P=0.004. sICH 3.8% vs 0.51%. doi:10.1001/jama.2025.12063</td></tr>
+      <tr><td><strong>HOPE</strong><br><small>JAMA 2025;334:788 · post-guideline</small></td><td>Extended window</td><td>Perfusion mismatch 4.5–24 h, LVO or not, no planned EVT, n=372, alteplase</td><td>mRS 0–1 40.3% vs 26.3%, adjusted RR 1.52 (1.14–2.02), P=0.004. sICH 3.8% vs 0.51%. doi:10.1001/jama.2025.12063</td></tr>
       <tr><td><strong>OPTION</strong><br><small>JAMA 2026</small></td><td>Extended window</td><td>Non-LVO 4.5–24 h, core &lt;50 mL, ratio ≥1.2, n=566, tenecteplase</td><td>mRS 0–1 43.6% vs 34.2%, RR 1.28 (1.04–1.57), P=0.02. sICH 2.8% vs 0%. doi:10.1001/jama.2026.0210</td></tr>
       <tr><td><strong>TIMELESS</strong><br><small>NEJM 2024</small></td><td>Extended window + EVT</td><td>4.5–24 h with EVT, perfusion-selected, tenecteplase vs placebo</td><td>Neutral — no improvement in functional outcome. doi:10.1056/NEJMoa2402980</td></tr>
       <tr><td><strong>TNK-PLUS</strong><br><small>JAMA 2026 · post-guideline</small></td><td>Extended window + EVT</td><td>M1 or proximal M2, 4.5–24 h, core &lt;70 mL, ratio ≥1.8, mismatch ≥15 mL, n=391, China, tenecteplase before EVT vs EVT alone</td><td>mRS 0–2 44.2% vs 43.2%, adjusted rate ratio 1.01 (0.83–1.24), P=0.89. sICH 5.1% vs 2.6%. Second neutral late-window bridging trial after TIMELESS. doi:10.1001/jama.2026.4292</td></tr>
@@ -2466,7 +2501,7 @@
       <tr><td><strong>HeadSOAR</strong><br><small>BMJ 2026 · post-guideline</small></td><td>Positioning after thrombectomy</td><td>Head 30–40° vs 0–10° for 72 h after successful anterior reperfusion, n=1368, China</td><td>Adjusted generalized OR 1.12 (0.97–1.29), P=0.14; death 18.3% vs 20.3%. Neutral. doi:10.1136/bmj-2026-100363</td></tr>
       <tr><td><strong>CHANCE</strong></td><td>DAPT</td><td>NIHSS ≤3 or TIA ABCD² ≥4, within 24 h</td><td>Clopidogrel 300 mg load + aspirin × 21 days. NNT 28</td></tr>
       <tr><td><strong>POINT</strong></td><td>DAPT</td><td>NIHSS ≤3 or TIA ABCD² ≥4, within 12 h</td><td>Clopidogrel 600 mg load + aspirin × 90 days. NNT 67; bleeding rose after day 21</td></tr>
-      <tr><td><strong>THALES</strong></td><td>DAPT</td><td>NIHSS ≤5 or TIA ABCD² ≥6, within 24 h</td><td>Ticagrelor + aspirin × 30 days</td></tr>
+      <tr><td><strong>THALES</strong></td><td>DAPT</td><td>NIHSS ≤5 or TIA ABCD² ≥6, within 24 h</td><td>Ticagrelor + aspirin × 30 days. NNT 91</td></tr>
       <tr><td><strong>INSPIRES</strong></td><td>DAPT</td><td>NIHSS ≤5 or high-risk TIA within 24–72 h, atherosclerotic</td><td>Clopidogrel + aspirin × 21 days. Basis for the 24–72 h COR 2a recommendation</td></tr>
       <tr><td><strong>SAMMPRIS</strong><br><small>NEJM 2011; final Lancet 2014</small></td><td>Intracranial atherosclerosis</td><td>TIA/stroke ≤30 days, 70–99% intracranial stenosis, n=451</td><td>Aggressive medical management (incl. DAPT × 90 days) beat stenting: 30-day stroke/death 5.8% vs 14.7%, P=0.002; sustained at median 32.4 months (15% vs 23%). Basis for 90-day DAPT in severe symptomatic ICAD. doi:10.1056/NEJMoa1105335</td></tr>
       <tr><td><strong>NASCET</strong><br><small>NEJM 1991 &amp; 1998</small></td><td>Carotid</td><td>Symptomatic stenosis, TIA/nondisabling stroke; 70–99% n=659, &lt;70% n=2226</td><td>70–99%: 2-year ipsilateral stroke 26% medical vs 9% CEA, ARR 17% (P&lt;0.001), durable to 8 years. 50–69%: 5-year 22.2% vs 15.7% (P=0.045), NNT 15. &lt;50%: no benefit. doi:10.1056/NEJM199108153250701; doi:10.1056/NEJM199811123392002</td></tr>
@@ -2489,7 +2524,7 @@
       <tr><td><strong>SHINE</strong></td><td>Glucose</td><td>Hyperglycemic AIS, intensive 80–130 vs 80–180 mg/dL, n=1151</td><td>Stopped early for futility. No 3-month benefit; severe hypoglycemia only in the intensive arm</td></tr>
       <tr><td><strong>CHARM</strong></td><td>Edema</td><td>Large hemispheric infarction, IV glibenclamide, n=535</td><td>No improvement in functional outcome</td></tr>
       <tr><td><strong>DECIMAL, DESTINY, HAMLET, HeADDFIRST, HeMMI</strong></td><td>Hemicraniectomy</td><td>Malignant MCA infarction, decompression within 48 h</td><td>Survival and functional benefit at 12 months for age ≤60; survival benefit only above 60</td></tr>
-      <tr><td><strong>RACECAT</strong></td><td>Systems of care</td><td>Non-urban Catalonia, mothership vs drip-and-ship</td><td>Did not resolve optimal prehospital destination</td></tr>
+      <tr><td><strong>RACECAT</strong></td><td>Systems of care</td><td>Non-urban Catalonia, suspected LVO, direct to distant thrombectomy center vs local stroke center, n=1401</td><td>No difference in 90-day mRS; less thrombolysis with direct transport (47.5% vs 60.4%). Basis for the COR 3: No Benefit on bypass where the local system works well</td></tr>
       <tr><td><strong>B_PROUD, BEST-MSU</strong></td><td>Systems of care</td><td>Mobile stroke units vs conventional EMS</td><td>Faster treatment and better functional outcomes. Basis for the new MSU recommendations</td></tr>
       <tr><td><strong>PRESTO</strong></td><td>Prehospital scales</td><td>8 LVO scales, n=1039, Netherlands</td><td>AUC 0.72–0.83 for anterior LVO detection</td></tr>
       <tr><td><strong>DIRECT ANGIO</strong><br><small>Lancet Neurol 2026 · post-guideline</small></td><td>Systems of care</td><td>Direct to angio suite vs conventional imaging, severe deficit suggestive of LVO ≤5 h, n=115, France</td><td>Stopped early for safety: sICH 15% vs 0%, adjusted OR 11.0 (1.28–1406). mRS 0–2 36% vs 42%. doi:10.1016/S1474-4422(26)00056-6</td></tr>
@@ -2603,7 +2638,7 @@
   <p>The software is MIT licensed; the clinical content is released under <strong>CC BY 4.0</strong> — reuse it, adapt it for your own institution, translate it, as long as you attribute the source. Corrections are welcome and wanted: if a recommendation here misstates the guideline, or a number is wrong, open an issue or a pull request with the citation.</p>
 
   <h2>Version</h2>
-  <p class="src">Version <span id="buildVersion">1.26.0</span>. Content current to the 2026 AHA/ASA acute ischemic stroke guideline, the 2022 AHA/ASA spontaneous ICH guideline, and named trials published through September 2026. Trials that postdate the AIS guideline are marked <span class="pill">post-guideline</span> and carry no class of recommendation.</p>
+  <p class="src">Version <span id="buildVersion">1.27.0</span>. Content current to the 2026 AHA/ASA acute ischemic stroke guideline, the 2022 AHA/ASA spontaneous ICH guideline, and named trials published through September 2026. Audited line by line against the 2026 guideline text in October 2026. Trials that postdate the AIS guideline are marked <span class="pill">post-guideline</span> and carry no class of recommendation.</p>
 
   <div class="footer">
     <p>Built as a public resource. No tracking, no analytics, no accounts, no network requests after the first load.</p>
