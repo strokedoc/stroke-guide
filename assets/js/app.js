@@ -496,6 +496,7 @@
     $('#pcPmi').textContent = pmi;
     var band;
     if (score >= 6 && pmi >= 3) band = 'PC-ASPECTS ≥6, but all deductions are brainstem — check the pons–midbrain index';
+    else if (score >= 7) band = 'PC-ASPECTS ≥7 — meets the basilar EVT and EXPECTS criteria';
     else if (score >= 6) band = 'PC-ASPECTS ≥6 — meets the imaging criterion';
     else band = 'PC-ASPECTS <6 — outside the trial evidence';
     $('#pcBand').textContent = band;
@@ -559,6 +560,7 @@
     var occl = pf('pfOccl');
     var aspects = pf('pfAspects');
     var pcAspects = pf('pfPcAspects');
+    var territory = pf('pfTerritory');
     var mrs = pf('pfMrs');
     var age = pf('pfAge');
     var flair = pf('pfFlair');
@@ -631,6 +633,20 @@
         : ((pf('pfCore') !== '' || pf('pfTmax') !== '') ? 'Enter both perfusion volumes — or leave both blank if perfusion was not done.' : '');
     }
 
+    /* EXPECTS (NEJM 2025) is the one late-window trial that selected without
+       perfusion: posterior circulation, 4.5-24 h, no planned EVT, PC-ASPECTS
+       >=7 on DWI or NCCT. It postdates the guideline's March 2025 cut-off, so
+       it gets a card of its own with no class. A basilar occlusion is not its
+       population (16 enrolled, EVT planned patients excluded) and is handled
+       by the basilar cards instead. Where its profile is met, the perfusion
+       cards must not read as a flat "not indicated" for the same patient. */
+    var expectsWindow = !isNaN(hours) && hours > 4.5 && hours <= 24 &&
+      territory === 'posterior' && occl !== 'basilar';
+    var expectsMet = expectsWindow && pcAspects === 'ge7' && (mrs === '0-1' || !mrs);
+    var expectsPtr = expectsMet
+      ? ' <br><br><strong>Posterior circulation, PC-ASPECTS ≥7:</strong> EXPECTS (post-guideline) selected without perfusion — see the EXPECTS card below.'
+      : '';
+
     function add(kind, cor, title, body) {
       lines.push('<div class="note note--' + kind + '"><div class="note__t">' +
         (cor ? '<span class="cor cor-' + cor.cls + '">' + cor.label + '</span> ' : '') + title + '</div>' + body + '</div>');
@@ -647,7 +663,10 @@
         'Trials failed to show benefit of IVT over dual antiplatelet therapy for mild non-disabling deficits, and the late-window trials enrolled disabling deficits only. ' +
         'Give <a href="#antithrombotics">DAPT</a> instead: for NIHSS ≤3 or high-risk TIA, aspirin + clopidogrel with a loading dose, within 24 h, for 21 days ' +
         '<span class="cor cor-1">COR 1</span>. For NIHSS 4–5 see the 24–72 h and ticagrelor rows. ' +
-        'Re-read <a href="#thrombolysis">the disabling-deficit definition</a> before you settle on "non-disabling" — lower-limb weakness preventing walking scores 2 on the NIHSS and is disabling.');
+        'Re-read <a href="#thrombolysis">the disabling-deficit definition</a> before you settle on "non-disabling" — lower-limb weakness preventing walking scores 2 on the NIHSS and is disabling.' +
+        (territory === 'posterior' || occl === 'basilar'
+          ? ' In the posterior circulation the NIHSS undersamples the deficit: vertigo, gait ataxia, dysphagia or a hemianopia can be disabling at a low score.'
+          : ''));
       /* "Non-disabling" alongside NIHSS >=6 or a large-vessel occlusion is a
          contradiction, not a preference. Surface it rather than acting on it
          silently in either direction. */
@@ -701,16 +720,16 @@
         add('note', { cls: '2a', label: 'COR 2a' }, 'Extended-window thrombolysis can be beneficial if thrombectomy is not an option (4.5–9 h)',
           'The recommendation is for patients <strong>not eligible for thrombectomy</strong>, and it requires salvageable penumbra on automated perfusion imaging — enter the core and Tmax&gt;6 s volumes above and the tool will test the ' + P_EXTEND + '. ' +
           'For unknown-onset stroke within 4.5 h of symptom recognition, DWI–FLAIR mismatch on MRI is the alternative selection route. ' +
-          '<strong>Where there is an LVO and thrombectomy is available, proceed straight to EVT</strong> — extended-window IVT should not delay the angio suite, and thrombolysis before EVT in this window has not shown benefit (TIMELESS; TNK-PLUS, post-guideline). <a href="#extended">Criteria</a>' + relCaveat);
+          '<strong>Where there is an LVO and thrombectomy is available, proceed straight to EVT</strong> — extended-window IVT should not delay the angio suite, and thrombolysis before EVT in this window has not shown benefit (TIMELESS; TNK-PLUS, post-guideline). <a href="#extended">Criteria</a>' + relCaveat + expectsPtr);
       } else if (meetsEXTEND) {
         add('note', { cls: '2a', label: 'COR 2a' }, 'Extended-window thrombolysis can be beneficial if thrombectomy is not an option (4.5–9 h)',
           'Your values — ' + perfVals + ' — meet the ' + P_EXTEND + '. For a patient not eligible for EVT, IVT can be beneficial (EXTEND, ECASS-4). ' +
           '<strong>Where there is an LVO and thrombectomy is available, proceed straight to EVT</strong> — extended-window IVT should not delay the angio suite, and thrombolysis before EVT in this window has not shown benefit (TIMELESS; TNK-PLUS, post-guideline). <a href="#extended">Criteria</a>' + relCaveat);
       } else {
-        add('warn', { cls: '3n', label: 'Criteria not met' }, 'Perfusion profile not met — extended-window IVT is not indicated',
+        add('warn', { cls: '3n', label: 'Criteria not met' }, expectsMet ? 'Perfusion profile not met' : 'Perfusion profile not met — extended-window IVT is not indicated',
           'Your values — ' + perfVals + ' — do not meet the ' + P_EXTEND + ' behind the 4.5–9 h <span class="cor cor-2a">COR 2a</span> recommendation. ' +
           'For unknown-onset stroke, DWI–FLAIR mismatch on MRI is a separate selection route. ' +
-          'Move to <a href="#antithrombotics">antithrombotics</a> and <a href="#supportive">supportive care</a>, and assess EVT separately if there is a large vessel occlusion.');
+          'Move to <a href="#antithrombotics">antithrombotics</a> and <a href="#supportive">supportive care</a>, and assess EVT separately if there is a large vessel occlusion.' + expectsPtr);
       }
     } else if (hours <= 24) {
       /* 6-24 h is one slot: the bedside question (mismatch present, and can
@@ -720,7 +739,17 @@
       var nineHrNote = ' <strong>If still within 9 h of last known well</strong>, perfusion-selected IVT itself carries <span class="cor cor-2a">COR 2a</span> (EXTEND) — stronger than the late-window recommendation.';
       if (disabling === 'no') {
         nonDisablingCard();
-      } else if (occl === 'lvo' || occl === 'basilar' || occl === 'm2') {
+      } else if (occl === 'basilar') {
+        /* TRACE-III, the trial behind the late-window LVO COR 2b, enrolled
+           ICA, M1 and M2 only, so its perfusion card does not describe a
+           basilar occlusion. The basilar IVT evidence beyond 4.5 h is
+           TRACE-5 (post-guideline, no class); thrombectomy stays first. */
+        add('note', null, 'Basilar occlusion beyond 6 h — thrombectomy first',
+          'The late-window IVT recommendation for LVO <span class="cor cor-2b">COR 2b</span> rests on TRACE-III, which enrolled ICA, M1 and M2 occlusions — not basilar. ' +
+          'In basilar occlusion, EVT within 24 h is the priority (card below). ' +
+          'TRACE-5 (Lancet 2026, post-guideline, <strong>no class of recommendation</strong>) randomized basilar occlusion within 24 h to tenecteplase 0.25 mg/kg or standard care, about half going on to EVT: mRS 0–1 or return to baseline 38% vs 29%, sICH 2% vs 3%. ' +
+          'Do not delay thrombectomy for it. EXPECTS enrolled only 16 basilar occlusions and excluded planned EVT, so it does not answer this question. <a href="#evt">Detail</a>' + relCaveat);
+      } else if (occl === 'lvo' || occl === 'm2') {
         /* The 4.5-24 h LVO COR 2b recommendation asks for "salvageable
            ischemic penumbra" without setting numbers. TRACE-III, its main
            trial, used ratio >1.8, mismatch >15 mL, core <70 mL; EXTEND's laxer
@@ -753,7 +782,7 @@
         if (!havePerf) {
           add('note', null, 'Non-LVO, 6–24 h — selection is by perfusion',
             'The only randomized evidence is OPTION (JAMA 2026, postdates the guideline, <strong>no class of recommendation</strong>): non-LVO stroke, NIHSS 6–25 or 4–5 with a disabling deficit, prestroke mRS 0–1, core &lt;50 mL, ratio ≥1.2, mismatch ≥10 mL. ' +
-            'Enter the core and Tmax&gt;6 s volumes above and the tool will test the profile. <a href="#extended">Detail</a>' + relCaveat);
+            'Enter the core and Tmax&gt;6 s volumes above and the tool will test the profile. <a href="#extended">Detail</a>' + relCaveat + expectsPtr);
         } else if (meetsOPTION) {
           add('note', null, 'Non-LVO, 6–24 h — OPTION profile met',
             'Your values — ' + perfVals + ' — meet the OPTION profile (core &lt;50 mL, ratio ≥1.2, mismatch ≥10 mL). OPTION (JAMA 2026) randomized 566 such patients (NIHSS 6–25 or 4–5 with a disabling deficit, prestroke mRS 0–1) to tenecteplase versus standard care: mRS 0–1 43.6% vs 34.2% (RR 1.28), sICH 2.8% vs 0%. ' +
@@ -762,10 +791,10 @@
         } else if (meetsEXTEND) {
           add('note', null, 'Meets EXTEND but not OPTION',
             'Your values — ' + perfVals + ' — miss the OPTION profile (core &lt;50 mL, ratio ≥1.2, mismatch ≥10 mL) but meet the ' + P_EXTEND + '.' + nineHrNote +
-            ' Beyond 9 h there is no randomized support for IVT in non-LVO stroke at these values.' + relCaveat);
+            ' Beyond 9 h there is no randomized support for IVT in non-LVO stroke at these values' + (expectsMet ? ' outside the posterior circulation.' : '.') + relCaveat + expectsPtr);
         } else {
-          add('warn', { cls: '3n', label: 'Criteria not met' }, 'Perfusion profile not met — late IVT is not indicated',
-            'Your values — ' + perfVals + ' — meet neither the OPTION profile (core &lt;50 mL, ratio ≥1.2, mismatch ≥10 mL) nor the ' + P_EXTEND + '. Move to <a href="#antithrombotics">antithrombotics</a> and <a href="#supportive">supportive care</a>.');
+          add('warn', { cls: '3n', label: 'Criteria not met' }, expectsMet ? 'Perfusion profile not met' : 'Perfusion profile not met — late IVT is not indicated',
+            'Your values — ' + perfVals + ' — meet neither the OPTION profile (core &lt;50 mL, ratio ≥1.2, mismatch ≥10 mL) nor the ' + P_EXTEND + '. Move to <a href="#antithrombotics">antithrombotics</a> and <a href="#supportive">supportive care</a>.' + expectsPtr);
         }
       } else {
         add('warn', null, 'Vascular imaging is the next step',
@@ -784,6 +813,28 @@
         'A DWI lesion (&lt;⅓ of the MCA territory) with no corresponding FLAIR change indicates a biological onset likely within 4.5 h. ' +
         'For unknown-onset or wake-up stroke, IVT within <strong>4.5 h of symptom recognition</strong> can be beneficial in otherwise eligible patients (WAKE-UP) <span class="loe">B-R</span>. ' +
         'This route stands on the MRI alone — it does not require perfusion imaging. <a href="#extended">Criteria</a>' + relCaveat);
+    }
+
+    /* Posterior circulation, 4.5-24 h: the EXPECTS route. Independent of the
+       perfusion cards above — it never required perfusion. */
+    if (expectsWindow && disabling !== 'no') {
+      var expectsCore = 'EXPECTS (NEJM 2025, n=234, China) randomized posterior circulation stroke 4.5–24 h from last known well (unwitnessed onset counted from the midpoint), with <strong>no thrombectomy planned</strong>, NIHSS ≥1 and prestroke mRS 0–1, to alteplase 0.9 mg/kg or standard care. ' +
+        'Selection was by <strong>PC-ASPECTS ≥7</strong> on DWI, or on NCCT — <strong>no perfusion imaging</strong>. mRS 0–2 at 90 days 89.6% vs 72.6% (adjusted RR 1.16, 95% CI 1.03–1.30); sICH 1.7% vs 0.9%; death 5.2% vs 8.5%. ' +
+        'It postdates the 2026 guideline and <strong>carries no class of recommendation</strong>; the population was mild (median NIHSS 3) and acting on it is a local governance decision. <a href="#extended">Detail</a>';
+      if (!pcAspects) {
+        add('warn', null, 'Posterior circulation, 4.5–24 h — score PC-ASPECTS',
+          'The EXPECTS route turns on <strong>PC-ASPECTS ≥7</strong>. <a href="#aspects">Score it here</a>. ' + expectsCore);
+      } else if (pcAspects !== 'ge7') {
+        add('warn', null, 'PC-ASPECTS ' + (pcAspects === '6' ? '6' : 'below 6') + ' — outside the EXPECTS population',
+          'EXPECTS required <strong>PC-ASPECTS ≥7</strong>, a stricter threshold than the ≥6 used for basilar thrombectomy. There is no randomized evidence for late IVT in the posterior circulation at this score without perfusion selection. ' + expectsCore);
+      } else if (mrs && mrs !== '0-1') {
+        add('warn', null, 'Prestroke mRS above 1 — outside the EXPECTS population',
+          'EXPECTS enrolled prestroke mRS 0–1 only. ' + expectsCore);
+      } else {
+        add('note', null, 'Posterior circulation, 4.5–24 h — EXPECTS profile met',
+          'Posterior territory, no basilar occlusion, PC-ASPECTS ≥7' + (mrs ? ', prestroke mRS 0–1' : ' — confirm prestroke mRS 0–1') +
+          '. If thrombectomy is not planned, this patient resembles the EXPECTS population. ' + expectsCore + relCaveat);
+      }
     }
 
     /* ------------------------------------------------------------ thrombectomy */
@@ -1047,6 +1098,7 @@
       var summary = [
         'Reperfusion pathfinder',
         'Last known well: ' + (opt('pfTime') || '—'),
+        'Territory: ' + (opt('pfTerritory') || '—'),
         'Hemorrhage on NCCT: ' + (opt('pfIch') || '—'),
         'Deficit disabling: ' + (pf('pfDisabling') ? opt('pfDisabling') : (autoDis ? 'Yes — answered by NIHSS/occlusion' : '—')),
         'NIHSS: ' + (pf('pfNihss') || '—'),
@@ -1118,7 +1170,7 @@
     }
     if (pcTouched) {
       var p = parseInt($('#pcScore').textContent, 10);
-      if (!isNaN(p)) setSel('pfPcAspects', p >= 6 ? 'ge6' : 'lt6');
+      if (!isNaN(p)) setSel('pfPcAspects', p >= 7 ? 'ge7' : p === 6 ? '6' : 'lt6');
     }
     pathfinder();
   }
