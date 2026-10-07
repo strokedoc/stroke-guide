@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" data-version="1.27.0">
+<html lang="en" data-theme="light" data-version="1.28.0">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -216,6 +216,14 @@
     <p class="pfgroup">The scan</p>
     <div class="row">
       <div class="field">
+        <label for="pfTerritory">Territory</label>
+        <select id="pfTerritory" class="seg-src">
+          <option value="">Select…</option>
+          <option value="anterior" selected>Anterior</option>
+          <option value="posterior">Posterior</option>
+        </select>
+      </div>
+      <div class="field">
         <label for="pfIch">Hemorrhage on NCCT?</label>
         <select id="pfIch" class="seg-src">
           <option value="">Select…</option>
@@ -233,10 +241,11 @@
         </select>
       </div>
       <div class="field">
-        <label for="pfPcAspects">PC-ASPECTS <span class="field__h">basilar only</span></label>
+        <label for="pfPcAspects">PC-ASPECTS <span class="field__h">posterior circulation</span></label>
         <select id="pfPcAspects" class="seg-src">
           <option value="">Select…</option>
-          <option value="ge6">6 or more</option>
+          <option value="ge7">7–10</option>
+          <option value="6">6</option>
           <option value="lt6">Less than 6</option>
         </select>
       </div>
@@ -778,6 +787,11 @@
         <td>IVT directed by clinicians with expertise in thrombolytic stroke care may be beneficial (TRACE-III)</td>
         <td><span class="cor cor-2b">2b</span> <span class="loe">B-R</span></td>
       </tr>
+      <tr>
+        <td><strong>Posterior circulation, 4.5–24 h, no planned EVT</strong>, PC-ASPECTS ≥7 on NCCT or DWI — no perfusion imaging</td>
+        <td>Not addressed by the guideline. EXPECTS <span class="pill">post-guideline</span> showed benefit from alteplase — see below</td>
+        <td><small>No class</small></td>
+      </tr>
     </tbody>
   </table></div>
 
@@ -797,9 +811,10 @@
       <tr><td><strong>EXTEND</strong></td><td>CTP or DWI/PWI: penumbra:core ratio &gt;1.2, mismatch &gt;10 mL, core &lt;70 mL</td></tr>
       <tr><td><strong>TIMELESS</strong></td><td>Ratio &gt;1.8, penumbra &gt;15 mL, core &lt;70 mL (RAPID)</td></tr>
       <tr><td><strong>TRACE-III</strong></td><td>Ratio &gt;1.8, penumbra &gt;15 mL, core &lt;70 mL (iStroke)</td></tr>
+      <tr><td><strong>EXPECTS</strong> <span class="pill">post-guideline</span></td><td>Posterior circulation only. <strong>No perfusion or mismatch requirement</strong>: PC-ASPECTS ≥7 on DWI, or on NCCT if DWI scored &lt;7 or MRI was not done</td></tr>
     </tbody>
   </table></div>
-  <p class="src">Table 3, 2026 AHA/ASA AIS guideline. Core = rCBF &lt;30% or the DWI lesion; penumbra = Tmax &gt;6 s unless stated.</p>
+  <p class="src">Table 3, 2026 AHA/ASA AIS guideline (EXPECTS row added — it postdates the table). Core = rCBF &lt;30% or the DWI lesion; penumbra = Tmax &gt;6 s unless stated.</p>
 
   <h2>Trials in the 4.5–24 hour window</h2>
   <div class="tablewrap"><table>
@@ -827,6 +842,13 @@
         <td>2.8% vs 0%<br><small>90-day mortality 5.0% vs 3.2%</small></td>
       </tr>
       <tr>
+        <td><strong>EXPECTS</strong><br><small>NEJM 2025;392:1288, n=234, China</small><br><span class="pill">post-guideline</span></td>
+        <td><strong>Posterior circulation</strong>, no planned EVT, 4.5–24 h, NIHSS ≥1 (median 3), prestroke mRS 0–1, PC-ASPECTS ≥7; no perfusion imaging</td>
+        <td>Alteplase 0.9</td>
+        <td>mRS 0–2: <strong>89.6% vs 72.6%</strong> (adjusted RR 1.16, 95% CI 1.03–1.30, P=0.01)</td>
+        <td>1.7% vs 0.9%<br><small>90-day mortality 5.2% vs 8.5%</small></td>
+      </tr>
+      <tr>
         <td><strong>EXTEND</strong><br><small>NEJM 2019, n=225</small></td>
         <td>Mixed, 4.5–9 h, perfusion mismatch</td>
         <td>Alteplase 0.9</td>
@@ -842,15 +864,22 @@
     <p style="margin-bottom:0">Whether to act on it before it appears in a guideline is a local governance decision, not a lookup.</p>
   </div>
 
+  <div class="note">
+    <div class="note__t">Posterior circulation — reading EXPECTS honestly <span class="pill">post-guideline</span></div>
+    <p>EXPECTS (Yan et al., NEJM April 2025) randomized 234 patients with posterior circulation stroke 4.5–24 h from last known well, with no thrombectomy planned, to alteplase 0.9 mg/kg or standard medical care at 30 Chinese centers. Unwitnessed and wake-up onset counted from the midpoint between last known well and discovery. It is the only one of the late-window trials to select on <strong>plain imaging alone</strong> — PC-ASPECTS ≥7 — with no perfusion requirement. Functional independence (mRS 0–2) at 90 days: <strong>89.6% vs 72.6%</strong>, adjusted RR 1.16 (95% CI 1.03–1.30). sICH 1.7% vs 0.9%; death 5.2% vs 8.5%.</p>
+    <p>It was published after the 2026 guideline's literature cut-off (March 2025) and carries <strong>no class of recommendation</strong>. Read it with its limits: open-label with blinded outcome assessment, single country, modest size, and a <strong>mild</strong> population — median NIHSS 3 — whose high control-arm independence rate leaves a small absolute margin to work with. Only 16 basilar occlusions were enrolled, so it says little about basilar occlusion, where thrombectomy is the priority. Remember that the NIHSS undersamples posterior circulation deficits: a low score with vertigo, ataxia or a hemianopia can still be disabling.</p>
+    <p style="margin-bottom:0">Like OPTION, acting on it before a guideline does is a local governance decision.</p>
+  </div>
+
   <div class="note note--danger">
     <div class="note__t">A safety signal worth knowing</div>
     <p style="margin-bottom:0">Where NCCT hypodensity is <em>larger</em> than the perfusion-defined core, the mismatch is internally inconsistent and sICH risk is higher. Read the plain CT alongside the perfusion maps rather than trusting the automated output alone. All standard contraindications to thrombolysis apply unchanged in the extended window.</p>
   </div>
 
   <h2>If perfusion imaging is unavailable</h2>
-  <p>MRI with DWI–FLAIR mismatch is the guideline-supported alternative for unknown-onset stroke — a DWI lesion with no corresponding FLAIR change indicates a biological onset likely within 4.5 hours. For CT-only selection of wake-up stroke, TWIST showed a favorable direction of effect but was underpowered; the guideline lists this as an open question, especially important for low-resource settings.</p>
+  <p>MRI with DWI–FLAIR mismatch is the guideline-supported alternative for unknown-onset stroke — a DWI lesion with no corresponding FLAIR change indicates a biological onset likely within 4.5 hours. In the <strong>posterior circulation</strong>, EXPECTS <span class="pill">post-guideline</span> selected on PC-ASPECTS ≥7 alone, without perfusion, out to 24 h. For CT-only selection of wake-up stroke, TWIST showed a favorable direction of effect but was underpowered; the guideline lists this as an open question, especially important for low-resource settings.</p>
 
-  <p class="src">Section 4.6.3 and Table 3, 2026 AHA/ASA AIS guideline; OPTION doi:10.1001/jama.2026.0210; HOPE doi:10.1001/jama.2025.12063.</p>
+  <p class="src">Section 4.6.3 and Table 3, 2026 AHA/ASA AIS guideline; OPTION doi:10.1001/jama.2026.0210; HOPE doi:10.1001/jama.2025.12063; EXPECTS doi:10.1056/NEJMoa2413344.</p>
 </section>
 
 <!-- ====================================================================== EVT -->
@@ -926,7 +955,7 @@
   <p>This is one of the ten top take-home messages of the 2026 guideline: a strong recommendation for EVT in basilar occlusion within 24 hours with NIHSS ≥10, where previous guidance was equivocal.</p>
   <div class="note">
     <div class="note__t">Tenecteplase in basilar occlusion — TRACE-5 <span class="pill">post-guideline</span></div>
-    <p style="margin-bottom:0">TRACE-5 (Lancet 2026, n=452, China) randomized basilar occlusion within 24 h to tenecteplase 0.25 mg/kg or standard care; 49% went on to thrombectomy. mRS 0–1, or return to baseline if prestroke mRS was 2–3: <strong>38% vs 29%</strong> (adjusted rate ratio 1.50, 95% CI 1.09–2.08). sICH 2% vs 3%; mortality 29% vs 31%. It supports IVT in basilar occlusion beyond 4.5 h but carries no class of recommendation, and it does not displace thrombectomy — the COR 1 above is unchanged.</p>
+    <p style="margin-bottom:0">TRACE-5 (Lancet 2026, n=452, China) randomized basilar occlusion within 24 h to tenecteplase 0.25 mg/kg or standard care; 49% went on to thrombectomy. mRS 0–1, or return to baseline if prestroke mRS was 2–3: <strong>38% vs 29%</strong> (adjusted rate ratio 1.50, 95% CI 1.09–2.08). sICH 2% vs 3%; mortality 29% vs 31%. It supports IVT in basilar occlusion beyond 4.5 h but carries no class of recommendation, and it does not displace thrombectomy — the COR 1 above is unchanged. EXPECTS <span class="pill">post-guideline</span>, the other late-window posterior circulation IVT trial, excluded planned thrombectomy and enrolled only 16 basilar occlusions; it is about non-EVT posterior strokes, not basilar occlusion — see <a href="#extended">extended-window thrombolysis</a>.</p>
   </div>
 
   <h2>Thrombolysis before thrombectomy</h2>
@@ -2283,7 +2312,7 @@
   <div class="readout" aria-live="polite">
     <div class="row">
       <div><div class="readout__label">PC-ASPECTS</div><div class="readout__value" id="pcScore">10</div></div>
-      <div><div class="readout__label">Band</div><div class="readout__value" style="font-size:16px" id="pcBand">PC-ASPECTS ≥6 — meets the imaging criterion</div></div>
+      <div><div class="readout__label">Band</div><div class="readout__value" style="font-size:16px" id="pcBand">PC-ASPECTS ≥7 — meets the basilar EVT and EXPECTS criteria</div></div>
     </div>
     <div class="readout__note">Affected regions: <span id="pcRegions">none</span> · Brainstem points lost: <span id="pcPmi">0</span> of 4</div>
   </div>
@@ -2337,6 +2366,7 @@
       <tr><td>Basilar occlusion, prestroke mRS 0–1, <strong>NIHSS ≥10</strong>, PC-ASPECTS <strong>≥6</strong>, within 24 h</td><td>EVT is recommended to improve function and reduce mortality <span class="cor cor-1">1</span> <span class="loe">A</span> (ATTENTION, BAOCHE)</td></tr>
       <tr><td>Basilar occlusion, prestroke mRS 0–1, <strong>NIHSS 6–9</strong>, PC-ASPECTS ≥6, within 24 h</td><td>Effectiveness is not well established <span class="cor cor-2b">2b</span> <span class="loe">B-R</span> — only 17 such patients were randomized in BAOCHE</td></tr>
       <tr><td>PC-ASPECTS <strong>&lt;6</strong></td><td>No evidence base. The guideline names this an explicit gap rather than a recommendation against</td></tr>
+      <tr><td>Posterior circulation stroke, no planned EVT, <strong>4.5–24 h</strong>, prestroke mRS 0–1, PC-ASPECTS <strong>≥7</strong></td><td>Alteplase improved mRS 0–2 at 90 days in EXPECTS <span class="pill">post-guideline</span> — no class of recommendation, and the threshold is 7, not 6. <a href="#extended">Detail</a></td></tr>
     </tbody>
   </table></div>
   </div><!-- /panePosterior -->
@@ -2463,6 +2493,7 @@
       <tr><td><strong>OPTION</strong><br><small>JAMA 2026</small></td><td>Extended window</td><td>Non-LVO 4.5–24 h, core &lt;50 mL, ratio ≥1.2, n=566, tenecteplase</td><td>mRS 0–1 43.6% vs 34.2%, RR 1.28 (1.04–1.57), P=0.02. sICH 2.8% vs 0%. doi:10.1001/jama.2026.0210</td></tr>
       <tr><td><strong>TIMELESS</strong><br><small>NEJM 2024</small></td><td>Extended window + EVT</td><td>4.5–24 h with EVT, perfusion-selected, tenecteplase vs placebo</td><td>Neutral — no improvement in functional outcome. doi:10.1056/NEJMoa2402980</td></tr>
       <tr><td><strong>TNK-PLUS</strong><br><small>JAMA 2026 · post-guideline</small></td><td>Extended window + EVT</td><td>M1 or proximal M2, 4.5–24 h, core &lt;70 mL, ratio ≥1.8, mismatch ≥15 mL, n=391, China, tenecteplase before EVT vs EVT alone</td><td>mRS 0–2 44.2% vs 43.2%, adjusted rate ratio 1.01 (0.83–1.24), P=0.89. sICH 5.1% vs 2.6%. Second neutral late-window bridging trial after TIMELESS. doi:10.1001/jama.2026.4292</td></tr>
+      <tr><td><strong>EXPECTS</strong><br><small>NEJM 2025;392:1288 · post-guideline</small></td><td>Extended window — posterior</td><td>Posterior circulation 4.5–24 h, no planned EVT, NIHSS ≥1 (median 3), prestroke mRS 0–1, PC-ASPECTS ≥7, no perfusion, n=234, China, alteplase vs standard care; 16 basilar occlusions</td><td>mRS 0–2 89.6% vs 72.6%, adjusted RR 1.16 (1.03–1.30), P=0.01. sICH 1.7% vs 0.9%; death 5.2% vs 8.5%. doi:10.1056/NEJMoa2413344</td></tr>
       <tr><td><strong>TRACE-5</strong><br><small>Lancet 2026 · post-guideline</small></td><td>Extended window — basilar</td><td>Basilar occlusion ≤24 h, prestroke mRS ≤3, n=452, China, tenecteplase vs standard care; 49% had EVT</td><td>mRS 0–1 or return to baseline 38% vs 29%, adjusted rate ratio 1.50 (1.09–2.08), P=0.014. sICH 2% vs 3%; death 29% vs 31%. doi:10.1016/S0140-6736(25)02633-9</td></tr>
       <tr><td><strong>AcT</strong><br><small>Lancet 2022</small></td><td>Agent choice</td><td>AIS ≤4.5 h, pragmatic, n=1600, Canada</td><td>mRS 0–1 36.9% vs 34.8%. Noninferior. sICH 3.4% vs 3.2%. Largest TNK noninferiority trial</td></tr>
       <tr><td><strong>TRACE-2</strong><br><small>Lancet 2023</small></td><td>Agent choice</td><td>AIS ≤4.5 h, n=1430</td><td>mRS 0–1 62% vs 58% (439/705 vs 405/696), RR 1.07 (95% CI 0.98–1.16). Noninferior</td></tr>
