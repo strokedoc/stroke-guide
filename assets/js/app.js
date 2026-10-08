@@ -666,6 +666,9 @@
         'Re-read <a href="#thrombolysis">the disabling-deficit definition</a> before you settle on "non-disabling" — lower-limb weakness preventing walking scores 2 on the NIHSS and is disabling.' +
         (territory === 'posterior' || occl === 'basilar'
           ? ' In the posterior circulation the NIHSS undersamples the deficit: vertigo, gait ataxia, dysphagia or a hemianopia can be disabling at a low score.'
+          : '') +
+        (occl === 'nonlvo' || occl === 'm2' || occl === 'lvo' || occl === 'basilar'
+          ? ' <strong>A visible occlusion does not change this on its own:</strong> in TEMPO-2 (Lancet 2024), tenecteplase for NIHSS 0–5 with an intracranial occlusion gave no benefit over standard care (return to baseline 72% vs 75%) and more deaths (5% vs 1%).'
           : ''));
       /* "Non-disabling" alongside NIHSS >=6 or a large-vessel occlusion is a
          contradiction, not a preference. Surface it rather than acting on it
@@ -720,11 +723,11 @@
         add('note', { cls: '2a', label: 'COR 2a' }, 'Extended-window thrombolysis can be beneficial if thrombectomy is not an option (4.5–9 h)',
           'The recommendation is for patients <strong>not eligible for thrombectomy</strong>, and it requires salvageable penumbra on automated perfusion imaging — enter the core and Tmax&gt;6 s volumes above and the tool will test the ' + P_EXTEND + '. ' +
           'For unknown-onset stroke within 4.5 h of symptom recognition, DWI–FLAIR mismatch on MRI is the alternative selection route. ' +
-          '<strong>Where there is an LVO and thrombectomy is available, proceed straight to EVT</strong> — extended-window IVT should not delay the angio suite, and thrombolysis before EVT in this window has not shown benefit (TIMELESS; TNK-PLUS, post-guideline). <a href="#extended">Criteria</a>' + relCaveat + expectsPtr);
+          '<strong>Where there is an LVO and thrombectomy is available, proceed straight to EVT</strong> — extended-window IVT should not delay the angio suite, and thrombolysis before EVT in this window has not shown benefit (TIMELESS; TNK-PLUS and, for basilar occlusion, ATTENTION LATE, post-guideline). <a href="#extended">Criteria</a>' + relCaveat + expectsPtr);
       } else if (meetsEXTEND) {
         add('note', { cls: '2a', label: 'COR 2a' }, 'Extended-window thrombolysis can be beneficial if thrombectomy is not an option (4.5–9 h)',
           'Your values — ' + perfVals + ' — meet the ' + P_EXTEND + '. For a patient not eligible for EVT, IVT can be beneficial (EXTEND, ECASS-4). ' +
-          '<strong>Where there is an LVO and thrombectomy is available, proceed straight to EVT</strong> — extended-window IVT should not delay the angio suite, and thrombolysis before EVT in this window has not shown benefit (TIMELESS; TNK-PLUS, post-guideline). <a href="#extended">Criteria</a>' + relCaveat);
+          '<strong>Where there is an LVO and thrombectomy is available, proceed straight to EVT</strong> — extended-window IVT should not delay the angio suite, and thrombolysis before EVT in this window has not shown benefit (TIMELESS; TNK-PLUS and, for basilar occlusion, ATTENTION LATE, post-guideline). <a href="#extended">Criteria</a>' + relCaveat);
       } else {
         add('warn', { cls: '3n', label: 'Criteria not met' }, expectsMet ? 'Perfusion profile not met' : 'Perfusion profile not met — extended-window IVT is not indicated',
           'Your values — ' + perfVals + ' — do not meet the ' + P_EXTEND + ' behind the 4.5–9 h <span class="cor cor-2a">COR 2a</span> recommendation. ' +
@@ -748,7 +751,8 @@
           'The late-window IVT recommendation for LVO <span class="cor cor-2b">COR 2b</span> rests on TRACE-III, which enrolled ICA, M1 and M2 occlusions — not basilar. ' +
           'In basilar occlusion, EVT within 24 h is the priority (card below). ' +
           'TRACE-5 (Lancet 2026, post-guideline, <strong>no class of recommendation</strong>) randomized basilar occlusion within 24 h to tenecteplase 0.25 mg/kg or standard care, about half going on to EVT: mRS 0–1 or return to baseline 38% vs 29%, sICH 2% vs 3%. ' +
-          'Do not delay thrombectomy for it. EXPECTS enrolled only 16 basilar occlusions and excluded planned EVT, so it does not answer this question. <a href="#evt">Detail</a>' + relCaveat);
+          '<strong>If thrombectomy is going ahead, do not add tenecteplase first:</strong> ATTENTION LATE (JAMA 2026, post-guideline) randomized basilar occlusion at 4.5–24 h to tenecteplase before EVT or EVT alone — functional independence 30% vs 30%, sICH 5.1% vs 4.0%. Late IVT here is for patients who will not reach thrombectomy. ' +
+          'EXPECTS enrolled only 16 basilar occlusions and excluded planned EVT, so it does not answer this question. <a href="#evt">Detail</a>' + relCaveat);
       } else if (occl === 'lvo' || occl === 'm2') {
         /* The 4.5-24 h LVO COR 2b recommendation asks for "salvageable
            ischemic penumbra" without setting numbers. TRACE-III, its main
@@ -1018,7 +1022,7 @@
 
       if (hours <= 4.5 && disablingMet && ich !== 'yes' && mrs !== '5') {
         add('note', null, 'Do not delay thrombectomy to watch for a response to thrombolysis',
-          'Bridging IVT remains standard where the patient is thrombolysis-eligible. Delaying EVT to assess for clinical improvement after the bolus is explicitly not recommended.');
+          'Bridging IVT remains standard where the patient is thrombolysis-eligible — and BRIDGE-TNK (NEJM 2025, post-guideline) found tenecteplase before EVT within 4.5 h superior to EVT alone (mRS 0–2 52.9% vs 44.1%). Delaying EVT to assess for clinical improvement after the bolus is explicitly not recommended.');
       }
     }
 

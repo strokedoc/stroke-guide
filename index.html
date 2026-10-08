@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" data-version="1.28.0">
+<html lang="en" data-theme="light" data-version="1.29.0">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -388,10 +388,14 @@
     <thead><tr><th>Intervention</th><th>Class</th></tr></thead>
     <tbody>
       <tr><td><strong>Transdermal glyceryl trinitrate</strong> (nitroglycerin) started prehospital — does not improve functional outcome and is <strong>potentially harmful</strong> (RIGHT-2)</td><td><span class="cor cor-3h">3: Harm</span> <span class="loe">A</span></td></tr>
-      <tr><td><strong>Intensive BP control in the field</strong> to a systolic target of 130–140</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td></tr>
+      <tr><td><strong>Intensive BP control in the field</strong> to a systolic target of 130–140 (INTERACT4)</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td></tr>
       <tr><td><strong>Remote ischemic conditioning</strong> by arm cuff inflation en route</td><td><span class="cor cor-3n">3: No Benefit</span> <span class="loe">B-R</span></td></tr>
     </tbody>
   </table></div>
+  <div class="note">
+    <div class="note__t">INTERACT4 — why the field BP target is a recommendation against</div>
+    <p style="margin-bottom:0">INTERACT4 (NEJM 2024, n=2404, China) gave IV urapidil in the ambulance to suspected stroke with a motor deficit and SBP ≥150 within 2 h of onset, targeting SBP 130–140, before anyone knew whether the stroke was ischemic or hemorrhagic. Overall: no difference in 90-day mRS (common OR 1.00, 95% CI 0.87–1.15). By stroke type it split: <strong>worse outcomes in ischemic stroke</strong> (OR 1.30, 1.06–1.60) and better outcomes in hemorrhage (OR 0.75, 0.60–0.92). Those are subgroup findings, but they explain the rule: without a scan, you cannot know which patient you are treating.</p>
+  </div>
   <p class="src">The ambulance's job is recognition, prenotification and destination. Section 2.3, 2026 AHA/ASA AIS guideline.</p>
 
   <p class="src">Section 2 (Stroke Systems of Care and Prehospital Management), 2026 AHA/ASA AIS guideline.</p>
@@ -545,7 +549,12 @@
 
   <div class="note note--danger">
     <div class="note__t">Non-disabling deficits <span class="cor cor-3n">COR 3: No Benefit</span> <span class="loe">B-R</span></div>
-    <p style="margin-bottom:0">In eligible adults presenting within 4.5 h with mild <em>non-disabling</em> deficits (an isolated sensory syndrome, in many cases), IVT is not recommended: it has not shown superiority over dual antiplatelet therapy. A 2023 randomized trial found DAPT noninferior to alteplase in minor non-disabling stroke, with <em>more</em> early neurological deterioration and bleeding in the alteplase arm. Two 2024 meta-analyses agreed, with lower sICH under DAPT. <a href="#antithrombotics">DAPT regimen →</a></p>
+    <p style="margin-bottom:0">In eligible adults presenting within 4.5 h with mild <em>non-disabling</em> deficits (an isolated sensory syndrome, in many cases), IVT is not recommended: it has not shown superiority over dual antiplatelet therapy. ARAMIS (JAMA 2023, n=760, China) found DAPT noninferior to alteplase in minor non-disabling stroke (NIHSS ≤5) — excellent outcome 93.8% vs 91.4% — with <em>more</em> early neurological deterioration and bleeding in the alteplase arm (sICH 0.9% vs 0.3%). Two 2024 meta-analyses agreed, with lower sICH under DAPT. <a href="#antithrombotics">DAPT regimen →</a></p>
+  </div>
+
+  <div class="note note--warn">
+    <div class="note__t">A visible occlusion does not change that — TEMPO-2</div>
+    <p style="margin-bottom:0">It is tempting to treat a mild deficit once CTA shows an occlusion. TEMPO-2 (Lancet 2024, n=886, 48 sites) randomized NIHSS 0–5 with an intracranial occlusion or focal perfusion deficit, within 12 h, to tenecteplase 0.25 mg/kg or non-thrombolytic care (mostly DAPT). Return to baseline at 90 days: <strong>72% vs 75%</strong> — no benefit despite more recanalization — with more deaths (5% vs 1%) and more sICH on tenecteplase. The neutral effect held whether or not the deficit counted as disabling. Do not let the angiogram override the bedside disability judgment in mild stroke.</p>
   </div>
 
   <h2>Choice of agent</h2>
@@ -573,7 +582,7 @@
   <h2>Adjuncts that do not work</h2>
   <ul>
     <li><strong>Argatroban</strong> with IVT — not effective for long-term functional outcome <span class="cor cor-3n">COR 3: No Benefit</span> <span class="loe">A</span></li>
-    <li><strong>Eptifibatide</strong> with IVT within 3 h — not recommended <span class="cor cor-3n">COR 3: No Benefit</span> <span class="loe">B-R</span></li>
+    <li><strong>Eptifibatide</strong> with IVT within 3 h — not recommended <span class="cor cor-3n">COR 3: No Benefit</span> <span class="loe">B-R</span>. Both this row and the argatroban row rest on MOST (NEJM 2024, n=514, US StrokeNet), stopped for futility: neither drug beat placebo after IVT, and mortality was higher with both</li>
     <li><strong>Abciximab</strong> — increased bleeding <span class="cor cor-3h">COR 3: Harm</span> <span class="loe">B-R</span></li>
     <li><strong>IV aspirin</strong> concurrently or within 90 min of starting IVT <span class="cor cor-3h">COR 3: Harm</span> <span class="loe">B-R</span></li>
     <li><strong>Aspirin as a substitute</strong> for IVT or thrombectomy in an eligible patient <span class="cor cor-3h">COR 3: Harm</span> <span class="loe">B-R</span></li>
@@ -581,10 +590,11 @@
   </ul>
 
   <div class="note">
-    <div class="note__t">Antiplatelet adjuncts to IVT — two positive trials, no class yet <span class="pill">post-guideline</span></div>
+    <div class="note__t">Antiplatelet adjuncts to IVT — three positive trials, no class yet <span class="pill">post-guideline</span></div>
     <p><strong>TAPIS</strong> (Lancet 2026, n=1382, China): IVT-treated patients with NIHSS 4–10 received oral ticagrelor 180 mg plus aspirin 100 mg within 6 h of onset — before, during or after the bolus — then ticagrelor 90 mg twice daily with aspirin to day 7. mRS 0–1 at 90 days <strong>68.7% vs 62.0%</strong> (RR 1.11, 95% CI 1.03–1.20). sICH 0.9% vs 0.7%, with confidence intervals too wide to exclude a small increase.</p>
     <p><strong>INSTANT</strong> (JAMA 2026, n=359, China): IV tirofiban started 4–24 h after tenecteplase in patients with no large or medium vessel occlusion and no cardioembolic source who had not improved, fluctuated or deteriorated. mRS 0–1 <strong>63.8% vs 52.2%</strong> (RR 1.22, 95% CI 1.02–1.46). sICH 0.9% vs 0%.</p>
-    <p style="margin-bottom:0">Both cut against the usual 24-hour antithrombotic pause after IVT (<a href="#antithrombotics">COR 2b</a>), and both come from single-country trials. Neither changes a recommendation yet. Oral DAPT is not IV aspirin, which remains <span class="cor cor-3h">COR 3: Harm</span> within 90 min of IVT.</p>
+    <p><strong>ASSET-IT</strong> (NEJM 2025;393:1191, n=832, China, double-blind): IV tirofiban for 24 h, started within 60 min of the end of IVT, in non-cardioembolic stroke within 4.5 h not going to thrombectomy. mRS 0–1 <strong>65.9% vs 54.9%</strong> (RR 1.20, 95% CI 1.07–1.34). sICH 1.7% vs 0% (7 events vs none); death 4.1% vs 3.8%. Read it beside MOST, where eptifibatide — another glycoprotein IIb/IIIa inhibitor — failed in a US population.</p>
+    <p style="margin-bottom:0">All three cut against the usual 24-hour antithrombotic pause after IVT (<a href="#antithrombotics">COR 2b</a>), and all three come from single-country trials. None changes a recommendation yet. Oral DAPT is not IV aspirin, which remains <span class="cor cor-3h">COR 3: Harm</span> within 90 min of IVT.</p>
   </div>
 
   <h2>Other fibrinolytic agents</h2>
@@ -957,10 +967,15 @@
     <div class="note__t">Tenecteplase in basilar occlusion — TRACE-5 <span class="pill">post-guideline</span></div>
     <p style="margin-bottom:0">TRACE-5 (Lancet 2026, n=452, China) randomized basilar occlusion within 24 h to tenecteplase 0.25 mg/kg or standard care; 49% went on to thrombectomy. mRS 0–1, or return to baseline if prestroke mRS was 2–3: <strong>38% vs 29%</strong> (adjusted rate ratio 1.50, 95% CI 1.09–2.08). sICH 2% vs 3%; mortality 29% vs 31%. It supports IVT in basilar occlusion beyond 4.5 h but carries no class of recommendation, and it does not displace thrombectomy — the COR 1 above is unchanged. EXPECTS <span class="pill">post-guideline</span>, the other late-window posterior circulation IVT trial, excluded planned thrombectomy and enrolled only 16 basilar occlusions; it is about non-EVT posterior strokes, not basilar occlusion — see <a href="#extended">extended-window thrombolysis</a>.</p>
   </div>
+  <div class="note note--warn">
+    <div class="note__t">But not as a bridge before thrombectomy — ATTENTION LATE <span class="pill">post-guideline</span></div>
+    <p style="margin-bottom:0">ATTENTION LATE (JAMA 2026, n=330, China) asked the bridging question directly: tenecteplase before EVT versus EVT alone, basilar occlusion 4.5–24 h. Functional independence <strong>30% vs 30%</strong>; sICH 5.1% vs 4.0%; death 40.0% vs 42.7%. It is the posterior-circulation counterpart of TIMELESS and TNK-PLUS: late tenecteplase does not add to thrombectomy. Read together with TRACE-5, late IVT in basilar occlusion is for patients who will <em>not</em> reach the angio suite — when thrombectomy is going ahead, go straight to it.</p>
+  </div>
 
   <h2>Thrombolysis before thrombectomy</h2>
   <div class="note">
     <p>Bridging IVT remains standard for IVT-eligible patients. Two Chinese RCTs found EVT alone noninferior; four other trials failed to confirm superiority or noninferiority of EVT alone, favoring combined therapy for reperfusion efficacy and 90-day outcomes. No trial showed increased sICH from adding IVT.</p>
+    <p><strong>BRIDGE-TNK</strong> <span class="pill">post-guideline</span> (NEJM 2025;393:139, n=550, China) is the first trial to show bridging <em>superior</em>: tenecteplase 0.25 mg/kg before EVT within 4.5 h versus EVT alone, mRS 0–2 <strong>52.9% vs 44.1%</strong> (RR 1.20, 95% CI 1.01–1.43). sICH 9% vs 7%; death 22% vs 20%. The margin is fragile (fragility index 1), but it points the same way as the guideline. All of this applies <strong>within 4.5 h</strong> only — beyond it, bridging failed in TIMELESS, TNK-PLUS and, for basilar occlusion, ATTENTION LATE.</p>
     <p style="margin-bottom:0"><strong>Do not delay EVT after thrombolysis to assess for clinical improvement.</strong></p>
   </div>
 
@@ -969,9 +984,12 @@
     <div class="note__t">Intra-arterial thrombolysis and tirofiban after EVT <span class="pill">post-guideline</span></div>
     <p><strong>PEARL</strong> (JAMA 2025, n=324, China): intra-arterial alteplase after eTICI ≥2b in anterior LVO. mRS 0–1 <strong>44.8% vs 30.2%</strong> (adjusted RR 1.45, 95% CI 1.08–1.96); sICH 4.3% vs 5.0%; mortality 17.1% vs 11.3% (not significant).</p>
     <p><strong>CHOICE-2</strong> (JAMA 2026, n=440, Spain): intra-arterial alteplase 0.225 mg/kg (maximum 20 mg) over 15 min after eTICI 2b50–3. mRS 0–1 <strong>57.5% vs 42.5%</strong> (adjusted risk difference 15.0%, 95% CI 5.7–24.3); sICH 1.4% vs 0.5%; <strong>mortality 12.1% vs 6.4%</strong> (adjusted risk difference 5.9%, 95% CI 0.5–11.3, P=0.03).</p>
+    <p><strong>ANGEL-TNK</strong> (JAMA 2025;334:582, n=256, China): intra-arterial tenecteplase after successful thrombectomy, LVO 4.5–24 h, no prior IVT. mRS 0–1 <strong>40.5% vs 26.4%</strong>; sICH and mortality not significantly different. No secondary efficacy outcome supported the primary.</p>
+    <p><strong>POST-TNK</strong> (JAMA 2025, n=539, China): intra-arterial tenecteplase after near-complete or complete reperfusion. mRS 0–1 49.1% vs 44.1% (adjusted RR 1.15, 95% CI 0.97–1.36, <strong>P=0.11 — negative</strong>); sICH 6.3% vs 4.4%; death 16.0% vs 19.3%.</p>
+    <p><strong>POST-UK</strong> (JAMA 2025;333:589, n=534, China): intra-arterial urokinase 100,000 IU after the same reperfusion threshold. mRS 0–1 45.1% vs 40.2% — <strong>negative</strong>.</p>
     <p><strong>IAT-TOP</strong> (JAMA Neurol 2026, n=246): the same idea after basilar recanalization did not help — mRS 0–2 41.9% vs 46.7%.</p>
     <p><strong>ATTRACTION</strong> (Lancet 2026, n=1380, China): tirofiban 5 µg/kg intra-arterial bolus, then 0.1 µg/kg/min IV for 24 h, after successful anterior reperfusion. mRS 0–2 <strong>49% vs 43%</strong> (adjusted RR 1.15, 95% CI 1.03–1.27); sICH 12% vs 9% (not significant).</p>
-    <p style="margin-bottom:0">The guideline already gives adjunctive intra-arterial thrombolysis (urokinase, alteplase or tenecteplase) after mTICI ≥2b a weak recommendation — <em>may be reasonable</em> <span class="cor cor-2b">COR 2b</span> <span class="loe">B-R</span> — on earlier trials. These newer trials do not change that class: two positive anterior-circulation trials, both with more deaths in the treated arm (significantly so in CHOICE-2), and one negative posterior-circulation trial. Tirofiban after reperfusion (ATTRACTION) has no class; tirofiban given <em>before</em> EVT is <span class="cor cor-3n">COR 3: No Benefit</span>.</p>
+    <p style="margin-bottom:0">The guideline already gives adjunctive intra-arterial thrombolysis (urokinase, alteplase or tenecteplase) after mTICI ≥2b a weak recommendation — <em>may be reasonable</em> <span class="cor cor-2b">COR 2b</span> <span class="loe">B-R</span> — on earlier trials. These newer trials do not change that class. In the anterior circulation three were positive (PEARL, CHOICE-2, ANGEL-TNK) — PEARL and CHOICE-2 with more deaths in the treated arm, significantly so in CHOICE-2 — and two were negative (POST-TNK, POST-UK), all with point estimates in the same direction. The one posterior-circulation trial was negative. Tirofiban after reperfusion (ATTRACTION) has no class; tirofiban given <em>before</em> EVT is <span class="cor cor-3n">COR 3: No Benefit</span>.</p>
   </div>
 
   <h2>Technique</h2>
@@ -1049,7 +1067,7 @@
 
   <div class="note note--danger">
     <div class="note__t">Complete reperfusion does not license a lower target</div>
-    <p style="margin-bottom:0">This is spelled out in the top take-home messages: intensive systolic lowering to &lt;140 mmHg is not recommended <em>even in the setting of complete reperfusion</em> (TICI 3). The instinct to protect a freshly reperfused brain by dropping the pressure is the exact behavior the trials found harmful.</p>
+    <p style="margin-bottom:0">This is spelled out in the top take-home messages: intensive systolic lowering to &lt;140 mmHg is not recommended <em>even in the setting of complete reperfusion</em> (TICI 3). The Class 3: Harm rests on four trials: BP-TARGET, BEST-II, OPTIMAL-BP and ENCHANTED2/MT — the last (Lancet 2022, n=821, China) targeted SBP &lt;120 after reperfusion and was stopped early for safety, with worse functional outcome and more early neurological deterioration in the intensive arm. The instinct to protect a freshly reperfused brain by dropping the pressure is the exact behavior the trials found harmful.</p>
   </div>
 
   <div class="note">
@@ -1179,7 +1197,7 @@
   </table></div>
   <div class="note">
     <div class="note__t">Two positive neuroprotection trials <span class="pill">post-guideline</span></div>
-    <p style="margin-bottom:0">Against the Class 3 for neuroprotectants, two large double-blind Chinese trials were positive. <strong>EMPHASIS</strong> (Lancet 2026, n=1724): oral minocycline within 72 h, NIHSS 4–25, mRS 0–1 52.6% vs 47.4% (adjusted RR 1.11, 95% CI 1.03–1.20). <strong>LAIS</strong> (JAMA 2026, n=997): IV loberamisal 40 mg daily for 10 days within 48 h, NIHSS 7–20, mRS 0–1 69.7% vs 56.3% (RR 1.24, 95% CI 1.12–1.36). Neither has been replicated outside China, and loberamisal is not available elsewhere. The recommendation is unchanged.</p>
+    <p style="margin-bottom:0">Against the Class 3 for neuroprotectants, two large double-blind Chinese trials were positive. <strong>EMPHASIS</strong> (Lancet 2026, n=1724): oral minocycline within 72 h, NIHSS 4–25, mRS 0–1 52.6% vs 47.4% (adjusted RR 1.11, 95% CI 1.03–1.20). <strong>LAIS</strong> (JAMA 2026, n=997): IV loberamisal 40 mg daily for 10 days within 48 h, NIHSS 7–20, mRS 0–1 69.7% vs 56.3% (RR 1.24, 95% CI 1.12–1.36). Neither has been replicated outside China, and loberamisal is not available elsewhere. The field's history argues for caution: nerinetide looked promising in the no-alteplase subgroup of ESCAPE-NA1, but the confirmatory <strong>ESCAPE-NEXT</strong> (Lancet 2025, n=850, 77 centers in 9 countries) was neutral — mRS 0–2 45% vs 46% (OR 0.97, 95% CI 0.72–1.30). The recommendation is unchanged.</p>
   </div>
   <p class="src">2026 AIS guideline sections 4.10, 4.11 and 4.12. Tandem cervical and intracranial occlusion during thrombectomy is a different question and is decided in the angio suite — see <a href="#evt">thrombectomy</a>.</p>
 
@@ -1867,6 +1885,11 @@
     <p style="margin-bottom:0">A stepped-wedge cluster-randomized trial across 121 hospitals in 10 countries (n=7036) tested a goal-directed care bundle: intensive SBP lowering to &lt;140, glucose control (6.1–7.8 mmol/L without diabetes, 7.8–10.0 with), temperature ≤37.5 °C, and reversal of warfarin to INR &lt;1.5, each within 1 hour. Poor functional outcome fell (common OR 0.86, 95% CI 0.76–0.97, P=0.015) with fewer serious adverse events (16.0% vs 20.1%). <em>Lancet</em> 2023;402:27–40. doi:10.1016/S0140-6736(23)00806-1</p>
   </div>
 
+  <div class="note">
+    <div class="note__t">Prehospital BP lowering — INTERACT4 <span class="pill">post-guideline</span></div>
+    <p style="margin-bottom:0">In INTERACT4 (NEJM 2024), ambulance urapidil to SBP 130–140 before imaging improved outcome in the hemorrhage subgroup (OR for worse mRS 0.75, 95% CI 0.60–0.92) but worsened it in ischemic stroke (OR 1.30, 1.06–1.60). It supports starting BP control early <em>once the scan shows hemorrhage</em> — not treating undifferentiated stroke in the field, which remains <a href="#prehospital">COR 3: No Benefit</a>.</p>
+  </div>
+
   <div class="note note--warn">
     <div class="note__t">Recombinant factor VIIa — FASTEST was negative <span class="pill">post-guideline</span></div>
     <p style="margin-bottom:0">The 2022 guideline calls rFVIIa's effect on function <em>unclear</em> <span class="cor cor-2b">COR 2b</span> <span class="loe">B-R</span>. FASTEST (Lancet 2026, n=626) gave 80 µg/kg within 2 h of onset to the population most likely to benefit and stopped for futility: hematoma growth fell by 3.7 mL, but 180-day mRS did not improve (common OR 1.09, 95% CI 0.79–1.51) and life-threatening thromboembolic events rose (15 vs 4; RR 3.41, 95% CI 1.14–10.15). It slows growth without improving outcome, and has no routine role in spontaneous ICH.</p>
@@ -1898,6 +1921,7 @@
       <tr><td><strong>Intraventricular extension or infratentorial ICH</strong></td><td>Transfer to a center with neurosurgical capability may be considered <span class="cor cor-2b">COR 2b</span> <span class="loe">B-NR</span></td></tr>
       <tr><td><strong>Lobar hematoma 30–80 mL</strong> within 24 h of last known well</td><td><strong>ENRICH</strong> (NEJM 2024, n=300): minimally invasive trans-sulcal parafascicular evacuation improved the utility-weighted mRS at 180 days (0.458 vs 0.374; posterior probability of superiority 0.981). The benefit was confined to <strong>lobar</strong> hemorrhages (difference 0.127) with no signal in anterior basal ganglia (−0.013). 30-day mortality 9.3% vs 18.0%; postoperative rebleeding with deterioration in 3.3%. doi:10.1056/NEJMoa2404603 — postdates the 2022 guideline</td></tr>
       <tr><td><strong>Deep / basal ganglia hemorrhage</strong></td><td>No trial has shown functional benefit from evacuation, including the basal ganglia stratum of ENRICH</td></tr>
+      <tr><td><strong>Severe deep (basal ganglia or thalamic) ICH</strong>, age 18–75</td><td><strong>SWITCH</strong> (Lancet 2024;403:2395, n=201, 42 European centers): decompressive craniectomy <em>without</em> clot evacuation plus best medical care, versus medical care alone. mRS 5–6 at 180 days 44% vs 58% (absolute reduction 13%, 95% CI 0–26, P=0.057) — a signal, not proof, and survival was often with severe disability in both arms. Stopped early when funding ran out. It does not apply to lobar or infratentorial hemorrhage. doi:10.1016/S0140-6736(24)00702-5 — postdates the 2022 guideline</td></tr>
     </tbody>
   </table></div>
 
@@ -1916,7 +1940,7 @@
   <h2>ICH score</h2>
   <p>A 0–6 point severity score derived by Hemphill et al (2001) that predicts 30-day mortality. Use it to communicate severity and structure a family conversation — <strong>not</strong> to justify limiting care in the first 24 hours. <a href="#ichscore">Open the calculator →</a></p>
 
-  <p class="src">2022 AHA/ASA ICH guideline (doi:10.1161/STR.0000000000000407), sections 5.1–5.5 and 6; INTERACT3; ENRICH. Classes verified against the published document.</p>
+  <p class="src">2022 AHA/ASA ICH guideline (doi:10.1161/STR.0000000000000407), sections 5.1–5.5 and 6; INTERACT3; INTERACT4; ENRICH; SWITCH. Classes verified against the published document.</p>
 </section>
 
 <!-- ================================================================= REVERSAL -->
@@ -2494,7 +2518,9 @@
       <tr><td><strong>TIMELESS</strong><br><small>NEJM 2024</small></td><td>Extended window + EVT</td><td>4.5–24 h with EVT, perfusion-selected, tenecteplase vs placebo</td><td>Neutral — no improvement in functional outcome. doi:10.1056/NEJMoa2402980</td></tr>
       <tr><td><strong>TNK-PLUS</strong><br><small>JAMA 2026 · post-guideline</small></td><td>Extended window + EVT</td><td>M1 or proximal M2, 4.5–24 h, core &lt;70 mL, ratio ≥1.8, mismatch ≥15 mL, n=391, China, tenecteplase before EVT vs EVT alone</td><td>mRS 0–2 44.2% vs 43.2%, adjusted rate ratio 1.01 (0.83–1.24), P=0.89. sICH 5.1% vs 2.6%. Second neutral late-window bridging trial after TIMELESS. doi:10.1001/jama.2026.4292</td></tr>
       <tr><td><strong>EXPECTS</strong><br><small>NEJM 2025;392:1288 · post-guideline</small></td><td>Extended window — posterior</td><td>Posterior circulation 4.5–24 h, no planned EVT, NIHSS ≥1 (median 3), prestroke mRS 0–1, PC-ASPECTS ≥7, no perfusion, n=234, China, alteplase vs standard care; 16 basilar occlusions</td><td>mRS 0–2 89.6% vs 72.6%, adjusted RR 1.16 (1.03–1.30), P=0.01. sICH 1.7% vs 0.9%; death 5.2% vs 8.5%. doi:10.1056/NEJMoa2413344</td></tr>
+      <tr><td><strong>BRIDGE-TNK</strong><br><small>NEJM 2025;393:139 · post-guideline</small></td><td>Thrombolysis before EVT</td><td>LVO ≤4.5 h, n=550, China, tenecteplase then EVT vs EVT alone</td><td>mRS 0–2 52.9% vs 44.1%, RR 1.20 (1.01–1.43), P=0.04. sICH 9% vs 7%; death 22% vs 20%. First trial to show bridging superior. doi:10.1056/NEJMoa2503867</td></tr>
       <tr><td><strong>TRACE-5</strong><br><small>Lancet 2026 · post-guideline</small></td><td>Extended window — basilar</td><td>Basilar occlusion ≤24 h, prestroke mRS ≤3, n=452, China, tenecteplase vs standard care; 49% had EVT</td><td>mRS 0–1 or return to baseline 38% vs 29%, adjusted rate ratio 1.50 (1.09–2.08), P=0.014. sICH 2% vs 3%; death 29% vs 31%. doi:10.1016/S0140-6736(25)02633-9</td></tr>
+      <tr><td><strong>ATTENTION LATE</strong><br><small>JAMA 2026 · post-guideline</small></td><td>Extended window + EVT — basilar</td><td>Basilar occlusion 4.5–24 h, n=330, China, tenecteplase before EVT vs EVT alone</td><td>Functional independence 30% vs 30%. sICH 5.1% vs 4.0%; death 40.0% vs 42.7%. No benefit from late bridging in basilar occlusion</td></tr>
       <tr><td><strong>AcT</strong><br><small>Lancet 2022</small></td><td>Agent choice</td><td>AIS ≤4.5 h, pragmatic, n=1600, Canada</td><td>mRS 0–1 36.9% vs 34.8%. Noninferior. sICH 3.4% vs 3.2%. Largest TNK noninferiority trial</td></tr>
       <tr><td><strong>TRACE-2</strong><br><small>Lancet 2023</small></td><td>Agent choice</td><td>AIS ≤4.5 h, n=1430</td><td>mRS 0–1 62% vs 58% (439/705 vs 405/696), RR 1.07 (95% CI 0.98–1.16). Noninferior</td></tr>
       <tr><td><strong>ATTEST-2</strong><br><small>Lancet Neurol 2024</small></td><td>Agent choice</td><td>AIS ≤4.5 h, n=1777 (mITT), UK</td><td>Ordinal mRS at 90 days: OR 1.07 (95% CI 0.90–1.27), P&lt;0.0001 for noninferiority, P=0.43 for superiority. Noninferior, not superior</td></tr>
@@ -2502,6 +2528,8 @@
       <tr><td><strong>NOR-TEST 2</strong></td><td>Agent choice — dose</td><td>Tenecteplase <strong>0.4 mg/kg</strong> vs alteplase</td><td>Terminated early for worse safety and functional outcomes. 0.4 mg/kg is the wrong dose in stroke</td></tr>
       <tr><td><strong>PRISMS</strong></td><td>Minor stroke</td><td>Non-disabling deficit ≤3 h, alteplase vs aspirin</td><td>No benefit. Source of the operational definition of "clearly disabling" in Table 4</td></tr>
       <tr><td><strong>TAPIS</strong><br><small>Lancet 2026 · post-guideline</small></td><td>Thrombolysis adjunct</td><td>IVT-treated, NIHSS 4–10, oral ticagrelor + aspirin within 6 h of onset vs placebo, n=1382, China</td><td>mRS 0–1 68.7% vs 62.0%, RR 1.11 (1.03–1.20), P=0.0089. sICH 0.9% vs 0.7%, RR 1.20 (0.37–3.93). doi:10.1016/S0140-6736(26)00757-9</td></tr>
+      <tr><td><strong>TEMPO-2</strong><br><small>Lancet 2024</small></td><td>Minor stroke</td><td>NIHSS 0–5 with intracranial occlusion or focal perfusion deficit, ≤12 h, n=886, tenecteplase vs non-thrombolytic care</td><td>Return to baseline 72% vs 75% — no benefit. Death 5% vs 1%, more sICH with tenecteplase</td></tr>
+      <tr><td><strong>ARAMIS</strong><br><small>JAMA 2023</small></td><td>Minor stroke</td><td>Minor non-disabling stroke NIHSS ≤5, ≤4.5 h, n=760, China, DAPT vs alteplase</td><td>DAPT noninferior: excellent outcome 93.8% vs 91.4%. sICH 0.3% vs 0.9%; less early deterioration with DAPT</td></tr>
       <tr><td><strong>INSTANT</strong><br><small>JAMA 2026 · post-guideline</small></td><td>Thrombolysis adjunct</td><td>Inadequate response 4–24 h after tenecteplase, no LVO/MeVO, not cardioembolic, IV tirofiban vs placebo, n=359, China</td><td>mRS 0–1 63.8% vs 52.2%, RR 1.22 (1.02–1.46), P=0.03. sICH 0.9% vs 0%. doi:10.1001/jama.2026.5245</td></tr>
       <tr><td><strong>THEIA</strong><br><small>Lancet Neurol 2025 · post-guideline</small></td><td>Thrombolysis — CRAO</td><td>Central retinal artery occlusion ≤4.5 h, alteplase vs aspirin, n=70</td><td>Visual acuity gain ≥0.3 LogMAR 66% vs 48%, adjusted OR 1.1 (0.07–18.39), P=0.95. Underpowered; no symptomatic hemorrhage. doi:10.1016/S1474-4422(25)00308-4</td></tr>
       <tr><td><strong>TenCRAOS</strong><br><small>NEJM 2026 · post-guideline</small></td><td>Thrombolysis — CRAO</td><td>Central retinal artery occlusion ≤4.5 h, tenecteplase vs aspirin, n=78</td><td>Vision recovery at 30 days 20% vs 24%, P=0.69. More adverse events with tenecteplase, including one fatal intracranial hemorrhage. doi:10.1056/NEJMoa2508515</td></tr>
@@ -2522,10 +2550,16 @@
       <tr><td><strong>ESCAPE-MeVO, DISTAL</strong><br><small>NEJM 2025; DISTAL 12-month Lancet Neurol 2026</small></td><td>Thrombectomy — MeVO</td><td>Medium or distal vessel occlusion; DISTAL n=543, median NIHSS 6</td><td>No benefit at 90 days — basis for the COR 3: No Benefit. DISTAL at 12 months: common OR 0.81 (0.59–1.12), still neutral. doi:10.1016/S1474-4422(26)00169-9</td></tr>
       <tr><td><strong>ORIENTAL-MeVO</strong><br><small>NEJM 2026;394:1894 · post-guideline</small></td><td>Thrombectomy — MeVO</td><td>Medium-vessel occlusion, NIHSS ≥6 (median 10), ≤24 h, n=563, China</td><td>mRS 0–2 58.6% vs 46.6%, adjusted rate ratio 1.24 (1.07–1.44), P=0.004. sICH 4.7% vs 2.2%; death 11.1% vs 10.2%. First positive MeVO trial. doi:10.1056/NEJMoa2514120</td></tr>
       <tr><td><strong>DISCOUNT</strong><br><small>JAMA 2026 · post-guideline</small></td><td>Thrombectomy — MeVO</td><td>Medium or distal occlusion ≤8 h (≤24 h if FLAIR-negative), median NIHSS 8, n=244, France</td><td>Stopped early for futility and harm. mRS 0–2 62% vs 68%, OR 0.73 (0.40–1.31). In those treated: sICH 11% vs 3%, SAH 13% vs 2%. doi:10.1001/jama.2026.8977</td></tr>
+      <tr><td><strong>ASSET-IT</strong><br><small>NEJM 2025;393:1191 · post-guideline</small></td><td>Thrombolysis adjunct</td><td>Non-cardioembolic AIS ≤4.5 h after IVT, no EVT, IV tirofiban 24 h vs placebo, n=832, China</td><td>mRS 0–1 65.9% vs 54.9%, RR 1.20 (1.07–1.34), P=0.001. sICH 1.7% vs 0%; death 4.1% vs 3.8%. doi:10.1056/NEJMoa2503678</td></tr>
+      <tr><td><strong>MOST</strong><br><small>NEJM 2024</small></td><td>Thrombolysis adjunct</td><td>IVT ≤3 h, IV argatroban or eptifibatide vs placebo, n=514, US</td><td>Stopped for futility; neither beat placebo, higher mortality with both. Basis for the COR 3 rows</td></tr>
+      <tr><td><strong>ANGEL-TNK</strong><br><small>JAMA 2025;334:582 · post-guideline</small></td><td>Thrombectomy adjunct</td><td>Intra-arterial tenecteplase after successful EVT, LVO 4.5–24 h, no prior IVT, n=256, China</td><td>mRS 0–1 40.5% vs 26.4%. sICH and death not significantly different. doi:10.1001/jama.2025.10800</td></tr>
+      <tr><td><strong>POST-TNK</strong><br><small>JAMA 2025 · post-guideline</small></td><td>Thrombectomy adjunct</td><td>Intra-arterial tenecteplase after near-complete/complete reperfusion, n=539, China</td><td>mRS 0–1 49.1% vs 44.1%, adjusted RR 1.15 (0.97–1.36), P=0.11 — negative. sICH 6.3% vs 4.4%; death 16.0% vs 19.3%</td></tr>
+      <tr><td><strong>POST-UK</strong><br><small>JAMA 2025;333:589 · post-guideline</small></td><td>Thrombectomy adjunct</td><td>Intra-arterial urokinase 100,000 IU after near-complete/complete reperfusion, n=534, China</td><td>mRS 0–1 45.1% vs 40.2% — negative</td></tr>
       <tr><td><strong>PEARL</strong><br><small>JAMA 2025 · post-guideline</small></td><td>Thrombectomy adjunct</td><td>Intra-arterial alteplase after eTICI ≥2b, anterior LVO, n=324, China</td><td>mRS 0–1 44.8% vs 30.2%, adjusted RR 1.45 (1.08–1.96), P=0.01. sICH 4.3% vs 5.0%; death 17.1% vs 11.3% (NS). doi:10.1001/jama.2025.16876</td></tr>
       <tr><td><strong>CHOICE-2</strong><br><small>JAMA 2026 · post-guideline</small></td><td>Thrombectomy adjunct</td><td>Intra-arterial alteplase 0.225 mg/kg (max 20 mg) after eTICI 2b50–3, LVO ≤24 h, n=440, Spain</td><td>mRS 0–1 57.5% vs 42.5%, adjusted RD 15.0% (5.7–24.3), P=0.002. sICH 1.4% vs 0.5%. Death 12.1% vs 6.4%, adjusted RD 5.9% (0.5–11.3), P=0.03. doi:10.1001/jama.2026.5164</td></tr>
       <tr><td><strong>IAT-TOP</strong><br><small>JAMA Neurol 2026 · post-guideline</small></td><td>Thrombectomy adjunct</td><td>Intra-arterial alteplase after basilar recanalization, n=246</td><td>mRS 0–2 41.9% vs 46.7%, adjusted RR 0.93 (0.73–1.18). sICH 2.4% vs 2.5%. No benefit in the posterior circulation. doi:10.1001/jamaneurol.2026.1074</td></tr>
       <tr><td><strong>ATTRACTION</strong><br><small>Lancet 2026 · post-guideline</small></td><td>Thrombectomy adjunct</td><td>Tirofiban IA bolus + 24 h IV infusion after successful anterior reperfusion, n=1380, China</td><td>mRS 0–2 49% vs 43%, adjusted RR 1.15 (1.03–1.27), P=0.0092. sICH 12% vs 9% (NS); death 18% vs 19%. doi:10.1016/S0140-6736(26)00983-9</td></tr>
+      <tr><td><strong>ENCHANTED2/MT</strong><br><small>Lancet 2022;400:1585</small></td><td>BP after thrombectomy</td><td>Successful reperfusion with SBP ≥140, SBP &lt;120 vs 140–180, n=821, China</td><td>Stopped early for safety: worse functional outcome and more early deterioration with intensive lowering. doi:10.1016/S0140-6736(22)01882-7</td></tr>
       <tr><td><strong>OPTIMAL-BP, 1 year</strong><br><small>Stroke 2026 · post-guideline</small></td><td>BP after thrombectomy</td><td>Successful reperfusion, SBP &lt;140 vs 140–180 for 24 h, n=306, Korea</td><td>mRS 0–2 at 1 year 40.5% vs 52.7%, adjusted OR 0.59 (0.34–1.00), P=0.051. Harm of intensive lowering persisted. doi:10.1161/STROKEAHA.126.055632</td></tr>
       <tr><td><strong>HOPE (blood pressure)</strong><br><small>JAMA Neurol 2026 · post-guideline</small></td><td>BP after thrombectomy</td><td>Successful anterior reperfusion; SBP 140–160 if eTICI 2b, 100–140 if 2c/3, vs &lt;180, for 72 h, n=440, Spain. Not the HOPE thrombolysis trial</td><td>mRS 0–2 60.0% vs 47.1%, absolute difference 13.3% (4.1–22.6), P=0.005. Hemorrhagic transformation 22.3% vs 31.6%; sICH 3.5% vs 3.9%. doi:10.1001/jamaneurol.2026.1706</td></tr>
       <tr><td><strong>DETERMINE</strong><br><small>Neurology 2026 · post-guideline</small></td><td>BP during thrombectomy</td><td>MAP within 10% of pre-procedure value vs SBP 140–180 during EVT, anterior LVO, n=433, France</td><td>mRS 0–2 44.2% vs 48.8%, adjusted OR 0.82 (0.54–1.24), P=0.34. Neutral. doi:10.1212/WNL.0000000000218420</td></tr>
@@ -2556,6 +2590,7 @@
       <tr><td><strong>CHARM</strong></td><td>Edema</td><td>Large hemispheric infarction, IV glibenclamide, n=535</td><td>No improvement in functional outcome</td></tr>
       <tr><td><strong>DECIMAL, DESTINY, HAMLET, HeADDFIRST, HeMMI</strong></td><td>Hemicraniectomy</td><td>Malignant MCA infarction, decompression within 48 h</td><td>Survival and functional benefit at 12 months for age ≤60; survival benefit only above 60</td></tr>
       <tr><td><strong>RACECAT</strong></td><td>Systems of care</td><td>Non-urban Catalonia, suspected LVO, direct to distant thrombectomy center vs local stroke center, n=1401</td><td>No difference in 90-day mRS; less thrombolysis with direct transport (47.5% vs 60.4%). Basis for the COR 3: No Benefit on bypass where the local system works well</td></tr>
+      <tr><td><strong>INTERACT4</strong><br><small>NEJM 2024</small></td><td>Prehospital BP</td><td>Suspected stroke with motor deficit, SBP ≥150, ≤2 h, ambulance urapidil to SBP 130–140 vs usual care, n=2404, China</td><td>mRS common OR 1.00 (0.87–1.15). Ischemic stroke worse (OR 1.30, 1.06–1.60); hemorrhage better (OR 0.75, 0.60–0.92)</td></tr>
       <tr><td><strong>B_PROUD, BEST-MSU</strong></td><td>Systems of care</td><td>Mobile stroke units vs conventional EMS</td><td>Faster treatment and better functional outcomes. Basis for the new MSU recommendations</td></tr>
       <tr><td><strong>PRESTO</strong></td><td>Prehospital scales</td><td>8 LVO scales, n=1039, Netherlands</td><td>AUC 0.72–0.83 for anterior LVO detection</td></tr>
       <tr><td><strong>DIRECT ANGIO</strong><br><small>Lancet Neurol 2026 · post-guideline</small></td><td>Systems of care</td><td>Direct to angio suite vs conventional imaging, severe deficit suggestive of LVO ≤5 h, n=115, France</td><td>Stopped early for safety: sICH 15% vs 0%, adjusted OR 11.0 (1.28–1406). mRS 0–2 36% vs 42%. doi:10.1016/S1474-4422(26)00056-6</td></tr>
@@ -2563,6 +2598,7 @@
       <tr><td><strong>FASTEST</strong><br><small>Lancet 2026 · post-guideline</small></td><td>ICH hemostasis</td><td>rFVIIa 80 µg/kg within 2 h of onset, ICH 2–60 mL, age 18–80, n=626</td><td>Stopped for futility: 180-day mRS common OR 1.09 (0.79–1.51). Growth reduced 3.7 mL; life-threatening thromboembolism RR 3.41 (1.14–10.15). doi:10.1016/S0140-6736(26)00097-8</td></tr>
       <tr><td><strong>TRIDENT</strong><br><small>NEJM 2026 · post-guideline</small></td><td>ICH secondary prevention</td><td>Prior ICH, SBP 130–160, low-dose telmisartan/amlodipine/indapamide single pill vs placebo, n=1670</td><td>Recurrent stroke 4.6% vs 7.4%, HR 0.61 (0.41–0.92), P=0.02; SBP 127 vs 138 mmHg. doi:10.1056/NEJMoa2515043</td></tr>
       <tr><td><strong>ANNEXA-I</strong><br><small>NEJM 2024;390:1745</small></td><td>ICH reversal</td><td>FXa-inhibitor-associated ICH within 15 h, n=530</td><td>Hemostatic efficacy 67.0% vs 53.1% (P=0.003); thrombotic events 10.3% vs 5.6% (P=0.048), ischemic stroke 6.5% vs 1.5%; no difference in mRS or 30-day death. doi:10.1056/NEJMoa2313040</td></tr>
+      <tr><td><strong>SWITCH</strong><br><small>Lancet 2024;403:2395</small></td><td>ICH surgery</td><td>Severe deep ICH, age 18–75, decompressive craniectomy + medical care vs medical care, n=201, Europe</td><td>mRS 5–6 at 180 days 44% vs 58%, absolute difference 13% (0–26), P=0.057. Stopped early. doi:10.1016/S0140-6736(24)00702-5</td></tr>
       <tr><td><strong>ENRICH</strong><br><small>NEJM 2024;390:1277</small></td><td>ICH surgery</td><td>Lobar or anterior basal ganglia ICH 30–80 mL within 24 h, n=300</td><td>Utility-weighted mRS at 180 days 0.458 vs 0.374, posterior probability 0.981. Benefit confined to lobar. 30-day death 9.3% vs 18.0%. doi:10.1056/NEJMoa2404603</td></tr>
       <tr><td><strong>CADISS</strong><br><small>Lancet Neurol 2015</small></td><td>Dissection</td><td>Cervical artery dissection, n=250, antiplatelet vs VKA × 3 months</td><td>Ischemic stroke 3/126 vs 1/124 — no difference, few events; 20% of diagnoses unconfirmed centrally</td></tr>
       <tr><td><strong>TREAT-CAD</strong><br><small>Lancet Neurol 2021</small></td><td>Dissection</td><td>Cervical artery dissection, n=194, aspirin vs VKA × 90 days</td><td>Aspirin noninferiority not shown (composite 23% vs 15%); all 7 ischemic strokes on aspirin, 5 on day 1</td></tr>
@@ -2578,6 +2614,7 @@
       <tr><td><strong>Ferro 2011 surgical registry</strong><br><small>Stroke 2011</small></td><td>Venous thrombosis</td><td>Registry + systematic review, n=69, decompressive surgery for herniating CVT</td><td>Unfavorable outcome (mRS 5/death) only 17.4%; mRS 0–2 56.5%; 3/9 patients with bilateral fixed pupils recovered fully. doi:10.1161/STROKEAHA.111.615393</td></tr>
       <tr><td><strong>PATCH</strong></td><td>ICH</td><td>Platelet transfusion in antiplatelet-associated ICH</td><td>Worse outcomes with transfusion. Basis for the COR 3: Harm recommendation</td></tr>
       <tr><td><strong>PASS</strong></td><td>Supportive care</td><td>Preventive antibiotics after stroke</td><td>No difference in 3-month mRS</td></tr>
+      <tr><td><strong>ESCAPE-NEXT</strong><br><small>Lancet 2025;405:560</small></td><td>Neuroprotection</td><td>Nerinetide in anterior LVO EVT without prior IVT, ≤12 h, n=850, 9 countries</td><td>mRS 0–2 45% vs 46%, OR 0.97 (0.72–1.30) — neutral. Did not confirm the ESCAPE-NA1 subgroup. doi:10.1016/S0140-6736(25)00194-1</td></tr>
       <tr><td><strong>EMPHASIS</strong><br><small>Lancet 2026 · post-guideline</small></td><td>Neuroprotection</td><td>Oral minocycline within 72 h, NIHSS 4–25, n=1724, China</td><td>mRS 0–1 52.6% vs 47.4%, adjusted RR 1.11 (1.03–1.20), P=0.0061. sICH 0.3% vs 0% at 6 days. doi:10.1016/S0140-6736(25)01862-8</td></tr>
       <tr><td><strong>LAIS</strong><br><small>JAMA 2026 · post-guideline</small></td><td>Neuroprotection</td><td>IV loberamisal 40 mg daily × 10 days within 48 h, NIHSS 7–20, age 18–80, n=997, China</td><td>mRS 0–1 69.7% vs 56.3%, RR 1.24 (1.12–1.36). Death 1.2% vs 2.0%. doi:10.1001/jama.2026.16557</td></tr>
     </tbody>
