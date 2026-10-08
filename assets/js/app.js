@@ -751,7 +751,7 @@
           'The late-window IVT recommendation for LVO <span class="cor cor-2b">COR 2b</span> rests on TRACE-III, which enrolled ICA, M1 and M2 occlusions — not basilar. ' +
           'In basilar occlusion, EVT within 24 h is the priority (card below). ' +
           'TRACE-5 (Lancet 2026, post-guideline, <strong>no class of recommendation</strong>) randomized basilar occlusion within 24 h to tenecteplase 0.25 mg/kg or standard care, about half going on to EVT: mRS 0–1 or return to baseline 38% vs 29%, sICH 2% vs 3%. ' +
-          '<strong>If thrombectomy is going ahead, do not add tenecteplase first:</strong> ATTENTION LATE (JAMA 2026, post-guideline) randomized basilar occlusion at 4.5–24 h to tenecteplase before EVT or EVT alone — functional independence 30% vs 30%, sICH 5.1% vs 4.0%. Late IVT here is for patients who will not reach thrombectomy. ' +
+          '<strong>If thrombectomy is going ahead, do not add tenecteplase first:</strong> ATTENTION LATE (JAMA 2026, post-guideline) randomized basilar occlusion at 4.5–24 h to tenecteplase before EVT or EVT alone — functional independence 30% vs 30%, sICH 5% vs 4%. Late IVT here is for patients who will not reach thrombectomy. ' +
           'EXPECTS enrolled only 16 basilar occlusions and excluded planned EVT, so it does not answer this question. <a href="#evt">Detail</a>' + relCaveat);
       } else if (occl === 'lvo' || occl === 'm2') {
         /* The 4.5-24 h LVO COR 2b recommendation asks for "salvageable
